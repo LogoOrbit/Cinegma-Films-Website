@@ -730,6 +730,385 @@ footer {
   .player-close{ top:-40px; font-size:1.2rem; }
 }
 
+/* ── GENRE FILTER BAR ─────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 20px 60px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.filter-bar::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  flex-shrink: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .6rem;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: color .2s, border-color .2s, background .2s;
+  white-space: nowrap;
+}
+.filter-btn:hover {
+  color: var(--white);
+  border-color: rgba(244,242,239,.15);
+}
+.filter-btn.active {
+  color: var(--bg);
+  background: var(--white);
+  border-color: var(--white);
+}
+
+/* Cards hidden by filter */
+.pcard[data-genre].filtered-out {
+  display: none;
+}
+
+/* Search result flash highlight */
+@keyframes pcardFlash {
+  0%   { box-shadow: 0 0 0 0 rgba(201,165,90,0); outline: 2px solid rgba(201,165,90,0); }
+  20%  { box-shadow: 0 0 0 6px rgba(201,165,90,.45); outline: 2px solid rgba(201,165,90,.8); }
+  60%  { box-shadow: 0 0 0 4px rgba(201,165,90,.2); outline: 2px solid rgba(201,165,90,.4); }
+  100% { box-shadow: 0 0 0 0 rgba(201,165,90,0); outline: 2px solid rgba(201,165,90,0); }
+}
+.pcard-flash {
+  animation: pcardFlash 1.4s ease forwards;
+}
+
+/* Empty-state message when a filter yields zero results */
+.filter-empty {
+  display: none;
+  grid-column: 1 / -1;
+  padding: 48px 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--faint);
+}
+.card-rail.has-empty .filter-empty { display: block; }
+
+@media(max-width:960px) {
+  .filter-bar { padding: 16px 20px; }
+}
+@media(max-width:600px) {
+  .filter-bar { padding: 14px 16px; gap: 2px; }
+  .filter-btn { font-size: .56rem; padding: 7px 15px; }
+}
+
+/* ── SEARCH INPUT ─────────────────────────────────────────────── */
+.search-wrap {
+  margin-left: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.search-toggle-btn {
+  background: transparent;
+  border: 1px solid rgba(244,242,239,.22);
+  color: rgba(244,242,239,.75);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 14px 0 11px;
+  border-radius: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: .62rem;
+  font-weight: 400;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s, background .2s;
+  flex-shrink: 0;
+}
+.search-toggle-btn:hover,
+.search-toggle-btn.active {
+  color: var(--white);
+  border-color: rgba(244,242,239,.55);
+  background: rgba(244,242,239,.07);
+}
+.search-toggle-btn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2; pointer-events: none; flex-shrink: 0; }
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width .35s cubic-bezier(.22,1,.36,1), opacity .3s;
+  opacity: 0;
+}
+.search-input-wrap.open {
+  max-width: 240px;
+  opacity: 1;
+}
+.search-input {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(244,242,239,.25);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .68rem;
+  font-weight: 300;
+  letter-spacing: .06em;
+  padding: 6px 10px 6px 4px;
+  width: 200px;
+  outline: none;
+  caret-color: var(--gold);
+  transition: border-color .2s;
+}
+.search-input::placeholder { color: var(--faint); }
+.search-input:focus { border-bottom-color: rgba(201,165,90,.6); }
+.search-clear-btn {
+  background: none;
+  border: none;
+  color: var(--faint);
+  cursor: pointer;
+  padding: 4px;
+  display: none;
+  align-items: center;
+  transition: color .2s;
+}
+.search-clear-btn.visible { display: flex; }
+.search-clear-btn:hover { color: var(--white); }
+.search-clear-btn svg { width: 13px; height: 13px; fill: none; stroke: currentColor; stroke-width: 2.5; pointer-events: none; }
+
+/* No results state */
+#searchNoResults {
+  display: none;
+  text-align: center;
+  padding: 80px 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--faint);
+}
+#searchNoResults.visible { display: block; }
+
+/* Highlight matched text */
+mark.search-hl {
+  background: rgba(201,165,90,.22);
+  color: var(--gold);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+@media(max-width:960px) {
+  .search-input-wrap.open { max-width: 180px; }
+  .search-input { width: 150px; }
+}
+
+/* ── MOBILE SEARCH BAR (phone-only, full-width row) ───────────── */
+.mobile-search-bar {
+  display: none; /* hidden on desktop */
+}
+
+@media(max-width:600px) {
+  /* Hide the search widget from the filter bar on phones */
+  .filter-bar .search-wrap { display: none; }
+
+  /* Show the dedicated mobile search bar instead */
+  .mobile-search-bar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: var(--nav-h);
+    z-index: 400;
+  }
+
+  .mobile-search-bar .mob-search-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: var(--faint);
+    pointer-events: none;
+  }
+  .mobile-search-bar .mob-search-icon svg {
+    width: 16px; height: 16px;
+    fill: none; stroke: currentColor; stroke-width: 2;
+  }
+
+  .mobile-search-bar input {
+    flex: 1;
+    background: rgba(244,242,239,.05);
+    border: 1px solid rgba(244,242,239,.12);
+    border-radius: 2px;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: .8rem;
+    font-weight: 300;
+    letter-spacing: .04em;
+    padding: 10px 12px 10px 40px;
+    outline: none;
+    caret-color: var(--gold);
+    transition: border-color .2s, background .2s;
+    margin-left: -40px; /* overlap the icon */
+    height: 40px;
+  }
+  .mobile-search-bar input::placeholder { color: var(--faint); }
+  .mobile-search-bar input:focus {
+    border-color: rgba(201,165,90,.5);
+    background: rgba(201,165,90,.04);
+  }
+
+  .mobile-search-bar .mob-clear-btn {
+    background: none;
+    border: none;
+    color: var(--faint);
+    cursor: pointer;
+    padding: 0 4px 0 8px;
+    display: none;
+    align-items: center;
+    flex-shrink: 0;
+    transition: color .2s;
+  }
+  .mobile-search-bar .mob-clear-btn.visible { display: flex; }
+  .mobile-search-bar .mob-clear-btn:hover { color: var(--white); }
+  .mobile-search-bar .mob-clear-btn svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2.5; pointer-events: none; }
+}
+
+/* ── LIVE SEARCH DROPDOWN ─────────────────────────────────────── */
+.search-live-panel {
+  display: none;
+  position: fixed;
+  width: 340px;
+  max-height: 420px;
+  overflow-y: auto;
+  background: rgba(13,13,20,.98);
+  border: 1px solid rgba(244,242,239,.12);
+  backdrop-filter: blur(20px);
+  z-index: 9000;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201,165,90,.3) transparent;
+}
+.search-live-panel.open { display: block; }
+.search-live-panel::-webkit-scrollbar { width: 4px; }
+.search-live-panel::-webkit-scrollbar-track { background: transparent; }
+.search-live-panel::-webkit-scrollbar-thumb { background: rgba(201,165,90,.3); border-radius: 2px; }
+
+.search-live-header {
+  padding: 10px 16px 6px;
+  font-size: .54rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(244,242,239,.3);
+  border-bottom: 1px solid rgba(244,242,239,.06);
+}
+
+.search-live-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: background .15s;
+  border-bottom: 1px solid rgba(244,242,239,.04);
+}
+.search-live-item:last-child { border-bottom: none; }
+.search-live-item:hover { background: rgba(244,242,239,.06); }
+.search-live-item:active { background: rgba(244,242,239,.1); }
+
+.search-live-thumb {
+  width: 48px;
+  height: 68px;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+  filter: brightness(.85);
+}
+.search-live-thumb.person-thumb {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.search-live-thumb-placeholder {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(201,165,90,.1);
+  border: 1px solid rgba(201,165,90,.2);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .65rem;
+  color: var(--gold);
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+.search-live-info { flex: 1; min-width: 0; }
+.search-live-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--white);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+.search-live-name mark.search-hl {
+  background: rgba(201,165,90,.22);
+  color: var(--gold);
+  border-radius: 2px;
+  padding: 0 1px;
+}
+.search-live-meta {
+  font-size: .6rem;
+  font-weight: 400;
+  letter-spacing: .06em;
+  color: rgba(244,242,239,.4);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.search-live-type {
+  font-size: .52rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  flex-shrink: 0;
+}
+.search-live-type.film { color: var(--gold); background: rgba(201,165,90,.1); }
+.search-live-type.person { color: rgba(244,242,239,.4); background: rgba(244,242,239,.06); }
+
+.search-live-empty {
+  padding: 24px 16px;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: .95rem;
+  color: rgba(244,242,239,.3);
+}
+
+@media(max-width:600px) {
+  .search-live-panel { width: 280px; max-height: 340px; right: -8px; }
+}
+
 /* ── PHONE-ONLY TOUCH BEHAVIOUR ───────────────────────────────
    On touch devices:
    · First tap  → video plays + ONLY the film title shows (no synopsis/cast/buttons)
@@ -1060,6 +1439,64 @@ footer {
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════ -->
+<!--  GENRE FILTER BAR                                             -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="filter-bar" id="filterBar" role="group" aria-label="Filter by genre">
+  <button class="filter-btn active" data-filter="all"    onclick="filterCatalog('all')">All</button>
+  <button class="filter-btn"        data-filter="thriller"     onclick="filterCatalog('thriller')">Thriller</button>
+  <button class="filter-btn"        data-filter="drama"        onclick="filterCatalog('drama')">Drama</button>
+  <button class="filter-btn"        data-filter="documentary"  onclick="filterCatalog('documentary')">Documentary</button>
+  <button class="filter-btn"        data-filter="coming-soon"  onclick="filterCatalog('coming-soon')">Coming Soon</button>
+
+  <!-- SEARCH -->
+  <div class="search-wrap" id="searchWrap">
+    <button class="search-toggle-btn" id="searchToggleBtn" aria-label="Search films" onclick="toggleSearch()">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Search
+    </button>
+    <div class="search-input-wrap" id="searchInputWrap">
+      <input
+        type="search"
+        id="searchInput"
+        class="search-input"
+        placeholder="Search films, team members…"
+        autocomplete="off"
+        spellcheck="false"
+        aria-label="Search films"
+        oninput="searchCatalog(this.value)"
+      />
+      <button class="search-clear-btn" id="searchClearBtn" aria-label="Clear search" onclick="clearSearch()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Live results dropdown — lives outside hidden wrappers so it renders on mobile too -->
+<div class="search-live-panel" id="searchLivePanel"></div>
+
+<!-- MOBILE SEARCH BAR (phone only, shown via CSS) -->
+<div class="mobile-search-bar" id="mobileSearchBar">
+  <span class="mob-search-icon">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  </span>
+  <input
+    type="search"
+    id="mobileSearchInput"
+    placeholder="Search films, team members…"
+    autocomplete="off"
+    spellcheck="false"
+    aria-label="Search films"
+    oninput="searchCatalog(this.value); _syncMobClear(this.value);"
+  />
+  <button class="mob-clear-btn" id="mobClearBtn" aria-label="Clear search" onclick="clearSearch(); document.getElementById('mobileSearchInput').value=''; _syncMobClear('');">
+    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+</div>
+
+<!-- No-results message (outside filter bar, inside stream-body) -->
+<div id="searchNoResults">No films match "<span id="searchNoResultsQuery"></span>"</div>
+
+<!-- ══════════════════════════════════════════════════════════════ -->
 <!--  STREAM BODY                                                  -->
 <!-- ══════════════════════════════════════════════════════════════ -->
 <div class="stream-body">
@@ -1113,12 +1550,12 @@ footer {
   <div class="section reveal" style="transition-delay:.08s">
     <div class="section-header">
       <span class="section-label">Now Streaming</span>
-      <span class="section-count">7 Titles</span>
+      <span class="section-count">5 Titles</span>
     </div>
     <div class="card-rail cols-4">
 
       <!-- Janjaal -->
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Janjaal%20Cover%20Video.mp4">
+      <div class="pcard" id="pcard-janjaal" data-genre="thriller" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Janjaal%20Cover%20Video.mp4">
         <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Janjaal%20Watch%20Cover.avif" alt="Janjaal"/>
         <video class="pcard-video" loop playsinline preload="none" muted></video>
         <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
@@ -1146,7 +1583,7 @@ footer {
       </div>
 
       <!-- Portrait of Life -->
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Portrait%20of%20Life%20Cover%20Video.mp4">
+      <div class="pcard" id="pcard-portrait" data-genre="drama" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Portrait%20of%20Life%20Cover%20Video.mp4">
         <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Portrait%20of%20Life%20Watch%20Cover.avif" alt="Portrait of Life"/>
         <video class="pcard-video" loop playsinline preload="none" muted></video>
         <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
@@ -1173,7 +1610,7 @@ footer {
       </div>
 
       <!-- Urdu Bazaar Karachi -->
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Urdu%20Bazaar%20Cover%20Video.mp4">
+      <div class="pcard" id="pcard-urdubazaar" data-genre="documentary" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Urdu%20Bazaar%20Cover%20Video.mp4">
         <img src="https://github.com/LogoOrbit/cinegmafilms/blob/main/URDU%20BAZAR%20COVER%20AVIF.avif?raw=true" alt="Urdu Bazaar Karachi"/>
         <video class="pcard-video" loop playsinline preload="none" muted></video>
         <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
@@ -1200,7 +1637,7 @@ footer {
       </div>
 
       <!-- Main Aur Achu -->
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Main%20aur%20achu%20Cover%20Video.mp4">
+      <div class="pcard" id="pcard-mainaurachu" data-genre="drama" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Main%20aur%20achu%20Cover%20Video.mp4">
         <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Main%20Aur%20achu%20watch%20cover.avif" alt="Main Aur Achu"/>
         <video class="pcard-video" loop playsinline preload="none" muted></video>
         <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
@@ -1228,7 +1665,7 @@ footer {
       </div>
 
       <!-- Payam-e-Dil -->
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Payam%20e%20Dil%20Cover%20Video.mp4">
+      <div class="pcard" id="pcard-payamedil" data-genre="drama" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Payam%20e%20Dil%20Cover%20Video.mp4">
         <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Payam%20e%20DilWatch%20Cover.avif" alt="Payam-e-Dil"/>
         <video class="pcard-video" loop playsinline preload="none" muted></video>
         <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
@@ -1245,61 +1682,11 @@ footer {
           <p class="pcard-synopsis">A story of the heart — an upcoming Cinegma Films original. Trailer now out.</p>
           <p class="pcard-cast"><strong>Director</strong> Syed Asad Raza Abidi &nbsp;·&nbsp; 2026 · Drama</p>
           <div class="pcard-btns">
-            <button class="pcard-btn-play" onclick="openPlayer('PAYAM_E_DIL_TRAILER_YOUTUBE_URL','Payam-e-Dil — Official Trailer')">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Trailer
-            </button>
           </div>
         </div>
         <div class="pcard-touch-title"><p class="pcard-touch-title-text" lang="ur">Payam-e-Dil</p></div>
       </div>
 
-      <!-- Zawaal -->
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Zawaal%20Cover%20Video.mp4">
-        <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Zawaal%20Watch%20Cover.avif" alt="Zawaal"/>
-        <video class="pcard-video" loop playsinline preload="none" muted></video>
-        <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
-          <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-          <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-        </button>
-        <span class="pcard-badge soon">⏳ Coming Soon</span>
-        <div class="pcard-strip">
-          <p class="pcard-strip-title" lang="ur">Zawaal</p>
-          <p class="pcard-strip-meta">2026 · Psychological Thriller</p>
-        </div>
-        <div class="pcard-overlay">
-          <p class="pcard-title" lang="ur">Zawaal</p>
-          <p class="pcard-synopsis">A dark psychological thriller set in the streets of Karachi. The next Cinegma Films original.</p>
-          <p class="pcard-cast"><strong>Director</strong> Syed Asad Raza Abidi &nbsp;·&nbsp; In Production · 2026</p>
-          <div class="pcard-btns">
-            <a class="pcard-btn-ghost" href="https://www.imdb.com/title/tt41515311/" target="_blank">IMDb ↗</a>
-          </div>
-        </div>
-        <div class="pcard-touch-title"><p class="pcard-touch-title-text" lang="ur">Zawaal</p></div>
-      </div>
-
-      <!-- A Soldier Beside Me -->
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/A%20Soldier%20Cover%20Video.mp4">
-        <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Soldeir%20Watch%20Cover.avif" alt="A Soldier Beside Me"/>
-        <video class="pcard-video" loop playsinline preload="none" muted></video>
-        <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
-          <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-          <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-        </button>
-        <span class="pcard-badge soon">⏳ Coming Soon</span>
-        <div class="pcard-strip">
-          <p class="pcard-strip-title">A Soldier Beside Me</p>
-          <p class="pcard-strip-meta">2026 · War Drama</p>
-        </div>
-        <div class="pcard-overlay">
-          <p class="pcard-title">A Soldier<br>Beside Me</p>
-          <p class="pcard-synopsis">Two soldiers question each other's fate on the frontline. A short film on loyalty, war, and humanity.</p>
-          <p class="pcard-cast"><strong>Dir/Writer</strong> Ameer Hamza &nbsp;·&nbsp; In Production · 2026</p>
-          <div class="pcard-btns">
-            <a class="pcard-btn-ghost" href="https://www.imdb.com/title/tt41563842/" target="_blank">IMDb ↗</a>
-          </div>
-        </div>
-        <div class="pcard-touch-title"><p class="pcard-touch-title-text">A Soldier Beside Me</p></div>
-      </div>
 
     </div>
   </div>
@@ -1313,7 +1700,7 @@ footer {
     </div>
     <div class="feature-band">
       <div class="feature-band-poster">
-        <img src="https://github.com/LogoOrbit/cinegmafilms/blob/main/URDU%20BAZAR%20COVER%20AVIF.avif?raw=true" alt="Urdu Bazaar Karachi Poster"/>
+        <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Urdu%20Bazaar%20Poster%20AVIF.avif" alt="Urdu Bazaar Karachi Poster"/>
       </div>
       <div class="feature-band-info">
         <p class="feature-eyebrow">
@@ -1401,7 +1788,7 @@ footer {
     </div>
     <div class="card-rail cols-2">
 
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Zawaal%20Cover%20Video.mp4">
+      <div class="pcard" id="pcard-zawaal" data-genre="coming-soon" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Zawaal%20Cover%20Video.mp4">
         <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Zawaal%20Watch%20Cover.avif" alt="Zawaal"/>
         <video class="pcard-video" loop playsinline preload="none" muted></video>
         <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
@@ -1424,7 +1811,7 @@ footer {
         <div class="pcard-touch-title"><p class="pcard-touch-title-text" lang="ur">Zawaal</p></div>
       </div>
 
-      <div class="pcard" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/A%20Soldier%20Cover%20Video.mp4">
+      <div class="pcard" id="pcard-soldier" data-genre="coming-soon" data-video="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/A%20Soldier%20Cover%20Video.mp4">
         <img src="https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Soldeir%20Watch%20Cover.avif" alt="A Soldier Beside Me"/>
         <video class="pcard-video" loop playsinline preload="none" muted></video>
         <button class="pcard-mute" aria-label="Toggle mute" onclick="toggleMute(event,this)">
@@ -1461,7 +1848,7 @@ footer {
   <ul class="footer-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="watch.html">Watch</a></li>
-    
+    <li><a href="about.html">About</a></li>
     <li><a href="services.html">Services</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="https://www.imdb.com/name/nm16938510/" target="_blank">IMDb</a></li>
@@ -1712,15 +2099,489 @@ function _onFsChange() {
   }
 }
 
-// Show topbar on mouse/touch activity
-(function() {
-  var overlay = document.getElementById('playerOverlay');
-  if (!overlay) return;
-  overlay.addEventListener('mousemove',  _showTopbar);
-  overlay.addEventListener('touchstart', _showTopbar, {passive: true});
+/* ── GENRE FILTER ─────────────────────────────────────────────── */
+function _runGenreVisibility(genre) {
+  var allCards = document.querySelectorAll('.pcard[data-genre]');
+  allCards.forEach(function(card) {
+    var match = (genre === 'all' || card.dataset.genre === genre);
+    card.classList.toggle('filtered-out', !match);
+    if (!match) {
+      var vid = card.querySelector('.pcard-video');
+      if (vid) { vid.pause(); vid.currentTime = 0; }
+      card.classList.remove('touch-active');
+    }
+  });
+  document.querySelectorAll('.card-rail').forEach(function(rail) {
+    var visibleCards = rail.querySelectorAll('.pcard[data-genre]:not(.filtered-out)');
+    var section = rail.closest('.section');
+    rail.classList.toggle('has-empty', visibleCards.length === 0);
+    var empty = rail.querySelector('.filter-empty');
+    if (!empty) {
+      empty = document.createElement('p');
+      empty.className = 'filter-empty';
+      empty.textContent = 'No titles in this category yet.';
+      rail.appendChild(empty);
+    }
+    if (section) {
+      var hide = (visibleCards.length === 0);
+      section.style.display = hide ? 'none' : '';
+      var prev = section.previousElementSibling;
+      if (prev && prev.classList.contains('section-divider')) {
+        prev.style.display = hide ? 'none' : '';
+      }
+    }
+  });
+  var featureSections = document.querySelectorAll('.section:has(.feature-band)');
+  featureSections.forEach(function(sec) {
+    var tags = Array.from(sec.querySelectorAll('.feature-tag')).map(function(t) {
+      return t.textContent.trim().toLowerCase();
+    });
+    var genreMap = { thriller: 'thriller', drama: 'drama', documentary: 'documentary' };
+    var secGenre = null;
+    Object.keys(genreMap).forEach(function(g) {
+      if (tags.some(function(t) { return t.includes(g); })) secGenre = g;
+    });
+    var hide = (genre !== 'all' && genre !== 'coming-soon' && secGenre && secGenre !== genre)
+            || (genre === 'coming-soon');
+    sec.style.display = hide ? 'none' : '';
+    var prev = sec.previousElementSibling;
+    if (prev && prev.classList.contains('section-divider')) {
+      prev.style.display = hide ? 'none' : '';
+    }
+  });
+}
+
+function filterCatalog(genre) {
+  // Clear any active search when a genre filter is selected
+  if (_searchQuery) {
+    var input = document.getElementById('searchInput');
+    if (input) input.value = '';
+    _searchQuery = '';
+    var clearBtn = document.getElementById('searchClearBtn');
+    if (clearBtn) clearBtn.classList.remove('visible');
+    var noRes = document.getElementById('searchNoResults');
+    if (noRes) noRes.classList.remove('visible');
+    document.querySelectorAll('.pcard[data-genre]').forEach(function(c) { c.classList.remove('search-hidden'); });
+  }
+
+  // Update active button
+  document.querySelectorAll('.filter-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.filter === genre);
+  });
+
+  _runGenreVisibility(genre);
+
+  // Scroll to filter bar so the result is immediately visible
+  document.getElementById('filterBar').scrollIntoView({behavior: 'smooth', block: 'nearest'});
+}
+
+/* ── SEARCH ──────────────────────────────────────────────────── */
+var _searchOpen = false;
+var _searchQuery = '';
+
+// Build a searchable text map from each pcard once DOM is ready
+function _getCardText(card) {
+  // title, synopsis, genre, cast, badge — all text visible to user (including team member names)
+  var parts = [];
+  var selectors = [
+    '.pcard-title', '.pcard-strip-title', '.pcard-synopsis',
+    '.pcard-cast', '.pcard-strip-meta', '.pcard-badge', '.pcard-touch-title-text'
+  ];
+  selectors.forEach(function(sel) {
+    var el = card.querySelector(sel);
+    if (el) parts.push(el.textContent || '');
+  });
+  if (card.dataset.genre) parts.push(card.dataset.genre);
+  var img = card.querySelector('img');
+  if (img && img.alt) parts.push(img.alt);
+  return parts.join(' ').toLowerCase();
+}
+
+function toggleSearch() {
+  _searchOpen = !_searchOpen;
+  var wrap = document.getElementById('searchInputWrap');
+  var input = document.getElementById('searchInput');
+  var btn = document.getElementById('searchToggleBtn');
+  wrap.classList.toggle('open', _searchOpen);
+  if (btn) btn.classList.toggle('active', _searchOpen);
+  if (_searchOpen) {
+    // Small delay so transition starts before focus
+    setTimeout(function() { input.focus(); }, 50);
+  } else {
+    clearSearch();
+  }
+}
+
+function clearSearch() {
+  var input = document.getElementById('searchInput');
+  input.value = '';
+  _searchQuery = '';
+  document.getElementById('searchClearBtn').classList.remove('visible');
+  var panel = document.getElementById('searchLivePanel');
+  if (panel) { panel.classList.remove('open'); panel.innerHTML = ''; }
+  _applySearch('');
+}
+
+function searchCatalog(q) {
+  _searchQuery = q.trim().toLowerCase();
+  document.getElementById('searchClearBtn').classList.toggle('visible', _searchQuery.length > 0);
+  _applySearch(_searchQuery);
+  _buildLivePanel(_searchQuery);
+}
+
+function _applySearch(q) {
+  var allCards = document.querySelectorAll('.pcard[data-genre]');
+  var allSections = document.querySelectorAll('.stream-body .section');
+  var allDividers = document.querySelectorAll('.stream-body .section-divider');
+  var noResults = document.getElementById('searchNoResults');
+
+  if (!q) {
+    // Restore: remove search-hidden class, re-run genre filter
+    allCards.forEach(function(c) { c.classList.remove('search-hidden'); });
+    allSections.forEach(function(s) { s.style.display = ''; });
+    allDividers.forEach(function(d) { d.style.display = ''; });
+    noResults.classList.remove('visible');
+    // Re-apply current genre filter
+    var activeBtn = document.querySelector('.filter-btn.active');
+    var genre = activeBtn ? activeBtn.dataset.filter : 'all';
+    _runGenreVisibility(genre);
+    return;
+  }
+
+  // When searching, reset genre filter visually but keep cards showing
+  // (search overrides genre filter for UX clarity)
+  allSections.forEach(function(s) { s.style.display = ''; });
+  allDividers.forEach(function(d) { d.style.display = ''; });
+
+  var anyVisible = false;
+  allCards.forEach(function(card) {
+    var text = _getCardText(card);
+    var match = text.indexOf(q) !== -1;
+    card.classList.toggle('search-hidden', !match);
+    card.classList.toggle('filtered-out', !match);
+    if (match) anyVisible = true;
+  });
+
+  // Hide/show sections based on whether they have visible cards
+  document.querySelectorAll('.card-rail').forEach(function(rail) {
+    var visible = rail.querySelectorAll('.pcard[data-genre]:not(.search-hidden)');
+    var section = rail.closest('.section');
+    var hide = (visible.length === 0);
+    if (section) {
+      section.style.display = hide ? 'none' : '';
+      var prev = section.previousElementSibling;
+      if (prev && prev.classList.contains('section-divider')) {
+        prev.style.display = hide ? 'none' : '';
+      }
+    }
+  });
+
+  // Feature bands: hide when searching (they're not pcard-based)
+  var featureSections = document.querySelectorAll('.section:has(.feature-band)');
+  featureSections.forEach(function(sec) {
+    var bandText = '';
+    // Collect all text content from the feature band info panel
+    var selectors = [
+      '.feature-title', '.feature-subtitle', '.feature-desc',
+      '.feature-tag', '.feature-badge', '.feature-eyebrow',
+      '.feature-credits'  // includes director, writer, DOP, cast names
+    ];
+    selectors.forEach(function(sel) {
+      sec.querySelectorAll(sel).forEach(function(el) {
+        bandText += el.textContent.toLowerCase() + ' ';
+      });
+    });
+    var match = bandText.indexOf(q) !== -1;
+    sec.style.display = match ? '' : 'none';
+    if (match) anyVisible = true;
+    var prev = sec.previousElementSibling;
+    if (prev && prev.classList.contains('section-divider')) {
+      prev.style.display = match ? '' : 'none';
+    }
+  });
+
+  noResults.classList.toggle('visible', !anyVisible);
+  if (!anyVisible) {
+    document.getElementById('searchNoResultsQuery').textContent = _searchQuery;
+  }
+}
+
+// Close search on Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && _searchOpen) {
+    _searchOpen = false;
+    var wrap = document.getElementById('searchInputWrap');
+    wrap.classList.remove('open');
+    var btn = document.getElementById('searchToggleBtn');
+    if (btn) btn.classList.remove('active');
+    clearSearch();
+  }
+});
+
+/* ── LIVE SEARCH PANEL BUILDER ───────────────────────────────── */
+
+// Master data: films + team members indexed once
+var _searchIndex = (function() {
+  var films = [
+    {
+      id: 'janjaal',
+      cardId: 'pcard-janjaal',
+      name: 'Janjaal',
+      alt: 'Tussle',
+      meta: '2024 · Psychological Thriller · 23 min',
+      img: 'https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Janjaal%20Watch%20Cover.avif',
+      tags: 'janjaal tussle thriller psychological 2024 urdu pocket watch curse police karachi'
+    },
+    {
+      id: 'portrait',
+      cardId: 'pcard-portrait',
+      name: 'Portrait of Life',
+      meta: '2025 · Drama · Thesis Film',
+      img: 'https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Portrait%20of%20Life%20Watch%20Cover.avif',
+      tags: 'portrait of life drama 2025 painter love grief memory thesis'
+    },
+    {
+      id: 'urdubazaar',
+      cardId: 'pcard-urdubazaar',
+      name: 'Urdu Bazaar Karachi',
+      meta: '2024 · Documentary · Full Film',
+      img: 'https://github.com/LogoOrbit/cinegmafilms/blob/main/URDU%20BAZAR%20COVER%20AVIF.avif?raw=true',
+      tags: 'urdu bazaar karachi documentary books culture literary market 2024 colombia'
+    },
+    {
+      id: 'mainaurachu',
+      cardId: 'pcard-mainaurachu',
+      name: 'Main Aur Achu',
+      meta: '2024 · Drama · Family',
+      img: 'https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Main%20Aur%20achu%20watch%20cover.avif',
+      tags: 'main aur achu drama family 2024 eid goat boy sacrifice'
+    },
+    {
+      id: 'payamedil',
+      cardId: 'pcard-payamedil',
+      name: 'Payam-e-Dil',
+      meta: '2026 · Drama',
+      img: 'https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Payam%20e%20DilWatch%20Cover.avif',
+      tags: 'payam dil drama 2026 heart upcoming original'
+    },
+    {
+      id: 'zawaal',
+      cardId: 'pcard-zawaal',
+      name: 'Zawaal',
+      meta: '2026 · Psychological Thriller · Coming Soon',
+      img: null,
+      tags: 'zawaal thriller psychological 2026 karachi streets coming soon'
+    },
+    {
+      id: 'soldier',
+      cardId: 'pcard-soldier',
+      name: 'A Soldier Beside Me',
+      meta: '2026 · War Drama · Coming Soon',
+      img: 'https://raw.githubusercontent.com/LogoOrbit/cinegmafilms/refs/heads/main/Soldeir%20Watch%20Cover.avif',
+      tags: 'soldier beside me war drama 2026 frontline loyalty coming soon'
+    }
+  ];
+
+  var people = [
+    { name: 'Syed Asad Raza Abidi', role: 'Director · Editor · Founder', tags: 'syed asad raza abidi director editor founder cinegma', img: 'https://filmfreeway-production-storage-01-connector.filmfreeway.com/press_kits/headshots/003/024/898/original/d241b4e61b-headshot.jpg?1740431377' },
+    { name: 'Ameer Hamza', role: 'Writer · Director (A Soldier Beside Me)', tags: 'ameer hamza writer director', img: 'https://github.com/LogoOrbit/cinegmafilms/blob/main/Ameer.jpeg?raw=true' },
+    { name: 'Ghayas Uddin Siddiqui', role: 'DOP — Janjaal', tags: 'ghayas uddin siddiqui dop cinematographer janjaal', img: 'https://github.com/LogoOrbit/cinegmafilms/blob/main/Ghayas.jpg?raw=true' },
+    { name: 'Usman Ali Akbar', role: 'Music — Janjaal', tags: 'usman ali akbar music composer janjaal', img: 'https://github.com/LogoOrbit/cinegmafilms/blob/main/Usman.jpeg?raw=true' },
+    { name: 'Faizan Ahmed', role: 'Production Designer · Art Director', tags: 'faizan ahmed production design research', img: 'https://github.com/LogoOrbit/cinegmafilms/blob/main/Faizan%20Ahmed%20Team.png?raw=true' },
+    { name: 'Dayyan Khalid', role: 'Producer · Production Manager', tags: 'dayyan khalid producer janjaal', img: 'https://github.com/LogoOrbit/cinegmafilms/blob/main/Dayyan%20image.png?raw=true' },
+    { name: 'Saad Ali', role: 'Camera — Urdu Bazaar Karachi', tags: 'saad ali camera shot', img: null },
+    { name: 'Moosa Bin Salman', role: 'Starring — Main Aur Achu', tags: 'moosa bin salman starring actor main aur achu', img: null }
+  ];
+
+  return { films: films, people: people };
 })();
 
-/* ── HERO SOUND TOGGLE ────────────────────────────────────────── */
+// Navigate to a film card: clear search, reset filters, scroll + flash
+function _goToFilm(cardId) {
+  // Close search UI
+  var panel = document.getElementById('searchLivePanel');
+  if (panel) { panel.classList.remove('open'); panel.innerHTML = ''; }
+  var wrap = document.getElementById('searchInputWrap');
+  if (wrap) wrap.classList.remove('open');
+  var btn = document.getElementById('searchToggleBtn');
+  if (btn) btn.classList.remove('active');
+  // Also clear mobile input
+  var mobInput = document.getElementById('mobileSearchInput');
+  if (mobInput) { mobInput.value = ''; _syncMobClear(''); }
+  _searchOpen = false;
+  clearSearch();
+
+  // Reset genre filter to All so the card is visible
+  filterCatalog('all');
+
+  var card = document.getElementById(cardId);
+  if (!card) return;
+
+  // Scroll card into view
+  card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  // Flash after scroll settles
+  setTimeout(function() {
+    card.classList.remove('pcard-flash');
+    void card.offsetWidth; // force reflow to restart animation
+    card.classList.add('pcard-flash');
+    card.addEventListener('animationend', function() {
+      card.classList.remove('pcard-flash');
+    }, { once: true });
+  }, 500);
+}
+
+// Navigate to team section on index page for a person result
+function _goToPerson() {
+  window.location.href = 'index.html#team';
+}
+
+function _highlight(text, q) {
+  if (!q) return text;
+  var idx = text.toLowerCase().indexOf(q);
+  if (idx === -1) return text;
+  return text.substring(0, idx) +
+    '<mark class="search-hl">' + text.substring(idx, idx + q.length) + '</mark>' +
+    text.substring(idx + q.length);
+}
+
+function _positionLivePanel() {
+  var panel = document.getElementById('searchLivePanel');
+  if (!panel) return;
+  // On mobile anchor to the mobile search bar; on desktop to the filter-bar wrap
+  var isMobile = window.innerWidth <= 600;
+  var anchor = isMobile
+    ? document.getElementById('mobileSearchBar')
+    : document.getElementById('searchWrap');
+  if (!anchor) return;
+  var rect = anchor.getBoundingClientRect();
+  panel.style.top = (rect.bottom + (isMobile ? 4 : 8)) + 'px';
+  if (isMobile) {
+    // Full-width under mobile bar
+    panel.style.left  = '8px';
+    panel.style.right = '8px';
+    panel.style.width = 'auto';
+  } else {
+    var right = window.innerWidth - rect.right;
+    if (rect.right - 340 < 8) {
+      panel.style.left  = Math.max(8, rect.left) + 'px';
+      panel.style.right = 'auto';
+    } else {
+      panel.style.right = Math.max(8, right) + 'px';
+      panel.style.left  = 'auto';
+    }
+    var maxW = Math.min(340, window.innerWidth - 16);
+    panel.style.width = maxW + 'px';
+  }
+}
+
+function _buildLivePanel(q) {
+  var panel = document.getElementById('searchLivePanel');
+  if (!panel) return;
+
+  if (!q || q.length < 1) {
+    panel.classList.remove('open');
+    panel.innerHTML = '';
+    return;
+  }
+
+  _positionLivePanel();
+
+  var filmHits = _searchIndex.films.filter(function(f) {
+    return (f.name.toLowerCase().indexOf(q) !== -1) ||
+           (f.tags && f.tags.indexOf(q) !== -1) ||
+           (f.alt && f.alt.toLowerCase().indexOf(q) !== -1) ||
+           (f.meta && f.meta.toLowerCase().indexOf(q) !== -1);
+  });
+
+  var peopleHits = _searchIndex.people.filter(function(p) {
+    return p.name.toLowerCase().indexOf(q) !== -1 ||
+           p.tags.indexOf(q) !== -1 ||
+           p.role.toLowerCase().indexOf(q) !== -1;
+  });
+
+  if (filmHits.length === 0 && peopleHits.length === 0) {
+    panel.innerHTML = '<div class="search-live-empty">No results for "' + q + '"</div>';
+    panel.classList.add('open');
+    return;
+  }
+
+  var html = '';
+
+  if (filmHits.length > 0) {
+    html += '<div class="search-live-header">Films</div>';
+    filmHits.forEach(function(f) {
+      var thumb = f.img
+        ? '<img class="search-live-thumb" src="' + f.img + '" alt="' + f.name + '" loading="lazy"/>'
+        : '<div class="search-live-thumb-placeholder">' + f.name.charAt(0) + '</div>';
+      var nameHl = _highlight(f.name, q);
+      var isSoon = f.meta && f.meta.toLowerCase().indexOf('coming soon') !== -1;
+      var badge = isSoon
+        ? '<span class="search-live-type" style="color:var(--gold);border-color:rgba(201,165,90,.3);">Soon</span>'
+        : '<span class="search-live-type film">Film</span>';
+      html += '<div class="search-live-item" onclick="_goToFilm(\'' + f.cardId + '\')" style="cursor:pointer;">' +
+        thumb +
+        '<div class="search-live-info">' +
+          '<div class="search-live-name">' + nameHl + '</div>' +
+          '<div class="search-live-meta">' + (f.meta || '') + '</div>' +
+        '</div>' +
+        badge +
+        '</div>';
+    });
+  }
+
+  if (peopleHits.length > 0) {
+    html += '<div class="search-live-header">Team Members</div>';
+    peopleHits.forEach(function(p) {
+      var initials = p.name.split(' ').map(function(w){return w[0];}).join('').substring(0,2).toUpperCase();
+      var nameHl = _highlight(p.name, q);
+      var thumb = p.img
+        ? '<img class="search-live-thumb person-thumb" src="' + p.img + '" alt="' + p.name + '" loading="lazy"/>'
+        : '<div class="search-live-thumb-placeholder">' + initials + '</div>';
+      html += '<div class="search-live-item" onclick="_goToPerson()" style="cursor:pointer;">' +
+        thumb +
+        '<div class="search-live-info">' +
+          '<div class="search-live-name">' + nameHl + '</div>' +
+          '<div class="search-live-meta">' + p.role + '</div>' +
+        '</div>' +
+        '<span class="search-live-type person">Team</span>' +
+        '</div>';
+    });
+  }
+
+  panel.innerHTML = html;
+  panel.classList.add('open');
+}
+
+// Close live panel when clicking/tapping outside any search area
+document.addEventListener('click', function(e) {
+  var panel = document.getElementById('searchLivePanel');
+  if (!panel) return;
+  var desktopWrap = document.getElementById('searchWrap');
+  var mobileBar   = document.getElementById('mobileSearchBar');
+  var insideDesktop = desktopWrap && desktopWrap.contains(e.target);
+  var insideMobile  = mobileBar   && mobileBar.contains(e.target);
+  var insidePanel   = panel.contains(e.target);
+  if (!insideDesktop && !insideMobile && !insidePanel) {
+    panel.classList.remove('open');
+  }
+});
+
+// Reposition fixed panel on scroll / resize
+window.addEventListener('scroll', function() {
+  var panel = document.getElementById('searchLivePanel');
+  if (panel && panel.classList.contains('open')) _positionLivePanel();
+}, { passive: true });
+window.addEventListener('resize', function() {
+  var panel = document.getElementById('searchLivePanel');
+  if (panel && panel.classList.contains('open')) _positionLivePanel();
+});
+
+function _syncMobClear(val) {
+  var btn = document.getElementById('mobClearBtn');
+  if (btn) { btn.classList.toggle('visible', val.length > 0); }
+}
+
 function toggleHeroSound() {
   const vid = document.getElementById('heroVideo');
   vid.muted = !vid.muted;
