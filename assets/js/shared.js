@@ -83,10 +83,8 @@
 
 // ── MINI GAME: GOLDEN TAKE ──
 (function(){
-  if(typeof sessionStorage!=='undefined'&&sessionStorage.getItem('cg_off'))return;
-
-  var IDLE=100000;
-  var tmr,shown=false;
+  var POPUP_DELAY=30000;
+  var shown=false;
 
   var facts=[
     'Janjaal was shot in just 34 continuous hours on a beach in Karachi.',
@@ -137,17 +135,37 @@
     '.cg-ov-f{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.84rem;color:rgba(240,236,228,.55);line-height:1.7;margin:0 0 18px;max-width:230px;}'+
     '.cg-ov-b{font-family:"Bebas Neue",sans-serif;font-size:.7rem;letter-spacing:.2em;background:0 0;border:1px solid rgba(201,165,90,.35);color:#c9a55a;padding:7px 18px;cursor:pointer;transition:all .3s;}'+
     '.cg-ov-b:hover{background:#c9a55a;color:#080808;}'+
+    '.cg-launch{display:inline-flex;align-items:center;gap:8px;background:0 0;border:1px solid rgba(201,165,90,.3);color:#c9a55a;font-family:"Bebas Neue",sans-serif;font-size:.72rem;letter-spacing:.2em;padding:9px 20px;margin:36px auto 0;cursor:pointer;transition:all .3s;}'+
+    '.cg-launch:hover{background:#c9a55a;color:#080808;}'+
+    '.cg-launch-wrap{width:100%;text-align:center;padding:28px 20px 0;}'+
     '@media(max-width:500px){.cg-toast,.cg-p{left:12px;right:12px;bottom:12px;width:auto;max-width:none;}.cg-ar{height:230px;}.cg-toast{max-width:none;}}';
   document.head.appendChild(st);
 
-  function resetIdle(){
-    clearTimeout(tmr);
-    if(!shown) tmr=setTimeout(showToast,IDLE);
+  // Auto popup after a fixed delay (unless dismissed earlier this session)
+  function dismissed(){
+    try{return !!sessionStorage.getItem('cg_off');}catch(e){return false;}
   }
-  ['scroll','mousemove','click','keydown','touchstart'].forEach(function(e){
-    document.addEventListener(e,resetIdle,{passive:true});
-  });
-  tmr=setTimeout(showToast,IDLE);
+  setTimeout(function(){ if(!dismissed() && !shown && !panel) showToast(); }, POPUP_DELAY);
+
+  // Footer launcher — lets visitors find the game at the end of any page
+  function addLauncher(){
+    var foot=document.querySelector('footer');
+    if(!foot || foot.querySelector('.cg-launch')) return;
+    var wrap=document.createElement('div');
+    wrap.className='cg-launch-wrap';
+    var b=document.createElement('button');
+    b.className='cg-launch';
+    b.type='button';
+    b.innerHTML='🎬 BORED? PLAY GOLDEN TAKE';
+    b.onclick=function(){ if(!panel) showPanel(); };
+    wrap.appendChild(b);
+    foot.appendChild(wrap);
+  }
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',addLauncher);
+  } else {
+    addLauncher();
+  }
 
   function showToast(){
     if(shown)return;
