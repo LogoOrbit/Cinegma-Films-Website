@@ -24,7 +24,7 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/></noscript>
 
 <style>
-:root{--black:#080808;--white:#f0ece4;--grey:#888;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#c9a55a;--gold-dim:rgba(201,165,90,0.18);}
+:root{--black:#080808;--white:#f0ece4;--grey:#acbfa4;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#ff7f11;--gold-dim:rgba(255,127,17,0.18);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;overflow-x:hidden;}
 body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
@@ -61,7 +61,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 /* Articles grid */
 .articles{max-width:1100px;margin:0 auto;padding:0 40px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px;}
 .article-card{background:var(--mid);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .25s,border-color .25s;cursor:pointer;text-decoration:none;color:var(--white);}
-.article-card:hover{transform:translateY(-4px);border-color:rgba(201,165,90,.3);}
+.article-card:hover{transform:translateY(-4px);border-color:rgba(255,127,17,.3);}
 .article-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
 .article-card .placeholder{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a1f,#0e0e12);display:flex;align-items:center;justify-content:center;color:var(--grey);font-size:2rem;}
 .article-card .info{padding:18px 20px 22px;}
@@ -258,11 +258,11 @@ window.addEventListener('scroll',function(){document.getElementById('backToTop')
         var a=await fetchBySlug(slug);
         if(a){renderArticle(a);document.title=a.title+' — Cinegma Films';window.scrollTo(0,0);}
         else{document.getElementById('app').innerHTML='<div class="empty-state" style="padding:180px 20px;">Article not found.</div>';}
-      }catch(e){document.getElementById('app').innerHTML='<div class="empty-state" style="padding:180px 20px;color:#e0574f;">'+esc(e.message)+'</div>';}
+      }catch(e){document.getElementById('app').innerHTML='<div class="empty-state" style="padding:180px 20px;color:#ff1b1c;">'+esc(e.message)+'</div>';}
     }else{
       document.getElementById('app').innerHTML='<div class="blog-hero"><h1>Blog</h1><p>News, behind-the-scenes stories, and updates from Cinegma Films.</p></div><div class="articles" id="articleGrid"><div class="loading">Loading articles...</div></div>';
       document.title='Blog — Cinegma Films | News & Behind the Scenes';
-      try{var arts=await fetchArticles();renderGrid(arts);}catch(e){document.getElementById('articleGrid').innerHTML='<div class="empty-state" style="color:#e0574f;">'+esc(e.message)+'</div>';}
+      try{var arts=await fetchArticles();renderGrid(arts);}catch(e){document.getElementById('articleGrid').innerHTML='<div class="empty-state" style="color:#ff1b1c;">'+esc(e.message)+'</div>';}
     }
   }
 

@@ -75,8 +75,8 @@
   border-color: rgba(240,236,228,0.3);
 }
 #soundToggle.sound-on {
-  color: var(--gold, #c9a55a);
-  border-color: rgba(201,165,90,0.4);
+  color: var(--gold, #ff7f11);
+  border-color: rgba(255,127,17,0.4);
 }
 #soundToggle.sound-on .sound-off-line { display: none; }
 #soundToggle .sound-label {
@@ -146,9 +146,9 @@
 }
 .gs-option:hover { color: var(--white, #f0ece4); border-color: rgba(240,236,228,0.3); }
 .gs-option.active {
-  color: var(--gold, #c9a55a);
-  border-color: rgba(201,165,90,0.4);
-  background: rgba(201,165,90,0.06);
+  color: var(--gold, #ff7f11);
+  border-color: rgba(255,127,17,0.4);
+  background: rgba(255,127,17,0.06);
 }
 
 /* Color grade body filters */

@@ -57,7 +57,7 @@
 </script>
 
 <style>
-:root{--black:#080808;--white:#f0ece4;--grey:#888;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#c9a55a;--gold-dim:rgba(201,165,90,0.18);}
+:root{--black:#080808;--white:#f0ece4;--grey:#acbfa4;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#ff7f11;--gold-dim:rgba(255,127,17,0.18);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;overflow-x:hidden;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}body::before{animation:none!important;}}
@@ -858,7 +858,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 #now-streaming::before{top:0;}#now-streaming::after{bottom:0;}
 .ns-head{text-align:center;max-width:640px;margin:0 auto 56px;position:relative;z-index:2;}
 .ns-eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
-.ns-eyebrow .ns-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(201,165,90,.9);animation:nsBlink 1.8s ease-in-out infinite;}
+.ns-eyebrow .ns-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(255,127,17,.9);animation:nsBlink 1.8s ease-in-out infinite;}
 @keyframes nsBlink{0%,100%{opacity:1;}50%{opacity:.25;}}
 .ns-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,6vw,5.2rem);line-height:.9;letter-spacing:.03em;color:var(--white);margin-bottom:18px;}
 .ns-title em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(240,236,228,.5);}
@@ -986,7 +986,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .lw-item{position:relative;display:flex;align-items:center;justify-content:center;padding:10px;isolation:isolate;}
 /* soft gold glow that fades in/out behind the laurel on hover */
 .lw-item::before{content:'';position:absolute;inset:6%;z-index:-1;border-radius:50%;
-  background:radial-gradient(circle at 50% 50%,rgba(201,165,90,.42) 0%,rgba(201,165,90,.16) 38%,transparent 68%);
+  background:radial-gradient(circle at 50% 50%,rgba(255,127,17,.42) 0%,rgba(255,127,17,.16) 38%,transparent 68%);
   opacity:0;transform:scale(.55);filter:blur(10px);
   transition:opacity .55s ease,transform .55s ease;pointer-events:none;}
 .lw-item:hover::before{opacity:1;transform:scale(1.08);animation:lwGlowPulse 2.6s ease-in-out infinite .55s;}
@@ -995,9 +995,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   transition:opacity .5s ease;
   background-image:
     radial-gradient(circle,rgba(255,250,235,.95) 0%,transparent 60%),
-    radial-gradient(circle,rgba(201,165,90,.9) 0%,transparent 60%),
+    radial-gradient(circle,rgba(255,127,17,.9) 0%,transparent 60%),
     radial-gradient(circle,rgba(255,250,235,.85) 0%,transparent 60%),
-    radial-gradient(circle,rgba(201,165,90,.85) 0%,transparent 60%),
+    radial-gradient(circle,rgba(255,127,17,.85) 0%,transparent 60%),
     radial-gradient(circle,rgba(255,250,235,.8) 0%,transparent 60%);
   background-repeat:no-repeat;
   background-size:5px 5px,4px 4px,6px 6px,3px 3px,4px 4px;
@@ -1072,7 +1072,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 #reels{background:var(--black);border-top:1px solid var(--border);}
 .reels-head{max-width:620px;margin-bottom:52px;}
 .reels-eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
-.reels-eyebrow .r-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(201,165,90,.9);animation:nsBlink 1.8s ease-in-out infinite;}
+.reels-eyebrow .r-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(255,127,17,.9);animation:nsBlink 1.8s ease-in-out infinite;}
 .reels-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,6vw,4.6rem);line-height:.92;letter-spacing:.03em;color:var(--white);margin-bottom:16px;}
 .reels-title em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(240,236,228,.5);}
 .reels-intro{font-family:'DM Sans',sans-serif;font-size:1.02rem;line-height:1.75;color:rgba(240,236,228,.78);letter-spacing:.005em;}
@@ -1082,7 +1082,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .reel-card.is-vertical{grid-column:span 1;aspect-ratio:9/16;}
 .reel-spacer{}
 .reel-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--gold);z-index:5;transition:width .5s ease;}
-.reel-card:hover{border-color:rgba(201,165,90,.45);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.reel-card:hover{border-color:rgba(255,127,17,.45);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5);}
 .reel-card:hover::before{width:100%;}
 .reel-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#0a0a0a;}
 .reel-mute{position:absolute;bottom:14px;right:14px;z-index:4;width:38px;height:38px;border-radius:50%;background:rgba(8,8,8,.5);border:1px solid rgba(240,236,228,.25);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background .25s,opacity .3s;opacity:0;}
@@ -1244,7 +1244,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .tl-item{position:relative;padding:0 0 44px 42px;}
 .tl-item:last-child{padding-bottom:0;}
 .tl-item::before{content:'';position:absolute;left:-4px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--black);border:1px solid rgba(240,236,228,.4);transition:background .4s,border-color .4s;}
-.tl-item.live::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(201,165,90,.7);}
+.tl-item.live::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(255,127,17,.7);}
 .tl-item:hover::before{background:var(--white);border-color:var(--white);}
 .tl-year{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.18em;color:rgba(240,236,228,.5);margin-bottom:8px;}
 .tl-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;color:var(--white);line-height:1.25;margin-bottom:8px;}
