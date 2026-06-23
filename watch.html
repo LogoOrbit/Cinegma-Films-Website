@@ -160,25 +160,25 @@ nav.scrolled{background:rgba(8,8,8,.97);}
   display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--dim);transition:all .25s;}
 .ott-arrow:hover{background:rgba(240,236,228,.12);border-color:rgba(240,236,228,.3);color:var(--white);}
 .ott-arrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;}
-.ott-scroll{display:flex;gap:14px;padding:0 60px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;
+.ott-scroll{display:flex;gap:20px;padding:10px 60px 20px;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none;
   cursor:grab;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;}
 .ott-scroll::-webkit-scrollbar{display:none;}
 .ott-scroll:active{cursor:grabbing;}
 .ott-scroll::after{content:'';flex:0 0 44px;}
-@media(max-width:768px){.ott-row-header{padding:0 20px;}.ott-scroll{padding:0 20px;gap:12px;}}
-@media(max-width:600px){.ott-row-header{padding:0 16px;}.ott-scroll{padding:0 16px;gap:10px;}}
+@media(max-width:768px){.ott-row-header{padding:0 20px;}.ott-scroll{padding:20px 20px 40px;gap:16px;}}
+@media(max-width:600px){.ott-row-header{padding:0 16px;}.ott-scroll{padding:16px 16px 36px;gap:14px;}}
 
 /* ═══ OTT FILM CARD (hover-zoom) ═══ */
 .film-card{
   background:var(--card);border:1px solid var(--border);display:flex;flex-direction:column;
-  transition:transform .4s cubic-bezier(.22,1,.36,1),border-color .35s,background .35s,box-shadow .4s;
-  overflow:visible;cursor:pointer;position:relative;border-radius:6px;
-  flex:0 0 320px;scroll-snap-align:start;min-width:280px;
+  transition:border-color .35s,background .35s,box-shadow .4s;
+  overflow:hidden;cursor:pointer;position:relative;border-radius:6px;
+  flex:0 0 420px;scroll-snap-align:start;min-width:360px;
 }
 .film-card:hover{
-  border-color:rgba(201,165,90,.4);background:var(--card-h);
-  transform:scale(1.08);z-index:20;
-  box-shadow:0 16px 48px rgba(0,0,0,.6),0 0 0 1px rgba(201,165,90,.2);
+  border-color:rgba(201,165,90,.5);background:var(--card-h);
+  z-index:20;
+  box-shadow:0 8px 32px rgba(0,0,0,.7),0 0 20px rgba(201,165,90,.15),0 0 0 1px rgba(201,165,90,.3);
 }
 
 /* card media */
