@@ -530,8 +530,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 #cineIntro .ci-bar{position:absolute;left:0;right:0;height:0;background:#000;z-index:2;transition:height .6s cubic-bezier(.7,0,.3,1);}
 #cineIntro .ci-top{top:0;}#cineIntro .ci-bottom{bottom:0;}
 #cineIntro.framed .ci-bar{height:13vh;}
-.ci-scan{position:absolute;left:50%;top:50%;width:0;height:1px;background:rgba(240,236,228,.55);transform:translate(-50%,-50%);box-shadow:0 0 22px rgba(240,236,228,.45);animation:ciScan .65s ease forwards .05s;}
-@keyframes ciScan{to{width:min(580px,78vw);}}
+.ci-scan{position:absolute;left:50%;top:50%;width:min(580px,78vw);height:1px;background:rgba(240,236,228,.55);transform:translate(-50%,-50%) scaleX(0);box-shadow:0 0 22px rgba(240,236,228,.45);animation:ciScan .65s ease forwards .05s;}
+@keyframes ciScan{to{transform:translate(-50%,-50%) scaleX(1);}}
 .ci-center{position:relative;z-index:3;text-align:center;padding:0 24px;}
 .ci-presents{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.52em;text-transform:uppercase;color:rgba(240,236,228,.6);opacity:0;animation:ciFade .45s ease forwards .2s;}
 .ci-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.4rem,13vw,8.4rem);letter-spacing:.14em;line-height:1;color:var(--white);margin:20px 0 12px;opacity:0;transform:translateY(14px) scale(.95);animation:ciLogo .7s cubic-bezier(.2,.7,.2,1) forwards .45s;}
@@ -926,7 +926,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .marquee.reverse{animation-direction:reverse;animation-duration:46s;margin-top:18px;}
 #festivals:hover .marquee{animation-play-state:paused;}
 .marquee-item{display:inline-flex;align-items:center;gap:18px;padding:0 30px;white-space:nowrap;flex-shrink:0;}
-.marquee-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:rgba(240,236,228,.45);transition:color .3s;}
+.marquee-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:rgba(240,236,228,.55);transition:color .3s;}
 .marquee-item:hover .marquee-name{color:var(--white);}
 .marquee-dot{width:5px;height:5px;border-radius:50%;background:rgba(240,236,228,.25);flex-shrink:0;}
 @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
