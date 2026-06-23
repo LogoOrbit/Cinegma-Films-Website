@@ -1419,16 +1419,12 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
-<script src="assets/js/shared.js" defer></script>
+<script src="assets/js/shared.js"></script>
+<script>initHeroParallax('heroImg','pageHero',0.4,1.1);</script>
 <script>
-// Hero parallax
-initHeroParallax('heroImg','pageHero',0.4,1.1);
-
-// Count-up for hero stats
-(function(){
-  var done=false;
-  function run(){
-    if(done) return; done=true;
+// Count-up for hero stats — starts after fadeUp makes them visible
+window.addEventListener('load', function(){
+  setTimeout(function(){
     document.querySelectorAll('.page-stat-num[data-count]').forEach(function(el){
       var target=parseInt(el.getAttribute('data-count'),10);
       var suffix=el.getAttribute('data-suffix')||'';
@@ -1442,13 +1438,8 @@ initHeroParallax('heroImg','pageHero',0.4,1.1);
       }
       requestAnimationFrame(step);
     });
-  }
-  var hero=document.querySelector('.page-hero-stats');
-  if(hero){
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)run();});},{threshold:0.3});
-    io.observe(hero);
-  } else { run(); }
-})();
+  }, 800);
+});
 
 
 // Awards selections toggle
@@ -1512,5 +1503,6 @@ function toggleSelections(){
   }, {once:true});
 })();
 </script>
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 </body>
 </html>
