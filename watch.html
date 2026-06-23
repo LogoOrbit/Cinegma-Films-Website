@@ -1764,13 +1764,15 @@ document.addEventListener('keydown', function(e) {
 });
 
 /* ── OTT ROW SCROLL ── */
-function scrollRow(btn, dir) {
+function scrollRow(el, dir) {
+  var btn = el.closest('.ott-arrow') || el;
   var row = btn.closest('.ott-row');
+  if (!row) return;
   var scroll = row.querySelector('.ott-scroll');
+  if (!scroll) return;
   var card = scroll.querySelector('.film-card') || scroll.querySelector('.yt-card');
-  if (!card) return;
-  var cardW = card.offsetWidth + 20;
-  scroll.scrollBy({ left: dir * cardW * 2, behavior: 'smooth' });
+  var dist = card ? (card.offsetWidth + 20) * 2 : 400;
+  scroll.scrollLeft += dir * dist;
 }
 
 /* ── DRAG TO SCROLL ── */
