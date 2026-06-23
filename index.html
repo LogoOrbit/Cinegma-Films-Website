@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png" type="image/png"/>
-<link rel="apple-touch-icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png"/>
+<link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
 <title>Pakistani Filmmaker Syed Asad Raza Abidi — Cinegma Films</title>
 <meta name="description" content="Cinegma Films is the independent production banner of Pakistani filmmaker Syed Asad Raza Abidi — director, editor, colorist and founder based in Karachi. Creator of Janjaal (Tussle), winner of 14 international awards across 9 countries."/>
 <meta name="keywords" content="Syed Asad Raza Abidi, Cinegma Films, Pakistani filmmaker, Janjaal, Tussle, short film, Karachi, independent cinema, film director, editor, colorist, DaVinci Resolve, film production Pakistan"/>
@@ -85,7 +85,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .hero-video-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,.25) 0%,rgba(8,8,8,.5) 55%,rgba(8,8,8,.98) 100%);}
 /* Video fallback: poster + gradient when mp4 fails */
 .hero-video-wrap.video-failed video{opacity:1;}
-.hero-video-wrap.video-failed{background:url('https://cinegmafilms.com/assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif') center/cover no-repeat;}
+.hero-video-wrap.video-failed{background:url('assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif') center/cover no-repeat;}
 .hero-video-wrap.video-failed::before{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(8,8,8,.55) 0%,rgba(20,14,10,.7) 50%,rgba(8,8,8,.6) 100%);z-index:1;}
 .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.02) 0%,transparent 60%),var(--black);z-index:0;}
 .hero-eyebrow{position:relative;z-index:4;font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,228,.7);margin-bottom:20px;animation:fadeUp 1.2s ease forwards;opacity:0;animation-delay:.3s;}
@@ -562,10 +562,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <nav>
   <a href="index.html" class="nav-logo">Cinegma Films</a>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="index.html">Home</a></li>
     <li><a href="watch.html">Watch</a></li>
     <li><a href="services.html">Services</a></li>
-    
     <li><a href="about.html">About</a></li>
     <li><a href="press.html">Press</a></li>
     <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
@@ -577,7 +576,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
 <div class="nav-mobile" id="mobileMenu">
   <span class="nav-mobile-close" onclick="closeMenu()">✕</span>
-  <a href="index.html" class="active" onclick="closeMenu()">Home</a>
+  <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="watch.html" onclick="closeMenu()">Watch</a>
   <a href="services.html" onclick="closeMenu()">Services</a>
   <a href="about.html" onclick="closeMenu()">About</a>
@@ -616,8 +615,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <section id="hero">
   <div class="hero-video-wrap" id="heroVideoWrap">
     <video autoplay muted loop playsinline preload="metadata" id="heroVid"
-      src="https://cinegmafilms.com/assets/posters/HeroCompressed.mp4"
-      poster="https://cinegmafilms.com/assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"
+      src="assets/posters/HeroCompressed.mp4"
+      poster="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"
       onerror="document.getElementById('heroVideoWrap').classList.add('video-failed')"></video>
   </div>
   <div class="hero-bg"></div>
@@ -695,7 +694,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" data-watch-hash="trailer-janjaal">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-janjaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <div class="film-laurels">
         <div class="laurel-badge">Best Short Film<br>Toronto F/SF<br>2026</div>
@@ -725,7 +724,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-portrait">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-portrait')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">02</span>
       <div class="film-card-content">
@@ -743,7 +742,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-zawaal">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-zawaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/Zawaal_Opt_01.avif" alt="Zawaal Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">03</span>
       <div class="film-card-content">
@@ -761,7 +760,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-soldier">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-soldier')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">04</span>
       <div class="film-card-content">
@@ -779,7 +778,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-payam">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-payam')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/Payam_Opt_01.avif" alt="Payam e Dil Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">05</span>
       <div class="film-card-content">
@@ -796,7 +795,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="trailer-mainaurachu">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-mainaurachu')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">06</span>
       <div class="film-card-content">
@@ -813,7 +812,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <!-- Phir Se -->
     <div class="film-card reveal" style="transition-delay:.16s">
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/PhirSe_Opt_01.avif" alt="Phir Se Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">07</span>
       <div class="film-card-content">
@@ -829,7 +828,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="watch-urdu-bazaar">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('watch-urdu-bazaar')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="https://cinegmafilms.com/assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi Documentary Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi Documentary Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">08</span>
       <div class="film-card-content">
@@ -886,22 +885,22 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   </div>
   <div class="ns-grid reveal" style="transition-delay:.1s">
     <a class="ns-card" href="watch.html#trailer-janjaal" aria-label="Watch Janjaal (Tussle)">
-      <img src="https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) — stream now" loading="lazy" width="800" height="1200"/>
+      <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) — stream now" loading="lazy" width="800" height="1200"/>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Janjaal</span><span class="ns-card-tag">Thriller · 14 Awards</span></div>
     </a>
     <a class="ns-card" href="watch.html#trailer-portrait" aria-label="Watch Portrait of Life">
-      <img src="https://cinegmafilms.com/assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life — stream now" loading="lazy" width="800" height="1200"/>
+      <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life — stream now" loading="lazy" width="800" height="1200"/>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Portrait of Life</span><span class="ns-card-tag">Drama · Teaser</span></div>
     </a>
     <a class="ns-card" href="watch.html#trailer-mainaurachu" aria-label="Watch Main Aur Achu">
-      <img src="https://cinegmafilms.com/assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu — stream now" loading="lazy" width="800" height="1200"/>
+      <img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu — stream now" loading="lazy" width="800" height="1200"/>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Main Aur Achu</span><span class="ns-card-tag">Family · Full Film</span></div>
     </a>
     <a class="ns-card" href="watch.html#watch-urdu-bazaar" aria-label="Watch Urdu Bazaar Karachi">
-      <img src="https://cinegmafilms.com/assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi — stream now" loading="lazy" width="800" height="1200"/>
+      <img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi — stream now" loading="lazy" width="800" height="1200"/>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Urdu Bazaar</span><span class="ns-card-tag">Documentary · Full</span></div>
     </a>
@@ -1029,27 +1028,27 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <h2 class="lw-title">Official Selections &amp; <em>Awards</em></h2>
   </div>
   <div class="lw-grid">
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/BESTDIRECTOR-AWARD-GandharaIndependentFilmFestival2025Online.png" alt="Best Director — Gandhara IFF 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/BESTFILM-AWARD-GandharaIndependentFilmFestival2025Online.png" alt="Best Film — Gandhara IFF 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Director---Indus-Film-Festival---2025.png" alt="Best Director — Indus Film Festival 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Director---Kolkata-International-Short-Film-Festival---2025.png" alt="Best Director — KISFF India 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Short-Film---Kolkata-International-Short-Film-Festival---2025.png" alt="Best Short Film — KISFF India 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Short-Film---Pakistan-International-Film-Festival---2025.png" alt="Best Short Film — Pakistan IFF 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Trailer---Award.png" alt="Best Trailer Award" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/CINIPHRLIA-FLAIR-International-Film-Festival---BEST-SHORT-FILM---Season-4.png" alt="Best Short Film — FLAIR IFF Season 4" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Toronto-FantasySci-Fi-Film--Screenplay-Festival---BEST-SHORT-FILM---2025.png" alt="Best Short Film — Toronto Fantasy Sci-Fi FF 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/nomineebesttrailer25-white.png" alt="Best Trailer Nominee 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Animusic-Film-Festival---2025.png" alt="Official Selection — Animusic Film Festival 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Egyptian-American-Film-Festival---2025.png" alt="Official Selection — Egyptian American FF 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---FLAME-FirstCut-2026---2026.png" alt="Official Selection — FLAME FirstCut 2026" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Festival-cortos-para-Tiempos-Largos---2025.png" alt="Official Selection — Festival Cortos Para Tiempos Largos 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Islamabad-International-Film-Festival---2025.png" alt="Official Selection — Islamabad IFF 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Kosovo-Young-Filmmakers-Festival-KYFF---2025.png" alt="Official Selection — KYFF Kosovo 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Sobh-Media-Festival---2025-2.png" alt="Official Selection — Sobh Media Festival 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Sobh-Media-Festival---2025.png" alt="Official Selection — Sobh Media Festival 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---The-Short-Film-Channel---2026-(1).png" alt="Official Selection — The Short Film Channel 2026" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Toronto-FantasySci-Fi-Film--Screenplay-Festival---2025.png" alt="Official Selection — Toronto Fantasy Sci-Fi FF 2025" loading="lazy"></div>
-    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Urbanite-Arts--Film-Festival---2025.png" alt="Official Selection — Urbanite Arts FF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/BESTDIRECTOR-AWARD-GandharaIndependentFilmFestival2025Online.webp" alt="Best Director — Gandhara IFF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/BESTFILM-AWARD-GandharaIndependentFilmFestival2025Online.webp" alt="Best Film — Gandhara IFF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Director---Indus-Film-Festival---2025.webp" alt="Best Director — Indus Film Festival 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Director---Kolkata-International-Short-Film-Festival---2025.webp" alt="Best Director — KISFF India 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Short-Film---Kolkata-International-Short-Film-Festival---2025.webp" alt="Best Short Film — KISFF India 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Short-Film---Pakistan-International-Film-Festival---2025.webp" alt="Best Short Film — Pakistan IFF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Best-Trailer---Award.webp" alt="Best Trailer Award" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/CINIPHRLIA-FLAIR-International-Film-Festival---BEST-SHORT-FILM---Season-4.webp" alt="Best Short Film — FLAIR IFF Season 4" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/Toronto-FantasySci-Fi-Film--Screenplay-Festival---BEST-SHORT-FILM---2025.webp" alt="Best Short Film — Toronto Fantasy Sci-Fi FF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/nomineebesttrailer25-white.webp" alt="Best Trailer Nominee 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Animusic-Film-Festival---2025.webp" alt="Official Selection — Animusic Film Festival 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Egyptian-American-Film-Festival---2025.webp" alt="Official Selection — Egyptian American FF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---FLAME-FirstCut-2026---2026.webp" alt="Official Selection — FLAME FirstCut 2026" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Festival-cortos-para-Tiempos-Largos---2025.webp" alt="Official Selection — Festival Cortos Para Tiempos Largos 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Islamabad-International-Film-Festival---2025.webp" alt="Official Selection — Islamabad IFF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Kosovo-Young-Filmmakers-Festival-KYFF---2025.webp" alt="Official Selection — KYFF Kosovo 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Sobh-Media-Festival---2025-2.webp" alt="Official Selection — Sobh Media Festival 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Sobh-Media-Festival---2025.webp" alt="Official Selection — Sobh Media Festival 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---The-Short-Film-Channel---2026-(1).webp" alt="Official Selection — The Short Film Channel 2026" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Toronto-FantasySci-Fi-Film--Screenplay-Festival---2025.webp" alt="Official Selection — Toronto Fantasy Sci-Fi FF 2025" loading="lazy"></div>
+    <div class="lw-item"><img class="lw-laurel" src="assets/laurels/OFFICIAL-SELECTION---Urbanite-Arts--Film-Festival---2025.webp" alt="Official Selection — Urbanite Arts FF 2025" loading="lazy"></div>
   </div>
 </section>
 
@@ -1289,7 +1288,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <!-- Syed Asad -->
     <div class="team-card reveal" data-href="about.html#syed-asad" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="https://cinegmafilms.com/assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi — Filmmaker, Karachi" loading="lazy"/>
+        <img src="assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi — Filmmaker, Karachi" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">01</span>
@@ -1305,7 +1304,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <!-- Ghayas Uddin -->
     <div class="team-card reveal" style="transition-delay:.08s" data-href="about.html#ghayas-uddin" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="https://cinegmafilms.com/assets/posters/Ghayas.jpg" alt="Ghayas Uddin Siddiqui — Director of Photography" loading="lazy"/>
+        <img src="assets/posters/Ghayas.jpg" alt="Ghayas Uddin Siddiqui — Director of Photography" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">02</span>
@@ -1320,7 +1319,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <!-- Ameer Hamza -->
     <div class="team-card reveal" style="transition-delay:.1s" data-href="about.html#ameer-hamza" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="https://cinegmafilms.com/assets/posters/Ameer.jpeg" alt="Ameer Hamza — Writer, Producer" loading="lazy"/>
+        <img src="assets/posters/Ameer.jpeg" alt="Ameer Hamza — Writer, Producer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">03</span>
@@ -1335,7 +1334,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <!-- Faizan Ahmed -->
     <div class="team-card reveal" style="transition-delay:.15s" data-href="about.html#faizan-ahmed" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="https://cinegmafilms.com/assets/posters/Faizan%20Ahmed%20Team.png" alt="Faizan Ahmed — Production Designer" loading="lazy"/>
+        <img src="assets/posters/Faizan%20Ahmed%20Team.png" alt="Faizan Ahmed — Production Designer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">04</span>
@@ -1350,7 +1349,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <!-- Usman Ali Akbar -->
     <div class="team-card reveal" style="transition-delay:.2s" data-href="about.html#usman-ali" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="https://cinegmafilms.com/assets/posters/Usman.jpeg" alt="Usman Ali Akbar — Music Composer" loading="lazy"/>
+        <img src="assets/posters/Usman.jpeg" alt="Usman Ali Akbar — Music Composer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">05</span>
@@ -1364,7 +1363,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <!-- Dayyan Khalid -->
     <div class="team-card reveal" style="transition-delay:.25s" data-href="about.html#dayyan-khalid" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="https://cinegmafilms.com/assets/posters/Dayyan%20image.png" alt="Dayyan Khalid — Producer" loading="lazy"/>
+        <img src="assets/posters/Dayyan%20image.png" alt="Dayyan Khalid — Producer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">06</span>
@@ -1443,19 +1442,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
+<script src="assets/js/shared.js" defer></script>
 <script>
-// Custom cursor
-const cursor=document.getElementById('cursor');
-const ring=document.getElementById('cursorRing');
-document.body.classList.add('custom-cursor-ready');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
-
-// Scroll reveal
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');}});},{threshold:0.05,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
 // Laurels — row-by-row reveal as each item scrolls into view
 (function(){
   var items=document.querySelectorAll('#laurels-wall .lw-item');
@@ -1499,16 +1487,6 @@ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
     io.observe(band);
   }
 })();
-
-// Mobile menu
-function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';document.getElementById('hamburger').setAttribute('aria-expanded','true');}
-function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';document.getElementById('hamburger').setAttribute('aria-expanded','false');}
-
-// Back to top
-const btt = document.getElementById('backToTop');
-window.addEventListener('scroll', () => {
-  btt.classList.toggle('visible', window.scrollY > 400);
-});
 
 // Navigate to watch page with hash to autoplay trailer
 function goToWatch(hash) {
