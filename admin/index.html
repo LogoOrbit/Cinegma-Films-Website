@@ -1,239 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex, nofollow" />
-  <title>Cinegma Media Dashboard</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <title>Cinegma CMS</title>
   <style>
-    :root { --bg:#0e0e11; --card:#17171c; --line:#2a2a32; --txt:#e8e8ea; --mut:#9a9aa6; --accent:#e0b341; --ok:#3fbf6f; --err:#e0574f; }
-    * { box-sizing: border-box; }
-    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--txt); }
-    header { padding:20px 24px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
-    header h1 { font-size:18px; margin:0; letter-spacing:.5px; }
-    main { max-width:760px; margin:0 auto; padding:28px 20px 80px; }
-    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:22px; }
-    h2 { font-size:15px; margin:0 0 14px; color:var(--accent); text-transform:uppercase; letter-spacing:1px; }
-    label { display:block; font-size:13px; color:var(--mut); margin:14px 0 6px; }
-    input[type=text], input[type=password] { width:100%; padding:11px 12px; background:#101015; border:1px solid var(--line); border-radius:9px; color:var(--txt); font-size:14px; }
-    .drop { border:2px dashed var(--line); border-radius:12px; padding:30px; text-align:center; color:var(--mut); cursor:pointer; transition:.15s; }
-    .drop.hover { border-color:var(--accent); color:var(--txt); background:#1c1c22; }
-    button { margin-top:18px; width:100%; padding:13px; background:var(--accent); color:#1a1505; border:0; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; }
-    button:disabled { opacity:.5; cursor:not-allowed; }
-    .tabs { display:flex; gap:8px; margin-bottom:22px; }
-    .tabs button { margin:0; flex:1; background:var(--card); color:var(--mut); border:1px solid var(--line); }
-    .tabs button.active { background:var(--accent); color:#1a1505; border-color:var(--accent); }
-    .bar { height:8px; background:#101015; border-radius:6px; overflow:hidden; margin-top:14px; display:none; }
-    .bar > i { display:block; height:100%; width:0; background:var(--accent); transition:width .2s; }
-    .log { margin-top:16px; font-size:13px; line-height:1.6; white-space:pre-wrap; word-break:break-word; }
-    .log .ok { color:var(--ok); } .log .err { color:var(--err); } .log .mut { color:var(--mut); }
-    pre.snippet { background:#101015; border:1px solid var(--line); border-radius:9px; padding:12px; font-size:12px; overflow:auto; margin-top:10px; }
-    .hidden { display:none; }
-    .thumb { max-width:120px; border-radius:8px; margin-top:12px; display:block; }
+    :root{--bg:#0a0a0d;--card:#131317;--line:#222230;--txt:#e8e8ea;--mut:#8a8a9a;--accent:#c9a55a;--accent-dim:rgba(201,165,90,.15);--ok:#3fbf6f;--err:#e0574f;--radius:10px;}
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;}
+    a{color:var(--accent);text-decoration:none;}
+
+    /* Layout */
+    .shell{display:flex;min-height:100vh;}
+    .sidebar{width:220px;background:var(--card);border-right:1px solid var(--line);padding:20px 0;position:fixed;top:0;bottom:0;overflow-y:auto;z-index:10;}
+    .sidebar h1{font-size:14px;letter-spacing:1px;padding:0 20px 20px;border-bottom:1px solid var(--line);color:var(--accent);}
+    .sidebar nav{padding:14px 0;}
+    .sidebar nav button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 20px;background:none;border:none;color:var(--mut);font-size:13px;cursor:pointer;text-align:left;transition:.15s;}
+    .sidebar nav button:hover,.sidebar nav button.active{color:var(--txt);background:var(--accent-dim);}
+    .sidebar nav button.active{border-left:3px solid var(--accent);}
+    .main{margin-left:220px;flex:1;padding:28px 32px 60px;max-width:960px;}
+
+    /* Auth bar */
+    .auth{display:flex;gap:10px;align-items:center;padding:0 20px 14px;margin-top:auto;border-top:1px solid var(--line);padding-top:14px;}
+    .auth input{flex:1;padding:8px 10px;background:var(--bg);border:1px solid var(--line);border-radius:6px;color:var(--txt);font-size:12px;}
+    .auth .dot{width:8px;height:8px;border-radius:50%;background:var(--err);}
+    .auth .dot.ok{background:var(--ok);}
+
+    /* Common */
+    h2{font-size:20px;margin-bottom:18px;font-weight:600;}
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border:none;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer;transition:.15s;}
+    .btn-primary{background:var(--accent);color:#1a1505;}
+    .btn-primary:hover{filter:brightness(1.1);}
+    .btn-ghost{background:transparent;color:var(--mut);border:1px solid var(--line);}
+    .btn-ghost:hover{color:var(--txt);border-color:var(--mut);}
+    .btn-danger{background:var(--err);color:#fff;}
+    .btn-sm{padding:6px 12px;font-size:12px;}
+
+    /* Table */
+    .table{width:100%;border-collapse:collapse;}
+    .table th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.8px;color:var(--mut);padding:8px 12px;border-bottom:1px solid var(--line);}
+    .table td{padding:10px 12px;border-bottom:1px solid var(--line);font-size:13px;vertical-align:middle;}
+    .table tr:hover td{background:var(--accent-dim);}
+    .badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;}
+    .badge-ok{background:rgba(63,191,111,.15);color:var(--ok);}
+    .badge-draft{background:rgba(138,138,154,.15);color:var(--mut);}
+
+    /* Form */
+    .field{margin-bottom:16px;}
+    .field label{display:block;font-size:12px;color:var(--mut);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px;}
+    .field input,.field select,.field textarea{width:100%;padding:10px 12px;background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);color:var(--txt);font-size:14px;font-family:inherit;resize:vertical;}
+    .field textarea{min-height:300px;line-height:1.7;}
+    .field-row{display:flex;gap:12px;}
+    .field-row .field{flex:1;}
+    .toolbar{display:flex;gap:10px;margin-bottom:20px;align-items:center;}
+    .toolbar .spacer{flex:1;}
+
+    /* Drop zone */
+    .drop{border:2px dashed var(--line);border-radius:var(--radius);padding:24px;text-align:center;color:var(--mut);cursor:pointer;transition:.15s;font-size:13px;}
+    .drop:hover,.drop.hover{border-color:var(--accent);background:var(--accent-dim);}
+
+    /* Media grid */
+    .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;}
+    .media-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;cursor:pointer;transition:.15s;position:relative;}
+    .media-card:hover{border-color:var(--accent);}
+    .media-card img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+    .media-card .name{padding:6px 8px;font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .media-card.selected{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent);}
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:var(--radius);font-size:13px;font-weight:600;z-index:999;animation:slideUp .3s ease;}
+    .toast-ok{background:var(--ok);color:#fff;}
+    .toast-err{background:var(--err);color:#fff;}
+    @keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+    /* Loading */
+    .spinner{display:inline-block;width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:spin .6s linear infinite;}
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    .empty{text-align:center;padding:60px 20px;color:var(--mut);}
+
+    /* Responsive */
+    @media(max-width:700px){
+      .sidebar{display:none;}
+      .main{margin-left:0;padding:16px;}
+      .field-row{flex-direction:column;gap:0;}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🎬 Cinegma Media Dashboard</h1>
-    <span id="authState" class="log mut" style="margin:0;font-size:12px;">Locked</span>
-  </header>
-  <main>
-    <div class="card">
-      <h2>Access</h2>
-      <label for="pw">Dashboard password</label>
-      <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password" />
-      <p class="log mut">Stored only in this browser tab and sent with each upload.</p>
-    </div>
+  <div class="shell">
+    <aside class="sidebar">
+      <h1>CINEGMA CMS</h1>
+      <nav>
+        <button class="active" data-page="articles">Articles</button>
+        <button data-page="media">Media Library</button>
+        <button data-page="upload-image">Upload Image</button>
+        <button data-page="upload-video">Upload Video</button>
+      </nav>
+      <div class="auth">
+        <div class="dot" id="authDot"></div>
+        <input type="password" id="pw" placeholder="Dashboard password" autocomplete="current-password"/>
+      </div>
+    </aside>
 
-    <div class="tabs">
-      <button id="tabImg" class="active">🖼 Image</button>
-      <button id="tabVid">🎞 Video</button>
-    </div>
+    <div class="main" id="app"></div>
+  </div>
 
-    <!-- IMAGE -->
-    <section id="paneImg" class="card">
-      <h2>Optimize &amp; publish image</h2>
-      <p class="log mut">Creates AVIF (full + 400w) + WebP and commits to <code>assets/posters/</code>. Vercel redeploys automatically.</p>
-      <label for="imgName">File base name (optional — defaults to original name)</label>
-      <input id="imgName" type="text" placeholder="e.g. New Film Cover" />
-      <div id="imgDrop" class="drop">Drop an image here, or click to choose<br/><span class="log mut">JPG / PNG / WebP / HEIC source</span></div>
-      <input id="imgFile" type="file" accept="image/*" class="hidden" />
-      <img id="imgThumb" class="thumb hidden" alt="" />
-      <div class="bar" id="imgBar"><i></i></div>
-      <button id="imgGo" disabled>Optimize &amp; publish</button>
-      <div id="imgLog" class="log"></div>
-    </section>
+<script>
+(function(){
+  const SUPABASE_URL = 'https://lriiaafqnjhfsizamdxz.supabase.co';
+  const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxyaWlhYWZxbmpoZnNpemFtZHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjgyMjAsImV4cCI6MjA5NzgwNDIyMH0.ZXuF6HLQEaUJrr8t_v3d5elWpcqG2OrXwEjUOtO-Qw0';
 
-    <!-- VIDEO -->
-    <section id="paneVid" class="card hidden">
-      <h2>Upload video to Bunny Stream</h2>
-      <p class="log mut">Uploads directly to Bunny, which transcodes it into web-optimized formats.</p>
-      <label for="vidName">Video title</label>
-      <input id="vidName" type="text" placeholder="e.g. A Soldier — Trailer" />
-      <div id="vidDrop" class="drop">Drop a video here, or click to choose<br/><span class="log mut">MP4 / MOV / any source</span></div>
-      <input id="vidFile" type="file" accept="video/*" class="hidden" />
-      <div class="bar" id="vidBar"><i></i></div>
-      <button id="vidGo" disabled>Upload to Bunny</button>
-      <div id="vidLog" class="log"></div>
-    </section>
-  </main>
+  const $=id=>document.getElementById(id);
+  const app=$('app');
+  const pw=$('pw');
+  let currentPage='articles';
 
-  <script>
-  (function () {
-    const $ = (id) => document.getElementById(id);
-    const pw = $('pw');
+  pw.value=localStorage.getItem('cms_pw')||'';
+  pw.oninput=()=>{localStorage.setItem('cms_pw',pw.value);updateDot();};
+  function updateDot(){$('authDot').classList.toggle('ok',!!pw.value);}
+  updateDot();
 
-    // ---- tab switching ----
-    function setTab(img) {
-      $('tabImg').classList.toggle('active', img);
-      $('tabVid').classList.toggle('active', !img);
-      $('paneImg').classList.toggle('hidden', !img);
-      $('paneVid').classList.toggle('hidden', img);
-    }
-    $('tabImg').onclick = () => setTab(true);
-    $('tabVid').onclick = () => setTab(false);
-    pw.oninput = () => { $('authState').textContent = pw.value ? 'Password set' : 'Locked'; };
+  function headers(){return{'Content-Type':'application/json','X-Dashboard-Password':pw.value};}
 
-    // ---- drag/drop wiring ----
-    function wireDrop(dropId, inputId, onFile) {
-      const drop = $(dropId), input = $(inputId);
-      drop.onclick = () => input.click();
-      drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('hover'); };
-      drop.ondragleave = () => drop.classList.remove('hover');
-      drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('hover'); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); };
-      input.onchange = () => { if (input.files[0]) onFile(input.files[0]); };
-    }
+  async function api(path,opts={}){
+    const r=await fetch(path,{headers:headers(),...opts});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||'Request failed');
+    return d;
+  }
 
-    function fmtKB(b) { return (b / 1024).toFixed(0) + ' KB'; }
+  function toast(msg,ok=true){
+    const t=document.createElement('div');
+    t.className='toast '+(ok?'toast-ok':'toast-err');
+    t.textContent=msg;
+    document.body.appendChild(t);
+    setTimeout(()=>t.remove(),3000);
+  }
 
-    // ===================== IMAGE =====================
-    let imgFile = null;
-    wireDrop('imgDrop', 'imgFile', (f) => {
-      imgFile = f;
-      $('imgDrop').innerHTML = '✔ ' + f.name + '<br/><span class="log mut">' + fmtKB(f.size) + '</span>';
-      const t = $('imgThumb'); t.src = URL.createObjectURL(f); t.classList.remove('hidden');
-      if (!$('imgName').value) $('imgName').value = f.name.replace(/\.[^.]+$/, '');
-      $('imgGo').disabled = false;
-    });
-
-    // Downscale very large images in-browser so the request stays under
-    // Vercel's 4.5MB body limit, then let the server produce AVIF/WebP.
-    async function prepImage(file, maxDim = 2560) {
-      const bmp = await createImageBitmap(file);
-      let { width, height } = bmp;
-      const scale = Math.min(1, maxDim / Math.max(width, height));
-      width = Math.round(width * scale); height = Math.round(height * scale);
-      const canvas = document.createElement('canvas');
-      canvas.width = width; canvas.height = height;
-      canvas.getContext('2d').drawImage(bmp, 0, 0, width, height);
-      const blob = await new Promise((r) => canvas.toBlob(r, 'image/webp', 0.95));
-      return await new Promise((r) => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(blob); });
-    }
-
-    $('imgGo').onclick = async () => {
-      if (!imgFile) return;
-      const log = $('imgLog'); log.innerHTML = '<span class="mut">Preparing…</span>';
-      $('imgGo').disabled = true; $('imgBar').style.display = 'block'; $('imgBar').firstElementChild.style.width = '30%';
-      try {
-        const dataUrl = await prepImage(imgFile);
-        $('imgBar').firstElementChild.style.width = '60%';
-        const res = await fetch('/api/upload-image', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password: pw.value, filename: $('imgName').value || imgFile.name, dataUrl }),
-        });
-        const data = await res.json();
-        $('imgBar').firstElementChild.style.width = '100%';
-        if (!res.ok) throw new Error(data.error || 'Upload failed');
-        const base = data.base;
-        log.innerHTML =
-          '<span class="ok">✔ Published & committed.</span> Vercel is redeploying.\n' +
-          'AVIF ' + fmtKB(data.sizes.avif) + ' · WebP ' + fmtKB(data.sizes.webp) + ' · 400w ' + fmtKB(data.sizes.avif400) +
-          '<br/>Paste into your HTML:' +
-          '<pre class="snippet">&lt;picture&gt;\n  &lt;source type="image/avif" srcset="/assets/posters/' + base + '-400w.avif 400w, /assets/posters/' + base + '.avif 1200w"&gt;\n  &lt;img src="/assets/posters/' + base + '.webp" alt="" loading="lazy" decoding="async"&gt;\n&lt;/picture&gt;</pre>';
-      } catch (e) {
-        log.innerHTML = '<span class="err">✗ ' + e.message + '</span>';
-      } finally {
-        $('imgGo').disabled = false;
-        setTimeout(() => { $('imgBar').style.display = 'none'; $('imgBar').firstElementChild.style.width = '0'; }, 1200);
-      }
+  // Nav
+  document.querySelectorAll('.sidebar nav button').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('.sidebar nav button').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      currentPage=b.dataset.page;
+      render();
     };
+  });
 
-    // ===================== VIDEO =====================
-    let vidFile = null;
-    wireDrop('vidDrop', 'vidFile', (f) => {
-      vidFile = f;
-      $('vidDrop').innerHTML = '✔ ' + f.name + '<br/><span class="log mut">' + (f.size / 1048576).toFixed(1) + ' MB</span>';
-      if (!$('vidName').value) $('vidName').value = f.name.replace(/\.[^.]+$/, '');
-      $('vidGo').disabled = false;
-    });
+  function render(){
+    if(currentPage==='articles')renderArticles();
+    else if(currentPage==='edit-article')renderEditArticle(currentEditId);
+    else if(currentPage==='media')renderMedia();
+    else if(currentPage==='upload-image')renderUploadImage();
+    else if(currentPage==='upload-video')renderUploadVideo();
+  }
 
-    // Minimal TUS uploader for Bunny Stream (chunked, resumable PATCH loop).
-    async function tusUpload(file, info, onProgress) {
-      const meta = 'filetype ' + btoa(file.type || 'video/mp4') + ',title ' + btoa(unescape(encodeURIComponent(info.title)));
-      const create = await fetch(info.endpoint, {
-        method: 'POST',
-        headers: {
-          'Tus-Resumable': '1.0.0',
-          'Upload-Length': String(file.size),
-          'Upload-Metadata': meta,
-          AuthorizationSignature: info.signature,
-          AuthorizationExpire: String(info.expire),
-          VideoId: info.videoId,
-          LibraryId: String(info.libraryId),
-        },
+  // ==================== ARTICLES LIST ====================
+  async function renderArticles(){
+    app.innerHTML='<div class="toolbar"><h2>Articles</h2><div class="spacer"></div><button class="btn btn-primary" id="newArt">+ New Article</button></div><div id="artList"><div class="empty"><div class="spinner"></div></div></div>';
+    $('newArt').onclick=()=>{currentEditId=null;currentPage='edit-article';render();};
+    try{
+      const arts=await api('/api/articles?drafts=1');
+      if(!arts.length){$('artList').innerHTML='<div class="empty">No articles yet. Create your first one!</div>';return;}
+      let html='<table class="table"><thead><tr><th>Title</th><th>Category</th><th>Status</th><th>Date</th><th></th></tr></thead><tbody>';
+      for(const a of arts){
+        const d=new Date(a.created_at).toLocaleDateString();
+        html+=`<tr>
+          <td><strong>${esc(a.title)}</strong></td>
+          <td>${esc(a.category||'—')}</td>
+          <td>${a.published?'<span class="badge badge-ok">Published</span>':'<span class="badge badge-draft">Draft</span>'}</td>
+          <td style="color:var(--mut)">${d}</td>
+          <td><button class="btn btn-ghost btn-sm" data-edit="${a.id}">Edit</button></td>
+        </tr>`;
+      }
+      html+='</tbody></table>';
+      $('artList').innerHTML=html;
+      document.querySelectorAll('[data-edit]').forEach(b=>{
+        b.onclick=()=>{currentEditId=b.dataset.edit;currentPage='edit-article';render();};
       });
-      if (create.status !== 201) throw new Error('Bunny TUS create failed: ' + create.status);
-      const location = create.headers.get('Location');
+    }catch(e){$('artList').innerHTML='<div class="empty" style="color:var(--err)">'+esc(e.message)+'</div>';}
+  }
 
-      const CHUNK = 32 * 1024 * 1024; // 32MB
-      let offset = 0;
-      while (offset < file.size) {
-        const slice = file.slice(offset, Math.min(offset + CHUNK, file.size));
-        const buf = await slice.arrayBuffer();
-        const patch = await fetch(location, {
-          method: 'PATCH',
-          headers: {
-            'Tus-Resumable': '1.0.0',
-            'Upload-Offset': String(offset),
-            'Content-Type': 'application/offset+octet-stream',
-            AuthorizationSignature: info.signature,
-            AuthorizationExpire: String(info.expire),
-            VideoId: info.videoId,
-            LibraryId: String(info.libraryId),
-          },
-          body: buf,
-        });
-        if (patch.status !== 204) throw new Error('Bunny TUS chunk failed: ' + patch.status);
-        offset = parseInt(patch.headers.get('Upload-Offset'), 10);
-        onProgress(offset / file.size);
+  // ==================== ARTICLE EDITOR ====================
+  let currentEditId=null;
+  async function renderEditArticle(id){
+    app.innerHTML='<div class="toolbar"><button class="btn btn-ghost" id="backBtn">&larr; Back</button><div class="spacer"></div><span id="saveStatus" style="color:var(--mut);font-size:12px;"></span></div><div id="editorArea"><div class="empty"><div class="spinner"></div></div></div>';
+    $('backBtn').onclick=()=>{currentPage='articles';render();};
+
+    let article={title:'',body:'',cover_image_url:'',category:'news',published:false};
+    if(id){
+      try{article=await api('/api/articles?id='+id+'&drafts=1');}catch(e){toast(e.message,false);return;}
+    }
+    renderEditorForm(article,!!id);
+  }
+
+  function renderEditorForm(a,isEdit){
+    const area=$('editorArea');
+    area.innerHTML=`
+      <div class="field"><label>Title</label><input type="text" id="artTitle" value="${attr(a.title)}" placeholder="Article title"/></div>
+      <div class="field-row">
+        <div class="field"><label>Category</label>
+          <select id="artCat">
+            <option value="news" ${a.category==='news'?'selected':''}>News</option>
+            <option value="behind-the-scenes" ${a.category==='behind-the-scenes'?'selected':''}>Behind the Scenes</option>
+            <option value="press" ${a.category==='press'?'selected':''}>Press</option>
+            <option value="awards" ${a.category==='awards'?'selected':''}>Awards</option>
+            <option value="blog" ${a.category==='blog'?'selected':''}>Blog</option>
+          </select>
+        </div>
+        <div class="field"><label>Cover Image URL</label><input type="text" id="artCover" value="${attr(a.cover_image_url||'')}" placeholder="Paste URL or pick from Media Library"/></div>
+      </div>
+      <div class="field">
+        <label>Body (Markdown supported)</label>
+        <textarea id="artBody" placeholder="Write your article here...">${esc(a.body||'')}</textarea>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <label style="font-size:13px;display:flex;align-items:center;gap:6px;cursor:pointer;">
+          <input type="checkbox" id="artPub" ${a.published?'checked':''}/> Published
+        </label>
+        <div class="spacer" style="flex:1;"></div>
+        ${isEdit?'<button class="btn btn-danger btn-sm" id="artDel">Delete</button>':''}
+        <button class="btn btn-ghost" id="artSaveDraft">Save Draft</button>
+        <button class="btn btn-primary" id="artPublish">Save & Publish</button>
+      </div>
+    `;
+
+    async function save(publish){
+      const body={
+        title:$('artTitle').value,
+        body:$('artBody').value,
+        cover_image_url:$('artCover').value||null,
+        category:$('artCat').value,
+        published: publish !== undefined ? publish : $('artPub').checked
+      };
+      if(!body.title){toast('Title is required',false);return;}
+      try{
+        if(isEdit){
+          body.id=a.id;
+          await api('/api/articles',{method:'PUT',body:JSON.stringify(body)});
+        }else{
+          await api('/api/articles',{method:'POST',body:JSON.stringify(body)});
+        }
+        toast(publish?'Published!':'Saved!');
+        currentPage='articles';render();
+      }catch(e){toast(e.message,false);}
+    }
+
+    $('artSaveDraft').onclick=()=>save(false);
+    $('artPublish').onclick=()=>save(true);
+    if(isEdit&&$('artDel')){
+      $('artDel').onclick=async()=>{
+        if(!confirm('Delete this article?'))return;
+        try{await api('/api/articles?id='+a.id,{method:'DELETE'});toast('Deleted');currentPage='articles';render();}
+        catch(e){toast(e.message,false);}
+      };
+    }
+  }
+
+  // ==================== MEDIA LIBRARY ====================
+  async function renderMedia(){
+    app.innerHTML='<div class="toolbar"><h2>Media Library</h2></div><div id="mediaArea"><div class="empty"><div class="spinner"></div></div></div>';
+    try{
+      const list=await api('/api/media-list');
+      if(!list.length){$('mediaArea').innerHTML='<div class="empty">No media yet. Upload some images!</div>';return;}
+      let html='<div class="media-grid">';
+      for(const m of list){
+        const isImg=m.type==='image';
+        html+=`<div class="media-card" title="${attr(m.name)}" data-url="${attr(m.url)}">
+          ${isImg?`<img src="${attr(m.url)}" alt="${attr(m.name)}" loading="lazy"/>`:`<div style="aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:var(--bg);font-size:28px;">🎬</div>`}
+          <div class="name">${esc(m.name||'untitled')}</div>
+        </div>`;
+      }
+      html+='</div>';
+      $('mediaArea').innerHTML=html;
+      document.querySelectorAll('.media-card').forEach(c=>{
+        c.onclick=()=>{
+          navigator.clipboard.writeText(c.dataset.url);
+          toast('URL copied to clipboard!');
+        };
+      });
+    }catch(e){$('mediaArea').innerHTML='<div class="empty" style="color:var(--err)">'+esc(e.message)+'</div>';}
+  }
+
+  // ==================== UPLOAD IMAGE ====================
+  function renderUploadImage(){
+    app.innerHTML=`
+      <h2>Upload Image</h2>
+      <p style="color:var(--mut);font-size:13px;margin-bottom:16px;">Uploads are auto-optimized to AVIF and stored in Supabase. Use the URL in articles or anywhere on the site.</p>
+      <div class="field"><label>File name (optional)</label><input type="text" id="imgName" placeholder="e.g. Janjaal BTS 1"/></div>
+      <div class="drop" id="imgDrop">Drop an image here, or click to choose</div>
+      <input type="file" id="imgFile" accept="image/*" style="display:none;"/>
+      <img id="imgThumb" style="max-width:200px;border-radius:8px;margin-top:12px;display:none;"/>
+      <div id="imgProgress" style="margin-top:12px;"></div>
+      <button class="btn btn-primary" id="imgGo" disabled style="margin-top:16px;">Upload & Optimize</button>
+      <div id="imgResult" style="margin-top:16px;"></div>
+    `;
+    let file=null;
+    const drop=$('imgDrop'),inp=$('imgFile');
+    drop.onclick=()=>inp.click();
+    drop.ondragover=e=>{e.preventDefault();drop.classList.add('hover');};
+    drop.ondragleave=()=>drop.classList.remove('hover');
+    drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hover');if(e.dataTransfer.files[0])setFile(e.dataTransfer.files[0]);};
+    inp.onchange=()=>{if(inp.files[0])setFile(inp.files[0]);};
+
+    function setFile(f){
+      file=f;
+      drop.textContent='Selected: '+f.name+' ('+(f.size/1024).toFixed(0)+' KB)';
+      const t=$('imgThumb');t.src=URL.createObjectURL(f);t.style.display='block';
+      if(!$('imgName').value)$('imgName').value=f.name.replace(/\.[^.]+$/,'');
+      $('imgGo').disabled=false;
+    }
+
+    async function prepImage(f,maxDim=2560){
+      const bmp=await createImageBitmap(f);
+      let{width:w,height:h}=bmp;
+      const s=Math.min(1,maxDim/Math.max(w,h));
+      w=Math.round(w*s);h=Math.round(h*s);
+      const c=document.createElement('canvas');c.width=w;c.height=h;
+      c.getContext('2d').drawImage(bmp,0,0,w,h);
+      const blob=await new Promise(r=>c.toBlob(r,'image/webp',0.95));
+      return new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(blob);});
+    }
+
+    $('imgGo').onclick=async()=>{
+      if(!file)return;
+      $('imgGo').disabled=true;
+      $('imgProgress').innerHTML='<div class="spinner"></div> Optimizing & uploading...';
+      try{
+        const dataUrl=await prepImage(file);
+        const res=await api('/api/media-upload',{method:'POST',body:JSON.stringify({password:pw.value,filename:$('imgName').value||file.name,dataUrl})});
+        $('imgProgress').innerHTML='';
+        $('imgResult').innerHTML=`<div style="color:var(--ok);font-weight:600;">Uploaded! (${(res.size/1024).toFixed(0)} KB optimized)</div>
+          <div class="field" style="margin-top:10px;"><label>Image URL (click to copy)</label>
+          <input type="text" value="${attr(res.url)}" readonly onclick="this.select();navigator.clipboard.writeText(this.value);" style="cursor:pointer;"/></div>
+          <img src="${attr(res.url)}" style="max-width:300px;border-radius:8px;margin-top:8px;"/>`;
+        toast('Image uploaded!');
+      }catch(e){
+        $('imgProgress').innerHTML='';
+        $('imgResult').innerHTML='<div style="color:var(--err)">'+esc(e.message)+'</div>';
+      }finally{$('imgGo').disabled=false;}
+    };
+  }
+
+  // ==================== UPLOAD VIDEO ====================
+  function renderUploadVideo(){
+    app.innerHTML=`
+      <h2>Upload Video</h2>
+      <p style="color:var(--mut);font-size:13px;margin-bottom:16px;">Videos upload directly to Bunny Stream. They'll be auto-transcoded for web playback.</p>
+      <div class="field"><label>Video title</label><input type="text" id="vidName" placeholder="e.g. Janjaal — Official Trailer"/></div>
+      <div class="drop" id="vidDrop">Drop a video here, or click to choose</div>
+      <input type="file" id="vidFile" accept="video/*" style="display:none;"/>
+      <div id="vidProgress" style="margin-top:12px;"></div>
+      <button class="btn btn-primary" id="vidGo" disabled style="margin-top:16px;">Upload to Bunny</button>
+      <div id="vidResult" style="margin-top:16px;"></div>
+    `;
+    let file=null;
+    const drop=$('vidDrop'),inp=$('vidFile');
+    drop.onclick=()=>inp.click();
+    drop.ondragover=e=>{e.preventDefault();drop.classList.add('hover');};
+    drop.ondragleave=()=>drop.classList.remove('hover');
+    drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hover');if(e.dataTransfer.files[0])setVid(e.dataTransfer.files[0]);};
+    inp.onchange=()=>{if(inp.files[0])setVid(inp.files[0]);};
+
+    function setVid(f){
+      file=f;
+      drop.textContent='Selected: '+f.name+' ('+(f.size/1048576).toFixed(1)+' MB)';
+      if(!$('vidName').value)$('vidName').value=f.name.replace(/\.[^.]+$/,'');
+      $('vidGo').disabled=false;
+    }
+
+    async function tusUpload(file,info,onProgress){
+      const meta='filetype '+btoa(file.type||'video/mp4')+',title '+btoa(unescape(encodeURIComponent(info.title)));
+      const create=await fetch(info.endpoint,{method:'POST',headers:{'Tus-Resumable':'1.0.0','Upload-Length':String(file.size),'Upload-Metadata':meta,AuthorizationSignature:info.signature,AuthorizationExpire:String(info.expire),VideoId:info.videoId,LibraryId:String(info.libraryId)}});
+      if(create.status!==201)throw new Error('TUS create failed: '+create.status);
+      const loc=create.headers.get('Location');
+      const CHUNK=32*1024*1024;let offset=0;
+      while(offset<file.size){
+        const slice=file.slice(offset,Math.min(offset+CHUNK,file.size));
+        const buf=await slice.arrayBuffer();
+        const patch=await fetch(loc,{method:'PATCH',headers:{'Tus-Resumable':'1.0.0','Upload-Offset':String(offset),'Content-Type':'application/offset+octet-stream',AuthorizationSignature:info.signature,AuthorizationExpire:String(info.expire),VideoId:info.videoId,LibraryId:String(info.libraryId)},body:buf});
+        if(patch.status!==204)throw new Error('TUS chunk failed: '+patch.status);
+        offset=parseInt(patch.headers.get('Upload-Offset'),10);
+        onProgress(offset/file.size);
       }
     }
 
-    $('vidGo').onclick = async () => {
-      if (!vidFile) return;
-      const log = $('vidLog'); log.innerHTML = '<span class="mut">Requesting upload slot…</span>';
-      $('vidGo').disabled = true; $('vidBar').style.display = 'block'; $('vidBar').firstElementChild.style.width = '3%';
-      try {
-        const res = await fetch('/api/bunny-create', {
-          method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ password: pw.value, title: $('vidName').value || vidFile.name }),
-        });
-        const info = await res.json();
-        if (!res.ok) throw new Error(info.error || 'Could not create video');
-        log.innerHTML = '<span class="mut">Uploading to Bunny…</span>';
-        await tusUpload(vidFile, info, (p) => { $('vidBar').firstElementChild.style.width = (3 + p * 97).toFixed(0) + '%'; });
-        log.innerHTML =
-          '<span class="ok">✔ Uploaded. Bunny is now transcoding.</span>\n' +
-          'Embed iframe:' +
-          '<pre class="snippet">&lt;iframe src="' + info.embedUrl + '" loading="lazy" allow="fullscreen" style="border:0;width:100%;aspect-ratio:16/9"&gt;&lt;/iframe&gt;</pre>' +
-          (info.mp4Url ? 'Direct MP4 (once transcoded):<pre class="snippet">' + info.mp4Url + '</pre>' : '');
-      } catch (e) {
-        log.innerHTML = '<span class="err">✗ ' + e.message + '</span>';
-      } finally {
-        $('vidGo').disabled = false;
-      }
+    $('vidGo').onclick=async()=>{
+      if(!file)return;
+      $('vidGo').disabled=true;
+      $('vidProgress').innerHTML='<div class="spinner"></div> Requesting upload slot...';
+      try{
+        const info=await api('/api/bunny-create',{method:'POST',body:JSON.stringify({password:pw.value,title:$('vidName').value||file.name})});
+        $('vidProgress').innerHTML='<div class="spinner"></div> Uploading to Bunny...';
+        await tusUpload(file,info,(p)=>{$('vidProgress').innerHTML='<div class="spinner"></div> Uploading... '+(p*100).toFixed(0)+'%';});
+        $('vidProgress').innerHTML='';
+        $('vidResult').innerHTML=`<div style="color:var(--ok);font-weight:600;">Uploaded! Bunny is transcoding.</div>
+          <div class="field" style="margin-top:10px;"><label>Embed URL</label>
+          <input type="text" value="${attr(info.embedUrl)}" readonly onclick="this.select();navigator.clipboard.writeText(this.value);" style="cursor:pointer;"/></div>`;
+        toast('Video uploaded!');
+      }catch(e){
+        $('vidProgress').innerHTML='';
+        $('vidResult').innerHTML='<div style="color:var(--err)">'+esc(e.message)+'</div>';
+      }finally{$('vidGo').disabled=false;}
     };
-  })();
-  </script>
+  }
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function attr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+  render();
+})();
+</script>
 </body>
 </html>

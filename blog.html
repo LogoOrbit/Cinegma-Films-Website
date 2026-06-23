@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+<link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
+<title>Blog — Cinegma Films | News & Behind the Scenes</title>
+<meta name="description" content="News, behind-the-scenes stories, awards updates and articles from Cinegma Films and filmmaker Syed Asad Raza Abidi."/>
+<link rel="canonical" href="https://cinegmafilms.com/blog.html"/>
+<meta property="og:title" content="Blog — Cinegma Films"/>
+<meta property="og:description" content="News, behind-the-scenes stories and updates from Cinegma Films."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://cinegmafilms.com/blog.html"/>
+<meta property="og:image" content="https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="robots" content="index, follow"/>
+<meta name="theme-color" content="#080808"/>
+<link rel="stylesheet" href="assets/css/creative-enhancements.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/></noscript>
+
+<style>
+:root{--black:#080808;--white:#f0ece4;--grey:#888;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#c9a55a;--gold-dim:rgba(201,165,90,0.18);}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:24px 60px;background:linear-gradient(to bottom,rgba(8,8,8,.96) 0%,transparent 100%);transition:padding .3s;}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.25em;color:var(--white);text-decoration:none;opacity:.9;}
+.nav-links{display:flex;gap:36px;list-style:none;}
+.nav-links a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,228,.55);text-decoration:none;transition:color .3s;font-weight:400;}
+.nav-links a:hover,.nav-links a.active{color:var(--white);}
+.nav-contact-cta{border:1px solid rgba(240,236,228,.5)!important;padding:5px 14px!important;color:rgba(240,236,228,.85)!important;transition:background .3s,border-color .3s,color .3s!important;}
+.nav-contact-cta:hover{background:var(--white)!important;color:var(--black)!important;border-color:var(--white)!important;}
+@media(max-width:1200px){.nav-links{gap:22px;}.nav-links a{font-size:.72rem;letter-spacing:.1em;}}
+@media(max-width:1040px){.nav-links{gap:14px;}.nav-links a{font-size:.68rem;}}
+
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;z-index:600;background:none;border:none;min-width:44px;min-height:44px;align-items:center;justify-content:center;}
+.nav-hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:transform .3s,opacity .3s;}
+.nav-mobile{display:flex!important;position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:550;flex-direction:column;justify-content:center;align-items:center;gap:32px;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .35s ease,transform .35s ease;}
+.nav-mobile.open{opacity:1;pointer-events:all;transform:translateY(0);}
+.nav-mobile a{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.12em;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s;}
+.nav-mobile a:hover{opacity:1;}
+.nav-mobile a.active{opacity:1;text-decoration:underline;text-underline-offset:6px;text-decoration-color:rgba(240,236,228,.4);}
+.nav-mobile-close{position:absolute;top:22px;right:22px;font-size:1.8rem;color:var(--white);cursor:pointer;opacity:.5;background:none;border:none;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
+@media(max-width:900px){.nav-links{display:none;}.nav-hamburger{display:flex;}}
+
+.back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(240,236,228,.1);border:1px solid rgba(240,236,228,.15);color:var(--white);cursor:pointer;opacity:0;transition:opacity .3s;z-index:400;display:flex;align-items:center;justify-content:center;}
+.back-to-top.show{opacity:1;}
+.back-to-top svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;}
+
+/* Page hero */
+.blog-hero{padding:140px 60px 60px;text-align:center;}
+.blog-hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,6vw,4.5rem);letter-spacing:.08em;margin-bottom:12px;}
+.blog-hero p{color:var(--grey);font-size:1rem;max-width:500px;margin:0 auto;}
+
+/* Articles grid */
+.articles{max-width:1100px;margin:0 auto;padding:0 40px 80px;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:28px;}
+.article-card{background:var(--mid);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:transform .25s,border-color .25s;cursor:pointer;text-decoration:none;color:var(--white);}
+.article-card:hover{transform:translateY(-4px);border-color:rgba(201,165,90,.3);}
+.article-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;}
+.article-card .placeholder{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a1a1f,#0e0e12);display:flex;align-items:center;justify-content:center;color:var(--grey);font-size:2rem;}
+.article-card .info{padding:18px 20px 22px;}
+.article-card .cat{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:8px;font-weight:400;}
+.article-card h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;line-height:1.35;margin-bottom:8px;}
+.article-card .date{font-size:.75rem;color:var(--grey);}
+.article-card .excerpt{font-size:.85rem;color:rgba(240,236,228,.6);line-height:1.6;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+
+.loading{text-align:center;padding:60px;color:var(--grey);}
+.empty-state{text-align:center;padding:80px 20px;color:var(--grey);}
+
+/* Single article view */
+.article-view{max-width:720px;margin:0 auto;padding:140px 24px 80px;}
+.article-view .back{display:inline-flex;align-items:center;gap:6px;color:var(--grey);font-size:.85rem;text-decoration:none;margin-bottom:32px;transition:color .2s;}
+.article-view .back:hover{color:var(--white);}
+.article-view .cover{width:100%;border-radius:12px;margin-bottom:28px;aspect-ratio:16/9;object-fit:cover;}
+.article-view .meta{display:flex;gap:16px;align-items:center;margin-bottom:24px;flex-wrap:wrap;}
+.article-view .meta .cat{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);font-weight:400;background:var(--gold-dim);padding:4px 10px;border-radius:20px;}
+.article-view .meta .date{font-size:.8rem;color:var(--grey);}
+.article-view h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:400;line-height:1.25;margin-bottom:28px;}
+.article-view .body{font-size:1rem;line-height:1.85;color:rgba(240,236,228,.85);}
+.article-view .body p{margin-bottom:1.2em;}
+.article-view .body h2,.article-view .body h3{font-family:'Cormorant Garamond',serif;font-weight:400;margin:1.5em 0 .6em;}
+.article-view .body h2{font-size:1.5rem;}
+.article-view .body h3{font-size:1.2rem;}
+.article-view .body img{max-width:100%;border-radius:8px;margin:1em 0;}
+.article-view .body blockquote{border-left:3px solid var(--gold);padding-left:16px;margin:1.2em 0;color:rgba(240,236,228,.65);font-style:italic;}
+.article-view .body a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;}
+
+footer{border-top:1px solid var(--border);padding:40px 60px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:20px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;}
+.footer-tagline{color:var(--grey);font-size:.75rem;margin-top:4px;}
+.footer-links{list-style:none;display:flex;gap:20px;flex-wrap:wrap;}
+.footer-links a{font-size:.75rem;color:var(--grey);text-decoration:none;transition:color .2s;font-weight:400;}
+.footer-links a:hover{color:var(--white);}
+.footer-copy{font-size:.7rem;color:rgba(240,236,228,.3);width:100%;text-align:center;margin-top:12px;}
+
+@media(max-width:600px){
+  .blog-hero{padding:120px 20px 40px;}
+  .articles{padding:0 16px 60px;grid-template-columns:1fr;}
+  .article-view{padding:120px 16px 60px;}
+  footer{padding:30px 20px;flex-direction:column;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Cinegma Films</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="watch.html">Watch</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="press.html">Press</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+    <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
+  </ul>
+  <button class="nav-hamburger" id="hamburger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" onclick="openMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-mobile" id="mobileMenu">
+  <span class="nav-mobile-close" onclick="closeMenu()">&#10005;</span>
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="watch.html" onclick="closeMenu()">Watch</a>
+  <a href="services.html" onclick="closeMenu()">Services</a>
+  <a href="about.html" onclick="closeMenu()">About</a>
+  <a href="press.html" onclick="closeMenu()">Press</a>
+  <a href="blog.html" class="active" onclick="closeMenu()">Blog</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
+</div>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
+<div id="app">
+  <div class="blog-hero">
+    <h1>Blog</h1>
+    <p>News, behind-the-scenes stories, and updates from Cinegma Films.</p>
+  </div>
+  <div class="articles" id="articleGrid">
+    <div class="loading">Loading articles...</div>
+  </div>
+</div>
+
+<footer>
+<div>
+<p class="footer-logo">Cinegma Films</p>
+<p class="footer-tagline">Cinema without compromise.</p>
+</div>
+<ul class="footer-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="watch.html">Watch</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="press.html">Press</a></li>
+<li><a href="blog.html">Blog</a></li>
+<li><a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener">IMDb</a></li>
+</ul>
+<p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
+</footer>
+
+<script>
+function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.getElementById('hamburger').setAttribute('aria-expanded','true');}
+function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.getElementById('hamburger').setAttribute('aria-expanded','false');}
+window.addEventListener('scroll',function(){document.getElementById('backToTop').classList.toggle('show',window.scrollY>400);});
+
+(function(){
+  var SUPABASE='https://lriiaafqnjhfsizamdxz.supabase.co';
+  var ANON='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxyaWlhYWZxbmpoZnNpemFtZHh6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIyMjgyMjAsImV4cCI6MjA5NzgwNDIyMH0.ZXuF6HLQEaUJrr8t_v3d5elWpcqG2OrXwEjUOtO-Qw0';
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  function markdownToHtml(md){
+    var html=esc(md);
+    html=html.replace(/^### (.+)$/gm,'<h3>$1</h3>');
+    html=html.replace(/^## (.+)$/gm,'<h2>$1</h2>');
+    html=html.replace(/^# (.+)$/gm,'<h2>$1</h2>');
+    html=html.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+    html=html.replace(/\*(.+?)\*/g,'<em>$1</em>');
+    html=html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,'<img src="$2" alt="$1"/>');
+    html=html.replace(/\[([^\]]+)\]\(([^)]+)\)/g,'<a href="$2" target="_blank" rel="noopener">$1</a>');
+    html=html.replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>');
+    html=html.replace(/\n\n+/g,'</p><p>');
+    html='<p>'+html+'</p>';
+    html=html.replace(/<p>\s*(<h[23]>)/g,'$1');
+    html=html.replace(/(<\/h[23]>)\s*<\/p>/g,'$1');
+    html=html.replace(/<p>\s*(<blockquote>)/g,'$1');
+    html=html.replace(/(<\/blockquote>)\s*<\/p>/g,'$1');
+    html=html.replace(/<p>\s*(<img[^>]+>)\s*<\/p>/g,'$1');
+    return html;
+  }
+
+  function formatDate(d){return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});}
+
+  function getSlug(){var h=window.location.hash;return h?h.slice(1):null;}
+
+  async function fetchArticles(){
+    var r=await fetch(SUPABASE+'/rest/v1/articles?published=eq.true&order=created_at.desc',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}});
+    if(!r.ok)throw new Error('Failed to load');
+    return r.json();
+  }
+
+  async function fetchBySlug(slug){
+    var r=await fetch(SUPABASE+'/rest/v1/articles?slug=eq.'+encodeURIComponent(slug)+'&published=eq.true&limit=1',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}});
+    if(!r.ok)throw new Error('Failed to load');
+    var d=await r.json();
+    return d[0]||null;
+  }
+
+  function renderGrid(articles){
+    var grid=document.getElementById('articleGrid');
+    if(!articles.length){grid.innerHTML='<div class="empty-state">No articles published yet. Check back soon!</div>';return;}
+    var html='';
+    for(var i=0;i<articles.length;i++){
+      var a=articles[i];
+      html+='<a class="article-card" href="#'+esc(a.slug)+'">';
+      if(a.cover_image_url){html+='<img src="'+esc(a.cover_image_url)+'" alt="'+esc(a.title)+'" loading="lazy"/>';}
+      else{html+='<div class="placeholder">&#9658;</div>';}
+      html+='<div class="info">';
+      if(a.category)html+='<div class="cat">'+esc(a.category.replace(/-/g,' '))+'</div>';
+      html+='<h3>'+esc(a.title)+'</h3>';
+      html+='<div class="date">'+formatDate(a.created_at)+'</div>';
+      if(a.body){var excerpt=a.body.replace(/[#*>\[\]!()\-]/g,'').slice(0,160);html+='<div class="excerpt">'+esc(excerpt)+'...</div>';}
+      html+='</div></a>';
+    }
+    grid.innerHTML=html;
+  }
+
+  function renderArticle(a){
+    var appEl=document.getElementById('app');
+    var html='<div class="article-view">';
+    html+='<a href="blog.html" class="back">&larr; Back to Blog</a>';
+    if(a.cover_image_url)html+='<img class="cover" src="'+esc(a.cover_image_url)+'" alt="'+esc(a.title)+'"/>';
+    html+='<div class="meta">';
+    if(a.category)html+='<span class="cat">'+esc(a.category.replace(/-/g,' '))+'</span>';
+    html+='<span class="date">'+formatDate(a.created_at)+'</span>';
+    html+='</div>';
+    html+='<h1>'+esc(a.title)+'</h1>';
+    html+='<div class="body">'+markdownToHtml(a.body||'')+'</div>';
+    html+='</div>';
+    appEl.innerHTML=html;
+  }
+
+  async function route(){
+    var slug=getSlug();
+    if(slug){
+      document.getElementById('app').innerHTML='<div class="loading" style="padding:180px 20px 80px;">Loading...</div>';
+      try{
+        var a=await fetchBySlug(slug);
+        if(a){renderArticle(a);document.title=a.title+' — Cinegma Films';window.scrollTo(0,0);}
+        else{document.getElementById('app').innerHTML='<div class="empty-state" style="padding:180px 20px;">Article not found.</div>';}
+      }catch(e){document.getElementById('app').innerHTML='<div class="empty-state" style="padding:180px 20px;color:#e0574f;">'+esc(e.message)+'</div>';}
+    }else{
+      document.getElementById('app').innerHTML='<div class="blog-hero"><h1>Blog</h1><p>News, behind-the-scenes stories, and updates from Cinegma Films.</p></div><div class="articles" id="articleGrid"><div class="loading">Loading articles...</div></div>';
+      document.title='Blog — Cinegma Films | News & Behind the Scenes';
+      try{var arts=await fetchArticles();renderGrid(arts);}catch(e){document.getElementById('articleGrid').innerHTML='<div class="empty-state" style="color:#e0574f;">'+esc(e.message)+'</div>';}
+    }
+  }
+
+  window.addEventListener('hashchange',route);
+  route();
+})();
+</script>
+<script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+</body>
+</html>
