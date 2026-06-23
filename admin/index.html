@@ -412,7 +412,7 @@
 
   // ============ MEDIA ============
   async function renderMedia(){
-    app.innerHTML=pageHead('Assets','Media Library','Every image and video you\\'ve uploaded. Click any item to copy its URL.')+
+    app.innerHTML=pageHead('Assets','Media Library','Every image and video you have uploaded. Click any item to copy its URL.')+
       `<div id="mediaArea"><div class="loading-state"><span class="spinner"></span> Loading media…</div></div>`;
     try{
       const list=await api('/api/media-list');
