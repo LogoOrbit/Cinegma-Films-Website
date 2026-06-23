@@ -1,5 +1,6 @@
 const sharp = require('sharp');
 const { createClient } = require('@supabase/supabase-js');
+const auth = require('../lib/auth');
 
 function getSupabase() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
@@ -9,8 +10,8 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   try {
-    const { password, filename, dataUrl } = req.body || {};
-    if (!process.env.DASHBOARD_PASSWORD || password !== process.env.DASHBOARD_PASSWORD) {
+    const { filename, dataUrl, caption } = req.body || {};
+    if (!auth.getAuth(req)) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
     if (!dataUrl || !filename) return res.status(400).json({ error: 'Missing filename or data' });
@@ -31,7 +32,7 @@ module.exports = async (req, res) => {
     const { data: { publicUrl } } = sb.storage.from('media').getPublicUrl(storagePath);
 
     const { data: row, error: dbErr } = await sb.from('media').insert({
-      url: publicUrl, name, type: 'image', size_bytes: avifBuf.length
+      url: publicUrl, name, type: 'image', size_bytes: avifBuf.length, caption: caption || null
     }).select().single();
     if (dbErr) throw dbErr;
 

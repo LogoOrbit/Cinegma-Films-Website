@@ -12,6 +12,7 @@
 //                               used to build playable URLs in the response
 
 const crypto = require('crypto');
+const auth = require('../lib/auth');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -20,9 +21,9 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { password, title } = req.body || {};
+    const { title } = req.body || {};
 
-    if (!process.env.DASHBOARD_PASSWORD || password !== process.env.DASHBOARD_PASSWORD) {
+    if (!auth.getAuth(req)) {
       res.status(401).json({ error: 'Unauthorized' });
       return;
     }
