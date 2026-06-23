@@ -36,6 +36,7 @@
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cinegmafilms.com/"},{"@type":"ListItem","position":2,"name":"About","item":"https://cinegmafilms.com/about.html"}]}
 </script>
+<link rel="stylesheet" href="assets/css/creative-enhancements.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap"/>
@@ -500,6 +501,89 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 </style>
 </head>
 <body>
+<!-- OPENING CREDITS OVERLAY -->
+<div class="credits-overlay" id="creditsOverlay">
+  <div class="credit-card" data-index="0">
+    <div class="credit-role">a film by</div>
+    <div class="credit-name">Cinegma Films</div>
+    <div class="credit-divider"></div>
+  </div>
+  <div class="credit-card" data-index="1">
+    <div class="credit-name">Syed Asad<br>Raza Abidi</div>
+    <div class="credit-role">Filmmaker · Director · Editor · Colorist · Founder</div>
+    <div class="credit-divider"></div>
+  </div>
+  <div class="credit-card" data-index="2">
+    <div class="credit-name">Faizan Ahmed</div>
+    <div class="credit-role">Producer · Director · Writer · Production Designer</div>
+    <div class="credit-divider"></div>
+  </div>
+  <div class="credit-card" data-index="3">
+    <div class="credit-name">Ameer Hamza</div>
+    <div class="credit-role">Filmmaker · Writer · Producer</div>
+    <div class="credit-divider"></div>
+  </div>
+  <div class="credit-card" data-index="4">
+    <div class="credit-name">Ghayas Uddin Siddiqui</div>
+    <div class="credit-role">Director of Photography</div>
+    <div class="credit-divider"></div>
+  </div>
+  <div class="credit-card" data-index="5">
+    <div class="credit-name">Usman Ali Akbar</div>
+    <div class="credit-role">Music Composer</div>
+    <div class="credit-divider"></div>
+  </div>
+  <div class="credit-card" data-index="6">
+    <div class="credit-name">Dayyan Khalid</div>
+    <div class="credit-role">Producer · Assistant Director</div>
+    <div class="credit-divider"></div>
+  </div>
+  <button class="credits-skip" onclick="endCredits()">Skip ▶</button>
+</div>
+<script>
+(function(){
+  var overlay = document.getElementById('creditsOverlay');
+  if (!overlay) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var seen; try { seen = sessionStorage.getItem('cinegmaCredits'); } catch(e) { seen = null; }
+  if (seen || reduce || location.hash) { overlay.remove(); return; }
+
+  overlay.classList.add('active');
+  var cards = overlay.querySelectorAll('.credit-card');
+  var current = 0;
+  var ended = false;
+
+  function showCard(i) {
+    if (ended || i >= cards.length) { endCredits(); return; }
+    if (current > 0 && cards[current-1]) {
+      cards[current-1].classList.remove('show');
+      cards[current-1].classList.add('hide');
+    }
+    cards[i].classList.add('show');
+    current = i + 1;
+    setTimeout(function(){ showCard(current); }, 1800);
+  }
+
+  setTimeout(function(){ showCard(0); }, 400);
+
+  window.endCredits = function(){
+    if (ended) return; ended = true;
+    overlay.classList.add('fade-out');
+    try { sessionStorage.setItem('cinegmaCredits','1'); } catch(e){}
+    setTimeout(function(){ overlay.remove(); }, 800);
+  };
+
+  overlay.addEventListener('click', function(e) {
+    if (e.target.closest('.credits-skip')) return;
+    endCredits();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.key === ' ') endCredits();
+  });
+  window.addEventListener('wheel', endCredits, {passive:true,once:true});
+  setTimeout(endCredits, 14000);
+})();
+</script>
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursorRing"></div>
 
@@ -1452,6 +1536,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 </footer>
 
 <script src="assets/js/shared.js"></script>
+<script src="assets/js/creative-enhancements.js" defer></script>
 <script>initHeroParallax('heroImg','pageHero',0.4,1.1);</script>
 <script>
 // Count-up for hero stats — starts after fadeUp makes them visible
