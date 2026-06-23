@@ -1,4 +1,14 @@
 User-agent: *
 Disallow:
+Crawl-delay: 1
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
 
 Sitemap: https://cinegmafilms.com/sitemap.xml
