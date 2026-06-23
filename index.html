@@ -26,10 +26,13 @@
 <link rel="sitemap" type="application/xml" href="https://cinegmafilms.com/sitemap.xml"/>
   <link rel="alternate" hreflang="en" href="https://cinegmafilms.com/"/>
   <link rel="alternate" hreflang="x-default" href="https://cinegmafilms.com/"/>
+<link rel="preload" as="image" href="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif" type="image/avif"/>
+<link rel="preconnect" href="https://cinegmafilms.b-cdn.net" crossorigin/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/></noscript>
 
 <!-- JSON-LD: Person -->
 <script type="application/ld+json">
@@ -150,8 +153,8 @@ section{padding:100px 60px;position:relative;}
 
 /* ── WATCH TRAILER HOVER BUTTON ── */
 @keyframes btnPulseGlow{
-  0%,100%{box-shadow:0 0 0 0 rgba(240,236,228,.35),0 6px 40px rgba(0,0,0,.7);}
-  50%{box-shadow:0 0 0 10px rgba(240,236,228,.0),0 6px 40px rgba(0,0,0,.7);}
+  0%,100%{opacity:1;}
+  50%{opacity:.7;}
 }
 @keyframes btnFloat{
   0%,100%{transform:translate(-50%,-50%) scale(1);}
@@ -592,8 +595,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <!-- WATCH PAGE NUDGE BANNER -->
 <style>
 @keyframes nudgeGlow {
-  0%,100% { box-shadow: 0 0 18px 2px rgba(240,236,228,.13), 0 8px 40px rgba(0,0,0,.7); border-color: rgba(240,236,228,.5); }
-  50%      { box-shadow: 0 0 38px 8px rgba(240,236,228,.32), 0 8px 48px rgba(0,0,0,.8); border-color: rgba(240,236,228,.75); }
+  0%,100% { opacity:.85; }
+  50%      { opacity:1; }
 }
 @keyframes nudgePulseText {
   0%,100% { opacity:.82; }
@@ -695,7 +698,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" data-watch-hash="trailer-janjaal">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-janjaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Janjaal_Opt_01.avif" srcset="assets/posters/Janjaal_Opt_01-400w.avif 400w, assets/posters/Janjaal_Opt_01.avif 800w" sizes="(max-width: 768px) 380px, 800px" alt="Janjaal (Tussle) Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <div class="film-laurels">
         <div class="laurel-badge">Best Short Film<br>Toronto F/SF<br>2026</div>
@@ -725,7 +728,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-portrait">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-portrait')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Potrait_Opt_01.avif" srcset="assets/posters/Potrait_Opt_01-400w.avif 400w, assets/posters/Potrait_Opt_01.avif 800w" sizes="(max-width: 768px) 380px, 800px" alt="Portrait of Life Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">02</span>
       <div class="film-card-content">
@@ -743,7 +746,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-zawaal">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-zawaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Zawaal_Opt_01.avif" srcset="assets/posters/Zawaal_Opt_01-400w.avif 400w, assets/posters/Zawaal_Opt_01.avif 800w" sizes="(max-width: 768px) 380px, 800px" alt="Zawaal Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">03</span>
       <div class="film-card-content">
@@ -761,7 +764,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-soldier">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-soldier')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <img src="assets/posters/Solder_Opt_01.avif" srcset="assets/posters/Solder_Opt_01-400w.avif 400w, assets/posters/Solder_Opt_01.avif 800w" sizes="(max-width: 768px) 380px, 800px" alt="A Soldier Beside Me Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
       </div>
       <span class="film-card-num">04</span>
       <div class="film-card-content">
@@ -886,12 +889,12 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   </div>
   <div class="ns-grid reveal" style="transition-delay:.1s">
     <a class="ns-card" href="watch.html#trailer-janjaal" aria-label="Watch Janjaal (Tussle)">
-      <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) — stream now" loading="lazy" width="800" height="1200"/>
+      <img src="assets/posters/Janjaal_Opt_01.avif" srcset="assets/posters/Janjaal_Opt_01-400w.avif 400w, assets/posters/Janjaal_Opt_01.avif 800w" sizes="(max-width: 768px) 380px, 800px" alt="Janjaal (Tussle) — stream now" loading="lazy" width="800" height="1200"/>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Janjaal</span><span class="ns-card-tag">Thriller · 14 Awards</span></div>
     </a>
     <a class="ns-card" href="watch.html#trailer-portrait" aria-label="Watch Portrait of Life">
-      <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life — stream now" loading="lazy" width="800" height="1200"/>
+      <img src="assets/posters/Potrait_Opt_01.avif" srcset="assets/posters/Potrait_Opt_01-400w.avif 400w, assets/posters/Potrait_Opt_01.avif 800w" sizes="(max-width: 768px) 380px, 800px" alt="Portrait of Life — stream now" loading="lazy" width="800" height="1200"/>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Portrait of Life</span><span class="ns-card-tag">Drama · Teaser</span></div>
     </a>
@@ -1108,7 +1111,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-horizontal" onclick="toggleReel(this)">
       <span class="reel-tag">Janjaal · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Janjaalbts.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Janjaalbts.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1117,7 +1120,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-horizontal" onclick="toggleReel(this)">
       <span class="reel-tag">Portrait of Life · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Portraitbts.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portraitbts.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1126,7 +1129,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-horizontal" onclick="toggleReel(this)">
       <span class="reel-tag">Zawaal · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Zawaalbts.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Zawaalbts.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1135,7 +1138,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-vertical" onclick="toggleReel(this)">
       <span class="reel-tag">Portrait of Life · Reel</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1144,7 +1147,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-vertical" onclick="toggleReel(this)">
       <span class="reel-tag">A Soldier Beside Me · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/SoldierBTS.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/SoldierBTS.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1443,7 +1446,18 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
-<script src="assets/js/shared.js"></script>
+<script src="assets/js/shared.js" defer></script>
+<script>
+(function(){
+  var vids=document.querySelectorAll('.lazy-video');
+  if(!vids.length)return;
+  if(!('IntersectionObserver' in window)){vids.forEach(function(v){v.src=v.dataset.src;v.autoplay=true;});return;}
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){
+    if(e.isIntersecting){var v=e.target;v.src=v.dataset.src;v.autoplay=true;v.load();io.unobserve(v);}
+  });},{rootMargin:'200px'});
+  vids.forEach(function(v){io.observe(v);});
+})();
+</script>
 <script>
 // Laurels — row-by-row reveal as each item scrolls into view
 (function(){
