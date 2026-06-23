@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png" type="image/png"/>
-<link rel="apple-touch-icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png"/>
+<link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
 <title>Contact Cinegma Films — Syed Asad Raza Abidi</title>
 <meta name="description" content="Contact Cinegma Films and Syed Asad Raza Abidi for film collaborations, press inquiries, and festival submissions. Independent Pakistani filmmaker based in Karachi. Email: info@cinegmafilms.com"/>
 <meta name="keywords" content="Cinegma Films contact, Syed Asad Raza Abidi contact, Pakistani filmmaker contact, film collaboration Pakistan, press inquiry Cinegma Films, festival submission contact, hire Pakistani filmmaker, Karachi filmmaker contact, info@cinegmafilms.com"/>
@@ -314,6 +314,11 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   .footer-links a{font-size:.56rem;}
   .footer-copy{font-size:.54rem;letter-spacing:.06em;}
 }
+
+.back-to-top{position:fixed;bottom:32px;right:32px;z-index:450;width:44px;height:44px;background:rgba(240,236,228,.1);border:1px solid rgba(240,236,228,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .3s;backdrop-filter:blur(8px);}
+.back-to-top.visible{opacity:1;transform:translateY(0);}
+.back-to-top:hover{background:rgba(240,236,228,.2);}
+.back-to-top svg{width:16px;height:16px;fill:none;stroke:var(--white);stroke-width:2;}
 </style>
 
 <!-- JSON-LD: LocalBusiness (helps Google show contact info in search) -->
@@ -478,7 +483,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <li><a href="services.html">Services</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="press.html">Press</a></li>
-    <li><a href="contact.html" class="nav-contact-cta active">Contact</a></li>
+    <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" onclick="openMenu()">
     <span></span><span></span><span></span>
@@ -492,7 +497,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <a href="services.html" onclick="closeMenu()">Services</a>
   <a href="about.html" onclick="closeMenu()">About</a>
   <a href="press.html" onclick="closeMenu()">Press</a>
-  <a href="contact.html" class="active" onclick="closeMenu()">Contact</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
 </div>
 
 <main>
@@ -502,7 +507,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <img
       class="contact-hero-img"
       id="heroImg"
-      src="https://cinegmafilms.com/assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"
+      src="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"
+      loading="lazy"
       alt="Contact Cinegma Films"
     />
     <div class="contact-hero-overlay"></div>
@@ -665,6 +671,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </article>
   </section>
 
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
+
   <!-- FOOTER -->
   <footer>
 <div>
@@ -685,19 +695,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
 </main>
 
+<script src="assets/js/shared.js" defer></script>
 <script>
 // Hero parallax
-const heroImg = document.getElementById('heroImg');
-function updateHeroParallax(){
-  const scrollY = window.scrollY;
-  const heroH = document.getElementById('contactHero').offsetHeight;
-  if(scrollY < heroH){
-    const pct = scrollY / heroH;
-    heroImg.style.transform = 'translateY(' + (scrollY * 0.38) + 'px) scale(1.12)';
-  }
-}
-window.addEventListener('scroll', updateHeroParallax, {passive:true});
-updateHeroParallax();
+initHeroParallax('heroImg','contactHero',0.38,1.12);
 
 // Form submit — sends via EmailJS (no email client required)
 // SETUP: Replace YOUR_PUBLIC_KEY, YOUR_SERVICE_ID, YOUR_TEMPLATE_ID below
@@ -792,22 +793,6 @@ function handleFormSubmit(){
     btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg> Send Message';
   }
 }
-
-// Cursor
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
-document.body.classList.add('custom-cursor-ready');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-
-// Reveal
-const obs = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// Mobile menu
-function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';document.getElementById('hamburger').setAttribute('aria-expanded','true');}
-function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';document.getElementById('hamburger').setAttribute('aria-expanded','false');}
 </script>
 </body>
 </html>

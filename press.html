@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png" type="image/png"/>
-<link rel="apple-touch-icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png"/>
+<link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
 <title>Press &amp; EPK — Cinegma Films | Syed Asad Raza Abidi</title>
 <meta name="description" content="Press kit and EPK for Cinegma Films and filmmaker Syed Asad Raza Abidi — fact sheet, biography, awards, downloadable stills and logo. Janjaal (Tussle), 14 international awards across 9 countries. Press contact: info@cinegmafilms.com"/>
 <meta name="keywords" content="Cinegma Films press kit, Syed Asad Raza Abidi EPK, Janjaal press, Pakistani filmmaker press, electronic press kit, film stills download, Cinegma Films media, press contact, festival programmer"/>
@@ -132,12 +132,18 @@ main{flex:1 0 auto;}
 
 /* FOOTER */
 footer{flex-shrink:0;padding:56px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.22em;color:var(--white);}
-.footer-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.95rem;color:var(--grey);margin-top:6px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:var(--white);}
+.footer-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--grey);margin-top:6px;}
 .footer-links{display:flex;gap:28px;list-style:none;}
 .footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;}
 .footer-links a:hover{color:var(--white);}
 .footer-copy{font-size:.62rem;letter-spacing:.1em;color:rgba(240,236,228,.5);}
+
+/* BACK TO TOP */
+.back-to-top{position:fixed;bottom:32px;right:32px;z-index:450;width:44px;height:44px;background:rgba(240,236,228,.1);border:1px solid rgba(240,236,228,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .3s;backdrop-filter:blur(8px);}
+.back-to-top.visible{opacity:1;transform:translateY(0);}
+.back-to-top:hover{background:rgba(240,236,228,.2);}
+.back-to-top svg{width:16px;height:16px;fill:none;stroke:var(--white);stroke-width:2;}
 
 /* REVEAL */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s,transform .8s;}
@@ -372,8 +378,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <li><a href="watch.html">Watch</a></li>
     <li><a href="services.html">Services</a></li>
     <li><a href="about.html">About</a></li>
-    <li><a href="press.html" class="active">Press</a></li>
-    <li><a href="contact.html">Contact</a></li>
+    <li><a href="press.html">Press</a></li>
+    <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" onclick="openMenu()">
     <span></span><span></span><span></span>
@@ -386,7 +392,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <a href="watch.html" onclick="closeMenu()">Watch</a>
   <a href="services.html" onclick="closeMenu()">Services</a>
   <a href="about.html" onclick="closeMenu()">About</a>
-  <a href="press.html" class="active" onclick="closeMenu()">Press</a>
+  <a href="press.html" onclick="closeMenu()">Press</a>
   <a href="contact.html" onclick="closeMenu()">Contact</a>
 </div>
 
@@ -395,11 +401,11 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <!-- HERO -->
   <header class="pr-hero">
     <div class="pr-hero-bg" aria-hidden="true">
-      <img src="https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="https://cinegmafilms.com/assets/posters/Zawaal_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="https://cinegmafilms.com/assets/posters/Potrait_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="https://cinegmafilms.com/assets/posters/Solder_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="https://cinegmafilms.com/assets/posters/Payam_Opt_01.avif" alt="" loading="lazy"/>
+      <img src="assets/posters/Janjaal_Opt_01.avif" alt="" loading="lazy"/>
+      <img src="assets/posters/Zawaal_Opt_01.avif" alt="" loading="lazy"/>
+      <img src="assets/posters/Potrait_Opt_01.avif" alt="" loading="lazy"/>
+      <img src="assets/posters/Solder_Opt_01.avif" alt="" loading="lazy"/>
+      <img src="assets/posters/Payam_Opt_01.avif" alt="" loading="lazy"/>
     </div>
     <div class="pr-hero-inner">
       <p class="pr-kick reveal">Cinegma Films · Electronic Press Kit</p>
@@ -435,19 +441,19 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <section class="pr-sec">
     <div class="pr-sechead reveal"><span class="pr-no">02</span><h2>Downloads</h2><span class="pr-rule"></span></div>
     <div class="pr-dl-grid reveal">
-      <a class="pr-dl" href="https://cinegmafilms.com/assets/Cinegma-Films-Press-Kit.pdf" target="_blank" rel="noopener" download>
+      <a class="pr-dl" href="assets/Cinegma-Films-Press-Kit.pdf" target="_blank" rel="noopener" download>
         <span class="pr-dl-ic"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg></span>
         <span class="pr-dl-title">Press Kit</span>
         <span class="pr-dl-sub">Full EPK with bio, credits &amp; key art — PDF</span>
         <span class="pr-dl-go">Download ↓</span>
       </a>
-      <a class="pr-dl" href="https://cinegmafilms.com/assets/posters/syedasadaboutpotrait.png" target="_blank" rel="noopener" download>
+      <a class="pr-dl" href="assets/posters/syedasadaboutpotrait.png" target="_blank" rel="noopener" download>
         <span class="pr-dl-ic"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg></span>
         <span class="pr-dl-title">Director Headshot</span>
         <span class="pr-dl-sub">High-resolution portrait of Syed Asad — PNG</span>
         <span class="pr-dl-go">Download ↓</span>
       </a>
-      <a class="pr-dl" href="https://cinegmafilms.com/assets/posters/CinegmafilmsLogo.png" target="_blank" rel="noopener" download>
+      <a class="pr-dl" href="assets/posters/CinegmafilmsLogo.png" target="_blank" rel="noopener" download>
         <span class="pr-dl-ic"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg></span>
         <span class="pr-dl-title">Brand Logo</span>
         <span class="pr-dl-sub">Cinegma Films wordmark on transparent — PNG</span>
@@ -462,7 +468,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="pr-sechead reveal"><span class="pr-no">03</span><h2>Biography</h2><span class="pr-rule"></span></div>
     <div class="pr-bio-grid">
       <div class="pr-bio-portrait reveal">
-        <img src="https://cinegmafilms.com/assets/posters/syedasadaboutpotrait.png" alt="Syed Asad Raza Abidi — filmmaker and founder of Cinegma Films" loading="lazy"/>
+        <img src="assets/posters/syedasadaboutpotrait.png" alt="Syed Asad Raza Abidi — filmmaker and founder of Cinegma Films" loading="lazy"/>
         <span class="pr-frame"></span>
         <span class="pr-cap">Syed Asad Raza Abidi · Karachi</span>
       </div>
@@ -500,36 +506,36 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="pr-sechead reveal"><span class="pr-no">05</span><h2>Stills &amp; Posters</h2><span class="pr-rule"></span></div>
     <div class="stills reveal">
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif" download>Janjaal <span>↓</span></a>
+        <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/Janjaal_Opt_01.avif" download>Janjaal <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/Potrait_Opt_01.avif" download>Portrait of Life <span>↓</span></a>
+        <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/Potrait_Opt_01.avif" download>Portrait of Life <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/Zawaal_Opt_01.avif" alt="Zawaal poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/Zawaal_Opt_01.avif" download>Zawaal <span>↓</span></a>
+        <img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/Zawaal_Opt_01.avif" download>Zawaal <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/Solder_Opt_01.avif" download>A Soldier Beside Me <span>↓</span></a>
+        <img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/Solder_Opt_01.avif" download>A Soldier Beside Me <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/Payam_Opt_01.avif" alt="Payam e Dil poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/Payam_Opt_01.avif" download>Payam e Dil <span>↓</span></a>
+        <img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/Payam_Opt_01.avif" download>Payam e Dil <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/Achu_Opt_01.avif" download>Main Aur Achu <span>↓</span></a>
+        <img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/Achu_Opt_01.avif" download>Main Aur Achu <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/PhirSe_Opt_01.avif" alt="Phir Se poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/PhirSe_Opt_01.avif" download>Phir Se <span>↓</span></a>
+        <img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/PhirSe_Opt_01.avif" download>Phir Se <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="https://cinegmafilms.com/assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi documentary poster" loading="lazy" width="800" height="1200"/>
-        <a class="still-dl" href="https://cinegmafilms.com/assets/posters/Urdu_Opt_01.avif" download>Urdu Bazaar <span>↓</span></a>
+        <img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi documentary poster" loading="lazy" width="800" height="1200"/>
+        <a class="still-dl" href="assets/posters/Urdu_Opt_01.avif" download>Urdu Bazaar <span>↓</span></a>
       </div>
     </div>
   </section>
@@ -545,6 +551,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   </section>
 
 </main>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
 
 <footer>
   <div>
@@ -563,23 +573,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
+<script src="assets/js/shared.js" defer></script>
 <script>
-// Cursor
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
-document.body.classList.add('custom-cursor-ready');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-
-// Reveal
-const obs = new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.08});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// Mobile menu
-function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';document.getElementById('hamburger').setAttribute('aria-expanded','true');}
-function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';document.getElementById('hamburger').setAttribute('aria-expanded','false');}
-
 // Copy bio
 function copyBio(btn){
   var bio = "Syed Asad Raza Abidi is a Pakistani film director, editor and colorist, and the founder of Cinegma Films — an independent production banner built in Karachi on a single principle: cinema without compromise. His flagship film Janjaal (Tussle), a 23-minute Urdu psychological thriller starring Shamoon Abbasi shot in 34 hours, has won 14 international awards across 9 countries and received a theatrical release at Arena Cinemas, Karachi in January 2025. A graduate of Indus University Karachi (BS Film & TV, 2025), Abidi works across the full pipeline: directing, cinematography, editing, DaVinci Resolve color grading and sound design. His filmography includes Portrait of Life, Main Aur Achu, the documentary Urdu Bazaar Karachi, and in-production originals Zawaal, A Soldier Beside Me and Payam e Dil.";

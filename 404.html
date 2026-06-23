@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<link rel="icon" href="/assets/posters/CinegmaFevicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="/assets/posters/CinegmaFevicon.png"/>
+<title>Page Not Found — Cinegma Films</title>
+<meta name="robots" content="noindex"/>
+<meta name="theme-color" content="#080808"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/>
+<style>
+:root{--black:#080808;--white:#f0ece4;--grey:#888;--gold:#c9a55a;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:24px 60px;background:linear-gradient(to bottom,rgba(8,8,8,.96) 0%,transparent 100%);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.25em;color:var(--white);text-decoration:none;opacity:.9;}
+.content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 40px 80px;}
+.error-code{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,15vw,14rem);line-height:.88;letter-spacing:.03em;color:transparent;-webkit-text-stroke:1.5px rgba(240,236,228,.15);}
+.error-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-style:italic;color:rgba(240,236,228,.7);margin-top:24px;line-height:1.6;}
+.error-cta{display:inline-block;margin-top:40px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:12px 28px;border:1px solid rgba(240,236,228,.3);color:var(--white);transition:all .3s;}
+.error-cta:hover{background:var(--white);color:var(--black);border-color:var(--white);}
+footer{border-top:1px solid rgba(240,236,228,0.1);padding:60px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:30px;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;}
+.footer-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--grey);margin-top:4px;}
+.footer-links{list-style:none;display:flex;gap:24px;flex-wrap:wrap;}
+.footer-links a{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,236,228,.5);text-decoration:none;transition:color .3s;}
+.footer-links a:hover{color:var(--white);}
+.footer-copy{font-size:.62rem;letter-spacing:.1em;color:rgba(240,236,228,.3);width:100%;text-align:center;margin-top:20px;}
+@media(max-width:700px){
+  nav{padding:18px 24px;}
+  .content{padding:120px 24px 60px;}
+  footer{padding:40px 24px;flex-direction:column;text-align:center;}
+  .footer-links{justify-content:center;}
+}
+</style>
+</head>
+<body>
+<nav>
+<a href="/" class="nav-logo">Cinegma Films</a>
+</nav>
+<main class="content">
+<h1 class="error-code">404</h1>
+<p class="error-title">This scene didn't make the final cut.</p>
+<a href="/" class="error-cta">Back to Home</a>
+</main>
+<footer>
+<div>
+<p class="footer-logo">Cinegma Films</p>
+<p class="footer-tagline">Cinema without compromise.</p>
+</div>
+<ul class="footer-links">
+<li><a href="/">Home</a></li>
+<li><a href="/watch.html">Watch</a></li>
+<li><a href="/services.html">Services</a></li>
+<li><a href="/about.html">About</a></li>
+<li><a href="/contact.html">Contact</a></li>
+<li><a href="/press.html">Press</a></li>
+</ul>
+<p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
+</footer>
+</body>
+</html>

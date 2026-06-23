@@ -6,8 +6,8 @@
 <title>Watch Pakistani Short Films — Cinegma Films</title>
 <meta name="description" content="Stream Janjaal, A Soldier Beside Me, Portrait of Life, Zawaal, Payam e Dil, Main Aur Achu, and Urdu Bazaar. Award-winning Pakistani independent cinema by Syed Asad Raza Abidi — Cinegma Films."/>
 <meta name="keywords" content="Cinegma Films watch, stream Pakistani short films, Janjaal film, Syed Asad Raza Abidi films, Pakistani independent cinema"/>
-<link rel="icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png" type="image/png"/>
-<link rel="apple-touch-icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png"/>
+<link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
 <link rel="canonical" href="https://cinegmafilms.com/watch.html"/>
 <link rel="sitemap" type="application/xml" href="https://cinegmafilms.com/sitemap.xml"/>
 <meta property="og:title" content="Watch — Cinegma Films | Stream Pakistani Short Films"/>
@@ -77,7 +77,7 @@ nav.scrolled{background:rgba(8,8,8,.97);}
 .nav-mobile a:hover,.nav-mobile a.active{opacity:1;}
 .nav-mobile a.active{text-decoration:underline;text-underline-offset:6px;text-decoration-color:rgba(240,236,228,.4);}
 .nav-mobile-close{position:absolute;top:24px;right:24px;font-size:1.6rem;color:var(--white);cursor:pointer;opacity:.4;line-height:1;background:none;border:none;}
-@media(max-width:768px){nav{padding:0 24px;}.nav-links-desktop{display:none!important;}.nav-hamburger{display:flex;}}
+@media(max-width:768px){nav{padding:0 24px;}.nav-links{display:none!important;}.nav-hamburger{display:flex;}}
 @media(min-width:769px){.nav-hamburger{display:none;}}
 
 /* HERO */
@@ -336,6 +336,12 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   .card-grid{padding:0 16px;}
 }
 
+/* BACK TO TOP */
+.back-to-top{position:fixed;bottom:32px;right:32px;z-index:450;width:44px;height:44px;background:rgba(240,236,228,.1);border:1px solid rgba(240,236,228,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .3s;backdrop-filter:blur(8px);}
+.back-to-top.visible{opacity:1;transform:translateY(0);}
+.back-to-top:hover{background:rgba(240,236,228,.2);}
+.back-to-top svg{width:16px;height:16px;fill:none;stroke:var(--white);stroke-width:2;}
+
 /* content protection */
 *{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;}
 input,textarea{user-select:text!important;-webkit-user-select:text!important;}
@@ -462,37 +468,37 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
-<nav id="mainNav">
+<nav>
   <a href="index.html" class="nav-logo">Cinegma Films</a>
-  <ul class="nav-links nav-links-desktop">
+  <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="watch.html" class="active">Watch</a></li>
+    <li><a href="watch.html">Watch</a></li>
     <li><a href="services.html">Services</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="press.html">Press</a></li>
     <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
   </ul>
-  <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu">
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" onclick="openMenu()" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<div class="nav-mobile" id="mobileNav">
-  <button class="nav-mobile-close" id="mobileNavClose">&#x2715;</button>
-  <a href="index.html">Home</a>
-  <a href="watch.html" class="active">Watch</a>
-  <a href="services.html">Services</a>
-  <a href="about.html">About</a>
-  <a href="press.html">Press</a>
-  <a href="contact.html">Contact</a>
+<div class="nav-mobile" id="mobileMenu">
+  <span class="nav-mobile-close" onclick="closeMenu()">&#x2715;</span>
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="watch.html" onclick="closeMenu()">Watch</a>
+  <a href="services.html" onclick="closeMenu()">Services</a>
+  <a href="about.html" onclick="closeMenu()">About</a>
+  <a href="press.html" onclick="closeMenu()">Press</a>
+  <a href="contact.html" onclick="closeMenu()">Contact</a>
 </div>
 
 <!-- ══ HERO ══ -->
 <div class="hero">
   <div class="hero-bg">
     <video id="heroVideo" autoplay muted loop playsinline
-      src="https://cinegmafilms.com/assets/posters/Janjaal%20Cover%20Video.mp4"
-      poster="https://cinegmafilms.com/assets/posters/Janjaal%20Watch%20Cover.avif"></video>
+      src="assets/posters/Janjaal%20Cover%20Video.mp4"
+      poster="assets/posters/Janjaal%20Watch%20Cover.avif"></video>
   </div>
   <div class="hero-vignette"></div>
   <button class="hero-sound-btn" id="heroSoundBtn" aria-label="Toggle hero sound" onclick="toggleHeroSound()">
@@ -596,10 +602,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         data-title="Janjaal">
         <div class="card-media">
           <div class="card-thumb">
-            <img src="https://cinegmafilms.com/assets/posters/Hero%20Image%20for%20Services.png" alt="Janjaal" loading="lazy"/>
+            <img src="assets/posters/Hero%20Image%20for%20Services.png" alt="Janjaal (Tussle) — award-winning Pakistani short film" loading="lazy"/>
             <div class="thumb-glow"></div>
           </div>
-          <video class="card-video" muted playsinline preload="none" data-src="https://cinegmafilms.com/assets/posters/Janjaal%20Cover%20Video.mp4" poster="https://cinegmafilms.com/assets/posters/Janjaal%20Watch%20Cover.avif"></video>
+          <video class="card-video" muted playsinline preload="none" data-src="assets/posters/Janjaal%20Cover%20Video.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif"></video>
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">🔒 Screener</div>
@@ -638,10 +644,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         data-title="A Soldier Beside Me">
         <div class="card-media">
           <div class="card-thumb">
-            <img src="https://cinegmafilms.com/assets/posters/Soldier%20Watch%20Cover.avif" alt="A Soldier Beside Me" loading="lazy"/>
+            <img src="assets/posters/Soldier%20Watch%20Cover.avif" alt="A Soldier Beside Me — film poster" loading="lazy"/>
             <div class="thumb-glow"></div>
           </div>
-          <video class="card-video" muted playsinline preload="none" data-src="https://cinegmafilms.com/assets/posters/A%20Soldier%20Cover%20Video.mp4" poster="https://cinegmafilms.com/assets/posters/Soldier%20Watch%20Cover.avif"></video>
+          <video class="card-video" muted playsinline preload="none" data-src="assets/posters/A%20Soldier%20Cover%20Video.mp4" poster="assets/posters/Soldier%20Watch%20Cover.avif"></video>
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">🔒 Screener</div>
@@ -680,10 +686,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         data-title="Portrait of Life">
         <div class="card-media">
           <div class="card-thumb">
-            <img src="https://cinegmafilms.com/assets/posters/Portrait%20of%20Life%20Watch%20Cover.avif" alt="Portrait of Life" loading="lazy"/>
+            <img src="assets/posters/Portrait%20of%20Life%20Watch%20Cover.avif" alt="Portrait of Life — film poster" loading="lazy"/>
             <div class="thumb-glow"></div>
           </div>
-          <video class="card-video" muted playsinline preload="none" data-src="https://cinegmafilms.com/assets/posters/Portrait%20of%20Life%20Cover%20Video.mp4" poster="https://cinegmafilms.com/assets/posters/Portrait%20of%20Life%20Watch%20Cover.avif"></video>
+          <video class="card-video" muted playsinline preload="none" data-src="assets/posters/Portrait%20of%20Life%20Cover%20Video.mp4" poster="assets/posters/Portrait%20of%20Life%20Watch%20Cover.avif"></video>
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">🔒 Screener</div>
@@ -722,10 +728,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         data-title="Zawaal">
         <div class="card-media">
           <div class="card-thumb">
-            <img src="https://cinegmafilms.com/assets/posters/Zawaal%20Watch%20Cover.avif" alt="Zawaal" loading="lazy"/>
+            <img src="assets/posters/Zawaal%20Watch%20Cover.avif" alt="Zawaal — film poster" loading="lazy"/>
             <div class="thumb-glow"></div>
           </div>
-          <video class="card-video" muted playsinline preload="none" data-src="https://cinegmafilms.com/assets/posters/Zawaal%20Cover%20Video.mp4" poster="https://cinegmafilms.com/assets/posters/Zawaal%20Watch%20Cover.avif"></video>
+          <video class="card-video" muted playsinline preload="none" data-src="assets/posters/Zawaal%20Cover%20Video.mp4" poster="assets/posters/Zawaal%20Watch%20Cover.avif"></video>
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">🔒 Screener</div>
@@ -764,10 +770,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         data-title="Payam e Dil">
         <div class="card-media">
           <div class="card-thumb">
-            <img src="https://cinegmafilms.com/assets/posters/Payam%20e%20DilWatch%20Cover.avif" alt="Payam e Dil" loading="lazy"/>
+            <img src="assets/posters/Payam%20e%20DilWatch%20Cover.avif" alt="Payam e Dil — film poster" loading="lazy"/>
             <div class="thumb-glow"></div>
           </div>
-          <video class="card-video" muted playsinline preload="none" data-src="https://cinegmafilms.com/assets/posters/Payam%20e%20Dil%20Cover%20Video.mp4" poster="https://cinegmafilms.com/assets/posters/Payam%20e%20DilWatch%20Cover.avif"></video>
+          <video class="card-video" muted playsinline preload="none" data-src="assets/posters/Payam%20e%20Dil%20Cover%20Video.mp4" poster="assets/posters/Payam%20e%20DilWatch%20Cover.avif"></video>
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">🔒 Screener</div>
@@ -805,10 +811,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         data-title="Main Aur Achu">
         <div class="card-media">
           <div class="card-thumb">
-            <img src="https://cinegmafilms.com/assets/posters/Main%20Aur%20achu%20watch%20cover.avif" alt="Main Aur Achu" loading="lazy"/>
+            <img src="assets/posters/Main%20Aur%20achu%20watch%20cover.avif" alt="Main Aur Achu — film poster" loading="lazy"/>
             <div class="thumb-glow"></div>
           </div>
-          <video class="card-video" muted playsinline preload="none" data-src="https://cinegmafilms.com/assets/posters/Main%20aur%20achu%20Cover%20Video.mp4" poster="https://cinegmafilms.com/assets/posters/Main%20Aur%20achu%20watch%20cover.avif"></video>
+          <video class="card-video" muted playsinline preload="none" data-src="assets/posters/Main%20aur%20achu%20Cover%20Video.mp4" poster="assets/posters/Main%20Aur%20achu%20watch%20cover.avif"></video>
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge free">✓ Free</div>
@@ -845,10 +851,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         data-title="Urdu Bazaar">
         <div class="card-media">
           <div class="card-thumb">
-            <img src="https://cinegmafilms.com/assets/posters/URDU%20BAZAR%20COVER%20AVIF.avif" alt="Urdu Bazaar Karachi" loading="lazy"/>
+            <img src="assets/posters/URDU%20BAZAR%20COVER%20AVIF.avif" alt="Urdu Bazaar Karachi — documentary poster" loading="lazy"/>
             <div class="thumb-glow"></div>
           </div>
-          <video class="card-video" muted playsinline preload="none" data-src="https://cinegmafilms.com/assets/posters/Urdu%20Bazaar%20Cover%20Video.mp4" poster="https://cinegmafilms.com/assets/posters/URDU%20BAZAR%20COVER%20AVIF.avif"></video>
+          <video class="card-video" muted playsinline preload="none" data-src="assets/posters/Urdu%20Bazaar%20Cover%20Video.mp4" poster="assets/posters/URDU%20BAZAR%20COVER%20AVIF.avif"></video>
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge free">✓ Free</div>
@@ -883,6 +889,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   </div>
 
 </main>
+
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</button>
 
 <!-- FOOTER -->
 <footer>
@@ -946,6 +956,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 </div>
 
 <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+<script src="assets/js/shared.js" defer></script>
 <script>
 /* ── HOVER PREVIEW ── */
 var hoverTimers = {};
@@ -1297,10 +1308,8 @@ function toggleHeroSound() {
 }
 
 /* ── NAV ── */
-var nav = document.getElementById('mainNav');
+var nav = document.querySelector('nav');
 window.addEventListener('scroll', function() { nav.classList.toggle('scrolled', window.scrollY > 20); }, {passive:true});
-document.getElementById('hamburgerBtn').addEventListener('click', function() { document.getElementById('mobileNav').classList.add('open'); document.body.style.overflow = 'hidden'; });
-document.getElementById('mobileNavClose').addEventListener('click', function() { document.getElementById('mobileNav').classList.remove('open'); document.body.style.overflow = ''; });
 
 /* ── CONTENT PROTECTION ── */
 document.addEventListener('contextmenu', function(e) { e.preventDefault(); }, true);
@@ -1312,20 +1321,6 @@ document.addEventListener('keydown', function(e) {
 }, true);
 document.addEventListener('copy', function(e) { e.preventDefault(); }, true);
 document.addEventListener('cut',  function(e) { e.preventDefault(); }, true);
-
-/* ── CURSOR ── */
-(function() {
-  var c = document.getElementById('cursor');
-  var r = document.getElementById('cursorRing');
-  if (!c || !r || !window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-  var mx=0, my=0, rx=0, ry=0;
-  document.addEventListener('mousemove', function(e) { mx=e.clientX; my=e.clientY; c.style.left=mx+'px'; c.style.top=my+'px'; });
-  (function loop() { rx+=(mx-rx)*.12; ry+=(my-ry)*.12; r.style.left=rx+'px'; r.style.top=ry+'px'; requestAnimationFrame(loop); })();
-  document.querySelectorAll('a,button,.film-card,.nav-logo').forEach(function(el) {
-    el.addEventListener('mouseenter', function() { c.classList.add('hovering'); r.classList.add('hovering'); });
-    el.addEventListener('mouseleave', function() { c.classList.remove('hovering'); r.classList.remove('hovering'); });
-  });
-})();
 
 /* ── HASH-BASED TRAILER AUTOPLAY (from index.html poster click) ── */
 (function() {

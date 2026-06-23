@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<link rel="icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png" type="image/png"/>
-<link rel="apple-touch-icon" href="https://cinegmafilms.com/assets/posters/CinegmaFevicon.png"/>
+<link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
+<link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
 <title>Services — Cinegma Films | Film Production Karachi | Syed Asad Raza Abidi</title>
 <meta name="description" content="Professional filmmaking services by Cinegma Films — Cinematography, Film Direction, Production, Post-Production (editing, color grading, sound design), and Screenwriting. Award-winning filmmaker Syed Asad Raza Abidi. Based in Karachi, Pakistan."/>
 <meta name="keywords" content="Cinegma Films services, film production Karachi, Pakistani cinematographer, film director hire, post production Pakistan, color grading DaVinci Resolve, screenwriting Pakistan, film editing Karachi, Syed Asad Raza Abidi services, hire filmmaker Pakistan"/>
@@ -395,7 +395,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="watch.html">Watch</a></li>
-    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="services.html">Services</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="press.html">Press</a></li>
     <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
@@ -409,7 +409,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <span class="nav-mobile-close" onclick="closeMenu()">✕</span>
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="watch.html" onclick="closeMenu()">Watch</a>
-  <a href="services.html" class="active" onclick="closeMenu()">Services</a>
+  <a href="services.html" onclick="closeMenu()">Services</a>
   <a href="about.html" onclick="closeMenu()">About</a>
   <a href="press.html" onclick="closeMenu()">Press</a>
   <a href="contact.html" onclick="closeMenu()">Contact</a>
@@ -423,7 +423,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <!-- ═══════════════ HERO ═══════════════ -->
 <section class="page-hero" id="pageHero">
   <img class="page-hero-img" id="heroImg"
-    src="https://cinegmafilms.com/assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"
+    src="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"
     alt="Cinegma Films — Professional Filmmaking Services, Karachi"
     loading="eager" fetchpriority="high"/>
   <div class="page-hero-overlay"></div>
@@ -692,42 +692,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
+<script src="assets/js/shared.js" defer></script>
 <script>
-// ── CURSOR
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
-if(cursor && ring){
-  document.body.classList.add('custom-cursor-ready');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-  (function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-}
-
-// ── REVEAL
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
-},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// ── BACK TO TOP
-const btt = document.getElementById('backToTop');
-window.addEventListener('scroll',()=>{btt.classList.toggle('visible', window.scrollY > 400);},{passive:true});
-
 // ── HERO PARALLAX
-const heroImg = document.getElementById('heroImg');
-const pageHero = document.getElementById('pageHero');
-function parallax(){
-  if(!heroImg||!pageHero) return;
-  const y = window.scrollY, h = pageHero.offsetHeight;
-  if(y < h) heroImg.style.transform = 'scale(1.06) translateY('+(y*.26)+'px)';
-}
-window.addEventListener('scroll', parallax, {passive:true});
-parallax();
-
-// ── MOBILE MENU
-function openMenu(){document.getElementById('mobileMenu').classList.add('open');document.body.style.overflow='hidden';document.getElementById('hamburger').setAttribute('aria-expanded','true');}
-function closeMenu(){document.getElementById('mobileMenu').classList.remove('open');document.body.style.overflow='';document.getElementById('hamburger').setAttribute('aria-expanded','false');}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
+initHeroParallax('heroImg','pageHero',0.26,1.06);
 </script>
 </body>
 </html>
