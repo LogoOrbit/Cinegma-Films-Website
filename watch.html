@@ -251,6 +251,25 @@ nav.scrolled{background:rgba(8,8,8,.97);}
 .spot-title{font-size:clamp(2rem,10vw,3rem);}.spot-synopsis{font-size:.95rem;}.spot-btns{flex-direction:column;gap:8px;}
 .spot-btns .btn-primary,.spot-btns .btn-secondary{width:100%;justify-content:center;}}
 
+/* ═══ UNIVERSITY ARCHIVES — YouTube embed cards ═══ */
+.uni-section{padding:20px 0 0;margin-top:20px;border-top:1px solid var(--border);}
+.uni-section .ott-row-title::before{background:rgba(240,236,228,.3);}
+.yt-card{flex:0 0 420px;min-width:340px;background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;
+  transition:border-color .35s,box-shadow .4s,background .35s;scroll-snap-align:start;}
+.yt-card:hover{border-color:rgba(240,236,228,.25);background:var(--card-h);
+  box-shadow:0 8px 28px rgba(0,0,0,.5),0 0 0 1px rgba(240,236,228,.08);}
+.yt-card-screen{position:relative;width:100%;aspect-ratio:16/9;background:#000;}
+.yt-card-screen iframe{width:100%;height:100%;border:none;display:block;}
+.yt-card-meta{padding:14px 18px 16px;display:flex;flex-direction:column;gap:4px;}
+.yt-card-tag{font-size:.5rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(240,236,228,.35);background:rgba(240,236,228,.05);border:1px solid rgba(240,236,228,.08);
+  padding:3px 10px;border-radius:100px;width:fit-content;}
+.yt-card-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.06em;color:var(--white);line-height:1.1;}
+.yt-card-desc{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:rgba(240,236,228,.35);line-height:1.6;
+  max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;}
+.yt-card:hover .yt-card-desc{max-height:80px;opacity:1;}
+@media(max-width:600px){.yt-card{flex:0 0 320px;min-width:280px;}}
+
 /* BUTTONS */
 .trailer-btn{display:inline-flex;align-items:center;gap:7px;font-family:'DM Sans',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);background:transparent;border:1px solid rgba(240,236,228,.18);padding:11px 18px;min-height:44px;cursor:pointer;transition:border-color .2s,color .2s,background .2s;border-radius:2px;}
 .trailer-btn:hover{border-color:rgba(240,236,228,.45);color:var(--white);background:rgba(240,236,228,.05);}
@@ -1169,6 +1188,154 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
       </div>
 
     </div>
+  </div>
+
+  <!-- ══ ROW 4: UNIVERSITY ARCHIVES ══ -->
+  <div class="uni-section">
+  <div class="ott-row" data-row="uni">
+    <div class="ott-row-header">
+      <div class="ott-row-title">Our University Life Work <span class="ott-row-count">13 Videos</span></div>
+      <div class="ott-row-arrows">
+        <button class="ott-arrow" onclick="scrollRow(this,-1)" aria-label="Scroll left"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+        <button class="ott-arrow" onclick="scrollRow(this,1)" aria-label="Scroll right"><svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg></button>
+      </div>
+    </div>
+    <div class="ott-scroll">
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/0yU1SlRf9KA" title="Maa (Mother)" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Short Film</span>
+          <div class="yt-card-name">Maa (Mother)</div>
+          <div class="yt-card-desc">Our first short that actually won something at a festival. Still has a soft spot in our hearts.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/jhzWb46nkhA" title="Shanakht" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Short Film</span>
+          <div class="yt-card-name">Shanakht</div>
+          <div class="yt-card-desc">A short film about identity — who we are versus who the world thinks we are.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/hGFdoYmLWNo" title="Devil Within Us" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Short Film</span>
+          <div class="yt-card-name">Devil Within Us — 1 Min Short</div>
+          <div class="yt-card-desc">A whole story in 60 seconds. Saying a lot with very little.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/JSMOTUCA844" title="Enigmatic Journey of Dali and Gala" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Music Video</span>
+          <div class="yt-card-name">Dali & Gala — Enigmatic Journey</div>
+          <div class="yt-card-desc">A surreal music video inspired by Dalí and his muse. Dreamlike, a little unhinged.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/T3ZBhck-ees" title="Hershey's Horror TVC" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Spec TVC</span>
+          <div class="yt-card-name">Hershey's — Horror Spec Ad</div>
+          <div class="yt-card-desc">A class brief where we turned a chocolate ad into a tiny horror film.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/I75d7NyR0UE" title="Cadbury Sci-fi TVC" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Spec TVC</span>
+          <div class="yt-card-name">Cadbury — Sci-Fi Spec Ad</div>
+          <div class="yt-card-desc">Chocolate, but make it sci-fi. Zero budget, maximum imagination.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/P4ozIa_c_0g" title="Everyday Chai — TVC" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">TVC</span>
+          <div class="yt-card-name">Everyday Chai — TVC</div>
+          <div class="yt-card-desc">A chai commercial. Simple idea, but taught us a lot about product lighting and pacing.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/owVZSze2eAo" title="Snickers — Stop Motion" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Stop Motion</span>
+          <div class="yt-card-name">Snickers — Stop Motion</div>
+          <div class="yt-card-desc">Frame by painstaking frame. Moving a chocolate bar a millimetre at a time for hours.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/01UL6iUYulk" title="O Beta G — LUDO Recreation" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Recreation</span>
+          <div class="yt-card-name">O Beta G — LUDO Recreation</div>
+          <div class="yt-card-desc">We loved a scene from the film LUDO so much that we recreated it. Karachi Boys edition.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/S2gVGEWpOM8" title="Mirchi with Chiraand — Ep 01" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Talk Show</span>
+          <div class="yt-card-name">Mirchi with Chiraand — Ep 01</div>
+          <div class="yt-card-desc">Our shot at making a proper talk show. Unfiltered, a bit chaotic, a lot of fun.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/Vhiu0vnMtcw" title="Ankhon Dekhi — Video Essay" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Video Essay</span>
+          <div class="yt-card-name">Ankhon Dekhi — Video Essay</div>
+          <div class="yt-card-desc">Nerding out over a beloved film. An excuse to talk about cinema for ten minutes straight.</div>
+        </div>
+      </div>
+
+      <div class="yt-card">
+        <div class="yt-card-screen">
+          <iframe src="https://www.youtube.com/embed/dqXBRE5yGvQ" title="Something's Coming — Film Noir" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="yt-card-meta">
+          <span class="yt-card-tag">Experiment</span>
+          <div class="yt-card-name">Something's Coming — Film Noir</div>
+          <div class="yt-card-desc">A moody noir experiment. Shadows, smoke, mystery — figuring out our visual language.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
   </div>
 
 </main>
