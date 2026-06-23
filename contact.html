@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
 <link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
 <title>Contact Cinegma Films — Syed Asad Raza Abidi</title>
@@ -66,14 +66,14 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-cta:hover,.nav-cta.active{background:var(--white) !important;color:var(--black) !important;border-color:var(--white) !important;}
 .nav-contact-cta{border:1px solid rgba(240,236,228,.5) !important;padding:5px 14px !important;color:rgba(240,236,228,.85) !important;transition:background .3s,border-color .3s,color .3s !important;}
 .nav-contact-cta:hover,.nav-contact-cta.active{background:var(--white) !important;color:var(--black) !important;border-color:var(--white) !important;}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:2100;background:none;border:none;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;z-index:2100;background:none;border:none;min-width:44px;min-height:44px;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
 .nav-hamburger span{display:block;width:22px;height:1px;background:var(--white);}
-.nav-mobile{display:flex !important;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .35s,transform .35s;position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:2100;flex-direction:column;justify-content:center;align-items:center;gap:32px;}
+.nav-mobile{display:flex !important;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .35s,transform .35s;position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:2100;flex-direction:column;justify-content:center;align-items:center;gap:32px;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
 .nav-mobile.open{opacity:1;pointer-events:all;transform:translateY(0);}
 .nav-mobile a{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.12em;color:var(--white);text-decoration:none;opacity:.6;transition:opacity .2s;}
 .nav-mobile a:hover,.nav-mobile a.active{opacity:1;}
 .nav-mobile a.active{text-decoration:underline;text-underline-offset:6px;text-decoration-color:rgba(240,236,228,.4);}
-.nav-mobile-close{position:absolute;top:22px;right:22px;font-size:1.8rem;color:var(--white);cursor:pointer;opacity:.4;}
+.nav-mobile-close{position:absolute;top:max(22px,env(safe-area-inset-top));right:22px;font-size:1.8rem;color:var(--white);cursor:pointer;opacity:.4;background:none;border:none;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
 @media(max-width:1040px){.nav-links{gap:16px;}.nav-links a{font-size:.7rem;}}
 
 /* ── MAIN LAYOUT ── */
@@ -214,7 +214,7 @@ main{display:flex;flex-direction:column;min-height:100vh;}
   font-family:'DM Sans',sans-serif;font-size:.7rem;font-weight:700;
   letter-spacing:.22em;text-transform:uppercase;
   background:var(--white);color:var(--black);
-  border:none;padding:16px 40px;cursor:pointer;
+  border:none;padding:16px 40px;min-height:44px;cursor:pointer;
   transition:background .3s,transform .2s;width:100%;justify-content:center;
   margin-top:6px;
 }
@@ -280,8 +280,8 @@ main{display:flex;flex-direction:column;min-height:100vh;}
 footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;margin-top:auto;}
 .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:rgba(240,236,228,.5);}
 .footer-tagline{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:rgba(240,236,228,.5);margin-top:6px;}
-.footer-links{display:flex;gap:28px;list-style:none;}
-.footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;}
+.footer-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;padding:8px 6px;}
 .footer-links a:hover{color:var(--white);}
 .footer-copy{font-size:.62rem;letter-spacing:.1em;color:rgba(240,236,228,.5);}
 
@@ -547,16 +547,16 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="fname">Your Name</label>
-            <input class="form-input" type="text" id="fname" placeholder="Full name" autocomplete="name"/>
+            <input class="form-input" type="text" id="fname" placeholder="Full name" autocomplete="name" required/>
           </div>
           <div class="form-group">
             <label class="form-label" for="femail">Email Address</label>
-            <input class="form-input" type="email" id="femail" placeholder="your@email.com" autocomplete="email"/>
+            <input class="form-input" type="email" id="femail" placeholder="your@email.com" autocomplete="email" required/>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label" for="ftype">Inquiry Type</label>
-          <select class="form-select" id="ftype">
+          <select class="form-select" id="ftype" required>
             <option value="" disabled selected>Select a topic</option>
             <option value="collaboration">Collaboration / Production</option>
             <option value="press">Press / Interview</option>
@@ -566,7 +566,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         </div>
         <div class="form-group">
           <label class="form-label" for="fmsg">Message</label>
-          <textarea class="form-textarea" id="fmsg" placeholder="Tell us about your project or inquiry…"></textarea>
+          <textarea class="form-textarea" id="fmsg" placeholder="Tell us about your project or inquiry…" required></textarea>
         </div>
         <button class="form-btn" onclick="handleFormSubmit()">
           <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
