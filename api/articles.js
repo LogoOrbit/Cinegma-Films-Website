@@ -1,4 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
+const auth = require('../lib/auth');
 
 function getSupabase(serviceRole) {
   const url = process.env.SUPABASE_URL;
@@ -7,8 +8,7 @@ function getSupabase(serviceRole) {
 }
 
 function checkAuth(req) {
-  const pw = req.headers['x-dashboard-password'] || req.body?.password;
-  return process.env.DASHBOARD_PASSWORD && pw === process.env.DASHBOARD_PASSWORD;
+  return auth.getAuth(req) !== null;
 }
 
 function slugify(text) {
