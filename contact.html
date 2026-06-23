@@ -547,16 +547,16 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="fname">Your Name</label>
-            <input class="form-input" type="text" id="fname" placeholder="Full name" autocomplete="name"/>
+            <input class="form-input" type="text" id="fname" placeholder="Full name" autocomplete="name" required/>
           </div>
           <div class="form-group">
             <label class="form-label" for="femail">Email Address</label>
-            <input class="form-input" type="email" id="femail" placeholder="your@email.com" autocomplete="email"/>
+            <input class="form-input" type="email" id="femail" placeholder="your@email.com" autocomplete="email" required/>
           </div>
         </div>
         <div class="form-group">
           <label class="form-label" for="ftype">Inquiry Type</label>
-          <select class="form-select" id="ftype">
+          <select class="form-select" id="ftype" required>
             <option value="" disabled selected>Select a topic</option>
             <option value="collaboration">Collaboration / Production</option>
             <option value="press">Press / Interview</option>
@@ -566,7 +566,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         </div>
         <div class="form-group">
           <label class="form-label" for="fmsg">Message</label>
-          <textarea class="form-textarea" id="fmsg" placeholder="Tell us about your project or inquiry…"></textarea>
+          <textarea class="form-textarea" id="fmsg" placeholder="Tell us about your project or inquiry…" required></textarea>
         </div>
         <button class="form-btn" onclick="handleFormSubmit()">
           <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>

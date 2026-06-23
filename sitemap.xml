@@ -68,4 +68,16 @@
     <priority>0.6</priority>
   </url>
 
+  <url>
+    <loc>https://cinegmafilms.com/press.html</loc>
+    <lastmod>2026-06-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif</image:loc>
+      <image:title>Press &amp; EPK — Cinegma Films | Syed Asad Raza Abidi</image:title>
+      <image:caption>Press kit, biography, awards and downloadable media for Cinegma Films and filmmaker Syed Asad Raza Abidi.</image:caption>
+    </image:image>
+  </url>
+
 </urlset>
