@@ -165,8 +165,19 @@ nav.scrolled{background:rgba(8,8,8,.97);}
 .ott-scroll::-webkit-scrollbar{display:none;}
 .ott-scroll:active{cursor:grabbing;}
 .ott-scroll::after{content:'';flex:0 0 44px;}
-@media(max-width:768px){.ott-row-header{padding:0 20px;}.ott-scroll{padding:20px 20px 40px;gap:16px;}}
-@media(max-width:600px){.ott-row-header{padding:0 16px;}.ott-scroll{padding:16px 16px 36px;gap:14px;}}
+@media(max-width:768px){
+  .ott-row-header{padding:0 20px;}
+  .ott-scroll{padding:20px 20px 40px;gap:16px;}
+  .ott-row:not(.ott-row-yt) .ott-scroll{flex-wrap:wrap;overflow-x:visible;cursor:auto;padding:10px 20px 20px;}
+  .ott-row:not(.ott-row-yt) .film-card{flex:1 1 100%;min-width:0;max-width:100%;}
+  .ott-row:not(.ott-row-yt) .ott-scroll::after{display:none;}
+  .ott-row:not(.ott-row-yt) .ott-row-arrows{display:none;}
+}
+@media(max-width:600px){
+  .ott-row-header{padding:0 16px;}
+  .ott-scroll{padding:16px 16px 36px;gap:14px;}
+  .ott-row:not(.ott-row-yt) .ott-scroll{padding:8px 16px 16px;gap:12px;}
+}
 
 /* ═══ OTT FILM CARD (hover-zoom) ═══ */
 .film-card{
@@ -1194,7 +1205,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
   <!-- ══ ROW 4: UNIVERSITY ARCHIVES ══ -->
   <div class="uni-section">
-  <div class="ott-row" data-row="uni">
+  <div class="ott-row ott-row-yt" data-row="uni">
     <div class="ott-row-header">
       <div class="ott-row-title">Our University Life Work <span class="ott-row-count">13 Videos</span></div>
       <div class="ott-row-arrows">
