@@ -253,6 +253,7 @@ nav.scrolled{background:rgba(8,8,8,.97);}
 
 /* ═══ UNIVERSITY ARCHIVES — YouTube embed cards ═══ */
 .uni-section{padding:20px 0 0;margin-top:20px;border-top:1px solid var(--border);}
+.uni-section .ott-row{opacity:1!important;transform:none!important;}
 .uni-section .ott-row-title::before{background:rgba(240,236,228,.3);}
 .yt-card{flex:0 0 420px;min-width:340px;background:var(--card);border:1px solid var(--border);border-radius:6px;overflow:hidden;
   transition:border-color .35s,box-shadow .4s,background .35s;scroll-snap-align:start;}
@@ -1802,8 +1803,9 @@ document.querySelectorAll('.genre-pill').forEach(function(pill) {
   document.head.appendChild(style);
   var obs = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.05, rootMargin: '0px 0px 100px 0px' });
   rows.forEach(function(r) { obs.observe(r); });
+  setTimeout(function() { rows.forEach(function(r) { r.classList.add('revealed'); }); }, 3000);
 })();
 
 /* ── HERO SOUND ── */
