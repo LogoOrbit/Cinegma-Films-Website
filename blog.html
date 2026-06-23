@@ -203,14 +203,16 @@ window.addEventListener('scroll',function(){document.getElementById('backToTop')
 
   function getSlug(){var h=window.location.hash;return h?h.slice(1):null;}
 
+  var COLS='select=id,title,slug,body,cover_image_url,category,published,created_at,author';
+
   async function fetchArticles(){
-    var r=await fetch(SUPABASE+'/rest/v1/articles?published=eq.true&order=created_at.desc',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}});
+    var r=await fetch(SUPABASE+'/rest/v1/articles?'+COLS+'&published=eq.true&order=created_at.desc',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}});
     if(!r.ok)throw new Error('Failed to load');
     return r.json();
   }
 
   async function fetchBySlug(slug){
-    var r=await fetch(SUPABASE+'/rest/v1/articles?slug=eq.'+encodeURIComponent(slug)+'&published=eq.true&limit=1',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}});
+    var r=await fetch(SUPABASE+'/rest/v1/articles?'+COLS+'&slug=eq.'+encodeURIComponent(slug)+'&published=eq.true&limit=1',{headers:{apikey:ANON,Authorization:'Bearer '+ANON}});
     if(!r.ok)throw new Error('Failed to load');
     var d=await r.json();
     return d[0]||null;
@@ -228,7 +230,7 @@ window.addEventListener('scroll',function(){document.getElementById('backToTop')
       html+='<div class="info">';
       if(a.category)html+='<div class="cat">'+esc(a.category.replace(/-/g,' '))+'</div>';
       html+='<h3>'+esc(a.title)+'</h3>';
-      html+='<div class="date">'+formatDate(a.created_at)+'</div>';
+      html+='<div class="date">'+formatDate(a.created_at)+(a.author?' &middot; by '+esc(a.author):'')+'</div>';
       if(a.body){var excerpt=a.body.replace(/[#*>\[\]!()\-]/g,'').slice(0,160);html+='<div class="excerpt">'+esc(excerpt)+'...</div>';}
       html+='</div></a>';
     }
@@ -243,6 +245,7 @@ window.addEventListener('scroll',function(){document.getElementById('backToTop')
     html+='<div class="meta">';
     if(a.category)html+='<span class="cat">'+esc(a.category.replace(/-/g,' '))+'</span>';
     html+='<span class="date">'+formatDate(a.created_at)+'</span>';
+    if(a.author)html+='<span class="date">by '+esc(a.author)+'</span>';
     html+='</div>';
     html+='<h1>'+esc(a.title)+'</h1>';
     html+='<div class="body">'+markdownToHtml(a.body||'')+'</div>';

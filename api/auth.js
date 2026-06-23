@@ -70,7 +70,7 @@ module.exports = async (req, res) => {
       const password_hash = auth.hashPassword(password);
       const { data, error } = await sb()
         .from('admins')
-        .insert({ username, password_hash, role: role === 'owner' ? 'owner' : 'admin' })
+        .insert({ username, password_hash, role: auth.normalizeRole(role) })
         .select('id,username,role,created_at')
         .single();
       if (error) {
