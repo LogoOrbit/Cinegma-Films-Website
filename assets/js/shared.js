@@ -164,7 +164,7 @@
   var bd,arena,stkEl,scoreEl,startOv,overOv,factEl,scoreEndEl,hiEndEl;
   var stack,slX,slW,slLv,slEl,spd,dir,sc,cmb,run,raf,camY,hi;
 
-  try{hi=parseInt(sessionStorage.getItem('cg_hi'))||0;}catch(e){hi=0;}
+  try{hi=parseInt(sessionStorage.getItem('cg_hi'),10)||0;}catch(e){hi=0;}
   function dismissed(){try{return !!sessionStorage.getItem('cg_off');}catch(e){return false;}}
 
   setTimeout(function(){if(!dismissed()&&!shown&&!bd) showToast();},POPUP_DELAY);
