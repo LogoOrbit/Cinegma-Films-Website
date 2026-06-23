@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Cinegma Media Dashboard</title>
+  <style>
+    :root { --bg:#0e0e11; --card:#17171c; --line:#2a2a32; --txt:#e8e8ea; --mut:#9a9aa6; --accent:#e0b341; --ok:#3fbf6f; --err:#e0574f; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--txt); }
+    header { padding:20px 24px; border-bottom:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; }
+    header h1 { font-size:18px; margin:0; letter-spacing:.5px; }
+    main { max-width:760px; margin:0 auto; padding:28px 20px 80px; }
+    .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px; margin-bottom:22px; }
+    h2 { font-size:15px; margin:0 0 14px; color:var(--accent); text-transform:uppercase; letter-spacing:1px; }
+    label { display:block; font-size:13px; color:var(--mut); margin:14px 0 6px; }
+    input[type=text], input[type=password] { width:100%; padding:11px 12px; background:#101015; border:1px solid var(--line); border-radius:9px; color:var(--txt); font-size:14px; }
+    .drop { border:2px dashed var(--line); border-radius:12px; padding:30px; text-align:center; color:var(--mut); cursor:pointer; transition:.15s; }
+    .drop.hover { border-color:var(--accent); color:var(--txt); background:#1c1c22; }
+    button { margin-top:18px; width:100%; padding:13px; background:var(--accent); color:#1a1505; border:0; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; }
+    button:disabled { opacity:.5; cursor:not-allowed; }
+    .tabs { display:flex; gap:8px; margin-bottom:22px; }
+    .tabs button { margin:0; flex:1; background:var(--card); color:var(--mut); border:1px solid var(--line); }
+    .tabs button.active { background:var(--accent); color:#1a1505; border-color:var(--accent); }
+    .bar { height:8px; background:#101015; border-radius:6px; overflow:hidden; margin-top:14px; display:none; }
+    .bar > i { display:block; height:100%; width:0; background:var(--accent); transition:width .2s; }
+    .log { margin-top:16px; font-size:13px; line-height:1.6; white-space:pre-wrap; word-break:break-word; }
+    .log .ok { color:var(--ok); } .log .err { color:var(--err); } .log .mut { color:var(--mut); }
+    pre.snippet { background:#101015; border:1px solid var(--line); border-radius:9px; padding:12px; font-size:12px; overflow:auto; margin-top:10px; }
+    .hidden { display:none; }
+    .thumb { max-width:120px; border-radius:8px; margin-top:12px; display:block; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎬 Cinegma Media Dashboard</h1>
+    <span id="authState" class="log mut" style="margin:0;font-size:12px;">Locked</span>
+  </header>
+  <main>
+    <div class="card">
+      <h2>Access</h2>
+      <label for="pw">Dashboard password</label>
+      <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password" />
+      <p class="log mut">Stored only in this browser tab and sent with each upload.</p>
+    </div>
+
+    <div class="tabs">
+      <button id="tabImg" class="active">🖼 Image</button>
+      <button id="tabVid">🎞 Video</button>
+    </div>
+
+    <!-- IMAGE -->
+    <section id="paneImg" class="card">
+      <h2>Optimize &amp; publish image</h2>
+      <p class="log mut">Creates AVIF (full + 400w) + WebP and commits to <code>assets/posters/</code>. Vercel redeploys automatically.</p>
+      <label for="imgName">File base name (optional — defaults to original name)</label>
+      <input id="imgName" type="text" placeholder="e.g. New Film Cover" />
+      <div id="imgDrop" class="drop">Drop an image here, or click to choose<br/><span class="log mut">JPG / PNG / WebP / HEIC source</span></div>
+      <input id="imgFile" type="file" accept="image/*" class="hidden" />
+      <img id="imgThumb" class="thumb hidden" alt="" />
+      <div class="bar" id="imgBar"><i></i></div>
+      <button id="imgGo" disabled>Optimize &amp; publish</button>
+      <div id="imgLog" class="log"></div>
+    </section>
+
+    <!-- VIDEO -->
+    <section id="paneVid" class="card hidden">
+      <h2>Upload video to Bunny Stream</h2>
+      <p class="log mut">Uploads directly to Bunny, which transcodes it into web-optimized formats.</p>
+      <label for="vidName">Video title</label>
+      <input id="vidName" type="text" placeholder="e.g. A Soldier — Trailer" />
+      <div id="vidDrop" class="drop">Drop a video here, or click to choose<br/><span class="log mut">MP4 / MOV / any source</span></div>
+      <input id="vidFile" type="file" accept="video/*" class="hidden" />
+      <div class="bar" id="vidBar"><i></i></div>
+      <button id="vidGo" disabled>Upload to Bunny</button>
+      <div id="vidLog" class="log"></div>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+    const $ = (id) => document.getElementById(id);
+    const pw = $('pw');
+
+    // ---- tab switching ----
+    function setTab(img) {
+      $('tabImg').classList.toggle('active', img);
+      $('tabVid').classList.toggle('active', !img);
+      $('paneImg').classList.toggle('hidden', !img);
+      $('paneVid').classList.toggle('hidden', img);
+    }
+    $('tabImg').onclick = () => setTab(true);
+    $('tabVid').onclick = () => setTab(false);
+    pw.oninput = () => { $('authState').textContent = pw.value ? 'Password set' : 'Locked'; };
+
+    // ---- drag/drop wiring ----
+    function wireDrop(dropId, inputId, onFile) {
+      const drop = $(dropId), input = $(inputId);
+      drop.onclick = () => input.click();
+      drop.ondragover = (e) => { e.preventDefault(); drop.classList.add('hover'); };
+      drop.ondragleave = () => drop.classList.remove('hover');
+      drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove('hover'); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); };
+      input.onchange = () => { if (input.files[0]) onFile(input.files[0]); };
+    }
+
+    function fmtKB(b) { return (b / 1024).toFixed(0) + ' KB'; }
+
+    // ===================== IMAGE =====================
+    let imgFile = null;
+    wireDrop('imgDrop', 'imgFile', (f) => {
+      imgFile = f;
+      $('imgDrop').innerHTML = '✔ ' + f.name + '<br/><span class="log mut">' + fmtKB(f.size) + '</span>';
+      const t = $('imgThumb'); t.src = URL.createObjectURL(f); t.classList.remove('hidden');
+      if (!$('imgName').value) $('imgName').value = f.name.replace(/\.[^.]+$/, '');
+      $('imgGo').disabled = false;
+    });
+
+    // Downscale very large images in-browser so the request stays under
+    // Vercel's 4.5MB body limit, then let the server produce AVIF/WebP.
+    async function prepImage(file, maxDim = 2560) {
+      const bmp = await createImageBitmap(file);
+      let { width, height } = bmp;
+      const scale = Math.min(1, maxDim / Math.max(width, height));
+      width = Math.round(width * scale); height = Math.round(height * scale);
+      const canvas = document.createElement('canvas');
+      canvas.width = width; canvas.height = height;
+      canvas.getContext('2d').drawImage(bmp, 0, 0, width, height);
+      const blob = await new Promise((r) => canvas.toBlob(r, 'image/webp', 0.95));
+      return await new Promise((r) => { const fr = new FileReader(); fr.onload = () => r(fr.result); fr.readAsDataURL(blob); });
+    }
+
+    $('imgGo').onclick = async () => {
+      if (!imgFile) return;
+      const log = $('imgLog'); log.innerHTML = '<span class="mut">Preparing…</span>';
+      $('imgGo').disabled = true; $('imgBar').style.display = 'block'; $('imgBar').firstElementChild.style.width = '30%';
+      try {
+        const dataUrl = await prepImage(imgFile);
+        $('imgBar').firstElementChild.style.width = '60%';
+        const res = await fetch('/api/upload-image', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw.value, filename: $('imgName').value || imgFile.name, dataUrl }),
+        });
+        const data = await res.json();
+        $('imgBar').firstElementChild.style.width = '100%';
+        if (!res.ok) throw new Error(data.error || 'Upload failed');
+        const base = data.base;
+        log.innerHTML =
+          '<span class="ok">✔ Published & committed.</span> Vercel is redeploying.\n' +
+          'AVIF ' + fmtKB(data.sizes.avif) + ' · WebP ' + fmtKB(data.sizes.webp) + ' · 400w ' + fmtKB(data.sizes.avif400) +
+          '<br/>Paste into your HTML:' +
+          '<pre class="snippet">&lt;picture&gt;\n  &lt;source type="image/avif" srcset="/assets/posters/' + base + '-400w.avif 400w, /assets/posters/' + base + '.avif 1200w"&gt;\n  &lt;img src="/assets/posters/' + base + '.webp" alt="" loading="lazy" decoding="async"&gt;\n&lt;/picture&gt;</pre>';
+      } catch (e) {
+        log.innerHTML = '<span class="err">✗ ' + e.message + '</span>';
+      } finally {
+        $('imgGo').disabled = false;
+        setTimeout(() => { $('imgBar').style.display = 'none'; $('imgBar').firstElementChild.style.width = '0'; }, 1200);
+      }
+    };
+
+    // ===================== VIDEO =====================
+    let vidFile = null;
+    wireDrop('vidDrop', 'vidFile', (f) => {
+      vidFile = f;
+      $('vidDrop').innerHTML = '✔ ' + f.name + '<br/><span class="log mut">' + (f.size / 1048576).toFixed(1) + ' MB</span>';
+      if (!$('vidName').value) $('vidName').value = f.name.replace(/\.[^.]+$/, '');
+      $('vidGo').disabled = false;
+    });
+
+    // Minimal TUS uploader for Bunny Stream (chunked, resumable PATCH loop).
+    async function tusUpload(file, info, onProgress) {
+      const meta = 'filetype ' + btoa(file.type || 'video/mp4') + ',title ' + btoa(unescape(encodeURIComponent(info.title)));
+      const create = await fetch(info.endpoint, {
+        method: 'POST',
+        headers: {
+          'Tus-Resumable': '1.0.0',
+          'Upload-Length': String(file.size),
+          'Upload-Metadata': meta,
+          AuthorizationSignature: info.signature,
+          AuthorizationExpire: String(info.expire),
+          VideoId: info.videoId,
+          LibraryId: String(info.libraryId),
+        },
+      });
+      if (create.status !== 201) throw new Error('Bunny TUS create failed: ' + create.status);
+      const location = create.headers.get('Location');
+
+      const CHUNK = 32 * 1024 * 1024; // 32MB
+      let offset = 0;
+      while (offset < file.size) {
+        const slice = file.slice(offset, Math.min(offset + CHUNK, file.size));
+        const buf = await slice.arrayBuffer();
+        const patch = await fetch(location, {
+          method: 'PATCH',
+          headers: {
+            'Tus-Resumable': '1.0.0',
+            'Upload-Offset': String(offset),
+            'Content-Type': 'application/offset+octet-stream',
+            AuthorizationSignature: info.signature,
+            AuthorizationExpire: String(info.expire),
+            VideoId: info.videoId,
+            LibraryId: String(info.libraryId),
+          },
+          body: buf,
+        });
+        if (patch.status !== 204) throw new Error('Bunny TUS chunk failed: ' + patch.status);
+        offset = parseInt(patch.headers.get('Upload-Offset'), 10);
+        onProgress(offset / file.size);
+      }
+    }
+
+    $('vidGo').onclick = async () => {
+      if (!vidFile) return;
+      const log = $('vidLog'); log.innerHTML = '<span class="mut">Requesting upload slot…</span>';
+      $('vidGo').disabled = true; $('vidBar').style.display = 'block'; $('vidBar').firstElementChild.style.width = '3%';
+      try {
+        const res = await fetch('/api/bunny-create', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw.value, title: $('vidName').value || vidFile.name }),
+        });
+        const info = await res.json();
+        if (!res.ok) throw new Error(info.error || 'Could not create video');
+        log.innerHTML = '<span class="mut">Uploading to Bunny…</span>';
+        await tusUpload(vidFile, info, (p) => { $('vidBar').firstElementChild.style.width = (3 + p * 97).toFixed(0) + '%'; });
+        log.innerHTML =
+          '<span class="ok">✔ Uploaded. Bunny is now transcoding.</span>\n' +
+          'Embed iframe:' +
+          '<pre class="snippet">&lt;iframe src="' + info.embedUrl + '" loading="lazy" allow="fullscreen" style="border:0;width:100%;aspect-ratio:16/9"&gt;&lt;/iframe&gt;</pre>' +
+          (info.mp4Url ? 'Direct MP4 (once transcoded):<pre class="snippet">' + info.mp4Url + '</pre>' : '');
+      } catch (e) {
+        log.innerHTML = '<span class="err">✗ ' + e.message + '</span>';
+      } finally {
+        $('vidGo').disabled = false;
+      }
+    };
+  })();
+  </script>
+</body>
+</html>
