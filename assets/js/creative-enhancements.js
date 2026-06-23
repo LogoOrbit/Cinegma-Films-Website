@@ -311,43 +311,5 @@
     });
   })();
 
-  // ── 10. NOW SHOWING MARQUEE ──
-  (function(){
-    var films = [
-      { title: 'ZAWAAL', status: 'COMING SOON', year: '2026' },
-      { title: 'A SOLDIER BESIDE ME', status: 'COMING SOON', year: '2026' },
-      { title: 'JANJAAL', status: 'NOW STREAMING', year: '14 AWARDS' },
-      { title: 'PORTRAIT OF LIFE', status: 'NOW STREAMING', year: '2025' },
-      { title: 'PAYAM-E-DIL', status: 'COMING SOON', year: '2026' }
-    ];
-
-    var banner = document.createElement('div');
-    banner.id = 'nowShowingMarquee';
-
-    // Build marquee content (doubled for seamless loop)
-    var content = '';
-    for (var r = 0; r < 2; r++) {
-      films.forEach(function(f) {
-        content +=
-          '<span class="nsm-item">' +
-            '<span class="nsm-bulb"></span>' +
-            '<span class="nsm-title">' + f.title + '</span>' +
-            '<span class="nsm-status">' + f.status + '</span>' +
-            '<span class="nsm-dot">&#9670;</span>' +
-          '</span>';
-      });
-    }
-
-    banner.innerHTML =
-      '<div class="nsm-border nsm-border-top"></div>' +
-      '<div class="nsm-track"><div class="nsm-scroll">' + content + '</div></div>' +
-      '<div class="nsm-border nsm-border-bottom"></div>';
-
-    // Insert after nav
-    var nav = document.querySelector('nav');
-    if (nav) {
-      nav.parentNode.insertBefore(banner, nav.nextSibling);
-    }
-  })();
 
 })();
