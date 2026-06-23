@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
 <link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
 <title>Pakistani Filmmaker Syed Asad Raza Abidi — Cinegma Films</title>
@@ -278,8 +278,8 @@ section{padding:110px 60px;position:relative;}
 footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;}
 .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:rgba(240,236,228,.5);}
 .footer-tagline{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:rgba(240,236,228,.5);margin-top:6px;}
-.footer-links{display:flex;gap:28px;list-style:none;}
-.footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;}
+.footer-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap;}
+.footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;padding:8px 6px;}
 .footer-links a:hover{color:var(--white);}
 .footer-copy{font-size:.62rem;letter-spacing:.1em;color:rgba(240,236,228,.5);}
 
@@ -288,15 +288,15 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
 .reveal.visible{opacity:1;transform:translateY(0);}
 
 /* ── HAMBURGER ── */
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;z-index:600;background:none;border:none;}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;z-index:600;background:none;border:none;min-width:44px;min-height:44px;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
 .nav-hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:transform .3s,opacity .3s;}
-.nav-mobile{display:none;position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:550;flex-direction:column;justify-content:center;align-items:center;gap:32px;}
+.nav-mobile{display:none;position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:550;flex-direction:column;justify-content:center;align-items:center;gap:32px;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
 .nav-mobile{opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .35s ease,transform .35s ease;display:flex !important;}
 .nav-mobile.open{opacity:1;pointer-events:all;transform:translateY(0);}
 .nav-mobile a{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.12em;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s;}
 .nav-mobile a:hover{opacity:1;}
 .nav-mobile a.active{color:var(--white);opacity:1;text-decoration:underline;text-underline-offset:6px;text-decoration-color:rgba(240,236,228,.4);}
-.nav-mobile-close{position:absolute;top:22px;right:22px;font-size:1.8rem;color:var(--white);cursor:pointer;opacity:.5;line-height:1;}
+.nav-mobile-close{position:absolute;top:max(22px,env(safe-area-inset-top));right:22px;font-size:1.8rem;color:var(--white);cursor:pointer;opacity:.5;line-height:1;background:none;border:none;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
