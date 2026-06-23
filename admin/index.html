@@ -96,7 +96,8 @@
     .userbox .logout{width:100%;font-size:.74rem;color:var(--mut);background:none;border:1px solid var(--line-strong);border-radius:9px;padding:9px;cursor:pointer;transition:.25s;font-family:inherit;}
     .userbox .logout:hover{color:var(--err);border-color:rgba(255,27,28,.4);}
 
-    .main{margin-left:264px;flex:1;padding:46px 52px 80px;max-width:1080px;animation:fade .5s var(--ease);position:relative;z-index:2;}
+    .main{margin-left:264px;flex:1;padding:46px 52px 80px;display:flex;justify-content:center;animation:fade .5s var(--ease);position:relative;z-index:2;}
+    .main-inner{width:100%;max-width:1080px;}
     @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
     .page-head{margin-bottom:34px;}
     .page-head .kicker{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
@@ -284,7 +285,7 @@
         </div>
     </aside>
     <div class="shell">
-      <main class="main" id="app"></main>
+      <main class="main"><div class="main-inner" id="app"></div></main>
     </div>
   </div>
 
