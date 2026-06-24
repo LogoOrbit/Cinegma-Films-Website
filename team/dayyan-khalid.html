@@ -46,7 +46,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-mobile a:hover,.nav-mobile a.active{opacity:1;}
 .nav-mobile-close{position:absolute;top:max(22px,env(safe-area-inset-top));right:22px;font-size:1.8rem;color:var(--white);cursor:pointer;opacity:.5;line-height:1;background:none;border:none;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
 .profile-hero{position:relative;width:100%;min-height:60vh;overflow:hidden;display:flex;align-items:flex-end;border-bottom:1px solid var(--border);}
-.profile-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;filter:brightness(.3) saturate(.7);}
+.profile-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:brightness(.3) saturate(.7);}
 .profile-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(8,8,8,.4) 0%,rgba(8,8,8,.1) 30%,rgba(8,8,8,.8) 75%,rgba(8,8,8,1) 100%);}
 .profile-hero-content{position:relative;z-index:2;padding:0 60px 60px;max-width:800px;}
 .profile-hero-eyebrow{font-size:.72rem;letter-spacing:.28em;text-transform:uppercase;color:var(--grey);margin-bottom:16px;}
@@ -60,7 +60,7 @@ section{padding:100px 60px;position:relative;}
 .profile-section{background:var(--black);border-top:1px solid var(--border);}
 .profile-grid{display:grid;grid-template-columns:min(300px,28%) 1fr;gap:72px;align-items:start;}
 .profile-portrait{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--mid);}
-.profile-portrait img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(20%);}
+.profile-portrait img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:grayscale(20%);}
 .profile-portrait .portrait-frame{position:absolute;inset:14px;border:1px solid var(--border);pointer-events:none;z-index:2;}
 .profile-portrait .portrait-label{position:absolute;bottom:18px;left:18px;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);z-index:3;}
 .profile-info h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3vw,3.2rem);line-height:1;letter-spacing:.04em;color:var(--white);margin-bottom:6px;}
