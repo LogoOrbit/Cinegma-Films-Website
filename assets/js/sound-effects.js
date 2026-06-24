@@ -46,9 +46,10 @@
     shutter: 'shutter.mp3',
     whoosh: 'whoosh.mp3',
     blip: 'blip.mp3',
-    toggle: 'toggle.mp3'
+    toggle: 'toggle.mp3',
+    watch: 'watch.mp3',
+    janjaal: 'janjaal.mp3'
   };
-  // Per-sample playback volume (recorded files are full-scale; master tames it)
   var VOL = {
     hover: 0.4,
     sparkle: 0.6,
@@ -57,7 +58,9 @@
     shutter: 0.7,
     whoosh: 0.5,
     blip: 0.45,
-    toggle: 0.6
+    toggle: 0.6,
+    watch: 0.65,
+    janjaal: 0.7
   };
 
   var STORE_KEY = 'cinegma_sfx_enabled';
@@ -368,6 +371,29 @@
     if (!ready()) return;
     if (!playSample('toggle', VOL.toggle)) synthToggle(on);
   }
+  function fxWatch() {
+    if (!ready()) return;
+    if (!playSample('watch', VOL.watch)) synthCinematic();
+  }
+  function fxJanjaal() {
+    if (!ready()) return;
+    if (!playSample('janjaal', VOL.janjaal)) synthCinematic();
+  }
+
+  // ── Janjaal detection helpers ──
+  function isJanjaalEl(el) {
+    var card = el.closest('.film-card[data-project]');
+    if (card && /janjaal/i.test(card.dataset.project)) return true;
+    var link = el.closest('a[href]');
+    if (link && /janjaal/i.test(link.getAttribute('href'))) return true;
+    var text = el.textContent || '';
+    if (/janjaal/i.test(text) && el.closest('.card-actions, .yt-card')) return true;
+    return false;
+  }
+
+  function isWatchLink(href) {
+    return href && /watch\.html|\/watch\b/i.test(href);
+  }
 
   // ── Element classification ──
   var SEL_SPARKLE = '.lw-item, .laurel-pill, .aw-card';
@@ -427,9 +453,24 @@
       if (!enabled) return;
       unlock();
 
+      // Janjaal-specific bass hit (poster click or any Janjaal link)
+      if (isJanjaalEl(e.target)) {
+        fxJanjaal();
+        return;
+      }
+
       var link = e.target.closest('a[href]');
+      var href = link ? link.getAttribute('href') : '';
       var poster = e.target.closest('.film-card[data-project]');
-      if ((link && isInternalNav(link.getAttribute('href'))) || poster) {
+
+      // Watch-page buttons (watch, stream now, etc.)
+      if (link && isWatchLink(href)) {
+        fxWatch();
+        return;
+      }
+
+      // Page navigation → shutter
+      if ((link && isInternalNav(href)) || poster) {
         fxShutter();
         return;
       }
@@ -516,6 +557,8 @@
     cinematic: fxCinematic,
     shutter: fxShutter,
     whoosh: fxWhoosh,
+    watch: fxWatch,
+    janjaal: fxJanjaal,
     isEnabled: function () {
       return enabled;
     }
