@@ -167,6 +167,10 @@ nav.scrolled{background:rgba(8,8,8,.97);}
 .ott-scroll::after{content:'';flex:0 0 44px;}
 .ott-row:not(.ott-row-yt) .ott-scroll{flex-wrap:wrap;overflow-x:visible;cursor:auto;scroll-snap-type:none;}
 .ott-row:not(.ott-row-yt) .film-card{flex:1 1 420px;min-width:320px;max-width:600px;}
+.ott-row:not(.ott-row-yt) .film-card .card-synopsis,
+.ott-row:not(.ott-row-yt) .film-card .card-actions{max-height:none;opacity:1;}
+.ott-row:not(.ott-row-yt) .film-card:hover .card-synopsis,
+.ott-row:not(.ott-row-yt) .film-card:hover .card-actions{max-height:none;opacity:1;}
 .ott-row:not(.ott-row-yt) .ott-scroll::after{display:none;}
 .ott-row:not(.ott-row-yt) .ott-row-arrows{display:none;}
 @media(max-width:768px){
@@ -1777,7 +1781,7 @@ function scrollRow(el, dir) {
   if (!scroll) return;
   var card = scroll.querySelector('.film-card') || scroll.querySelector('.yt-card');
   var dist = card ? (card.offsetWidth + 20) * 2 : 400;
-  scroll.scrollLeft += dir * dist;
+  scroll.scrollBy({ left: dir * dist, behavior: 'smooth' });
 }
 
 /* ── DRAG TO SCROLL ── */
