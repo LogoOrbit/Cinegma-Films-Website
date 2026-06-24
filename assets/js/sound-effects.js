@@ -1,25 +1,64 @@
 /* ===========================================================================
    CINEGMA FILMS — INTERACTIVE SOUND DESIGN
-   Procedural UI sound effects generated with the Web Audio API.
-   No audio files: every sound is synthesised in code, so there is nothing
-   to download, host or license. Pairs with the ambient "Ambience" layer in
-   creative-enhancements.js but runs independently.
+   Web Audio UI sound effects.
 
-   Effects:
-     • hover      – soft tick on links / buttons / nav
-     • sparkle    – shimmering twinkle on laurels & award cards
-     • cinematic  – deep filtered swell on film posters
-     • click      – mechanical click on buttons / CTAs
-     • shutter    – camera shutter when navigating to another page
-     • whoosh     – mobile menu open / close
-     • blip       – form-field focus
-     • toggle     – sound on / off confirmation
+   Uses recorded audio samples from assets/audio/sfx/ when available, and
+   gracefully falls back to procedurally-synthesised sounds (no files needed)
+   for any sample that is missing or fails to load. Pairs with the ambient
+   "Ambience" layer in creative-enhancements.js but runs independently.
+
+   Drop-in samples (MP3, mono ok, kept short). Filenames are fixed:
+     hover.mp3      – soft tick on links / buttons / nav
+     sparkle.mp3    – shimmer on laurels & award cards
+     cinematic.mp3  – deep swell on film posters
+     click.mp3      – click on buttons / CTAs
+     shutter.mp3    – camera shutter on page navigation
+     whoosh.mp3     – mobile menu open / close (auto-reversed for close)
+     blip.mp3       – form-field focus (optional)
+     toggle.mp3     – sound on/off confirmation (optional)
    ========================================================================= */
 (function () {
   'use strict';
 
   var AudioCtx = window.AudioContext || window.webkitAudioContext;
   if (!AudioCtx) return;
+
+  // Resolve assets/audio/sfx/ relative to this script's own URL so it works
+  // from both root pages (assets/js/...) and project pages (../assets/js/...).
+  var SCRIPT_SRC =
+    (document.currentScript && document.currentScript.src) ||
+    (function () {
+      var s = document.querySelector('script[src*="sound-effects.js"]');
+      return s ? s.src : location.href;
+    })();
+  var AUDIO_BASE;
+  try {
+    AUDIO_BASE = new URL('../audio/sfx/', SCRIPT_SRC).href;
+  } catch (e) {
+    AUDIO_BASE = 'assets/audio/sfx/';
+  }
+
+  var SAMPLES = {
+    hover: 'hover.mp3',
+    sparkle: 'sparkle.mp3',
+    cinematic: 'cinematic.mp3',
+    click: 'click.mp3',
+    shutter: 'shutter.mp3',
+    whoosh: 'whoosh.mp3',
+    blip: 'blip.mp3',
+    toggle: 'toggle.mp3'
+  };
+  // Per-sample playback volume (recorded files are full-scale; master tames it)
+  var VOL = {
+    hover: 0.4,
+    sparkle: 0.6,
+    cinematic: 0.6,
+    click: 0.5,
+    shutter: 0.7,
+    whoosh: 0.5,
+    blip: 0.45,
+    toggle: 0.6
+  };
 
   var STORE_KEY = 'cinegma_sfx_enabled';
   var prefersReduced =
@@ -38,6 +77,8 @@
 
   var ctx = null;
   var master = null;
+  var buffers = {};
+  var preloaded = false;
 
   function ensureCtx() {
     if (ctx) return;
@@ -47,10 +88,51 @@
     master.connect(ctx.destination);
   }
 
+  function decode(arrayBuffer) {
+    return new Promise(function (res, rej) {
+      var p = ctx.decodeAudioData(arrayBuffer, res, rej);
+      if (p && p.then) p.then(res, rej);
+    });
+  }
+
+  function reverseBuffer(buf) {
+    var nb = ctx.createBuffer(buf.numberOfChannels, buf.length, buf.sampleRate);
+    for (var c = 0; c < buf.numberOfChannels; c++) {
+      var src = buf.getChannelData(c);
+      var dst = nb.getChannelData(c);
+      var n = buf.length;
+      for (var i = 0; i < n; i++) dst[i] = src[n - 1 - i];
+    }
+    return nb;
+  }
+
+  // Load every available sample once. Missing/failed files are simply skipped,
+  // so the synth fallback covers them — no errors, plug-and-play when uploaded.
+  function preload() {
+    if (preloaded || !ctx) return;
+    preloaded = true;
+    Object.keys(SAMPLES).forEach(function (name) {
+      fetch(AUDIO_BASE + SAMPLES[name])
+        .then(function (r) {
+          if (!r.ok) throw 0;
+          return r.arrayBuffer();
+        })
+        .then(decode)
+        .then(function (buf) {
+          buffers[name] = buf;
+          if (name === 'whoosh') buffers.whoosh_rev = reverseBuffer(buf);
+        })
+        .catch(function () {
+          /* no sample → synth fallback handles it */
+        });
+    });
+  }
+
   // Browsers require a user gesture before audio can start.
   function unlock() {
     ensureCtx();
     if (ctx.state === 'suspended') ctx.resume();
+    preload();
   }
   ['pointerdown', 'keydown', 'touchstart'].forEach(function (ev) {
     window.addEventListener(ev, unlock, { passive: true });
@@ -60,7 +142,21 @@
     if (!enabled) return false;
     ensureCtx();
     if (ctx.state === 'suspended') ctx.resume();
+    preload();
     return ctx.state === 'running';
+  }
+
+  function playSample(name, vol) {
+    var buf = buffers[name];
+    if (!buf) return false;
+    var src = ctx.createBufferSource();
+    src.buffer = buf;
+    var g = ctx.createGain();
+    g.gain.value = vol == null ? 1 : vol;
+    src.connect(g);
+    g.connect(master);
+    src.start();
+    return true;
   }
 
   // ── Throttle: avoid overlapping spam when sweeping the cursor ──
@@ -72,7 +168,7 @@
     return true;
   }
 
-  // ── Synthesis helpers ──
+  // ── Synthesis helpers (fallback when a sample is absent) ──
   function noiseSource(dur) {
     var len = Math.max(1, Math.floor(ctx.sampleRate * dur));
     var buf = ctx.createBuffer(1, len, ctx.sampleRate);
@@ -84,7 +180,6 @@
   }
 
   function tone(opts) {
-    // opts: type, f0, f1, peak, attack, dur, dest
     var t = ctx.currentTime + (opts.delay || 0);
     var o = ctx.createOscillator();
     var g = ctx.createGain();
@@ -98,19 +193,14 @@
     g.connect(opts.dest || master);
     o.start(t);
     o.stop(t + opts.dur + 0.02);
-    return { osc: o, gain: g };
   }
 
-  // ── Individual effects ──
-  function fxHover() {
-    if (!ready() || !gate('hover', 40)) return;
+  function synthHover() {
     tone({ type: 'sine', f0: 760, f1: 1240, peak: 0.05, attack: 0.008, dur: 0.09 });
   }
 
-  function fxClick() {
-    if (!ready()) return;
+  function synthClick() {
     var t = ctx.currentTime;
-    // bright mechanical transient
     var nb = noiseSource(0.06);
     var bp = ctx.createBiquadFilter();
     bp.type = 'bandpass';
@@ -125,13 +215,11 @@
     ng.connect(master);
     nb.start(t);
     nb.stop(t + 0.07);
-    // short body
     tone({ type: 'triangle', f0: 430, f1: 150, peak: 0.11, attack: 0.003, dur: 0.07 });
   }
 
-  function fxSparkle() {
-    if (!ready() || !gate('sparkle', 90)) return;
-    var notes = [1568, 2093, 2637, 3136]; // ascending bell partials
+  function synthSparkle() {
+    var notes = [1568, 2093, 2637, 3136];
     for (var i = 0; i < notes.length; i++) {
       tone({
         type: 'sine',
@@ -144,8 +232,7 @@
     }
   }
 
-  function fxCinematic() {
-    if (!ready() || !gate('cinematic', 140)) return;
+  function synthCinematic() {
     var t = ctx.currentTime;
     var lp = ctx.createBiquadFilter();
     lp.type = 'lowpass';
@@ -158,7 +245,6 @@
     g.gain.exponentialRampToValueAtTime(0.0001, t + 0.7);
     lp.connect(g);
     g.connect(master);
-
     var o1 = ctx.createOscillator();
     o1.type = 'sawtooth';
     o1.frequency.setValueAtTime(55, t);
@@ -174,8 +260,7 @@
     o2.stop(t + 0.75);
   }
 
-  function fxShutter() {
-    if (!ready()) return;
+  function synthShutter() {
     var t0 = ctx.currentTime;
     function clack(at, freq, vol) {
       var nb = noiseSource(0.05);
@@ -192,7 +277,6 @@
       g.connect(master);
       nb.start(at);
       nb.stop(at + 0.05);
-      // mechanical thunk
       var o = ctx.createOscillator();
       var og = ctx.createGain();
       o.type = 'square';
@@ -206,12 +290,11 @@
       o.start(at);
       o.stop(at + 0.07);
     }
-    clack(t0, 2200, 0.22); // mirror up / snap
-    clack(t0 + 0.11, 1650, 0.18); // shutter close
+    clack(t0, 2200, 0.22);
+    clack(t0 + 0.11, 1650, 0.18);
   }
 
-  function fxWhoosh(reverse) {
-    if (!ready()) return;
+  function synthWhoosh(reverse) {
     var t = ctx.currentTime;
     var dur = 0.34;
     var nb = noiseSource(dur);
@@ -231,15 +314,11 @@
     nb.stop(t + dur);
   }
 
-  function fxBlip() {
-    if (!ready() || !gate('blip', 80)) return;
+  function synthBlip() {
     tone({ type: 'sine', f0: 540, f1: 720, peak: 0.05, attack: 0.006, dur: 0.12 });
   }
 
-  function fxToggle(on) {
-    if (!ctx) ensureCtx();
-    if (ctx.state === 'suspended') ctx.resume();
-    if (ctx.state !== 'running') return;
+  function synthToggle(on) {
     tone({ type: 'sine', f0: on ? 520 : 660, peak: 0.09, attack: 0.005, dur: 0.1 });
     tone({
       type: 'sine',
@@ -249,6 +328,45 @@
       dur: 0.14,
       delay: 0.07
     });
+  }
+
+  // ── Effect dispatchers: sample first, synth fallback ──
+  function fxHover() {
+    if (!ready() || !gate('hover', 40)) return;
+    if (!playSample('hover', VOL.hover)) synthHover();
+  }
+  function fxClick() {
+    if (!ready()) return;
+    if (!playSample('click', VOL.click)) synthClick();
+  }
+  function fxSparkle() {
+    if (!ready() || !gate('sparkle', 90)) return;
+    if (!playSample('sparkle', VOL.sparkle)) synthSparkle();
+  }
+  function fxCinematic() {
+    if (!ready() || !gate('cinematic', 140)) return;
+    if (!playSample('cinematic', VOL.cinematic)) synthCinematic();
+  }
+  function fxShutter() {
+    if (!ready()) return;
+    if (!playSample('shutter', VOL.shutter)) synthShutter();
+  }
+  function fxWhoosh(reverse) {
+    if (!ready()) return;
+    if (reverse) {
+      if (playSample('whoosh_rev', VOL.whoosh)) return;
+    } else if (playSample('whoosh', VOL.whoosh)) {
+      return;
+    }
+    synthWhoosh(reverse);
+  }
+  function fxBlip() {
+    if (!ready() || !gate('blip', 80)) return;
+    if (!playSample('blip', VOL.blip)) synthBlip();
+  }
+  function fxToggle(on) {
+    if (!ready()) return;
+    if (!playSample('toggle', VOL.toggle)) synthToggle(on);
   }
 
   // ── Element classification ──
