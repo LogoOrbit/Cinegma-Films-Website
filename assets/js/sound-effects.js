@@ -397,15 +397,13 @@
 
   // ── Element classification ──
   var SEL_SPARKLE = '.lw-item, .laurel-pill, .aw-card';
-  var SEL_CINEMA = '.film-card, .yt-card, .card-media, .card-thumb';
-  var SEL_GENERIC =
-    'a, button, .btn, .cta, .nav-logo, [role="button"], .gs-option, .cg-launch, .cg-tb, summary';
+  var SEL_HOVERABLE =
+    'a, button, .btn, .cta, .nav-logo, [role="button"], .gs-option, .cg-launch, .cg-tb, summary, .film-card, .yt-card, .card-media, .card-thumb, img';
 
   function classify(el) {
     var node;
     if ((node = el.closest(SEL_SPARKLE))) return { type: 'sparkle', node: node };
-    if ((node = el.closest(SEL_CINEMA))) return { type: 'cinematic', node: node };
-    if ((node = el.closest(SEL_GENERIC))) return { type: 'hover', node: node };
+    if ((node = el.closest(SEL_HOVERABLE))) return { type: 'hover', node: node };
     return null;
   }
 
@@ -438,7 +436,6 @@
         if (info.node === currentHover) return;
         currentHover = info.node;
         if (info.type === 'sparkle') fxSparkle();
-        else if (info.type === 'cinematic') fxCinematic();
         else fxHover();
       },
       { passive: true }
@@ -474,7 +471,7 @@
         fxShutter();
         return;
       }
-      if (e.target.closest(SEL_GENERIC + ', .card-actions a')) {
+      if (e.target.closest(SEL_HOVERABLE + ', .card-actions a')) {
         fxClick();
       }
     },
