@@ -397,13 +397,14 @@
 
   // ── Element classification ──
   var SEL_SPARKLE = '.lw-item, .laurel-pill, .aw-card';
-  var SEL_HOVERABLE =
-    'a, button, .btn, .cta, .nav-logo, [role="button"], .gs-option, .cg-launch, .cg-tb, summary, .film-card, .yt-card, .card-media, .card-thumb, img';
+  var SEL_POSTER = '.film-card, .yt-card, .card-media, .card-thumb';
+  var SEL_CLICKABLE =
+    'a, button, .btn, .cta, .nav-logo, [role="button"], .gs-option, .cg-launch, .cg-tb, summary';
 
   function classify(el) {
     var node;
     if ((node = el.closest(SEL_SPARKLE))) return { type: 'sparkle', node: node };
-    if ((node = el.closest(SEL_HOVERABLE))) return { type: 'hover', node: node };
+    if ((node = el.closest(SEL_POSTER))) return { type: 'hover', node: node };
     return null;
   }
 
@@ -471,7 +472,7 @@
         fxShutter();
         return;
       }
-      if (e.target.closest(SEL_HOVERABLE + ', .card-actions a')) {
+      if (e.target.closest(SEL_CLICKABLE + ', .card-actions a')) {
         fxClick();
       }
     },
