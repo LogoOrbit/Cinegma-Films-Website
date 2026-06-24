@@ -619,6 +619,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
       poster="assets/posters/Janjaal%20Watch%20Cover.avif"></video>
   </div>
   <div class="hero-vignette"></div>
+  <button class="hero-sound-btn" id="heroSoundBtn" aria-label="Toggle hero sound" onclick="toggleHeroSound()">
+    <svg id="heroIconMuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    <svg id="heroIconUnmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+  </button>
   <div class="hero-content">
     <div class="hero-badge-row">
       <span class="hero-badge">
@@ -774,6 +778,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">97% Match</div>
@@ -813,6 +821,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">98% Match</div>
@@ -852,6 +864,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">94% Match</div>
@@ -891,6 +907,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">95% Match</div>
@@ -930,6 +950,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">91% Match</div>
@@ -981,6 +1005,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge free">Free</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">93% Match</div>
@@ -1017,6 +1045,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge free">Free</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">89% Match</div>
@@ -1067,6 +1099,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">98% Match</div>
@@ -1104,6 +1140,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">95% Match</div>
@@ -1141,6 +1181,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <div class="card-video-fade"></div>
           <div class="preview-badge">&#x25B6; Preview</div>
           <div class="access-badge screener">Screener</div>
+          <button class="card-mute" aria-label="Toggle mute" onclick="toggleCardMute(event,this)">
+            <svg class="icon-muted" viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg class="icon-unmuted" viewBox="0 0 24 24" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
         <div class="card-meta">
           <div class="match-badge">94% Match</div>
@@ -1391,9 +1435,16 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 /* ── HOVER PREVIEW ── */
 var hoverTimers = {};
 document.querySelectorAll('.film-card').forEach(function(card, idx) {
-  var vid   = card.querySelector('.card-video');
-  var badge = card.querySelector('.preview-badge');
+  var vid     = card.querySelector('.card-video');
+  var badge   = card.querySelector('.preview-badge');
+  var muteBtn = card.querySelector('.card-mute');
   if (!vid) return;
+
+  function syncMuteBtn() {
+    if (!muteBtn) return;
+    muteBtn.querySelector('.icon-muted').style.display   = vid.muted ? '' : 'none';
+    muteBtn.querySelector('.icon-unmuted').style.display = vid.muted ? 'none' : '';
+  }
 
   var thumb = card.querySelector('.card-thumb');
 
@@ -1402,14 +1453,23 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
       var src = vid.getAttribute('data-src');
       if (src && !vid.src) { vid.src = src; }
       vid.currentTime = 0;
-      vid.muted = true;
+      vid.muted = false;
       var playPromise = vid.play();
       if (playPromise !== undefined) {
         playPromise.then(function() {
           vid.classList.add('visible');
           if (thumb) thumb.classList.add('hidden');
           if (badge) badge.classList.add('show');
-        }).catch(function(){});
+          syncMuteBtn();
+        }).catch(function() {
+          vid.muted = true;
+          vid.play().then(function() {
+            vid.classList.add('visible');
+            if (thumb) thumb.classList.add('hidden');
+            if (badge) badge.classList.add('show');
+            syncMuteBtn();
+          }).catch(function(){});
+        });
       }
     }, 200);
   });
@@ -1418,9 +1478,11 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
     clearTimeout(hoverTimers[idx]);
     vid.pause();
     vid.currentTime = 0;
+    vid.muted = true;
     vid.classList.remove('visible');
     if (thumb) thumb.classList.remove('hidden');
     if (badge) badge.classList.remove('show');
+    syncMuteBtn();
   });
 });
 
@@ -1430,6 +1492,13 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
   if (!('IntersectionObserver' in window)) return;
 
   var activeCard = null;
+
+  function syncMute(card, vid) {
+    var btn = card.querySelector('.card-mute');
+    if (!btn) return;
+    btn.querySelector('.icon-muted').style.display   = vid.muted ? '' : 'none';
+    btn.querySelector('.icon-unmuted').style.display = vid.muted ? 'none' : '';
+  }
 
   function playCard(card) {
     if (activeCard === card) return;
@@ -1449,6 +1518,7 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
       vid.classList.add('visible');
       if (thumb) thumb.classList.add('hidden');
       if (badge) badge.classList.add('show');
+      syncMute(card, vid);
     }).catch(function(){});
   }
 
@@ -1459,9 +1529,11 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
     if (!vid) return;
     vid.pause();
     vid.currentTime = 0;
+    vid.muted = true;
     vid.classList.remove('visible');
     if (thumb) thumb.classList.remove('hidden');
     if (badge) badge.classList.remove('show');
+    syncMute(card, vid);
   }
 
   var observer = new IntersectionObserver(function(entries) {
@@ -1482,6 +1554,21 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
     if (card.querySelector('.card-video')) observer.observe(card);
   });
 })();
+
+/* ── CARD MUTE TOGGLE ── */
+function toggleCardMute(e, btn) {
+  e.stopPropagation();
+  e.preventDefault();
+  var card = btn.closest('.film-card');
+  var vid  = card.querySelector('.card-video');
+  if (!vid) return;
+  vid.muted = !vid.muted;
+  btn.querySelector('.icon-muted').style.display   = vid.muted ? '' : 'none';
+  btn.querySelector('.icon-unmuted').style.display = vid.muted ? 'none' : '';
+  if (!vid.muted && vid.paused) {
+    vid.play().catch(function() { vid.muted = true; btn.querySelector('.icon-muted').style.display=''; btn.querySelector('.icon-unmuted').style.display='none'; });
+  }
+}
 
 /* ── LANDSCAPE LOCK + FULLSCREEN FIT HELPER ── */
 function lockLandscape(player) {
@@ -1750,6 +1837,14 @@ document.querySelectorAll('.genre-pill').forEach(function(pill) {
   setTimeout(function() { rows.forEach(function(r) { r.classList.add('revealed'); }); }, 3000);
 })();
 
+
+/* ── HERO SOUND ── */
+function toggleHeroSound() {
+  var vid = document.getElementById('heroVideo');
+  vid.muted = !vid.muted;
+  document.getElementById('heroIconMuted').style.display   = vid.muted ? '' : 'none';
+  document.getElementById('heroIconUnmuted').style.display = vid.muted ? 'none' : '';
+}
 
 /* ── NAV ── */
 var nav = document.querySelector('nav');
