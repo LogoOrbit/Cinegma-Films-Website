@@ -165,13 +165,15 @@ nav.scrolled{background:rgba(8,8,8,.97);}
 .ott-scroll::-webkit-scrollbar{display:none;}
 .ott-scroll:active{cursor:grabbing;}
 .ott-scroll::after{content:'';flex:0 0 44px;}
+.ott-row:not(.ott-row-yt) .ott-scroll{flex-wrap:wrap;overflow-x:visible;cursor:auto;scroll-snap-type:none;}
+.ott-row:not(.ott-row-yt) .film-card{flex:1 1 420px;min-width:320px;max-width:600px;}
+.ott-row:not(.ott-row-yt) .ott-scroll::after{display:none;}
+.ott-row:not(.ott-row-yt) .ott-row-arrows{display:none;}
 @media(max-width:768px){
   .ott-row-header{padding:0 20px;}
   .ott-scroll{padding:20px 20px 40px;gap:16px;}
-  .ott-row:not(.ott-row-yt) .ott-scroll{flex-wrap:wrap;overflow-x:visible;cursor:auto;padding:10px 20px 20px;}
+  .ott-row:not(.ott-row-yt) .ott-scroll{padding:10px 20px 20px;}
   .ott-row:not(.ott-row-yt) .film-card{flex:1 1 100%;min-width:0;max-width:100%;}
-  .ott-row:not(.ott-row-yt) .ott-scroll::after{display:none;}
-  .ott-row:not(.ott-row-yt) .ott-row-arrows{display:none;}
 }
 @media(max-width:600px){
   .ott-row-header{padding:0 16px;}
@@ -1779,7 +1781,7 @@ function scrollRow(el, dir) {
 }
 
 /* ── DRAG TO SCROLL ── */
-document.querySelectorAll('.ott-scroll').forEach(function(el) {
+document.querySelectorAll('.ott-row-yt .ott-scroll').forEach(function(el) {
   var isDown = false, startX, scrollLeft;
   el.addEventListener('mousedown', function(e) {
     if (e.target.closest('button')) return;
