@@ -89,6 +89,39 @@
   #soundToggle { display: none; }
 }
 
+/* ── 5b. SFX (INTERACTIVE SOUND) TOGGLE ── */
+#sfxToggle {
+  position: fixed; bottom: 84px; left: 32px; z-index: 461;
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(8,8,8,0.85);
+  border: 1px solid rgba(240,236,228,0.15);
+  color: rgba(240,236,228,0.45);
+  padding: 10px 14px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 0.3s, border-color 0.3s, background 0.3s;
+}
+#sfxToggle:hover {
+  color: rgba(240,236,228,0.8);
+  border-color: rgba(240,236,228,0.3);
+}
+#sfxToggle.sfx-on {
+  color: var(--gold, #ff7f11);
+  border-color: rgba(255,127,17,0.4);
+}
+#sfxToggle.sfx-on .sfx-off-line { display: none; }
+#sfxToggle .sfx-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+}
+/* On touch devices the ambience toggle is hidden, so drop SFX to the corner */
+@media (hover: none), (pointer: coarse) {
+  #sfxToggle { bottom: 24px; left: 20px; }
+}
+
 /* ── 6. COLOR GRADE SWITCHER ── */
 #gradeSwitcher {
   position: fixed; top: 50%; right: 0; z-index: 480;
