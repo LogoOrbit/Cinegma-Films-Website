@@ -166,7 +166,7 @@ nav.scrolled{background:rgba(8,8,8,.97);}
 .ott-scroll:active{cursor:grabbing;}
 .ott-scroll::after{content:'';flex:0 0 44px;}
 .ott-row:not(.ott-row-yt) .ott-scroll{flex-wrap:wrap;overflow-x:visible;cursor:auto;scroll-snap-type:none;}
-.ott-row:not(.ott-row-yt) .film-card{flex:1 1 calc(50% - 10px);min-width:400px;max-width:none;}
+.ott-row:not(.ott-row-yt) .film-card{flex:1 1 calc(50% - 10px);min-width:320px;max-width:640px;}
 .ott-row:not(.ott-row-yt) .film-card .card-synopsis,
 .ott-row:not(.ott-row-yt) .film-card .card-actions{max-height:none;opacity:1;}
 .ott-row:not(.ott-row-yt) .film-card:hover .card-synopsis,
@@ -177,7 +177,7 @@ nav.scrolled{background:rgba(8,8,8,.97);}
   .ott-row-header{padding:0 20px;}
   .ott-scroll{padding:20px 20px 40px;gap:16px;}
   .ott-row:not(.ott-row-yt) .ott-scroll{padding:10px 20px 20px;}
-  .ott-row:not(.ott-row-yt) .film-card{flex:1 1 100%;min-width:0;max-width:none;}
+  .ott-row:not(.ott-row-yt) .film-card{flex:1 1 100%;min-width:0;max-width:100%;}
 }
 @media(max-width:600px){
   .ott-row-header{padding:0 16px;}
@@ -190,7 +190,7 @@ nav.scrolled{background:rgba(8,8,8,.97);}
   background:var(--card);border:1px solid var(--border);display:flex;flex-direction:column;
   transition:border-color .35s,background .35s,box-shadow .4s;
   overflow:hidden;cursor:pointer;position:relative;border-radius:6px;
-  flex:0 0 480px;scroll-snap-align:start;min-width:400px;
+  flex:0 0 420px;scroll-snap-align:start;min-width:340px;
 }
 .film-card:hover{
   border-color:rgba(255,127,17,.5);background:var(--card-h);
