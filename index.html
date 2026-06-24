@@ -131,10 +131,6 @@ section{padding:100px 60px;position:relative;}
 .film-card.touch-active .film-card-bg img{filter:brightness(.45);}
 .film-card.touch-active .film-card-content{opacity:1;transform:translateY(0);}
 .film-card.touch-active .film-role,.film-card.touch-active .film-desc,.film-card.touch-active .film-tag,.film-card.touch-active .film-imdb,.film-card.touch-active .film-trailer{opacity:1;transform:translateY(0);}
-.film-card.touch-active .film-laurels{opacity:1;}
-.film-laurels{position:absolute;top:0;left:0;right:0;z-index:4;padding:14px;display:flex;flex-wrap:wrap;gap:5px;opacity:0;transition:opacity .4s ease;max-height:55%;overflow:hidden;}
-.film-card:hover .film-laurels{opacity:1;}
-.laurel-badge{height:auto;min-width:50px;border:1px solid rgba(240,236,228,.3);display:flex;align-items:center;justify-content:center;padding:5px 8px;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,236,228,.8);text-align:center;line-height:1.35;backdrop-filter:blur(6px);background:rgba(8,8,8,.4);}
 .film-card-num{position:absolute;top:22px;left:22px;font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.2em;color:rgba(240,236,228,.3);z-index:2;opacity:0;transition:opacity .4s ease;}.film-card:hover .film-card-num{opacity:1;}.film-card.touch-active .film-card-num{opacity:1;}
 .film-card-content{position:absolute;bottom:0;left:0;right:0;padding:28px 24px;background:linear-gradient(to top,rgba(8,8,8,.98) 0%,rgba(8,8,8,.6) 60%,transparent 100%);z-index:3;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease;}
 .film-card:hover .film-card-content{opacity:1;transform:translateY(0);}
@@ -325,8 +321,6 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   .hero-scroll{display:none;}
   .team-headshot{aspect-ratio:1/1;}
   /* Laurel badges hidden on mobile — visible on touch-active via JS */
-  .film-laurels{display:none;}
-  .film-card.touch-active .film-laurels{display:flex;}
   /* Film card overlay hidden by default on mobile — only shown on tap */
   .film-card-content{opacity:0;transform:translateY(16px);}
   .film-role,.film-desc,.film-tag,.film-imdb,.film-trailer{opacity:0;transform:translateY(8px);}
@@ -486,7 +480,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   .team-card-num{font-size:.72rem;}
 
   /* ── Tiniest chips: laurel / award badges (were 0.42–0.5rem) ── */
-  .laurel-badge,.aw-card-badge{font-size:.58rem;letter-spacing:.05em;}
+  .aw-card-badge{font-size:.58rem;letter-spacing:.05em;}
   .laurel-pill{font-size:.74rem;}
   .laurel-pill span{font-size:.66rem;}
   .award-badge{font-size:.66rem;}
@@ -702,18 +696,6 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-janjaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Janjaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
-      </div>
-      <div class="film-laurels">
-        <div class="laurel-badge">Best Short Film<br>Toronto F/SF<br>2026</div>
-        <div class="laurel-badge">Best Director<br>Cedar FF<br>2026</div>
-        <div class="laurel-badge">Best Film<br>Cedar FF<br>2026</div>
-        <div class="laurel-badge">Best Director<br>Gandhara IFF<br>2025–26</div>
-        <div class="laurel-badge">Best Director<br>KISFF India<br>2025</div>
-        <div class="laurel-badge">Best Short Film<br>KISFF India<br>2025</div>
-        <div class="laurel-badge">Best Short Film<br>PIFF 2025</div>
-        <div class="laurel-badge">Best Trailer<br>TMFF Scotland<br>2025</div>
-        <div class="laurel-badge">Best Director<br>Indus IFF<br>2025</div>
-        <div class="laurel-badge">Theatrical<br>Arena Cinemas<br>Jan 2025</div>
       </div>
       <span class="film-card-num">01</span>
       <div class="film-card-content">

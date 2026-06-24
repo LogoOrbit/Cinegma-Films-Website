@@ -155,9 +155,6 @@
 body[data-grade="teal"]::after {
   background: radial-gradient(ellipse 92% 82% at 50% 48%, transparent 54%, var(--grade-vignette, rgba(0,30,40,.3)) 100%) !important;
 }
-body[data-grade="noir"] {
-  filter: var(--grade-filter, none);
-}
 body[data-grade="noir"]::after {
   background: radial-gradient(ellipse 92% 82% at 50% 48%, transparent 54%, var(--grade-vignette, rgba(0,0,0,.45)) 100%) !important;
 }
@@ -165,11 +162,13 @@ body[data-grade="arthouse"]::after {
   background: radial-gradient(ellipse 92% 82% at 50% 48%, transparent 54%, var(--grade-vignette, rgba(10,5,0,.35)) 100%) !important;
 }
 body[data-grade="teal"] section,
-body[data-grade="arthouse"] section {
+body[data-grade="arthouse"] section,
+body[data-grade="noir"] section {
   filter: var(--grade-filter, none);
 }
 body[data-grade="teal"] nav,
 body[data-grade="arthouse"] nav,
+body[data-grade="noir"] nav,
 body[data-grade="teal"] #pageTransition,
 body[data-grade="arthouse"] #pageTransition,
 body[data-grade="noir"] #pageTransition {

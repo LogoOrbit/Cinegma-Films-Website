@@ -1613,18 +1613,20 @@ function openTrailerModal(url, title) {
   if (_trailerPlayer) { try { _trailerPlayer.pause(); _trailerPlayer.destroy(); } catch(e){} _trailerPlayer = null; }
   var vid = document.getElementById('trailerVideo');
   vid.src = url;
-  vid.muted = false;
   vid.load();
   document.getElementById('trailerModalTitle').textContent = title;
   document.getElementById('trailerModal').classList.add('open');
   document.body.style.overflow = 'hidden';
-  vid.play().catch(function(){});
   _trailerPlayer = new Plyr(vid, {
     controls: ['play-large','play','progress','current-time','duration','mute','volume','fullscreen'],
     hideControls: true,
     autoplay: true,
     muted: false,
-    fullscreen: { enabled:true, fallback:true, iosNative:true }
+    fullscreen: { enabled:true, fallback:true, iosNative:true },
+    clickToPlay: true
+  });
+  _trailerPlayer.on('ready', function() {
+    try { _trailerPlayer.play(); } catch(e){}
   });
   _trailerPlayer.on('enterfullscreen', function() { lockLandscape(_trailerPlayer); });
   _trailerPlayer.on('exitfullscreen',  function() { unlockOrientation(_trailerPlayer); });
@@ -1697,12 +1699,10 @@ function openMovieModal(url, title) {
   if (_moviePlayer) { try { _moviePlayer.pause(); _moviePlayer.destroy(); } catch(e){} _moviePlayer = null; }
   var vid = document.getElementById('movieVideo');
   vid.src = url;
-  vid.muted = false;
   vid.load();
   document.getElementById('movieModalTitle').textContent = title;
   document.getElementById('movieModal').classList.add('open');
   document.body.style.overflow = 'hidden';
-  vid.play().catch(function(){});
   _moviePlayer = new Plyr(vid, {
     controls: ['play-large','rewind','play','fast-forward','progress','current-time','duration','mute','volume','captions','settings','pip','airplay','fullscreen'],
     settings: ['captions','quality','speed','loop'],
@@ -1713,6 +1713,7 @@ function openMovieModal(url, title) {
     tooltips: { controls:true, seek:true },
     keyboard: { focused:true, global:true },
     fullscreen: { enabled:true, fallback:true, iosNative:true },
+    clickToPlay: true,
     ratio: undefined
   });
   _moviePlayer.on('ready', function() {
@@ -1721,6 +1722,7 @@ function openMovieModal(url, title) {
       plyrEl.style.width = '100%';
       plyrEl.style.height = '100%';
     }
+    try { _moviePlayer.play(); } catch(e){}
   });
   _moviePlayer.on('enterfullscreen', function() { lockLandscape(_moviePlayer); });
   _moviePlayer.on('exitfullscreen',  function() { unlockOrientation(_moviePlayer); });
