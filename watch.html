@@ -1449,12 +1449,14 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
 
   var thumb = card.querySelector('.card-thumb');
 
+  var userUnmuted = false;
+
   card.addEventListener('mouseenter', function() {
     hoverTimers[idx] = setTimeout(function() {
       var src = vid.getAttribute('data-src');
       if (src && !vid.src) { vid.src = src; }
       vid.currentTime = 0;
-      vid.muted = false;
+      vid.muted = !userUnmuted;
       var playPromise = vid.play();
       if (playPromise !== undefined) {
         playPromise.then(function() {
@@ -1479,12 +1481,13 @@ document.querySelectorAll('.film-card').forEach(function(card, idx) {
     clearTimeout(hoverTimers[idx]);
     vid.pause();
     vid.currentTime = 0;
-    vid.muted = true;
     vid.classList.remove('visible');
     if (thumb) thumb.classList.remove('hidden');
     if (badge) badge.classList.remove('show');
     syncMuteBtn();
   });
+
+  card._sfxUserUnmuted = function(val) { userUnmuted = val; };
 });
 
 /* ── MOBILE SCROLL AUTOPLAY ── */
@@ -1564,10 +1567,11 @@ function toggleCardMute(e, btn) {
   var vid  = card.querySelector('.card-video');
   if (!vid) return;
   vid.muted = !vid.muted;
+  if (card._sfxUserUnmuted) card._sfxUserUnmuted(!vid.muted);
   btn.querySelector('.icon-muted').style.display   = vid.muted ? '' : 'none';
   btn.querySelector('.icon-unmuted').style.display = vid.muted ? 'none' : '';
   if (!vid.muted && vid.paused) {
-    vid.play().catch(function() { vid.muted = true; btn.querySelector('.icon-muted').style.display=''; btn.querySelector('.icon-unmuted').style.display='none'; });
+    vid.play().catch(function() { vid.muted = true; if (card._sfxUserUnmuted) card._sfxUserUnmuted(false); btn.querySelector('.icon-muted').style.display=''; btn.querySelector('.icon-unmuted').style.display='none'; });
   }
 }
 
