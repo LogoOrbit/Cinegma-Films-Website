@@ -84,7 +84,6 @@
 
   // ── 5. SOUND DESIGN LAYER ──
   (function(){
-    if (window.matchMedia('(hover:none)').matches) return;
 
     var AudioCtx = window.AudioContext || window.webkitAudioContext;
     if (!AudioCtx) return;
