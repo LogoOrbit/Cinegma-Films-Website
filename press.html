@@ -358,6 +358,38 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .pr-email{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);letter-spacing:.06em;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,127,17,.5);padding-bottom:4px;transition:border-color .3s,color .3s;}
 .pr-email:hover{color:var(--gold);border-color:var(--gold);}
 
+/* ── PRESS COVERAGE GRID ── */
+.pr-cov-intro{max-width:680px;font-family:'DM Sans',sans-serif;font-size:1.02rem;line-height:1.8;color:rgba(240,236,228,.72);margin-bottom:44px;letter-spacing:.005em;}
+.pr-cov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.pr-cov-card{position:relative;display:flex;flex-direction:column;background:#0b0b0b;border:1px solid var(--border);padding:32px 28px 28px;text-decoration:none;overflow:hidden;transition:border-color .4s,transform .4s,background .4s;}
+.pr-cov-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--gold);transition:width .5s;}
+.pr-cov-card:hover{border-color:rgba(255,127,17,.35);transform:translateY(-4px);background:#101010;}
+.pr-cov-card:hover::before{width:100%;}
+.pr-cov-card.pr-cov-featured{grid-column:span 2;}
+.pr-cov-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;}
+.pr-cov-icon{width:38px;height:38px;border:1px solid rgba(255,127,17,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pr-cov-icon svg{width:16px;height:16px;fill:var(--gold);stroke:none;}
+.pr-cov-icon.pr-cov-icon--stroke svg{fill:none;stroke:var(--gold);stroke-width:1.6;}
+.pr-cov-source{font-size:.58rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);}
+.pr-cov-title{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.05em;color:var(--white);line-height:1.15;margin-bottom:12px;}
+.pr-cov-desc{font-family:'DM Sans',sans-serif;font-size:.88rem;line-height:1.65;color:rgba(240,236,228,.6);flex:1;}
+.pr-cov-go{margin-top:18px;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:8px;transition:gap .3s;}
+.pr-cov-card:hover .pr-cov-go{gap:14px;}
+
+/* ── SOCIAL ROW (Instagram / YouTube / FilmFreeway) ── */
+.pr-social-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:20px;}
+.pr-social-card{position:relative;display:flex;align-items:center;gap:20px;background:#0b0b0b;border:1px solid var(--border);padding:26px 24px;text-decoration:none;overflow:hidden;transition:border-color .4s,background .4s;}
+.pr-social-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .45s;}
+.pr-social-card:hover{border-color:rgba(255,127,17,.35);background:#101010;}
+.pr-social-card:hover::after{width:100%;}
+.pr-social-ic{width:48px;height:48px;border:1px solid rgba(255,127,17,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.pr-social-ic svg{width:20px;height:20px;fill:var(--gold);}
+.pr-social-body{flex:1;min-width:0;}
+.pr-social-name{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.06em;color:var(--white);margin-bottom:4px;}
+.pr-social-sub{font-size:.76rem;color:rgba(240,236,228,.5);line-height:1.4;}
+.pr-social-arrow{font-size:.7rem;color:var(--gold);flex-shrink:0;transition:transform .3s;}
+.pr-social-card:hover .pr-social-arrow{transform:translateX(4px);}
+
 @media(max-width:860px){
   .pr-hero{padding:128px 22px 52px;}
   .pr-stats{gap:30px;margin-top:36px;}
@@ -372,6 +404,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   .pr-aw-fest{max-width:50%;}
   .pr-contact{padding:64px 22px;}
   .pr-contact-frame{padding:48px 20px;}
+  .pr-cov-grid{grid-template-columns:1fr;}
+  .pr-cov-card.pr-cov-featured{grid-column:span 1;}
+  .pr-social-row{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -511,9 +546,108 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
   </section>
 
+  <!-- PRESS COVERAGE -->
+  <section class="pr-sec">
+    <div class="pr-sechead reveal"><span class="pr-no">05</span><h2>Press Coverage</h2><span class="pr-rule"></span></div>
+    <p class="pr-cov-intro reveal">Featured in international press, festival circuits, and film databases worldwide — coverage of Cinegma Films and Syed Asad Raza Abidi's award-winning work.</p>
+
+    <div class="pr-cov-grid reveal">
+
+      <a class="pr-cov-card pr-cov-featured" href="https://www.openpr.com/news/4451099/pakistani-short-film-director-syed-asad-raza-abidi-marks-14" target="_blank" rel="noopener">
+        <div class="pr-cov-head">
+          <span class="pr-cov-icon pr-cov-icon--stroke"><svg viewBox="0 0 24 24"><path d="M4 22h14a2 2 0 002-2V7.5L14.5 2H6a2 2 0 00-2 2v4"/><polyline points="14 2 14 8 20 8"/><path d="M2 15h10"/><path d="M2 19h10"/><path d="M2 11h10"/></svg></span>
+          <span class="pr-cov-source">OpenPR &middot; Press Release</span>
+        </div>
+        <span class="pr-cov-title">Pakistani Short Film Director Marks 14 International Awards and 22 Global Selections</span>
+        <span class="pr-cov-desc">At 24, Syed Asad Raza Abidi has built Cinegma Films into an award-winning production house. Janjaal has earned recognition across nine countries, establishing a new voice in independent Pakistani cinema.</span>
+        <span class="pr-cov-go">Read Article &#8594;</span>
+      </a>
+
+      <a class="pr-cov-card" href="https://www.imdb.com/title/tt35505024/" target="_blank" rel="noopener">
+        <div class="pr-cov-head">
+          <span class="pr-cov-icon"><svg viewBox="0 0 24 24"><path d="M14.31 9.588v.005c-.077-.048-.227-.07-.42-.07v4.815c.27 0 .44-.064.5-.189.062-.125.095-.408.095-.848v-2.93c0-.338-.014-.553-.043-.643-.063-.165-.18-.252-.42-.25zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zM8.93 15.257H7.114V8.743H8.93v6.514zm3.178-.85c-.1.292-.257.498-.47.617-.215.12-.517.179-.91.179H9.38V8.743h1.355c.706 0 1.147.065 1.323.197.176.133.295.395.356.787.034.23.052.73.052 1.5v1.696c0 .76-.03 1.24-.09 1.484zm3.663.028c-.098.264-.232.44-.403.527-.172.087-.435.13-.79.13-.276 0-.528-.048-.757-.143-.23-.096-.424-.234-.583-.415v.523h-1.16V8.743h1.16v2.19c.15-.172.33-.303.54-.395.21-.09.435-.137.676-.137.336 0 .598.072.787.214.188.142.318.344.39.605.046.17.07.493.07.966v1.5c0 .435-.022.742-.066.919z"/></svg></span>
+          <span class="pr-cov-source">IMDb</span>
+        </div>
+        <span class="pr-cov-title">Janjaal (2025) &mdash; Rated 9.0/10</span>
+        <span class="pr-cov-desc">A police officer discovers a cursed golden pocket watch that grants wishes &mdash; but each wish comes with deadly consequences. Starring Shamoon Abbasi.</span>
+        <span class="pr-cov-go">View on IMDb &#8594;</span>
+      </a>
+
+      <a class="pr-cov-card" href="https://fantasyscififestival.com/2026/02/24/winners-february-2026-toronto-fantasy-sci-fi-festival/" target="_blank" rel="noopener">
+        <div class="pr-cov-head">
+          <span class="pr-cov-icon pr-cov-icon--stroke"><svg viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 010-5C5.9 4 7 5 7 5s1.1-1 2.5-1a2.5 2.5 0 010 5H8"/><path d="M6 9l6 11 6-11"/><path d="M18 9h1.5a2.5 2.5 0 000-5C18.1 4 17 5 17 5s-1.1-1-2.5-1a2.5 2.5 0 000 5H16"/></svg></span>
+          <span class="pr-cov-source">Toronto Fantasy/Sci-Fi FF</span>
+        </div>
+        <span class="pr-cov-title">Best Short Film &mdash; February 2026</span>
+        <span class="pr-cov-desc">Janjaal wins Best Short Film at the Toronto Fantasy/Sci-Fi Film &amp; Writing Festival. International recognition continues to grow.</span>
+        <span class="pr-cov-go">View Winners &#8594;</span>
+      </a>
+
+      <a class="pr-cov-card" href="https://wildsoundfestivalreview.com/2026/02/24/winners-february-2026-toronto-fantasy-sci-fi-festival/" target="_blank" rel="noopener">
+        <div class="pr-cov-head">
+          <span class="pr-cov-icon pr-cov-icon--stroke"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></span>
+          <span class="pr-cov-source">WILDsound Festival Review</span>
+        </div>
+        <span class="pr-cov-title">Festival Winner Feature</span>
+        <span class="pr-cov-desc">Featured among the February 2026 winners at the WILDsound Festival Review &mdash; spotlighting emerging talent in fantasy and genre filmmaking.</span>
+        <span class="pr-cov-go">Read Feature &#8594;</span>
+      </a>
+
+      <a class="pr-cov-card" href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener">
+        <div class="pr-cov-head">
+          <span class="pr-cov-icon"><svg viewBox="0 0 24 24"><path d="M14.31 9.588v.005c-.077-.048-.227-.07-.42-.07v4.815c.27 0 .44-.064.5-.189.062-.125.095-.408.095-.848v-2.93c0-.338-.014-.553-.043-.643-.063-.165-.18-.252-.42-.25zM12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zM8.93 15.257H7.114V8.743H8.93v6.514zm3.178-.85c-.1.292-.257.498-.47.617-.215.12-.517.179-.91.179H9.38V8.743h1.355c.706 0 1.147.065 1.323.197.176.133.295.395.356.787.034.23.052.73.052 1.5v1.696c0 .76-.03 1.24-.09 1.484zm3.663.028c-.098.264-.232.44-.403.527-.172.087-.435.13-.79.13-.276 0-.528-.048-.757-.143-.23-.096-.424-.234-.583-.415v.523h-1.16V8.743h1.16v2.19c.15-.172.33-.303.54-.395.21-.09.435-.137.676-.137.336 0 .598.072.787.214.188.142.318.344.39.605.046.17.07.493.07.966v1.5c0 .435-.022.742-.066.919z"/></svg></span>
+          <span class="pr-cov-source">IMDb &middot; Director Profile</span>
+        </div>
+        <span class="pr-cov-title">Syed Asad Raza Abidi &mdash; Director, VFX, Editor</span>
+        <span class="pr-cov-desc">Full filmography and credits. From Janjaal to Zawaal, the complete record of a filmmaker working across direction, editing, color grading and sound.</span>
+        <span class="pr-cov-go">View Profile &#8594;</span>
+      </a>
+
+      <a class="pr-cov-card" href="https://www.instagram.com/indusfilmfestival/p/DD-Q8BYOxX2/" target="_blank" rel="noopener">
+        <div class="pr-cov-head">
+          <span class="pr-cov-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></span>
+          <span class="pr-cov-source">Indus Film Festival</span>
+        </div>
+        <span class="pr-cov-title">Official Selection &mdash; Janjaal Featured</span>
+        <span class="pr-cov-desc">Indus Film Festival spotlights Janjaal as an official selection. Best Director winner at Indus International Film Festival 2025.</span>
+        <span class="pr-cov-go">View Post &#8594;</span>
+      </a>
+
+    </div>
+
+    <div class="pr-social-row reveal">
+      <a class="pr-social-card" href="https://www.instagram.com/asadsyed711/" target="_blank" rel="noopener">
+        <span class="pr-social-ic"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></span>
+        <div class="pr-social-body">
+          <div class="pr-social-name">@asadsyed711</div>
+          <div class="pr-social-sub">232 Posts &middot; 4,860+ Followers</div>
+        </div>
+        <span class="pr-social-arrow">&#8594;</span>
+      </a>
+
+      <a class="pr-social-card" href="https://youtube.com/@syedasad" target="_blank" rel="noopener">
+        <span class="pr-social-ic"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></span>
+        <div class="pr-social-body">
+          <div class="pr-social-name">YouTube</div>
+          <div class="pr-social-sub">Trailers &amp; Behind the Scenes</div>
+        </div>
+        <span class="pr-social-arrow">&#8594;</span>
+      </a>
+
+      <a class="pr-social-card" href="https://filmfreeway.com/SyedAsad" target="_blank" rel="noopener">
+        <span class="pr-social-ic"><svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58a.49.49 0 00.12-.61l-1.92-3.32a.49.49 0 00-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54a.48.48 0 00-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96a.48.48 0 00-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58a.49.49 0 00-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6A3.6 3.6 0 1115.6 12 3.6 3.6 0 0112 15.6z"/></svg></span>
+        <div class="pr-social-body">
+          <div class="pr-social-name">FilmFreeway</div>
+          <div class="pr-social-sub">Festival Submissions &amp; Laurels</div>
+        </div>
+        <span class="pr-social-arrow">&#8594;</span>
+      </a>
+    </div>
+  </section>
+
   <!-- STILLS -->
   <section class="pr-sec">
-    <div class="pr-sechead reveal"><span class="pr-no">05</span><h2>Stills &amp; Posters</h2><span class="pr-rule"></span></div>
+    <div class="pr-sechead reveal"><span class="pr-no">06</span><h2>Stills &amp; Posters</h2><span class="pr-rule"></span></div>
     <div class="stills reveal">
       <div class="still">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Janjaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) poster" loading="lazy" width="800" height="1200"/></picture>
