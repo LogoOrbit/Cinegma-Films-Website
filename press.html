@@ -389,9 +389,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .pr-social-card:hover .pr-social-arrow{transform:translateX(4px);}
 
 /* ── INSTAGRAM FEED SECTION ── */
-.pr-ig-grid{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:16px;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}
-.pr-ig-grid::-webkit-scrollbar{display:none;}
-.pr-ig-frame{position:relative;flex:0 0 300px;height:420px;overflow:hidden;border-radius:6px;background:#111;scroll-snap-align:start;}
+.pr-ig-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.pr-ig-frame{position:relative;width:100%;height:420px;overflow:hidden;border-radius:6px;background:#111;}
 .pr-ig-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
 /* ── EMBED SECTIONS (YT, LinkedIn, Letterboxd) ── */
@@ -426,7 +425,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   .pr-cov-item{gap:12px;padding:14px 8px;}
   .pr-cov-title{font-size:.95rem;}
   .pr-social-row{grid-template-columns:1fr 1fr;}
-  .pr-ig-frame{flex:0 0 260px;height:380px;}
+  .pr-ig-grid{grid-template-columns:repeat(2,1fr);}
+  .pr-ig-frame{height:380px;}
   .pr-embed-grid{grid-template-columns:1fr;}
   .pr-li-scroll>div{flex:0 0 340px;}
   .pr-links-grid{grid-template-columns:repeat(2,1fr);}
