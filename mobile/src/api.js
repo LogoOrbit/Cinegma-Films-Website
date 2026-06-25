@@ -1,9 +1,5 @@
 import { Platform } from 'react-native';
-
-let SecureStore = null;
-if (Platform.OS !== 'web') {
-  SecureStore = require('expo-secure-store');
-}
+import * as SecureStore from 'expo-secure-store';
 
 const storage = {
   async get(key) {

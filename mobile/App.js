@@ -5,12 +5,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Platform } from 'react-native';
 
+import * as SecureStore from 'expo-secure-store';
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { setBaseUrl } from './src/api';
 import { colors } from './src/theme';
 import LoginScreen from './src/screens/LoginScreen';
 import AppNavigator from './src/navigation/AppNavigator';
-import SettingsScreen from './src/screens/SettingsScreen';
 
 function RootNavigator() {
   const { user, loading } = useAuth();
@@ -48,7 +48,6 @@ export default function App() {
       if (Platform.OS === 'web') {
         url = localStorage.getItem('cms_server_url');
       } else {
-        const SecureStore = require('expo-secure-store');
         url = await SecureStore.getItemAsync('cms_server_url');
       }
       if (url) setBaseUrl(url);
