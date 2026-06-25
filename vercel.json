@@ -8,7 +8,7 @@
         { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
         { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.vercel-insights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cinegmafilms.com https://lriiaafqnjhfsizamdxz.supabase.co data:; media-src 'self' https://cinegmafilms.b-cdn.net; frame-src https://www.youtube.com https://wa.me; connect-src 'self' https://vitals.vercel-insights.com https://lriiaafqnjhfsizamdxz.supabase.co; base-uri 'self'; form-action 'self' https://formsubmit.co" }
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.vercel-insights.com https://cdn.jsdelivr.net https://cdn.plyr.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.plyr.io; font-src 'self' https://fonts.gstatic.com; img-src 'self' https://cinegmafilms.com https://lriiaafqnjhfsizamdxz.supabase.co data:; media-src 'self' https://cinegmafilms.b-cdn.net; frame-src https://www.youtube.com https://wa.me; connect-src 'self' https://vitals.vercel-insights.com https://lriiaafqnjhfsizamdxz.supabase.co https://api.emailjs.com; base-uri 'self'; form-action 'self' https://formsubmit.co" }
       ]
     },
     {

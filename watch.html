@@ -462,8 +462,7 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
 .back-to-top svg{width:16px;height:16px;fill:none;stroke:var(--white);stroke-width:2;}
 
 /* content protection */
-*{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;}
-input,textarea{user-select:text!important;-webkit-user-select:text!important;}
+video,img,.film-card,.trailer-modal,.movie-modal{-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;}
 </style>
 <style id="cinematic-layer">
 /* ═══ CINEMATIC LAYER — projection vignette + readable serif italics ═══ */
@@ -605,7 +604,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 </nav>
 
 <div class="nav-mobile" id="mobileMenu">
-  <span class="nav-mobile-close" onclick="closeMenu()">&#x2715;</span>
+  <button class="nav-mobile-close" onclick="closeMenu()" aria-label="Close menu">&#x2715;</button>
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="watch.html" onclick="closeMenu()">Watch</a>
   <a href="services.html" onclick="closeMenu()">Services</a>

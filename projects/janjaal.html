@@ -45,7 +45,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .nav-mobile{position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:550;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;pointer-events:none;transition:opacity .3s;}
 .nav-mobile.open{opacity:1;pointer-events:all;}
 .nav-mobile a{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.15em;color:var(--white);text-decoration:none;}
-.nav-mobile-close{position:absolute;top:28px;right:32px;font-size:1.6rem;color:var(--white);cursor:pointer;}
+.nav-mobile-close{position:absolute;top:28px;right:32px;font-size:1.6rem;color:var(--white);cursor:pointer;background:none;border:none;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
 @media(max-width:1040px){.nav-links{display:none;}.nav-hamburger{display:block;}}
 
 .project-hero{position:relative;min-height:80vh;display:flex;align-items:flex-end;padding:0 60px 80px;overflow:hidden;}
@@ -154,7 +154,7 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
   </button>
 </nav>
 <div class="nav-mobile" id="mobileMenu">
-  <span class="nav-mobile-close" onclick="closeMenu()">✕</span>
+  <button class="nav-mobile-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
   <a href="../index.html" onclick="closeMenu()">Home</a>
   <a href="../watch.html" onclick="closeMenu()">Watch</a>
   <a href="../services.html" onclick="closeMenu()">Services</a>

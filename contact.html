@@ -500,7 +500,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 </nav>
 
 <div class="nav-mobile" id="mobileMenu">
-  <span class="nav-mobile-close" onclick="closeMenu()">✕</span>
+  <button class="nav-mobile-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="watch.html" onclick="closeMenu()">Watch</a>
   <a href="services.html" onclick="closeMenu()">Services</a>
@@ -518,7 +518,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
       class="contact-hero-img"
       id="heroImg"
       src="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"
-      loading="lazy"
+      loading="eager"
       alt="Contact Cinegma Films"
     />
     <div class="contact-hero-overlay"></div>
@@ -553,7 +553,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
         </div>
       </noscript>
 
-      <div id="contactForm">
+      <form id="contactForm" onsubmit="event.preventDefault();handleFormSubmit()">
         <div class="form-row">
           <div class="form-group">
             <label class="form-label" for="fname">Your Name</label>
@@ -578,14 +578,14 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
           <label class="form-label" for="fmsg">Message</label>
           <textarea class="form-textarea" id="fmsg" placeholder="Tell us about your project or inquiry…" required></textarea>
         </div>
-        <button class="form-btn" onclick="handleFormSubmit()">
+        <button class="form-btn" type="submit">
           <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
           Send Message
         </button>
         <div class="form-success" id="formSuccess">
           ✦ &nbsp; Message received — Syed Asad will be in touch soon.
         </div>
-      </div>
+      </form>
     </div>
 
     <!-- LINKS -->

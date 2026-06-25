@@ -579,7 +579,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 </nav>
 
 <div class="nav-mobile" id="mobileMenu">
-  <span class="nav-mobile-close" onclick="closeMenu()">✕</span>
+  <button class="nav-mobile-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="watch.html" onclick="closeMenu()">Watch</a>
   <a href="services.html" onclick="closeMenu()">Services</a>
@@ -714,7 +714,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Portrait of Life -->
-    <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-portrait" data-project="projects/portrait-of-life.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
+    <div class="film-card reveal" style="transition-delay:.08s;cursor:pointer" data-watch-hash="trailer-portrait" data-project="projects/portrait-of-life.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-portrait')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Potrait_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
@@ -732,7 +732,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Zawaal -->
-    <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-zawaal" data-project="projects/zawaal.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
+    <div class="film-card reveal" style="transition-delay:.16s;cursor:pointer" data-watch-hash="trailer-zawaal" data-project="projects/zawaal.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-zawaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Zawaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
@@ -750,7 +750,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- A Soldier Beside Me -->
-    <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-soldier" data-project="projects/a-soldier-beside-me.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
+    <div class="film-card reveal" style="transition-delay:.08s;cursor:pointer" data-watch-hash="trailer-soldier" data-project="projects/a-soldier-beside-me.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-soldier')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Solder_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
@@ -768,7 +768,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Payam e Dil -->
-    <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-payam" data-project="projects/payam-e-dil.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
+    <div class="film-card reveal" style="transition-delay:.16s;cursor:pointer" data-watch-hash="trailer-payam" data-project="projects/payam-e-dil.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-payam')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Payam_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
@@ -785,7 +785,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Main Aur Achu -->
-    <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="trailer-mainaurachu" data-project="projects/main-aur-achu.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
+    <div class="film-card reveal" style="transition-delay:.24s;cursor:pointer" data-watch-hash="trailer-mainaurachu" data-project="projects/main-aur-achu.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-mainaurachu')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Achu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
@@ -803,7 +803,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Phir Se -->
-    <div class="film-card reveal" style="transition-delay:.16s" data-project="projects/phir-se.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
+    <div class="film-card reveal" style="transition-delay:.16s;cursor:pointer" data-project="projects/phir-se.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}">
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/PhirSe_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
@@ -818,7 +818,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Urdu Bazaar -->
-    <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="watch-urdu-bazaar" data-project="projects/urdu-bazaar-karachi.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
+    <div class="film-card reveal" style="transition-delay:.24s;cursor:pointer" data-watch-hash="watch-urdu-bazaar" data-project="projects/urdu-bazaar-karachi.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('watch-urdu-bazaar')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
         <picture><source media="(max-width: 768px)" srcset="assets/posters/Urdu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi Documentary Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
@@ -1295,7 +1295,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Ghayas Uddin -->
-    <div class="team-card reveal" style="transition-delay:.08s" data-href="team/ghayas-uddin.html" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.08s;cursor:pointer" data-href="team/ghayas-uddin.html" role="link" tabindex="0">
       <div class="team-headshot">
         <img src="assets/posters/Ghayas.avif" alt="Ghayas Uddin Siddiqui — Director of Photography" loading="lazy"/>
       </div>
@@ -1310,7 +1310,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Ameer Hamza -->
-    <div class="team-card reveal" style="transition-delay:.1s" data-href="team/ameer-hamza.html" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.1s;cursor:pointer" data-href="team/ameer-hamza.html" role="link" tabindex="0">
       <div class="team-headshot">
         <img src="assets/posters/Ameer.avif" alt="Ameer Hamza — Writer, Producer" loading="lazy"/>
       </div>
@@ -1325,7 +1325,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Faizan Ahmed -->
-    <div class="team-card reveal" style="transition-delay:.15s" data-href="team/faizan-ahmed.html" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.15s;cursor:pointer" data-href="team/faizan-ahmed.html" role="link" tabindex="0">
       <div class="team-headshot">
         <img src="assets/posters/Faizan%20Ahmed%20Team.avif" alt="Faizan Ahmed — Production Designer" loading="lazy"/>
       </div>
@@ -1340,7 +1340,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Usman Ali Akbar -->
-    <div class="team-card reveal" style="transition-delay:.2s" data-href="team/usman-ali.html" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.2s;cursor:pointer" data-href="team/usman-ali.html" role="link" tabindex="0">
       <div class="team-headshot">
         <img src="assets/posters/Usman.avif" alt="Usman Ali Akbar — Music Composer" loading="lazy"/>
       </div>
@@ -1354,7 +1354,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Dayyan Khalid -->
-    <div class="team-card reveal" style="transition-delay:.25s" data-href="team/dayyan-khalid.html" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.25s;cursor:pointer" data-href="team/dayyan-khalid.html" role="link" tabindex="0">
       <div class="team-headshot">
         <img src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid — Producer" loading="lazy"/>
       </div>
