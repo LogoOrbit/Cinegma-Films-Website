@@ -146,6 +146,18 @@
     .toggle input:checked ~ .lbl{color:var(--txt);}
     .editor-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:30px;padding-top:26px;border-top:1px solid var(--line);}
 
+    .cover-row{display:flex;gap:10px;align-items:flex-start;}
+    .cover-row .field{flex:1;margin-bottom:0;}
+    .cover-row .btn{margin-top:24px;white-space:nowrap;}
+    .media-toolbar{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+    .media-toolbar button{padding:6px 14px;font-size:.72rem;border-radius:999px;border:1px solid var(--line-strong);background:rgba(0,0,0,.3);color:var(--mut);cursor:pointer;font-family:inherit;transition:.2s;display:inline-flex;align-items:center;gap:6px;}
+    .media-toolbar button:hover{border-color:var(--gold);color:var(--gold-bright);}
+    .media-toolbar button svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;}
+    .upload-overlay{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;animation:fade .3s var(--ease);}
+    .upload-modal{background:var(--panel-solid);border:1px solid var(--line);border-radius:var(--radius);padding:30px 34px;width:100%;max-width:480px;box-shadow:var(--shadow);}
+    .upload-modal h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;margin-bottom:18px;}
+    .upload-modal .close-modal{position:absolute;top:14px;right:18px;background:none;border:none;color:var(--mut);font-size:1.3rem;cursor:pointer;}
+
     .drop{border:1.5px dashed var(--line-strong);border-radius:var(--radius);padding:48px 24px;text-align:center;color:var(--mut);cursor:pointer;transition:.3s var(--ease);background:rgba(0,0,0,.2);}
     .drop:hover,.drop.hover{border-color:var(--gold);background:var(--gold-dim);color:var(--txt);}
     .drop .ico{width:46px;height:46px;margin:0 auto 16px;stroke:var(--gold);fill:none;stroke-width:1.3;}
@@ -391,7 +403,70 @@
   }
   function renderEditorForm(a,isEdit){
     const cats=[['news','News'],['behind-the-scenes','Behind the Scenes'],['press','Press'],['awards','Awards'],['blog','Blog']];
-    $('editorArea').innerHTML=`<div class="editor glass" style="padding:34px 38px;"><div class="field"><label>Title</label><input type="text" id="artTitle" class="title-input" value="${attr(a.title)}" placeholder="An unforgettable headline…"/></div><div class="field-row"><div class="field"><label>Category</label><select id="artCat">${cats.map(c=>`<option value="${c[0]}" ${a.category===c[0]?'selected':''}>${c[1]}</option>`).join('')}</select></div><div class="field"><label>Cover Image URL</label><input type="text" id="artCover" value="${attr(a.cover_image_url||'')}" placeholder="Paste a URL or upload one"/></div></div><div class="field"><label>Body — Markdown</label><textarea id="artBody" placeholder="Tell the story…">${esc(a.body||'')}</textarea><div class="hint">Markdown: <strong>#</strong> headings · <strong>**bold**</strong> · <strong>*italic*</strong> · <strong>&gt;</strong> quote · <strong>![alt](url)</strong> image · <strong>[text](url)</strong> link</div></div><div class="editor-actions"><label class="toggle"><input type="checkbox" id="artPub" ${a.published?'checked':''}/><span class="track"></span><span class="lbl">Published</span></label><div class="spacer" style="flex:1;"></div>${isEdit?'<button class="btn btn-danger btn-sm" id="artDel"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>':''}<button class="btn btn-ghost" id="artSaveDraft">Save Draft</button><button class="btn btn-primary" id="artPublish"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Save & Publish</button></div></div>`;
+    $('editorArea').innerHTML=`<div class="editor glass" style="padding:34px 38px;"><div class="field"><label>Title</label><input type="text" id="artTitle" class="title-input" value="${attr(a.title)}" placeholder="An unforgettable headline…"/></div><div class="field-row"><div class="field"><label>Category</label><select id="artCat">${cats.map(c=>`<option value="${c[0]}" ${a.category===c[0]?'selected':''}>${c[1]}</option>`).join('')}</select></div><div class="field"><label>Cover Image URL</label><div class="cover-row"><input type="text" id="artCover" value="${attr(a.cover_image_url||'')}" placeholder="Paste a URL or upload one" style="flex:1;"/><button class="btn btn-ghost btn-sm" id="coverUploadBtn" type="button"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg> Upload</button></div></div></div><div class="field"><label>Body — Markdown</label><div class="media-toolbar"><button type="button" id="tbImg"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Image</button><button type="button" id="tbVid"><svg viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Video</button><button type="button" id="tbAud"><svg viewBox="0 0 24 24"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Audio</button></div><textarea id="artBody" placeholder="Tell the story…">${esc(a.body||'')}</textarea><div class="hint">Markdown: <strong>#</strong> headings · <strong>**bold**</strong> · <strong>*italic*</strong> · <strong>&gt;</strong> quote · <strong>![alt](url)</strong> image · <strong>[text](url)</strong> link · Use toolbar above to upload & insert media</div></div><div class="editor-actions"><label class="toggle"><input type="checkbox" id="artPub" ${a.published?'checked':''}/><span class="track"></span><span class="lbl">Published</span></label><div class="spacer" style="flex:1;"></div>${isEdit?'<button class="btn btn-danger btn-sm" id="artDel"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>':''}<button class="btn btn-ghost" id="artSaveDraft">Save Draft</button><button class="btn btn-primary" id="artPublish"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Save & Publish</button></div></div>`;
+
+    // Cover image upload
+    const coverFileInput=document.createElement('input');coverFileInput.type='file';coverFileInput.accept='image/*';coverFileInput.style.display='none';document.body.appendChild(coverFileInput);
+    $('coverUploadBtn').onclick=()=>coverFileInput.click();
+    coverFileInput.onchange=async()=>{
+      const f=coverFileInput.files[0];if(!f)return;
+      $('coverUploadBtn').disabled=true;$('coverUploadBtn').textContent='Uploading…';
+      try{
+        const bmp=await createImageBitmap(f);
+        let w=bmp.width,h=bmp.height;const s=Math.min(1,2560/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);
+        const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(bmp,0,0,w,h);
+        const dataUrl=await new Promise(r=>{c.toBlob(b=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);},'image/webp',0.95);});
+        const res=await api('/api/media-upload',{method:'POST',body:JSON.stringify({title:$('artTitle').value||f.name.replace(/\.[^.]+$/,''),filename:f.name,caption:null,dataUrl})});
+        $('artCover').value=res.url;toast('Cover image uploaded');
+      }catch(e){toast(e.message,false);}
+      finally{$('coverUploadBtn').disabled=false;$('coverUploadBtn').innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg> Upload';coverFileInput.value='';}
+    };
+
+    // Media toolbar — insert image/video/audio into body
+    function insertAtCursor(text){const ta=$('artBody');const start=ta.selectionStart,end=ta.selectionEnd;ta.value=ta.value.substring(0,start)+text+ta.value.substring(end);ta.selectionStart=ta.selectionEnd=start+text.length;ta.focus();}
+
+    function showUploadModal(type,accept,label){
+      const overlay=document.createElement('div');overlay.className='upload-overlay';
+      overlay.innerHTML=`<div class="upload-modal" style="position:relative;"><button class="close-modal" id="modalClose">&times;</button><h3>Upload ${label}</h3><div class="drop" id="modalDrop" style="padding:32px 20px;"><svg class="ico" viewBox="0 0 24 24" style="width:36px;height:36px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg><div class="big">Drop ${label.toLowerCase()} here</div><div class="small">or click to browse</div></div><input type="file" id="modalFile" accept="${accept}" style="display:none;"/><div id="modalProgress" style="margin-top:14px;"></div></div>`;
+      document.body.appendChild(overlay);
+      const drop=overlay.querySelector('#modalDrop'),inp=overlay.querySelector('#modalFile'),prog=overlay.querySelector('#modalProgress');
+      overlay.querySelector('#modalClose').onclick=()=>overlay.remove();
+      overlay.onclick=e=>{if(e.target===overlay)overlay.remove();};
+      drop.onclick=()=>inp.click();
+      drop.ondragover=e=>{e.preventDefault();drop.classList.add('hover');};
+      drop.ondragleave=()=>drop.classList.remove('hover');
+      drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hover');if(e.dataTransfer.files[0])handleModalFile(e.dataTransfer.files[0]);};
+      inp.onchange=()=>{if(inp.files[0])handleModalFile(inp.files[0]);};
+
+      async function handleModalFile(f){
+        drop.querySelector('.big').textContent=f.name;
+        drop.querySelector('.small').textContent=(f.size/1048576).toFixed(1)+' MB';
+        prog.innerHTML='<div class="loading-state" style="padding:8px 0;justify-content:flex-start;"><span class="spinner"></span> Uploading…</div>';
+        try{
+          if(type==='image'){
+            const bmp=await createImageBitmap(f);
+            let w=bmp.width,h=bmp.height;const s=Math.min(1,2560/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);
+            const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(bmp,0,0,w,h);
+            const dataUrl=await new Promise(r=>{c.toBlob(b=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);},'image/webp',0.95);});
+            const res=await api('/api/media-upload',{method:'POST',body:JSON.stringify({title:$('artTitle').value||f.name.replace(/\.[^.]+$/,''),filename:f.name,caption:null,dataUrl})});
+            insertAtCursor(`\n![${f.name}](${res.url})\n`);
+            toast('Image uploaded & inserted');
+          }else{
+            const reader=new FileReader();
+            const dataUrl=await new Promise((resolve,reject)=>{reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(f);});
+            const res=await api('/api/video-upload',{method:'POST',body:JSON.stringify({filename:f.name,dataUrl,caption:null,mediaType:type})});
+            if(type==='video') insertAtCursor(`\n<video src="${res.url}" controls style="max-width:100%;border-radius:12px;"></video>\n`);
+            else insertAtCursor(`\n<audio src="${res.url}" controls></audio>\n`);
+            toast(label+' uploaded & inserted');
+          }
+          overlay.remove();
+        }catch(e){prog.innerHTML=`<div style="color:var(--err);font-size:.85rem;">${esc(e.message)}</div>`;toast(e.message,false);}
+      }
+    }
+
+    $('tbImg').onclick=()=>showUploadModal('image','image/*','Image');
+    $('tbVid').onclick=()=>showUploadModal('video','video/*','Video');
+    $('tbAud').onclick=()=>showUploadModal('audio','audio/*','Audio');
     async function save(publish){const body={title:$('artTitle').value,body:$('artBody').value,cover_image_url:$('artCover').value||null,category:$('artCat').value,published:publish!==undefined?publish:$('artPub').checked};if(!body.title){toast('Give it a title first',false);return;}try{if(isEdit){body.id=a.id;await api('/api/articles',{method:'PUT',body:JSON.stringify(body)});}else{await api('/api/articles',{method:'POST',body:JSON.stringify(body)});}toast(publish?'Published live!':'Draft saved');currentPage='articles';render();}catch(e){toast(e.message,false);}}
     $('artSaveDraft').onclick=()=>save(false);$('artPublish').onclick=()=>save(true);
     if(isEdit&&$('artDel'))$('artDel').onclick=async()=>{if(!confirm('Delete this article permanently?'))return;try{await api('/api/articles?id='+a.id,{method:'DELETE'});toast('Deleted');currentPage='articles';render();}catch(e){toast(e.message,false);}};
@@ -508,13 +583,34 @@
 
   // ============ UPLOAD VIDEO ============
   function renderUploadVideo(){
-    app.innerHTML=pageHead('Stream','Upload Video','Videos upload straight to Bunny Stream and are transcoded automatically.')+
-      `<div class="editor glass" style="padding:34px 38px;"><div class="field"><label>Video title</label><input type="text" id="vidName" placeholder="e.g. Janjaal — Official Trailer"/></div><div class="drop" id="vidDrop"><svg class="ico" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><div class="big">Drop a video here</div><div class="small">or click to browse · MP4, MOV, any format</div></div><input type="file" id="vidFile" accept="video/*" style="display:none;"/><div id="vidProgress" style="margin-top:16px;"></div><button class="btn btn-primary" id="vidGo" disabled style="margin-top:20px;"><svg viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Upload to Bunny</button><div id="vidResult" style="margin-top:18px;"></div></div>`;
+    app.innerHTML=pageHead('Upload','Upload Media','Upload videos or audio files. Files are compressed and stored on CDN.')+
+      `<div class="editor glass" style="padding:34px 38px;"><div class="field"><label>Title</label><input type="text" id="vidName" placeholder="e.g. Janjaal — Official Trailer"/></div><div class="field"><label>Caption (optional)</label><input type="text" id="vidCaption" placeholder="A short description"/></div><div class="field"><label>Type</label><select id="vidType"><option value="video">Video</option><option value="audio">Audio</option></select></div><div class="drop" id="vidDrop"><svg class="ico" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><div class="big">Drop a file here</div><div class="small">or click to browse · MP4, MOV, WebM, MP3, WAV, OGG</div></div><input type="file" id="vidFile" accept="video/*,audio/*" style="display:none;"/><div id="vidProgress" style="margin-top:16px;"></div><button class="btn btn-primary" id="vidGo" disabled style="margin-top:20px;"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg> Upload</button><div id="vidResult" style="margin-top:18px;"></div></div>`;
     let file=null;const drop=$('vidDrop'),inp=$('vidFile');
     drop.onclick=()=>inp.click();drop.ondragover=e=>{e.preventDefault();drop.classList.add('hover');};drop.ondragleave=()=>drop.classList.remove('hover');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hover');if(e.dataTransfer.files[0])setVid(e.dataTransfer.files[0]);};inp.onchange=()=>{if(inp.files[0])setVid(inp.files[0]);};
-    function setVid(f){file=f;drop.querySelector('.big').textContent=f.name;drop.querySelector('.small').textContent=(f.size/1048576).toFixed(1)+' MB selected';if(!$('vidName').value)$('vidName').value=f.name.replace(/\.[^.]+$/,'');$('vidGo').disabled=false;}
-    async function tusUpload(file,info,onProgress){const meta='filetype '+btoa(file.type||'video/mp4')+',title '+btoa(unescape(encodeURIComponent(info.title)));const create=await fetch(info.endpoint,{method:'POST',headers:{'Tus-Resumable':'1.0.0','Upload-Length':String(file.size),'Upload-Metadata':meta,AuthorizationSignature:info.signature,AuthorizationExpire:String(info.expire),VideoId:info.videoId,LibraryId:String(info.libraryId)}});if(create.status!==201)throw new Error('TUS create failed: '+create.status);const loc=create.headers.get('Location');const CHUNK=32*1024*1024;let offset=0;while(offset<file.size){const slice=file.slice(offset,Math.min(offset+CHUNK,file.size));const buf=await slice.arrayBuffer();const patch=await fetch(loc,{method:'PATCH',headers:{'Tus-Resumable':'1.0.0','Upload-Offset':String(offset),'Content-Type':'application/offset+octet-stream',AuthorizationSignature:info.signature,AuthorizationExpire:String(info.expire),VideoId:info.videoId,LibraryId:String(info.libraryId)},body:buf});if(patch.status!==204)throw new Error('TUS chunk failed: '+patch.status);offset=parseInt(patch.headers.get('Upload-Offset'),10);onProgress(offset/file.size);}}
-    $('vidGo').onclick=async()=>{if(!file)return;$('vidGo').disabled=true;$('vidProgress').innerHTML='<div class="loading-state" style="padding:0;justify-content:flex-start;"><span class="spinner"></span> Requesting upload slot…</div>';try{const info=await api('/api/bunny-create',{method:'POST',body:JSON.stringify({title:$('vidName').value||file.name})});await tusUpload(file,info,(p)=>{$('vidProgress').innerHTML='<div class="loading-state" style="padding:0;justify-content:flex-start;"><span class="spinner"></span> Uploading… '+(p*100).toFixed(0)+'%</div>';});$('vidProgress').innerHTML='';$('vidResult').innerHTML=`<div style="color:var(--ok);font-weight:500;display:flex;align-items:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Uploaded · Bunny is transcoding</div><div class="result-url"><input type="text" value="${attr(info.embedUrl)}" readonly onclick="this.select();navigator.clipboard.writeText(this.value);"/><button class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText('${attr(info.embedUrl)}');">Copy</button></div>`;toast('Video uploaded!');}catch(e){$('vidProgress').innerHTML='';$('vidResult').innerHTML=`<div style="color:var(--err)">${esc(e.message)}</div>`;}finally{$('vidGo').disabled=false;}};
+    function setVid(f){
+      file=f;drop.querySelector('.big').textContent=f.name;drop.querySelector('.small').textContent=(f.size/1048576).toFixed(1)+' MB selected';
+      if(!$('vidName').value)$('vidName').value=f.name.replace(/\.[^.]+$/,'');
+      if(f.type.startsWith('audio'))$('vidType').value='audio';
+      $('vidGo').disabled=false;
+    }
+    $('vidGo').onclick=async()=>{
+      if(!file)return;
+      const maxSize=50*1024*1024;
+      if(file.size>maxSize){toast('File too large. Max 50 MB — please compress first.',false);return;}
+      $('vidGo').disabled=true;
+      $('vidProgress').innerHTML='<div class="loading-state" style="padding:0;justify-content:flex-start;"><span class="spinner"></span> Reading file…</div>';
+      try{
+        const reader=new FileReader();
+        const dataUrl=await new Promise((resolve,reject)=>{reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file);});
+        $('vidProgress').innerHTML='<div class="loading-state" style="padding:0;justify-content:flex-start;"><span class="spinner"></span> Uploading…</div>';
+        const mediaType=$('vidType').value;
+        const res=await api('/api/video-upload',{method:'POST',body:JSON.stringify({filename:file.name,dataUrl,caption:$('vidCaption').value||null,mediaType})});
+        $('vidProgress').innerHTML='';
+        $('vidResult').innerHTML=`<div style="color:var(--ok);font-weight:500;display:flex;align-items:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Uploaded · ${(res.size/1048576).toFixed(1)} MB stored</div><div class="result-url"><input type="text" value="${attr(res.url)}" readonly onclick="this.select();navigator.clipboard.writeText(this.value);"/><button class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText('${attr(res.url)}');">Copy</button></div>${mediaType==='video'?`<video src="${attr(res.url)}" controls style="max-width:100%;border-radius:12px;margin-top:14px;"></video>`:`<audio src="${attr(res.url)}" controls style="margin-top:14px;"></audio>`}`;
+        toast('Uploaded!');
+      }catch(e){$('vidProgress').innerHTML='';$('vidResult').innerHTML=`<div style="color:var(--err)">${esc(e.message)}</div>`;}
+      finally{$('vidGo').disabled=false;}
+    };
   }
 
   // ============ ADMINS (owner only) ============
