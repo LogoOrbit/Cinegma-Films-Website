@@ -176,6 +176,21 @@
     .log-details{max-width:220px;word-break:break-all;color:var(--faint);font-size:.72rem;}
     .log-pagination{display:flex;gap:10px;justify-content:center;margin-top:24px;}
 
+    .analytics-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:30px;}
+    .a-card{padding:22px 24px;border-radius:var(--radius);border:1px solid var(--line);background:var(--panel);}
+    .a-card .a-num{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;line-height:1;color:var(--gold-bright);}
+    .a-card .a-lbl{font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-top:8px;}
+    .a-section{margin-bottom:30px;}
+    .a-section h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.3rem;margin-bottom:14px;}
+    .a-bar-list{list-style:none;}
+    .a-bar-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);}
+    .a-bar-item .a-bar-name{flex:1;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .a-bar-item .a-bar-count{font-size:.82rem;color:var(--gold-bright);font-weight:500;min-width:40px;text-align:right;}
+    .a-bar-item .a-bar-track{flex:2;height:6px;background:rgba(240,236,228,.06);border-radius:3px;overflow:hidden;}
+    .a-bar-item .a-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--gold-bright));transition:width .5s var(--ease);}
+    .a-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+    @media(max-width:860px){.a-cols{grid-template-columns:1fr;}.analytics-grid{grid-template-columns:repeat(2,1fr);}}
+
     .drop{border:1.5px dashed var(--line-strong);border-radius:var(--radius);padding:48px 24px;text-align:center;color:var(--mut);cursor:pointer;transition:.3s var(--ease);background:rgba(0,0,0,.2);}
     .drop:hover,.drop.hover{border-color:var(--gold);background:var(--gold-dim);color:var(--txt);}
     .drop .ico{width:46px;height:46px;margin:0 auto 16px;stroke:var(--gold);fill:none;stroke-width:1.3;}
@@ -306,6 +321,7 @@
           <button data-page="upload-video"><svg viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Upload Video</button>
           <div class="group-label">Manage</div>
           <button data-page="media"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Media Library</button>
+          <button data-page="analytics" id="navAnalytics" style="display:none;"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Site Analytics</button>
           <button data-page="activity" id="navActivity" style="display:none;"><svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg> Activity Log</button>
           <button data-page="admins" id="navAdmins" style="display:none;"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Admins</button>
           <button data-page="view-site"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> View Blog</button>
@@ -351,6 +367,7 @@
     $('ubAvatar').textContent=(session.username||'?').charAt(0).toUpperCase();
     $('navAdmins').style.display=session.role==='owner'?'flex':'none';
     $('navActivity').style.display=session.role==='owner'?'flex':'none';
+    $('navAnalytics').style.display=session.role==='owner'?'flex':'none';
     render();
   }
   function logout(){session={token:'',role:'',username:''};localStorage.removeItem('cms_token');localStorage.removeItem('cms_role');localStorage.removeItem('cms_username');showLogin();}
@@ -393,6 +410,7 @@
     else if(currentPage==='media')renderMedia();
     else if(currentPage==='upload-image')renderUploadImage();
     else if(currentPage==='upload-video')renderUploadVideo();
+    else if(currentPage==='analytics')renderAnalytics();
     else if(currentPage==='activity')renderActivity();
     else if(currentPage==='admins')renderAdmins();
   }
@@ -632,6 +650,58 @@
       }catch(e){$('vidProgress').innerHTML='';$('vidResult').innerHTML=`<div style="color:var(--err)">${esc(e.message)}</div>`;}
       finally{$('vidGo').disabled=false;}
     };
+  }
+
+  // ============ SITE ANALYTICS (owner only) ============
+  async function renderAnalytics(){
+    app.innerHTML=pageHead('Intelligence','Site Analytics','Real-time visitor analytics — page views, devices, referrers, and every interaction on your website.')+
+      `<div class="toolbar"><div class="spacer"></div><button class="btn btn-ghost btn-sm" id="anlRefresh"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Refresh</button></div><div id="anlStats"><div class="loading-state"><span class="spinner"></span> Loading analytics…</div></div><div id="anlFeed"></div>`;
+    $('anlRefresh').onclick=()=>renderAnalytics();
+
+    // Load overview stats (may partially fail if RPCs not set up — that's fine)
+    try{
+      const stats=await api('/api/site-activity?action=stats');
+      $('anlStats').innerHTML=`<div class="analytics-grid"><div class="a-card"><div class="a-num">${stats.views_today}</div><div class="a-lbl">Views Today</div></div><div class="a-card"><div class="a-num">${stats.visitors_today}</div><div class="a-lbl">Visitors Today</div></div><div class="a-card"><div class="a-num">${stats.views_week}</div><div class="a-lbl">Views This Week</div></div><div class="a-card"><div class="a-num">${stats.visitors_week}</div><div class="a-lbl">Visitors This Week</div></div><div class="a-card"><div class="a-num">${stats.views_month}</div><div class="a-lbl">Views (30 Days)</div></div></div>`;
+    }catch(e){$('anlStats').innerHTML=`<div class="analytics-grid"><div class="a-card"><div class="a-lbl" style="color:var(--err);">Stats unavailable: ${esc(e.message)}</div></div></div>`;}
+
+    // Load recent feed
+    try{
+      const{data:events,total}=await api('/api/site-activity?limit=100');
+      if(!events.length){$('anlFeed').innerHTML='<div class="empty"><h3>No activity yet</h3><p>Visitor events will appear here once someone visits the site.</p></div>';return;}
+
+      // Build top pages, browsers, devices from raw data
+      const pageCounts={},browserCounts={},deviceCounts={},referrerCounts={},eventCounts={};
+      events.forEach(e=>{
+        if(e.event==='page_view'){pageCounts[e.page]=(pageCounts[e.page]||0)+1;}
+        if(e.browser)browserCounts[e.browser]=(browserCounts[e.browser]||0)+1;
+        if(e.device)deviceCounts[e.device]=(deviceCounts[e.device]||0)+1;
+        if(e.referrer&&!e.referrer.includes(location.hostname)){try{const h=new URL(e.referrer).hostname;referrerCounts[h]=(referrerCounts[h]||0)+1;}catch(_){}}
+        eventCounts[e.event]=(eventCounts[e.event]||0)+1;
+      });
+
+      function barList(obj,max){
+        const sorted=Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,8);
+        const top=sorted[0]?sorted[0][1]:1;
+        return sorted.map(([name,count])=>`<div class="a-bar-item"><span class="a-bar-name">${esc(name)}</span><div class="a-bar-track"><div class="a-bar-fill" style="width:${Math.round(count/top*100)}%"></div></div><span class="a-bar-count">${count}</span></div>`).join('');
+      }
+
+      let html='<div class="a-cols"><div class="a-section glass" style="padding:24px;"><h3>Top Pages</h3>'+barList(pageCounts)+'</div><div class="a-section glass" style="padding:24px;"><h3>Event Types</h3>'+barList(eventCounts)+'</div></div>';
+      html+='<div class="a-cols" style="margin-top:24px;"><div class="a-section glass" style="padding:24px;"><h3>Browsers</h3>'+barList(browserCounts)+'</div><div class="a-section glass" style="padding:24px;"><h3>Devices</h3>'+barList(deviceCounts)+'</div></div>';
+      if(Object.keys(referrerCounts).length) html+='<div class="a-section glass" style="padding:24px;margin-top:24px;"><h3>Top Referrers</h3>'+barList(referrerCounts)+'</div>';
+
+      // Recent live feed
+      html+='<div class="a-section" style="margin-top:30px;"><h3>Live Feed</h3><div class="glass" style="overflow-x:auto;"><table class="log-table"><thead><tr><th>Time</th><th>Event</th><th>Page</th><th>Device</th><th>Details</th></tr></thead><tbody>';
+      function fmtTime(d){return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});}
+      function eventPill(ev){const cls=ev.includes('click')||ev==='form_submit'?'content':ev.includes('video')||ev.includes('audio')?'media':ev==='page_view'?'auth':'content';return `<span class="log-action ${cls}">${esc(ev.replace(/_/g,' '))}</span>`;}
+      for(const e of events.slice(0,50)){
+        const det=e.details?Object.entries(e.details).map(([k,v])=>k+': '+String(v).slice(0,40)).join(' · '):'—';
+        html+=`<tr><td style="white-space:nowrap;color:var(--faint);">${fmtTime(e.created_at)}</td><td>${eventPill(e.event)}</td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(e.page)}</td><td><span style="color:var(--txt);">${esc(e.browser||'')} · ${esc(e.os||'')}</span><br><span style="font-size:.7rem;color:var(--faint);">${esc(e.device||'')}${e.ip_address?' · '+esc(e.ip_address):''}</span></td><td class="log-details">${esc(det)}</td></tr>`;
+      }
+      html+='</tbody></table></div></div>';
+      html+=`<div style="text-align:center;padding:14px;font-size:.78rem;color:var(--faint);">${total} total events recorded</div>`;
+
+      $('anlFeed').innerHTML=html;
+    }catch(e){$('anlFeed').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
   }
 
   // ============ ACTIVITY LOG (owner only) ============

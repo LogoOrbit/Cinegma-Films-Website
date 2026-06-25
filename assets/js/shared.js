@@ -1,6 +1,11 @@
 (function(){
   'use strict';
 
+  // ── LOAD SITE TRACKER ──
+  var ts=document.createElement('script');
+  ts.src=(location.pathname.indexOf('/projects/')===0||location.pathname.indexOf('/team/')===0?'../':'')+'assets/js/tracker.js';
+  ts.defer=true;document.head.appendChild(ts);
+
   // ── NAV: set active link based on current page ──
   var page = location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, .nav-mobile a').forEach(function(a){
