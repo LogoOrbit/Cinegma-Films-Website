@@ -66,19 +66,14 @@ module.exports = async (req, res) => {
         const week = new Date(now - 7 * 86400000).toISOString();
         const month = new Date(now - 30 * 86400000).toISOString();
 
-        const [todayR, weekR, monthR, pagesR, browsersR, devicesR, referrersR, countryR] = await Promise.all([
+        const [todayR, weekR, monthR, uniqueToday, uniqueWeek] = await Promise.all([
           s.from('site_activity').select('id', { count: 'exact', head: true }).eq('event', 'page_view').gte('created_at', today),
           s.from('site_activity').select('id', { count: 'exact', head: true }).eq('event', 'page_view').gte('created_at', week),
           s.from('site_activity').select('id', { count: 'exact', head: true }).eq('event', 'page_view').gte('created_at', month),
-          s.rpc('site_activity_top_pages', { since: month }).catch(() => ({ data: null })),
-          s.rpc('site_activity_top_browsers', { since: month }).catch(() => ({ data: null })),
-          s.rpc('site_activity_top_devices', { since: month }).catch(() => ({ data: null })),
-          s.rpc('site_activity_top_referrers', { since: month }).catch(() => ({ data: null })),
-          s.rpc('site_activity_top_countries', { since: month }).catch(() => ({ data: null })),
+          s.from('site_activity').select('session_id').eq('event', 'page_view').gte('created_at', today),
+          s.from('site_activity').select('session_id').eq('event', 'page_view').gte('created_at', week),
         ]);
 
-        const uniqueToday = await s.from('site_activity').select('session_id').eq('event', 'page_view').gte('created_at', today);
-        const uniqueWeek = await s.from('site_activity').select('session_id').eq('event', 'page_view').gte('created_at', week);
         const uniqueVisitorsToday = new Set((uniqueToday.data || []).map(r => r.session_id).filter(Boolean)).size;
         const uniqueVisitorsWeek = new Set((uniqueWeek.data || []).map(r => r.session_id).filter(Boolean)).size;
 
@@ -88,11 +83,6 @@ module.exports = async (req, res) => {
           views_month: monthR.count || 0,
           visitors_today: uniqueVisitorsToday,
           visitors_week: uniqueVisitorsWeek,
-          top_pages: pagesR.data || [],
-          top_browsers: browsersR.data || [],
-          top_devices: devicesR.data || [],
-          top_referrers: referrersR.data || [],
-          top_countries: countryR.data || [],
         });
       }
 
