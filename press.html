@@ -38,13 +38,15 @@
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cinegmafilms.com/"},{"@type":"ListItem","position":2,"name":"Press","item":"https://cinegmafilms.com/press.html"}]}
 </script>
 
+<link rel="stylesheet" href="assets/css/creative-enhancements.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/></noscript>
 
 <style>
-:root{--black:#080808;--white:#f0ece4;--grey:#888;--border:rgba(240,236,228,0.1);--gold:#c9a55a;}
+:root{--black:#080808;--white:#f0ece4;--grey:#acbfa4;--border:rgba(240,236,228,0.1);--gold:#ff7f11;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;overflow-x:hidden;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}body::before{animation:none!important;}}
@@ -140,6 +142,10 @@ footer{flex-shrink:0;padding:56px 60px;border-top:1px solid var(--border);displa
 .footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;padding:8px 6px;}
 .footer-links a:hover{color:var(--white);}
 .footer-copy{font-size:.62rem;letter-spacing:.1em;color:rgba(240,236,228,.5);}
+.footer-social{display:flex;gap:12px;list-style:none;}
+.footer-social a{display:flex;align-items:center;justify-content:center;width:32px;height:32px;color:var(--grey);text-decoration:none;transition:color .3s;}
+.footer-social a:hover{color:var(--white);}
+.footer-social svg{width:16px;height:16px;fill:currentColor;}
 
 /* BACK TO TOP */
 .back-to-top{position:fixed;bottom:32px;right:32px;z-index:450;width:44px;height:44px;background:rgba(240,236,228,.1);border:1px solid rgba(240,236,228,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .3s;backdrop-filter:blur(8px);}
@@ -297,16 +303,16 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .pr-row-label{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);}
 .pr-row-val{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:var(--white);line-height:1.35;}
 .pr-row-val em{font-style:italic;color:rgba(240,236,228,.6);}
-.pr-row-val a{color:var(--white);text-decoration:none;border-bottom:1px solid rgba(201,165,90,.5);transition:border-color .3s;}
+.pr-row-val a{color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,127,17,.5);transition:border-color .3s;}
 .pr-row-val a:hover{border-color:var(--gold);}
 
 /* ── DOWNLOAD CARDS ── */
 .pr-dl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
 .pr-dl{display:flex;flex-direction:column;gap:14px;border:1px solid var(--border);background:#0c0c0c;padding:30px 26px;text-decoration:none;transition:border-color .4s,transform .4s,background .4s;position:relative;overflow:hidden;}
 .pr-dl::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--gold);transition:width .45s;}
-.pr-dl:hover{border-color:rgba(201,165,90,.4);transform:translateY(-4px);background:#101010;}
+.pr-dl:hover{border-color:rgba(255,127,17,.4);transform:translateY(-4px);background:#101010;}
 .pr-dl:hover::after{width:100%;}
-.pr-dl-ic{width:42px;height:42px;border:1px solid rgba(201,165,90,.4);display:flex;align-items:center;justify-content:center;color:var(--gold);}
+.pr-dl-ic{width:42px;height:42px;border:1px solid rgba(255,127,17,.4);display:flex;align-items:center;justify-content:center;color:var(--gold);}
 .pr-dl-ic svg{width:18px;height:18px;stroke:currentColor;stroke-width:1.6;fill:none;}
 .pr-dl-title{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.08em;color:var(--white);}
 .pr-dl-sub{font-size:.72rem;letter-spacing:.04em;color:rgba(240,236,228,.5);line-height:1.5;}
@@ -325,7 +331,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .pr-bio-body p:first-of-type::first-letter{font-family:'Bebas Neue',sans-serif;font-style:normal;font-size:3.4rem;line-height:.8;float:left;margin:6px 14px 0 0;color:var(--gold);}
 .pr-bio-body strong{color:var(--white);font-weight:600;}
 .pr-bio-body em{color:rgba(240,236,228,.7);}
-.pr-copy{margin-top:14px;background:none;border:1px solid rgba(201,165,90,.45);color:var(--gold);padding:11px 22px;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s;}
+.pr-copy{margin-top:14px;background:none;border:1px solid rgba(255,127,17,.45);color:var(--gold);padding:11px 22px;font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s;}
 .pr-copy:hover{background:var(--gold);color:var(--black);}
 
 /* ── AWARDS ── */
@@ -349,7 +355,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .pr-contact-kick{font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
 .pr-contact h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:.04em;margin-bottom:18px;color:var(--white);}
 .pr-contact p{font-family:'DM Sans',sans-serif;font-size:.96rem;color:rgba(240,236,228,.66);margin-bottom:30px;line-height:1.7;max-width:480px;margin-left:auto;margin-right:auto;}
-.pr-email{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);letter-spacing:.06em;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(201,165,90,.5);padding-bottom:4px;transition:border-color .3s,color .3s;}
+.pr-email{display:inline-block;font-family:'Bebas Neue',sans-serif;font-size:clamp(1.4rem,3.5vw,2.2rem);letter-spacing:.06em;color:var(--white);text-decoration:none;border-bottom:1px solid rgba(255,127,17,.5);padding-bottom:4px;transition:border-color .3s,color .3s;}
 .pr-email:hover{color:var(--gold);border-color:var(--gold);}
 
 @media(max-width:860px){
@@ -381,6 +387,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <li><a href="services.html">Services</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="press.html">Press</a></li>
+    <li><a href="blog.html">Blog</a></li>
     <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" onclick="openMenu()">
@@ -395,6 +402,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <a href="services.html" onclick="closeMenu()">Services</a>
   <a href="about.html" onclick="closeMenu()">About</a>
   <a href="press.html" onclick="closeMenu()">Press</a>
+  <a href="blog.html" onclick="closeMenu()">Blog</a>
   <a href="contact.html" onclick="closeMenu()">Contact</a>
 </div>
 
@@ -403,11 +411,11 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <!-- HERO -->
   <header class="pr-hero">
     <div class="pr-hero-bg" aria-hidden="true">
-      <img src="assets/posters/Janjaal_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="assets/posters/Zawaal_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="assets/posters/Potrait_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="assets/posters/Solder_Opt_01.avif" alt="" loading="lazy"/>
-      <img src="assets/posters/Payam_Opt_01.avif" alt="" loading="lazy"/>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Janjaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Janjaal_Opt_01.avif" alt="" loading="lazy"/></picture>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Zawaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Zawaal_Opt_01.avif" alt="" loading="lazy"/></picture>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Potrait_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Potrait_Opt_01.avif" alt="" loading="lazy"/></picture>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Solder_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Solder_Opt_01.avif" alt="" loading="lazy"/></picture>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Payam_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Payam_Opt_01.avif" alt="" loading="lazy"/></picture>
     </div>
     <div class="pr-hero-inner">
       <p class="pr-kick reveal">Cinegma Films · Electronic Press Kit</p>
@@ -508,35 +516,35 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <div class="pr-sechead reveal"><span class="pr-no">05</span><h2>Stills &amp; Posters</h2><span class="pr-rule"></span></div>
     <div class="stills reveal">
       <div class="still">
-        <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Janjaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/Janjaal_Opt_01.avif" download>Janjaal <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Potrait_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/Potrait_Opt_01.avif" download>Portrait of Life <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Zawaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/Zawaal_Opt_01.avif" download>Zawaal <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Solder_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/Solder_Opt_01.avif" download>A Soldier Beside Me <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Payam_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/Payam_Opt_01.avif" download>Payam e Dil <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Achu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/Achu_Opt_01.avif" download>Main Aur Achu <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/PhirSe_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/PhirSe_Opt_01.avif" download>Phir Se <span>↓</span></a>
       </div>
       <div class="still">
-        <img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi documentary poster" loading="lazy" width="800" height="1200"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Urdu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi documentary poster" loading="lazy" width="800" height="1200"/></picture>
         <a class="still-dl" href="assets/posters/Urdu_Opt_01.avif" download>Urdu Bazaar <span>↓</span></a>
       </div>
     </div>
@@ -570,12 +578,20 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <li><a href="about.html">About</a></li>
     <li><a href="contact.html">Contact</a></li>
     <li><a href="press.html">Press</a></li>
-    <li><a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener">IMDb</a></li>
-  </ul>
+    <li><a href="blog.html">Blog</a></li>
+    </ul>
+<ul class="footer-social">
+<li><a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener" aria-label="IMDb"><svg viewBox="0 0 24 24"><path d="M14.31 9.588v.005c-.077-.048-.227-.07-.42-.07v4.815c.27 0 .44-.064.5-.189.062-.125.095-.408.095-.848v-2.93c0-.338-.014-.553-.043-.643-.063-.165-.18-.252-.42-.25zm-2.31-9.588C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-3.07 15.257H7.114V8.743H8.93v6.514zm3.178-.85c-.1.292-.257.498-.47.617-.215.12-.517.179-.91.179H9.38V8.743h1.355c.706 0 1.147.065 1.323.197.176.133.295.395.356.787.034.23.052.73.052 1.5v1.696c0 .76-.03 1.24-.09 1.484zm3.663.028c-.098.264-.232.44-.403.527-.172.087-.435.13-.79.13-.276 0-.528-.048-.757-.143-.23-.096-.424-.234-.583-.415v.523h-1.16V8.743h1.16v2.19c.15-.172.33-.303.54-.395.21-.09.435-.137.676-.137.336 0 .598.072.787.214.188.142.318.344.39.605.046.17.07.493.07.966v1.5c0 .435-.022.742-.066.919z"/></svg></a></li>
+<li><a href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a></li>
+<li><a href="https://youtube.com/@syedasad" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a></li>
+<li><a href="https://www.facebook.com/share/1A39G6PmRG/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></li>
+</ul>
   <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
 <script src="assets/js/shared.js"></script>
+<script src="assets/js/creative-enhancements.js" defer></script>
+<script src="assets/js/sound-effects.js" defer></script>
 <script>
 // Copy bio
 function copyBio(btn){

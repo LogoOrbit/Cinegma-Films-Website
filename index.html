@@ -26,10 +26,14 @@
 <link rel="sitemap" type="application/xml" href="https://cinegmafilms.com/sitemap.xml"/>
   <link rel="alternate" hreflang="en" href="https://cinegmafilms.com/"/>
   <link rel="alternate" hreflang="x-default" href="https://cinegmafilms.com/"/>
+<link rel="stylesheet" href="assets/css/creative-enhancements.css"/>
+<link rel="preload" as="image" href="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif" type="image/avif"/>
+<link rel="preconnect" href="https://cinegmafilms.b-cdn.net" crossorigin/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/></noscript>
 
 <!-- JSON-LD: Person -->
 <script type="application/ld+json">
@@ -53,7 +57,7 @@
 </script>
 
 <style>
-:root{--black:#080808;--white:#f0ece4;--grey:#888;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#c9a55a;--gold-dim:rgba(201,165,90,0.18);}
+:root{--black:#080808;--white:#f0ece4;--grey:#acbfa4;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#ff7f11;--gold-dim:rgba(255,127,17,0.18);}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;overflow-x:hidden;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}body::before{animation:none!important;}}
@@ -127,10 +131,6 @@ section{padding:100px 60px;position:relative;}
 .film-card.touch-active .film-card-bg img{filter:brightness(.45);}
 .film-card.touch-active .film-card-content{opacity:1;transform:translateY(0);}
 .film-card.touch-active .film-role,.film-card.touch-active .film-desc,.film-card.touch-active .film-tag,.film-card.touch-active .film-imdb,.film-card.touch-active .film-trailer{opacity:1;transform:translateY(0);}
-.film-card.touch-active .film-laurels{opacity:1;}
-.film-laurels{position:absolute;top:0;left:0;right:0;z-index:4;padding:14px;display:flex;flex-wrap:wrap;gap:5px;opacity:0;transition:opacity .4s ease;max-height:55%;overflow:hidden;}
-.film-card:hover .film-laurels{opacity:1;}
-.laurel-badge{height:auto;min-width:50px;border:1px solid rgba(240,236,228,.3);display:flex;align-items:center;justify-content:center;padding:5px 8px;font-size:.42rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(240,236,228,.8);text-align:center;line-height:1.35;backdrop-filter:blur(6px);background:rgba(8,8,8,.4);}
 .film-card-num{position:absolute;top:22px;left:22px;font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.2em;color:rgba(240,236,228,.3);z-index:2;opacity:0;transition:opacity .4s ease;}.film-card:hover .film-card-num{opacity:1;}.film-card.touch-active .film-card-num{opacity:1;}
 .film-card-content{position:absolute;bottom:0;left:0;right:0;padding:28px 24px;background:linear-gradient(to top,rgba(8,8,8,.98) 0%,rgba(8,8,8,.6) 60%,transparent 100%);z-index:3;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease;}
 .film-card:hover .film-card-content{opacity:1;transform:translateY(0);}
@@ -150,8 +150,8 @@ section{padding:100px 60px;position:relative;}
 
 /* ── WATCH TRAILER HOVER BUTTON ── */
 @keyframes btnPulseGlow{
-  0%,100%{box-shadow:0 0 0 0 rgba(240,236,228,.35),0 6px 40px rgba(0,0,0,.7);}
-  50%{box-shadow:0 0 0 10px rgba(240,236,228,.0),0 6px 40px rgba(0,0,0,.7);}
+  0%,100%{opacity:1;}
+  50%{opacity:.7;}
 }
 @keyframes btnFloat{
   0%,100%{transform:translate(-50%,-50%) scale(1);}
@@ -245,7 +245,7 @@ section{padding:100px 60px;position:relative;}
 .team-card:hover::after{width:100%;}
 .team-card:hover{background:#0d0d0d;}
 .team-headshot{width:100%;aspect-ratio:1/1;overflow:hidden;background:var(--mid);position:relative;margin-bottom:22px;}
-.team-headshot img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(20%);transition:transform .6s ease,filter .4s ease;}
+.team-headshot img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:grayscale(20%);transition:transform .6s ease,filter .4s ease;}
 .team-card:hover .team-headshot img{transform:scale(1.04);filter:grayscale(0%);}
 .team-headshot-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:4rem;letter-spacing:.1em;color:rgba(240,236,228,.04);}
 .team-card-inner{padding:0 34px;}
@@ -283,6 +283,10 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
 .footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;padding:8px 6px;}
 .footer-links a:hover{color:var(--white);}
 .footer-copy{font-size:.62rem;letter-spacing:.1em;color:rgba(240,236,228,.5);}
+.footer-social{display:flex;gap:12px;list-style:none;}
+.footer-social a{display:flex;align-items:center;justify-content:center;width:32px;height:32px;color:var(--grey);text-decoration:none;transition:color .3s;}
+.footer-social a:hover{color:var(--white);}
+.footer-social svg{width:16px;height:16px;fill:currentColor;}
 
 /* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s ease;}
@@ -321,8 +325,6 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   .hero-scroll{display:none;}
   .team-headshot{aspect-ratio:1/1;}
   /* Laurel badges hidden on mobile — visible on touch-active via JS */
-  .film-laurels{display:none;}
-  .film-card.touch-active .film-laurels{display:flex;}
   /* Film card overlay hidden by default on mobile — only shown on tap */
   .film-card-content{opacity:0;transform:translateY(16px);}
   .film-role,.film-desc,.film-tag,.film-imdb,.film-trailer{opacity:0;transform:translateY(8px);}
@@ -482,7 +484,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   .team-card-num{font-size:.72rem;}
 
   /* ── Tiniest chips: laurel / award badges (were 0.42–0.5rem) ── */
-  .laurel-badge,.aw-card-badge{font-size:.58rem;letter-spacing:.05em;}
+  .aw-card-badge{font-size:.58rem;letter-spacing:.05em;}
   .laurel-pill{font-size:.74rem;}
   .laurel-pill span{font-size:.66rem;}
   .award-badge{font-size:.66rem;}
@@ -527,8 +529,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 #cineIntro .ci-bar{position:absolute;left:0;right:0;height:0;background:#000;z-index:2;transition:height .6s cubic-bezier(.7,0,.3,1);}
 #cineIntro .ci-top{top:0;}#cineIntro .ci-bottom{bottom:0;}
 #cineIntro.framed .ci-bar{height:13vh;}
-.ci-scan{position:absolute;left:50%;top:50%;width:0;height:1px;background:rgba(240,236,228,.55);transform:translate(-50%,-50%);box-shadow:0 0 22px rgba(240,236,228,.45);animation:ciScan .65s ease forwards .05s;}
-@keyframes ciScan{to{width:min(580px,78vw);}}
+.ci-scan{position:absolute;left:50%;top:50%;width:min(580px,78vw);height:1px;background:rgba(240,236,228,.55);transform:translate(-50%,-50%) scaleX(0);box-shadow:0 0 22px rgba(240,236,228,.45);animation:ciScan .65s ease forwards .05s;}
+@keyframes ciScan{to{transform:translate(-50%,-50%) scaleX(1);}}
 .ci-center{position:relative;z-index:3;text-align:center;padding:0 24px;}
 .ci-presents{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:.52em;text-transform:uppercase;color:rgba(240,236,228,.6);opacity:0;animation:ciFade .45s ease forwards .2s;}
 .ci-logo{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.4rem,13vw,8.4rem);letter-spacing:.14em;line-height:1;color:var(--white);margin:20px 0 12px;opacity:0;transform:translateY(14px) scale(.95);animation:ciLogo .7s cubic-bezier(.2,.7,.2,1) forwards .45s;}
@@ -568,6 +570,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     <li><a href="services.html">Services</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="press.html">Press</a></li>
+    <li><a href="blog.html">Blog</a></li>
     <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
   </ul>
   <button class="nav-hamburger" id="hamburger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" onclick="openMenu()">
@@ -582,6 +585,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <a href="services.html" onclick="closeMenu()">Services</a>
   <a href="about.html" onclick="closeMenu()">About</a>
   <a href="press.html" onclick="closeMenu()">Press</a>
+  <a href="blog.html" onclick="closeMenu()">Blog</a>
   <a href="contact.html" onclick="closeMenu()">Contact</a>
 </div>
 <!-- BACK TO TOP -->
@@ -592,8 +596,8 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <!-- WATCH PAGE NUDGE BANNER -->
 <style>
 @keyframes nudgeGlow {
-  0%,100% { box-shadow: 0 0 18px 2px rgba(240,236,228,.13), 0 8px 40px rgba(0,0,0,.7); border-color: rgba(240,236,228,.5); }
-  50%      { box-shadow: 0 0 38px 8px rgba(240,236,228,.32), 0 8px 48px rgba(0,0,0,.8); border-color: rgba(240,236,228,.75); }
+  0%,100% { opacity:.85; }
+  50%      { opacity:1; }
 }
 @keyframes nudgePulseText {
   0%,100% { opacity:.82; }
@@ -692,22 +696,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <div class="films-grid">
 
     <!-- Janjaal -->
-    <div class="film-card reveal" data-watch-hash="trailer-janjaal">
+    <div class="film-card reveal" data-watch-hash="trailer-janjaal" data-project="projects/janjaal.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-janjaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
-      </div>
-      <div class="film-laurels">
-        <div class="laurel-badge">Best Short Film<br>Toronto F/SF<br>2026</div>
-        <div class="laurel-badge">Best Director<br>Cedar FF<br>2026</div>
-        <div class="laurel-badge">Best Film<br>Cedar FF<br>2026</div>
-        <div class="laurel-badge">Best Director<br>Gandhara IFF<br>2025–26</div>
-        <div class="laurel-badge">Best Director<br>KISFF India<br>2025</div>
-        <div class="laurel-badge">Best Short Film<br>KISFF India<br>2025</div>
-        <div class="laurel-badge">Best Short Film<br>PIFF 2025</div>
-        <div class="laurel-badge">Best Trailer<br>TMFF Scotland<br>2025</div>
-        <div class="laurel-badge">Best Director<br>Indus IFF<br>2025</div>
-        <div class="laurel-badge">Theatrical<br>Arena Cinemas<br>Jan 2025</div>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Janjaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">01</span>
       <div class="film-card-content">
@@ -722,10 +714,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Portrait of Life -->
-    <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-portrait">
+    <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-portrait" data-project="projects/portrait-of-life.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-portrait')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Potrait_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">02</span>
       <div class="film-card-content">
@@ -740,10 +732,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Zawaal -->
-    <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-zawaal">
+    <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-zawaal" data-project="projects/zawaal.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-zawaal')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Zawaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">03</span>
       <div class="film-card-content">
@@ -758,10 +750,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- A Soldier Beside Me -->
-    <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-soldier">
+    <div class="film-card reveal" style="transition-delay:.08s" data-watch-hash="trailer-soldier" data-project="projects/a-soldier-beside-me.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-soldier')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Solder_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">04</span>
       <div class="film-card-content">
@@ -776,10 +768,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Payam e Dil -->
-    <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-payam">
+    <div class="film-card reveal" style="transition-delay:.16s" data-watch-hash="trailer-payam" data-project="projects/payam-e-dil.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-payam')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Payam_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">05</span>
       <div class="film-card-content">
@@ -793,10 +785,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Main Aur Achu -->
-    <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="trailer-mainaurachu">
+    <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="trailer-mainaurachu" data-project="projects/main-aur-achu.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('trailer-mainaurachu')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Achu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">06</span>
       <div class="film-card-content">
@@ -811,9 +803,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Phir Se -->
-    <div class="film-card reveal" style="transition-delay:.16s">
+    <div class="film-card reveal" style="transition-delay:.16s" data-project="projects/phir-se.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <div class="film-card-bg">
-        <img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/PhirSe_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se Film Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">07</span>
       <div class="film-card-content">
@@ -826,10 +818,10 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Urdu Bazaar -->
-    <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="watch-urdu-bazaar">
+    <div class="film-card reveal" style="transition-delay:.24s" data-watch-hash="watch-urdu-bazaar" data-project="projects/urdu-bazaar-karachi.html" onclick="if(!event.target.closest('a,button')){location.href=this.dataset.project}" style="cursor:pointer">
       <button class="film-trailer-hover-btn" onclick="event.stopPropagation();goToWatch('watch-urdu-bazaar')"><span class="play-circle"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>Watch Trailer</button>
       <div class="film-card-bg">
-        <img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi Documentary Poster — Cinegma Films" width="800" height="1200" loading="lazy"/>
+        <picture><source media="(max-width: 768px)" srcset="assets/posters/Urdu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi Documentary Poster — Cinegma Films" width="800" height="1200" loading="lazy"/></picture>
       </div>
       <span class="film-card-num">08</span>
       <div class="film-card-content">
@@ -852,7 +844,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 #now-streaming::before{top:0;}#now-streaming::after{bottom:0;}
 .ns-head{text-align:center;max-width:640px;margin:0 auto 56px;position:relative;z-index:2;}
 .ns-eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:22px;}
-.ns-eyebrow .ns-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(201,165,90,.9);animation:nsBlink 1.8s ease-in-out infinite;}
+.ns-eyebrow .ns-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(255,127,17,.9);animation:nsBlink 1.8s ease-in-out infinite;}
 @keyframes nsBlink{0%,100%{opacity:1;}50%{opacity:.25;}}
 .ns-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,6vw,5.2rem);line-height:.9;letter-spacing:.03em;color:var(--white);margin-bottom:18px;}
 .ns-title em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(240,236,228,.5);}
@@ -886,22 +878,22 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   </div>
   <div class="ns-grid reveal" style="transition-delay:.1s">
     <a class="ns-card" href="watch.html#trailer-janjaal" aria-label="Watch Janjaal (Tussle)">
-      <img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) — stream now" loading="lazy" width="800" height="1200"/>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Janjaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) — stream now" loading="lazy" width="800" height="1200"/></picture>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Janjaal</span><span class="ns-card-tag">Thriller · 14 Awards</span></div>
     </a>
     <a class="ns-card" href="watch.html#trailer-portrait" aria-label="Watch Portrait of Life">
-      <img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life — stream now" loading="lazy" width="800" height="1200"/>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Potrait_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life — stream now" loading="lazy" width="800" height="1200"/></picture>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Portrait of Life</span><span class="ns-card-tag">Drama · Teaser</span></div>
     </a>
     <a class="ns-card" href="watch.html#trailer-mainaurachu" aria-label="Watch Main Aur Achu">
-      <img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu — stream now" loading="lazy" width="800" height="1200"/>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Achu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu — stream now" loading="lazy" width="800" height="1200"/></picture>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Main Aur Achu</span><span class="ns-card-tag">Family · Full Film</span></div>
     </a>
     <a class="ns-card" href="watch.html#watch-urdu-bazaar" aria-label="Watch Urdu Bazaar Karachi">
-      <img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi — stream now" loading="lazy" width="800" height="1200"/>
+      <picture><source media="(max-width: 768px)" srcset="assets/posters/Urdu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi — stream now" loading="lazy" width="800" height="1200"/></picture>
       <span class="ns-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
       <div class="ns-card-meta"><span class="ns-card-name">Urdu Bazaar</span><span class="ns-card-tag">Documentary · Full</span></div>
     </a>
@@ -923,7 +915,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .marquee.reverse{animation-direction:reverse;animation-duration:46s;margin-top:18px;}
 #festivals:hover .marquee{animation-play-state:paused;}
 .marquee-item{display:inline-flex;align-items:center;gap:18px;padding:0 30px;white-space:nowrap;flex-shrink:0;}
-.marquee-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:rgba(240,236,228,.45);transition:color .3s;}
+.marquee-name{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.08em;color:rgba(240,236,228,.55);transition:color .3s;}
 .marquee-item:hover .marquee-name{color:var(--white);}
 .marquee-dot{width:5px;height:5px;border-radius:50%;background:rgba(240,236,228,.25);flex-shrink:0;}
 @keyframes marqueeScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
@@ -980,7 +972,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .lw-item{position:relative;display:flex;align-items:center;justify-content:center;padding:10px;isolation:isolate;}
 /* soft gold glow that fades in/out behind the laurel on hover */
 .lw-item::before{content:'';position:absolute;inset:6%;z-index:-1;border-radius:50%;
-  background:radial-gradient(circle at 50% 50%,rgba(201,165,90,.42) 0%,rgba(201,165,90,.16) 38%,transparent 68%);
+  background:radial-gradient(circle at 50% 50%,rgba(255,127,17,.42) 0%,rgba(255,127,17,.16) 38%,transparent 68%);
   opacity:0;transform:scale(.55);filter:blur(10px);
   transition:opacity .55s ease,transform .55s ease;pointer-events:none;}
 .lw-item:hover::before{opacity:1;transform:scale(1.08);animation:lwGlowPulse 2.6s ease-in-out infinite .55s;}
@@ -989,9 +981,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   transition:opacity .5s ease;
   background-image:
     radial-gradient(circle,rgba(255,250,235,.95) 0%,transparent 60%),
-    radial-gradient(circle,rgba(201,165,90,.9) 0%,transparent 60%),
+    radial-gradient(circle,rgba(255,127,17,.9) 0%,transparent 60%),
     radial-gradient(circle,rgba(255,250,235,.85) 0%,transparent 60%),
-    radial-gradient(circle,rgba(201,165,90,.85) 0%,transparent 60%),
+    radial-gradient(circle,rgba(255,127,17,.85) 0%,transparent 60%),
     radial-gradient(circle,rgba(255,250,235,.8) 0%,transparent 60%);
   background-repeat:no-repeat;
   background-size:5px 5px,4px 4px,6px 6px,3px 3px,4px 4px;
@@ -1066,7 +1058,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 #reels{background:var(--black);border-top:1px solid var(--border);}
 .reels-head{max-width:620px;margin-bottom:52px;}
 .reels-eyebrow{display:inline-flex;align-items:center;gap:11px;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;}
-.reels-eyebrow .r-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(201,165,90,.9);animation:nsBlink 1.8s ease-in-out infinite;}
+.reels-eyebrow .r-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px rgba(255,127,17,.9);animation:nsBlink 1.8s ease-in-out infinite;}
 .reels-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.4rem,6vw,4.6rem);line-height:.92;letter-spacing:.03em;color:var(--white);margin-bottom:16px;}
 .reels-title em{font-style:normal;color:transparent;-webkit-text-stroke:1px rgba(240,236,228,.5);}
 .reels-intro{font-family:'DM Sans',sans-serif;font-size:1.02rem;line-height:1.75;color:rgba(240,236,228,.78);letter-spacing:.005em;}
@@ -1076,7 +1068,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .reel-card.is-vertical{grid-column:span 1;aspect-ratio:9/16;}
 .reel-spacer{}
 .reel-card::before{content:'';position:absolute;top:0;left:0;width:0;height:2px;background:var(--gold);z-index:5;transition:width .5s ease;}
-.reel-card:hover{border-color:rgba(201,165,90,.45);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5);}
+.reel-card:hover{border-color:rgba(255,127,17,.45);transform:translateY(-6px);box-shadow:0 24px 60px rgba(0,0,0,.5);}
 .reel-card:hover::before{width:100%;}
 .reel-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#0a0a0a;}
 .reel-mute{position:absolute;bottom:14px;right:14px;z-index:4;width:38px;height:38px;border-radius:50%;background:rgba(8,8,8,.5);border:1px solid rgba(240,236,228,.25);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background .25s,opacity .3s;opacity:0;}
@@ -1108,7 +1100,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-horizontal" onclick="toggleReel(this)">
       <span class="reel-tag">Janjaal · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Janjaalbts.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Janjaalbts.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1117,7 +1109,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-horizontal" onclick="toggleReel(this)">
       <span class="reel-tag">Portrait of Life · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Portraitbts.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portraitbts.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1126,7 +1118,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-horizontal" onclick="toggleReel(this)">
       <span class="reel-tag">Zawaal · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Zawaalbts.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Zawaalbts.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1135,7 +1127,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-vertical" onclick="toggleReel(this)">
       <span class="reel-tag">Portrait of Life · Reel</span>
-      <video src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1144,7 +1136,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
     <div class="reel-card is-vertical" onclick="toggleReel(this)">
       <span class="reel-tag">A Soldier Beside Me · BTS</span>
-      <video src="https://CinegmaFilms.b-cdn.net/SoldierBTS.mp4" muted loop autoplay playsinline preload="metadata"></video>
+      <video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/SoldierBTS.mp4" muted loop playsinline preload="none"></video>
       <button class="reel-mute" type="button" aria-label="Toggle sound" onclick="event.stopPropagation();toggleMute(this)">
         <svg class="ic-off" viewBox="0 0 24 24"><path d="M16.5 12A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM3 9v6h4l5 5V4L7 9H3z"/></svg>
         <svg class="ic-on" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 7.97v8.05A4.47 4.47 0 0 0 16.5 12zM14 3.23v2.06a7 7 0 0 1 0 13.42v2.06a9 9 0 0 0 0-17.54z"/></svg>
@@ -1238,7 +1230,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 .tl-item{position:relative;padding:0 0 44px 42px;}
 .tl-item:last-child{padding-bottom:0;}
 .tl-item::before{content:'';position:absolute;left:-4px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--black);border:1px solid rgba(240,236,228,.4);transition:background .4s,border-color .4s;}
-.tl-item.live::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(201,165,90,.7);}
+.tl-item.live::before{background:var(--gold);border-color:var(--gold);box-shadow:0 0 12px rgba(255,127,17,.7);}
 .tl-item:hover::before{background:var(--white);border-color:var(--white);}
 .tl-year{font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.18em;color:rgba(240,236,228,.5);margin-bottom:8px;}
 .tl-title{font-family:'Cormorant Garamond',serif;font-size:1.45rem;color:var(--white);line-height:1.25;margin-bottom:8px;}
@@ -1287,7 +1279,7 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   <div class="team-grid">
 
     <!-- Syed Asad -->
-    <div class="team-card reveal" data-href="about.html#syed-asad" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" data-href="team/syed-asad.html" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
         <img src="assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi — Filmmaker, Karachi" loading="lazy"/>
       </div>
@@ -1303,9 +1295,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Ghayas Uddin -->
-    <div class="team-card reveal" style="transition-delay:.08s" data-href="about.html#ghayas-uddin" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.08s" data-href="team/ghayas-uddin.html" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="assets/posters/Ghayas.jpg" alt="Ghayas Uddin Siddiqui — Director of Photography" loading="lazy"/>
+        <img src="assets/posters/Ghayas.avif" alt="Ghayas Uddin Siddiqui — Director of Photography" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">02</span>
@@ -1318,9 +1310,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Ameer Hamza -->
-    <div class="team-card reveal" style="transition-delay:.1s" data-href="about.html#ameer-hamza" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.1s" data-href="team/ameer-hamza.html" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="assets/posters/Ameer.jpeg" alt="Ameer Hamza — Writer, Producer" loading="lazy"/>
+        <img src="assets/posters/Ameer.avif" alt="Ameer Hamza — Writer, Producer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">03</span>
@@ -1333,9 +1325,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Faizan Ahmed -->
-    <div class="team-card reveal" style="transition-delay:.15s" data-href="about.html#faizan-ahmed" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.15s" data-href="team/faizan-ahmed.html" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="assets/posters/Faizan%20Ahmed%20Team.png" alt="Faizan Ahmed — Production Designer" loading="lazy"/>
+        <img src="assets/posters/Faizan%20Ahmed%20Team.avif" alt="Faizan Ahmed — Production Designer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">04</span>
@@ -1348,9 +1340,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Usman Ali Akbar -->
-    <div class="team-card reveal" style="transition-delay:.2s" data-href="about.html#usman-ali" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.2s" data-href="team/usman-ali.html" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="assets/posters/Usman.jpeg" alt="Usman Ali Akbar — Music Composer" loading="lazy"/>
+        <img src="assets/posters/Usman.avif" alt="Usman Ali Akbar — Music Composer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">05</span>
@@ -1362,9 +1354,9 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
     </div>
 
     <!-- Dayyan Khalid -->
-    <div class="team-card reveal" style="transition-delay:.25s" data-href="about.html#dayyan-khalid" role="link" tabindex="0" style="cursor:pointer;">
+    <div class="team-card reveal" style="transition-delay:.25s" data-href="team/dayyan-khalid.html" role="link" tabindex="0" style="cursor:pointer;">
       <div class="team-headshot">
-        <img src="assets/posters/Dayyan%20image.png" alt="Dayyan Khalid — Producer" loading="lazy"/>
+        <img src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid — Producer" loading="lazy"/>
       </div>
       <div class="team-card-inner">
         <span class="team-card-num">06</span>
@@ -1438,12 +1430,30 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 <li><a href="about.html">About</a></li>
 <li><a href="contact.html">Contact</a></li>
 <li><a href="press.html">Press</a></li>
-<li><a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener">IMDb</a></li>
+</ul>
+<ul class="footer-social">
+<li><a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener" aria-label="IMDb"><svg viewBox="0 0 24 24"><path d="M14.31 9.588v.005c-.077-.048-.227-.07-.42-.07v4.815c.27 0 .44-.064.5-.189.062-.125.095-.408.095-.848v-2.93c0-.338-.014-.553-.043-.643-.063-.165-.18-.252-.42-.25zm-2.31-9.588C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-3.07 15.257H7.114V8.743H8.93v6.514zm3.178-.85c-.1.292-.257.498-.47.617-.215.12-.517.179-.91.179H9.38V8.743h1.355c.706 0 1.147.065 1.323.197.176.133.295.395.356.787.034.23.052.73.052 1.5v1.696c0 .76-.03 1.24-.09 1.484zm3.663.028c-.098.264-.232.44-.403.527-.172.087-.435.13-.79.13-.276 0-.528-.048-.757-.143-.23-.096-.424-.234-.583-.415v.523h-1.16V8.743h1.16v2.19c.15-.172.33-.303.54-.395.21-.09.435-.137.676-.137.336 0 .598.072.787.214.188.142.318.344.39.605.046.17.07.493.07.966v1.5c0 .435-.022.742-.066.919z"/></svg></a></li>
+<li><a href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a></li>
+<li><a href="https://youtube.com/@syedasad" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a></li>
+<li><a href="https://www.facebook.com/share/1A39G6PmRG/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></li>
 </ul>
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
-<script src="assets/js/shared.js"></script>
+<script src="assets/js/shared.js" defer></script>
+<script src="assets/js/creative-enhancements.js" defer></script>
+<script src="assets/js/sound-effects.js" defer></script>
+<script>
+(function(){
+  var vids=document.querySelectorAll('.lazy-video');
+  if(!vids.length)return;
+  if(!('IntersectionObserver' in window)){vids.forEach(function(v){v.src=v.dataset.src;v.autoplay=true;});return;}
+  var io=new IntersectionObserver(function(entries){entries.forEach(function(e){
+    if(e.isIntersecting){var v=e.target;v.src=v.dataset.src;v.autoplay=true;v.load();io.unobserve(v);}
+  });},{rootMargin:'200px'});
+  vids.forEach(function(v){io.observe(v);});
+})();
+</script>
 <script>
 // Laurels — row-by-row reveal as each item scrolls into view
 (function(){

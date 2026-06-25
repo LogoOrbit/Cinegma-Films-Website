@@ -1,0 +1,10 @@
+{
+  "name": "cinegma-films-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static site for Cinegma Films, plus a serverless admin dashboard for optimized media uploads.",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
+    "sharp": "^0.33.5"
+  }
+}

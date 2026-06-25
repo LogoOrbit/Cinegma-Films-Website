@@ -5,25 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
 <link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
-<title>Page Not Found — Cinegma Films</title>
+<title>Scene Not Found — Cinegma Films</title>
 <meta name="robots" content="noindex"/>
 <meta name="theme-color" content="#080808"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"/>
+<noscript><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet"/></noscript>
 <style>
-:root{--black:#080808;--white:#f0ece4;--grey:#888;--gold:#c9a55a;}
+:root{--black:#080808;--white:#f0ece4;--grey:#acbfa4;--gold:#ff7f11;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
-body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;}
+body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;}
+
+/* Grain */
+body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:1000;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;animation:grain 8s steps(8) infinite;}
+@keyframes grain{0%{transform:translate3d(0,0,0)}10%{transform:translate3d(-5%,-10%,0)}30%{transform:translate3d(-15%,5%,0)}50%{transform:translate3d(-15%,10%,0)}70%{transform:translate3d(0,15%,0)}100%{transform:translate3d(0,0,0)}}
+
 nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:24px 60px;background:linear-gradient(to bottom,rgba(8,8,8,.96) 0%,transparent 100%);}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.25em;color:var(--white);text-decoration:none;opacity:.9;}
-.content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 40px 80px;}
-.error-code{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,15vw,14rem);line-height:.88;letter-spacing:.03em;color:transparent;-webkit-text-stroke:1.5px rgba(240,236,228,.15);}
-.error-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3vw,1.8rem);font-style:italic;color:rgba(240,236,228,.7);margin-top:24px;line-height:1.6;}
-.error-cta{display:inline-block;margin-top:40px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:12px 28px;border:1px solid rgba(240,236,228,.3);color:var(--white);transition:all .3s;}
+
+.content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:140px 40px 80px;position:relative;}
+
+/* ── CLAPPERBOARD ── */
+.clapper{position:relative;width:min(380px,85vw);margin:0 auto 40px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.clapper-body{background:linear-gradient(135deg,#1a1a1a 0%,#111 100%);border:2px solid rgba(240,236,228,0.12);padding:24px 28px 20px;position:relative;}
+.clapper-body::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:repeating-linear-gradient(90deg,var(--white) 0px,var(--white) 14px,var(--black) 14px,var(--black) 28px);}
+
+.clapper-stripes{position:relative;height:48px;overflow:hidden;margin-bottom:-2px;}
+.clapper-stripe-top,.clapper-stripe-bottom{position:absolute;left:0;right:0;height:48px;display:flex;}
+.clapper-stripe-top{top:0;transform-origin:left bottom;z-index:2;animation:clapSnap 2.4s ease infinite;}
+.clapper-stripe-bottom{top:0;z-index:1;}
+.stripe-segment{flex:1;height:100%;}
+.stripe-segment:nth-child(odd){background:var(--white);}
+.stripe-segment:nth-child(even){background:var(--black);border-top:2px solid rgba(240,236,228,0.12);border-bottom:2px solid rgba(240,236,228,0.12);}
+.clapper-stripe-bottom .stripe-segment:nth-child(odd){background:var(--white);}
+.clapper-stripe-bottom .stripe-segment:nth-child(even){background:var(--black);}
+
+@keyframes clapSnap{
+  0%,70%{transform:rotate(0deg);}
+  78%{transform:rotate(-28deg);}
+  84%{transform:rotate(0deg);}
+  87%{transform:rotate(-3deg);}
+  90%,100%{transform:rotate(0deg);}
+}
+
+.clapper-info{display:grid;grid-template-columns:1fr 1fr;gap:12px 20px;margin-top:18px;}
+.clapper-field{display:flex;flex-direction:column;gap:3px;}
+.clapper-label{font-size:.48rem;letter-spacing:.25em;text-transform:uppercase;color:rgba(240,236,228,0.35);}
+.clapper-value{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.08em;color:var(--white);}
+.clapper-big{grid-column:1/-1;}
+.clapper-big .clapper-value{font-size:1.5rem;color:var(--gold);letter-spacing:.04em;}
+
+.error-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3.5rem);line-height:1;letter-spacing:.04em;color:var(--white);margin-bottom:12px;}
+.error-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.3rem);color:rgba(240,236,228,0.55);line-height:1.7;max-width:440px;margin:0 auto 36px;}
+.error-cta{display:inline-block;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;padding:12px 28px;border:1px solid rgba(240,236,228,.3);color:var(--white);transition:all .3s;}
 .error-cta:hover{background:var(--white);color:var(--black);border-color:var(--white);}
+
+/* Spotlight effect */
+.spotlight{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle 300px at 50% 40%,rgba(255,127,17,0.04) 0%,transparent 70%);}
+
 footer{border-top:1px solid rgba(240,236,228,0.1);padding:60px;display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:30px;}
 .footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;}
 .footer-tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.82rem;color:var(--grey);margin-top:4px;}
@@ -40,14 +82,64 @@ footer{border-top:1px solid rgba(240,236,228,0.1);padding:60px;display:flex;flex
 </style>
 </head>
 <body>
+<div class="spotlight"></div>
 <nav>
 <a href="/" class="nav-logo">Cinegma Films</a>
 </nav>
 <main class="content">
-<h1 class="error-code">404</h1>
-<p class="error-title">This scene didn't make the final cut.</p>
+
+<div class="clapper" onclick="this.querySelector('.clapper-stripe-top').style.animation='none';void this.offsetWidth;this.querySelector('.clapper-stripe-top').style.animation='clapSnap 2.4s ease infinite';">
+  <div class="clapper-stripes">
+    <div class="clapper-stripe-top">
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+    </div>
+    <div class="clapper-stripe-bottom">
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+      <div class="stripe-segment"></div>
+    </div>
+  </div>
+  <div class="clapper-body">
+    <div class="clapper-info">
+      <div class="clapper-field clapper-big">
+        <span class="clapper-label">Scene</span>
+        <span class="clapper-value">404 — NOT FOUND</span>
+      </div>
+      <div class="clapper-field">
+        <span class="clapper-label">Production</span>
+        <span class="clapper-value">Cinegma Films</span>
+      </div>
+      <div class="clapper-field">
+        <span class="clapper-label">Director</span>
+        <span class="clapper-value">Syed Asad</span>
+      </div>
+      <div class="clapper-field">
+        <span class="clapper-label">Take</span>
+        <span class="clapper-value">01</span>
+      </div>
+      <div class="clapper-field">
+        <span class="clapper-label">Date</span>
+        <span class="clapper-value" id="clapDate">—</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<h1 class="error-title">CUT!</h1>
+<p class="error-sub">This scene didn't make the final cut. The director calls wrap — let's get you back to set.</p>
 <a href="/" class="error-cta">Back to Home</a>
 </main>
+
 <footer>
 <div>
 <p class="footer-logo">Cinegma Films</p>
@@ -63,5 +155,9 @@ footer{border-top:1px solid rgba(240,236,228,0.1);padding:60px;display:flex;flex
 </ul>
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
+<script>
+var d=new Date();var m=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+document.getElementById('clapDate').textContent=d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
+</script>
 </body>
 </html>
