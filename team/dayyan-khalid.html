@@ -237,6 +237,53 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   </div>
 </section>
 
+<section class="portfolio-section">
+  <p class="section-label reveal">Portfolio</p>
+  <div class="portfolio-grid">
+    <div class="portfolio-card reveal">
+      <div class="portfolio-media"><img src="../assets/posters/Zawaal_Opt_01.avif" alt="Zawaal" loading="lazy"/></div>
+      <div class="portfolio-info">
+        <p class="portfolio-title">Zawaal</p>
+        <p class="portfolio-role">Producer</p>
+        <p class="portfolio-year">2026 &middot; Psychological Thriller</p>
+        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/Zawaal%204K%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-media"><img src="../assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life" loading="lazy"/></div>
+      <div class="portfolio-info">
+        <p class="portfolio-title">Portrait of Life</p>
+        <p class="portfolio-role">Producer</p>
+        <p class="portfolio-year">2025 &middot; Drama</p>
+        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/Portrait%20Of%20Life%20(Official%20Teaser)%20%EF%BD%9C%20A%20Film%20By%20Syed%20Asad.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-media"><img src="../assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me" loading="lazy"/></div>
+      <div class="portfolio-info">
+        <p class="portfolio-title">A Soldier Beside Me</p>
+        <p class="portfolio-role">Associate Producer</p>
+        <p class="portfolio-year">2026 &middot; War Drama</p>
+        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/A%20Soldier%20Beside%20Me%20-%20Offical%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-media"><img src="../assets/posters/Janjaal_Opt_01.avif" alt="Janjaal" loading="lazy"/></div>
+      <div class="portfolio-info">
+        <p class="portfolio-title">Janjaal (Tussle)</p>
+        <p class="portfolio-role">Associate Producer</p>
+        <p class="portfolio-year">2024 &middot; Psychological Thriller</p>
+        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trailer-overlay" id="trailerOverlay" onclick="if(event.target===this)closeTrailer()">
+  <button class="trailer-overlay-close" onclick="closeTrailer()">&#10005;</button>
+  <video id="trailerVideo" controls></video>
+</div>
+
 <section class="other-members">
   <p class="section-label reveal">Other Team Members</p>
   <div class="other-members-grid">
@@ -281,6 +328,11 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
+<script>
+function playTrailer(s){var o=document.getElementById('trailerOverlay'),v=document.getElementById('trailerVideo');v.src=s;o.classList.add('open');v.play();}
+function closeTrailer(){var o=document.getElementById('trailerOverlay'),v=document.getElementById('trailerVideo');v.pause();v.removeAttribute('src');v.load();o.classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeTrailer();});
+</script>
 <script src="../assets/js/shared.js"></script>
 <script src="../assets/js/creative-enhancements.js" defer></script>
 </body>

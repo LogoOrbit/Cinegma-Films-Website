@@ -296,6 +296,11 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
 <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
 
+<script>
+function playTrailer(s){var o=document.getElementById('trailerOverlay'),v=document.getElementById('trailerVideo');v.src=s;o.classList.add('open');v.play();}
+function closeTrailer(){var o=document.getElementById('trailerOverlay'),v=document.getElementById('trailerVideo');v.pause();v.removeAttribute('src');v.load();o.classList.remove('open');}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeTrailer();});
+</script>
 <script src="../assets/js/shared.js"></script>
 <script src="../assets/js/creative-enhancements.js" defer></script>
 </body>
