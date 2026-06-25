@@ -20,6 +20,7 @@
       "expo-secure-store",
       "expo-image-picker",
       "expo-document-picker"
-    ]
+    ],
+    "newArchEnabled": true
   }
 }
