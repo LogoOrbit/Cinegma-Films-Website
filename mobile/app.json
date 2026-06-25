@@ -21,6 +21,6 @@
       "expo-image-picker",
       "expo-document-picker"
     ],
-    "newArchEnabled": false
+    "newArchEnabled": true
   }
 }
