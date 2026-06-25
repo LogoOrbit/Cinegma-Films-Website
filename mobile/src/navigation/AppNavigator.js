@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { colors } from '../theme';
 import { useAuth } from '../context/AuthContext';
@@ -17,10 +18,19 @@ import SettingsScreen from '../screens/SettingsScreen';
 
 const Drawer = createDrawerNavigator();
 
+function headerTitle(title) {
+  return {
+    headerTitle: () => (
+      <Text style={{ color: colors.txt, fontSize: 16, fontWeight: '500', letterSpacing: 1 }}>
+        {title}
+      </Text>
+    ),
+  };
+}
+
 const screenOptions = {
   headerStyle: { backgroundColor: colors.black },
   headerTintColor: colors.txt,
-  headerTitleStyle: { fontWeight: '500', fontSize: 16, letterSpacing: 1 },
   headerShadowVisible: false,
 };
 
@@ -36,17 +46,17 @@ export default function AppNavigator() {
         ...screenOptions,
       }}
     >
-      <Drawer.Screen name="Articles" component={ArticlesScreen} options={{ title: 'Articles' }} />
+      <Drawer.Screen name="Articles" component={ArticlesScreen} options={headerTitle('Articles')} />
       <Drawer.Screen name="EditArticle" component={EditArticleScreen}
-        options={{ title: 'Article', drawerItemStyle: { display: 'none' } }} />
-      <Drawer.Screen name="UploadImage" component={UploadImageScreen} options={{ title: 'Upload Image' }} />
-      <Drawer.Screen name="UploadVideo" component={UploadVideoScreen} options={{ title: 'Upload Video' }} />
-      <Drawer.Screen name="MediaLibrary" component={MediaLibraryScreen} options={{ title: 'Media Library' }} />
-      {isOwner && <Drawer.Screen name="Messages" component={MessagesScreen} options={{ title: 'Messages' }} />}
-      {isOwner && <Drawer.Screen name="Analytics" component={AnalyticsScreen} options={{ title: 'Analytics' }} />}
-      {isOwner && <Drawer.Screen name="ActivityLog" component={ActivityLogScreen} options={{ title: 'Activity Log' }} />}
-      {isOwner && <Drawer.Screen name="Admins" component={AdminsScreen} options={{ title: 'Admins' }} />}
-      <Drawer.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
+        options={{ ...headerTitle('Article'), drawerItemStyle: { display: 'none' } }} />
+      <Drawer.Screen name="UploadImage" component={UploadImageScreen} options={headerTitle('Upload Image')} />
+      <Drawer.Screen name="UploadVideo" component={UploadVideoScreen} options={headerTitle('Upload Video')} />
+      <Drawer.Screen name="MediaLibrary" component={MediaLibraryScreen} options={headerTitle('Media Library')} />
+      {isOwner && <Drawer.Screen name="Messages" component={MessagesScreen} options={headerTitle('Messages')} />}
+      {isOwner && <Drawer.Screen name="Analytics" component={AnalyticsScreen} options={headerTitle('Analytics')} />}
+      {isOwner && <Drawer.Screen name="ActivityLog" component={ActivityLogScreen} options={headerTitle('Activity Log')} />}
+      {isOwner && <Drawer.Screen name="Admins" component={AdminsScreen} options={headerTitle('Admins')} />}
+      <Drawer.Screen name="Settings" component={SettingsScreen} options={headerTitle('Settings')} />
     </Drawer.Navigator>
   );
 }
