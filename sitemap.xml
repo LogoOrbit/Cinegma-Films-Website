@@ -87,4 +87,172 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://cinegmafilms.com/projects/janjaal.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif</image:loc>
+      <image:title>Janjaal (Tussle) — Award-Winning Pakistani Short Film</image:title>
+      <image:caption>Janjaal (Tussle) — a 23-minute psychological thriller by Syed Asad Raza Abidi. 14 international awards across 9 countries.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/portrait-of-life.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Potrait_Opt_01.avif</image:loc>
+      <image:title>Portrait of Life — Drama Short Film by Cinegma Films</image:title>
+      <image:caption>Portrait of Life — a drama by Syed Asad Raza Abidi. A painter struggles to portray his wife the way he once did.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/zawaal.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Zawaal_Opt_01.avif</image:loc>
+      <image:title>Zawaal — Psychological Thriller by Cinegma Films</image:title>
+      <image:caption>Zawaal — a dark psychological thriller set in the streets of Karachi. In production.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/a-soldier-beside-me.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Solder_Opt_01.avif</image:loc>
+      <image:title>A Soldier Beside Me — War Drama by Cinegma Films</image:title>
+      <image:caption>A Soldier Beside Me — two soldiers question each other's fate on the frontline. In production.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/payam-e-dil.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Payam_Opt_01.avif</image:loc>
+      <image:title>Payam-e-Dil — Family Drama by Cinegma Films</image:title>
+      <image:caption>Payam-e-Dil — a family drama unfolding in the posh heart of Karachi. In production.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/main-aur-achu.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Achu_Opt_01.avif</image:loc>
+      <image:title>Main Aur Achu — Family Drama Short Film</image:title>
+      <image:caption>Main Aur Achu — a heartwarming story about a boy and his goat, sacrifice, family, and Eid ul Azha.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/urdu-bazaar-karachi.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Urdu_Opt_01.avif</image:loc>
+      <image:title>Urdu Bazaar Karachi — Documentary by Cinegma Films</image:title>
+      <image:caption>Urdu Bazaar Karachi — inside the narrow lanes and bookshops of Karachi's historic literary market.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/phir-se.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/PhirSe_Opt_01.avif</image:loc>
+      <image:title>Phir Se — 7T7 Productions Short Film</image:title>
+      <image:caption>Phir Se — a 7T7 Productions film. Syed Asad Raza Abidi as Director of Photography and Editor.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/team/syed-asad.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Syed-Asad-og.jpg</image:loc>
+      <image:title>Syed Asad Raza Abidi — Filmmaker, Director, Founder of Cinegma Films</image:title>
+      <image:caption>Syed Asad Raza Abidi — independent filmmaker, director, editor, colorist, and founder of Cinegma Films LLC.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/team/faizan-ahmed.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Faizan-og.jpg</image:loc>
+      <image:title>Faizan Ahmed — Producer, Director, Writer at Cinegma Films</image:title>
+      <image:caption>Faizan Ahmed — multidisciplinary artist working across direction, production, writing, and visual storytelling.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/team/ameer-hamza.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Ameer-og.jpg</image:loc>
+      <image:title>Ameer Hamza — Filmmaker, Writer, Producer at Cinegma Films</image:title>
+      <image:caption>Ameer Hamza — filmmaker, writer, and producer with a passion for emotionally resonant storytelling.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/team/ghayas-uddin.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Ghayas-og.jpg</image:loc>
+      <image:title>Ghayas Uddin Siddiqui — Director of Photography at Cinegma Films</image:title>
+      <image:caption>Ghayas Uddin Siddiqui — internationally focused cinematographer specializing in TV drama, narrative films, and commercial advertising.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/team/dayyan-khalid.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Dayyan-og.jpg</image:loc>
+      <image:title>Dayyan Khalid — Film Producer, Assistant Director at Cinegma Films</image:title>
+      <image:caption>Dayyan Khalid — film producer and assistant director contributing to multiple Cinegma Films productions.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/team/usman-ali.html</loc>
+    <lastmod>2026-06-25</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/Usman-og.jpg</image:loc>
+      <image:title>Usman Ali Akbar — Music Composer at Cinegma Films</image:title>
+      <image:caption>Usman Ali Akbar — music composer crafting original scores with emotional depth for Cinegma Films.</image:caption>
+    </image:image>
+  </url>
+
 </urlset>
