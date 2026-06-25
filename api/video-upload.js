@@ -1,5 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const auth = require('../lib/auth');
+const { logEvent } = require('../lib/audit');
 
 function getSupabase() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
@@ -42,6 +43,7 @@ module.exports = async (req, res) => {
     }).select().single();
     if (dbErr) throw dbErr;
 
+    await logEvent(req, { action: type + '_uploaded', category: 'media', username: me.username, role: me.role, details: { filename: name, size_bytes: raw.length, url: publicUrl, media_type: type } });
     res.json({ ok: true, url: publicUrl, id: row.id, size: raw.length });
   } catch (err) {
     res.status(500).json({ error: err.message });

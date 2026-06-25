@@ -1,5 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const auth = require('../lib/auth');
+const { logEvent } = require('../lib/audit');
 
 function getSupabase(serviceRole) {
   const url = process.env.SUPABASE_URL;
@@ -77,6 +78,7 @@ module.exports = async (req, res) => {
         author: me.username, author_role: me.role            // attribution is server-side, never trusted from client
       }).select().single();
       if (error) throw error;
+      await logEvent(req, { action: 'article_created', category: 'content', username: me.username, role: me.role, details: { article_id: data.id, title, published: !!published } });
       return res.status(201).json(data);
     }
 
@@ -91,6 +93,7 @@ module.exports = async (req, res) => {
       if (fields.title && !fields.slug) fields.slug = slugify(fields.title);
       const { data, error } = await sb.from('articles').update(fields).eq('id', id).select().single();
       if (error) throw error;
+      await logEvent(req, { action: 'article_updated', category: 'content', username: me.username, role: me.role, details: { article_id: id, title: fields.title, published: fields.published } });
       return res.json(data);
     }
 
@@ -102,6 +105,7 @@ module.exports = async (req, res) => {
       if (!auth.canAccess(me, existing)) return res.status(403).json({ error: 'Forbidden' });
       const { error } = await sb.from('articles').delete().eq('id', id);
       if (error) throw error;
+      await logEvent(req, { action: 'article_deleted', category: 'content', username: me.username, role: me.role, details: { article_id: id, author: existing.author } });
       return res.json({ ok: true });
     }
 

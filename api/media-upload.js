@@ -1,6 +1,7 @@
 const sharp = require('sharp');
 const { createClient } = require('@supabase/supabase-js');
 const auth = require('../lib/auth');
+const { logEvent } = require('../lib/audit');
 
 function getSupabase() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
@@ -53,6 +54,7 @@ module.exports = async (req, res) => {
     }).select('id').single();
     if (artErr) throw artErr;
 
+    await logEvent(req, { action: 'image_uploaded', category: 'media', username: me.username, role: me.role, details: { filename: name, size_bytes: avifBuf.length, url: publicUrl, article_id: article.id } });
     res.json({ ok: true, url: publicUrl, id: row.id, size: avifBuf.length, articleId: article.id });
   } catch (err) {
     res.status(500).json({ error: err.message });

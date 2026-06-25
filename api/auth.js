@@ -7,6 +7,7 @@
 
 const { createClient } = require('@supabase/supabase-js');
 const auth = require('../lib/auth');
+const { logEvent } = require('../lib/audit');
 
 const SESSION_MS = 1000 * 60 * 60 * 24 * 30; // 30 days
 
@@ -36,6 +37,7 @@ module.exports = async (req, res) => {
         username === auth.ownerUsername()
       ) {
         const token = auth.signToken({ u: username, role: 'owner', exp: Date.now() + SESSION_MS });
+        await logEvent(req, { action: 'login', category: 'auth', username, role: 'owner', details: { method: 'master_password' } });
         return res.json({ token, role: 'owner', username });
       }
 
@@ -43,8 +45,10 @@ module.exports = async (req, res) => {
       const { data } = await sb().from('admins').select('*').eq('username', username).maybeSingle();
       if (data && auth.verifyPassword(password, data.password_hash)) {
         const token = auth.signToken({ u: data.username, role: data.role, exp: Date.now() + SESSION_MS });
+        await logEvent(req, { action: 'login', category: 'auth', username: data.username, role: data.role, details: { method: 'password' } });
         return res.json({ token, role: data.role, username: data.username });
       }
+      await logEvent(req, { action: 'login_failed', category: 'auth', username: username || 'unknown', role: 'none', details: { reason: 'invalid_credentials' } });
       return res.status(401).json({ error: 'Invalid username or password' });
     }
 
@@ -77,14 +81,17 @@ module.exports = async (req, res) => {
         if (String(error.message).includes('duplicate')) return res.status(409).json({ error: 'That username already exists' });
         throw error;
       }
+      await logEvent(req, { action: 'admin_created', category: 'auth', username: me.username, role: me.role, details: { target_username: username, target_role: auth.normalizeRole(role) } });
       return res.json(data);
     }
 
     if (action === 'delete') {
       const { id } = req.body;
       if (!id) return res.status(400).json({ error: 'id is required' });
+      const { data: target } = await sb().from('admins').select('username,role').eq('id', id).maybeSingle();
       const { error } = await sb().from('admins').delete().eq('id', id);
       if (error) throw error;
+      await logEvent(req, { action: 'admin_deleted', category: 'auth', username: me.username, role: me.role, details: { target_username: target?.username, target_id: id } });
       return res.json({ ok: true });
     }
 
