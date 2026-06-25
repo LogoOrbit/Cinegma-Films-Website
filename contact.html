@@ -779,6 +779,13 @@ function handleFormSubmit(){
     message:      msg
   };
 
+  // Save to database + send WhatsApp notification (fire-and-forget)
+  fetch('/api/contact', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({name: name, email: email, inquiry: type || 'General Inquiry', message: msg})
+  }).catch(function(){});
+
   // If EmailJS is loaded and configured, send via it
   if(typeof emailjs !== 'undefined' && emailjs.send){
     emailjs.send('service_25emk9h', 'template_p5mqd5u', templateParams)

@@ -321,6 +321,7 @@
           <button data-page="upload-video"><svg viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Upload Video</button>
           <div class="group-label">Manage</div>
           <button data-page="media"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Media Library</button>
+          <button data-page="messages" id="navMessages" style="display:none;"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg> Messages</button>
           <button data-page="analytics" id="navAnalytics" style="display:none;"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Site Analytics</button>
           <button data-page="activity" id="navActivity" style="display:none;"><svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg> Activity Log</button>
           <button data-page="admins" id="navAdmins" style="display:none;"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Admins</button>
@@ -368,6 +369,7 @@
     $('navAdmins').style.display=session.role==='owner'?'flex':'none';
     $('navActivity').style.display=session.role==='owner'?'flex':'none';
     $('navAnalytics').style.display=session.role==='owner'?'flex':'none';
+    $('navMessages').style.display=session.role==='owner'?'flex':'none';
     render();
   }
   function logout(){session={token:'',role:'',username:''};localStorage.removeItem('cms_token');localStorage.removeItem('cms_role');localStorage.removeItem('cms_username');showLogin();}
@@ -410,6 +412,7 @@
     else if(currentPage==='media')renderMedia();
     else if(currentPage==='upload-image')renderUploadImage();
     else if(currentPage==='upload-video')renderUploadVideo();
+    else if(currentPage==='messages')renderMessages();
     else if(currentPage==='analytics')renderAnalytics();
     else if(currentPage==='activity')renderActivity();
     else if(currentPage==='admins')renderAdmins();
@@ -650,6 +653,27 @@
       }catch(e){$('vidProgress').innerHTML='';$('vidResult').innerHTML=`<div style="color:var(--err)">${esc(e.message)}</div>`;}
       finally{$('vidGo').disabled=false;}
     };
+  }
+
+  // ============ MESSAGES (owner only) ============
+  async function renderMessages(){
+    app.innerHTML=pageHead('Inbox','Contact Messages','Every message sent through the contact form. Unread messages are highlighted.')+
+      `<div class="toolbar"><div class="spacer"></div><button class="btn btn-ghost btn-sm" id="msgRefresh"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Refresh</button></div><div id="msgArea"><div class="loading-state"><span class="spinner"></span> Loading messages…</div></div>`;
+    $('msgRefresh').onclick=()=>renderMessages();
+    try{
+      const{data:msgs,total}=await api('/api/contact?limit=100');
+      if(!msgs.length){$('msgArea').innerHTML=`<div class="empty"><svg class="ico" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg><h3>No messages yet</h3><p>Messages from the contact form will appear here.</p></div>`;return;}
+      const unread=msgs.filter(m=>!m.read).length;
+      let html=`<div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:24px;"><div class="stat"><div class="num">${total}</div><div class="lbl">Total Messages</div></div><div class="stat"><div class="num" style="color:${unread?'var(--err)':'var(--ok)'}">${unread}</div><div class="lbl">Unread</div></div></div>`;
+      html+='<div style="display:flex;flex-direction:column;gap:16px;">';
+      for(const m of msgs){
+        const isUnread=!m.read;
+        html+=`<div class="glass" style="padding:22px 26px;border-left:3px solid ${isUnread?'var(--gold-bright)':'transparent'};${isUnread?'background:rgba(200,200,200,.04);':''}"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;"><strong style="font-size:1rem;">${esc(m.name)}</strong><a href="mailto:${attr(m.email)}" style="font-size:.82rem;color:var(--gold);">${esc(m.email)}</a>${m.inquiry?`<span class="pill pill-cat">${esc(m.inquiry)}</span>`:''}<span style="margin-left:auto;font-size:.72rem;color:var(--faint);">${fmtDate(m.created_at)} · ${new Date(m.created_at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})}</span></div><p style="font-size:.9rem;line-height:1.7;color:var(--txt);white-space:pre-wrap;margin-bottom:14px;">${esc(m.message)}</p><div style="display:flex;gap:10px;align-items:center;">${isUnread?`<button class="btn btn-ghost btn-sm msg-read" data-id="${m.id}">Mark as read</button>`:`<span style="font-size:.72rem;color:var(--ok);">✓ Read</span>`}<a href="mailto:${attr(m.email)}?subject=${encodeURIComponent('Re: '+( m.inquiry||'Your inquiry')+' — Cinegma Films')}" class="btn btn-ghost btn-sm">Reply via Email</a><a href="https://wa.me/${m.email.includes('@')?'':''}?text=${encodeURIComponent('Hi '+m.name+', thanks for reaching out to Cinegma Films regarding your '+( m.inquiry||'inquiry')+'. ')}" target="_blank" class="btn btn-ghost btn-sm" style="display:none;">Reply on WhatsApp</a></div></div>`;
+      }
+      html+='</div>';
+      $('msgArea').innerHTML=html;
+      document.querySelectorAll('.msg-read').forEach(b=>{b.onclick=async()=>{try{await api('/api/contact',{method:'PUT',body:JSON.stringify({id:b.dataset.id,read:true})});toast('Marked as read');renderMessages();}catch(e){toast(e.message,false);}};});
+    }catch(e){$('msgArea').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
   }
 
   // ============ SITE ANALYTICS (owner only) ============
