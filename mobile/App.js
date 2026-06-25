@@ -3,7 +3,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 
 import { AuthProvider, useAuth } from './src/context/AuthContext';
 import { setBaseUrl } from './src/api';
@@ -44,7 +44,13 @@ export default function App() {
 
   useEffect(() => {
     (async () => {
-      const url = await SecureStore.getItemAsync('cms_server_url');
+      let url = null;
+      if (Platform.OS === 'web') {
+        url = localStorage.getItem('cms_server_url');
+      } else {
+        const SecureStore = require('expo-secure-store');
+        url = await SecureStore.getItemAsync('cms_server_url');
+      }
       if (url) setBaseUrl(url);
       setReady(true);
     })();

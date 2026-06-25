@@ -1,4 +1,24 @@
-import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
+
+let SecureStore = null;
+if (Platform.OS !== 'web') {
+  SecureStore = require('expo-secure-store');
+}
+
+const storage = {
+  async get(key) {
+    if (Platform.OS === 'web') return localStorage.getItem(key);
+    return SecureStore.getItemAsync(key);
+  },
+  async set(key, value) {
+    if (Platform.OS === 'web') { localStorage.setItem(key, value); return; }
+    return SecureStore.setItemAsync(key, value);
+  },
+  async remove(key) {
+    if (Platform.OS === 'web') { localStorage.removeItem(key); return; }
+    return SecureStore.deleteItemAsync(key);
+  },
+};
 
 let BASE_URL = '';
 
@@ -11,22 +31,22 @@ export function getBaseUrl() {
 }
 
 export async function getSession() {
-  const token = await SecureStore.getItemAsync('cms_token');
-  const role = await SecureStore.getItemAsync('cms_role');
-  const username = await SecureStore.getItemAsync('cms_username');
+  const token = await storage.get('cms_token');
+  const role = await storage.get('cms_role');
+  const username = await storage.get('cms_username');
   return { token, role, username };
 }
 
 export async function saveSession(token, role, username) {
-  await SecureStore.setItemAsync('cms_token', token);
-  await SecureStore.setItemAsync('cms_role', role);
-  await SecureStore.setItemAsync('cms_username', username);
+  await storage.set('cms_token', token);
+  await storage.set('cms_role', role);
+  await storage.set('cms_username', username);
 }
 
 export async function clearSession() {
-  await SecureStore.deleteItemAsync('cms_token');
-  await SecureStore.deleteItemAsync('cms_role');
-  await SecureStore.deleteItemAsync('cms_username');
+  await storage.remove('cms_token');
+  await storage.remove('cms_role');
+  await storage.remove('cms_username');
 }
 
 export async function api(path, opts = {}) {

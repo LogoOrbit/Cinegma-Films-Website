@@ -3,10 +3,16 @@ import {
   View, Text, TextInput, TouchableOpacity, ScrollView,
   StyleSheet, Alert,
 } from 'react-native';
-import * as SecureStore from 'expo-secure-store';
+import { Platform } from 'react-native';
 import { colors } from '../theme';
 import { useAuth } from '../context/AuthContext';
 import { setBaseUrl, getBaseUrl } from '../api';
+
+const storageSet = async (key, value) => {
+  if (Platform.OS === 'web') { localStorage.setItem(key, value); return; }
+  const SecureStore = require('expo-secure-store');
+  return SecureStore.setItemAsync(key, value);
+};
 import PageHeader from '../components/PageHeader';
 import GlassCard from '../components/GlassCard';
 
@@ -25,7 +31,7 @@ export default function SettingsScreen() {
       return;
     }
     setBaseUrl(url);
-    await SecureStore.setItemAsync('cms_server_url', url);
+    await storageSet('cms_server_url', url);
     Alert.alert('Saved', 'Server URL updated. Sign in again if needed.');
   };
 
