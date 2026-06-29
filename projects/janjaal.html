@@ -69,6 +69,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .detail-block ul li{padding:4px 0;border-bottom:1px solid var(--border);}
 .detail-block ul li:last-child{border-bottom:none;}
 
+.project-section{padding:60px;max-width:1100px;margin:0 auto;border-top:1px solid var(--border);}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.cast-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.cast-item{font-size:.9rem;color:rgba(240,236,228,.8);line-height:1.6;padding:6px 0;border-bottom:1px solid var(--border);}
+.cast-item strong{color:var(--white);}
+.cast-item span{color:rgba(240,236,228,.5);font-style:italic;}
+.crew-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
+.crew-dept h4{font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;opacity:.8;}
+.crew-dept ul{list-style:none;padding:0;}
+.crew-dept ul li{font-size:.85rem;color:rgba(240,236,228,.7);padding:3px 0;line-height:1.6;}
+.crew-dept ul li strong{color:rgba(240,236,228,.9);}
+.director-statement{max-width:800px;}
+.director-statement blockquote{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:rgba(240,236,228,.85);line-height:1.9;border-left:2px solid var(--gold);padding-left:24px;margin:0 0 16px;}
+.director-statement cite{font-family:'DM Sans',sans-serif;font-size:.8rem;font-style:normal;color:var(--gold);letter-spacing:.1em;}
 .project-awards{padding:60px;max-width:1100px;margin:0 auto;border-top:1px solid var(--border);}
 .awards-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
 .awards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;}
@@ -101,6 +115,7 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
   .project-hero{padding:0 24px 60px;min-height:70vh;}
   .project-body{padding:48px 24px;}
   .project-grid{grid-template-columns:1fr;gap:40px;}
+  .project-section{padding:40px 24px;}
   .project-awards{padding:40px 24px;}
   footer{padding:36px 24px;flex-direction:column;text-align:center;}
   nav{padding:18px 24px;}
@@ -112,16 +127,16 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
   "@type":"Movie",
   "name":"Janjaal (Tussle)",
   "alternateName":"Janjaal",
-  "description":"A police officer discovers a cursed golden pocket watch. Each wish exacts a deadly price. Shot in 34 hours across Karachi, Janjaal is a psychological thriller that won 14 international awards across 9 countries.",
+  "description":"A fisherman survives a deadly boat incident with a mysterious golden pocket watch that grants wishes, but at a steep cost. As a police officer seeks to revive his son, he discovers the dark power of the watch, leading to devastating consequences.",
   "image":"https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif",
   "dateCreated":"2024",
   "inLanguage":"ur",
   "countryOfOrigin":{"@type":"Country","name":"Pakistan"},
-  "genre":["Psychological Thriller","Short Film"],
+  "genre":["Thriller","Mystery","Suspense","Short Film"],
   "duration":"PT23M",
   "director":{"@type":"Person","name":"Syed Asad Raza Abidi","url":"https://cinegmafilms.com/team/syed-asad.html"},
   "producer":{"@type":"Person","name":"Faizan Ahmed"},
-  "actor":{"@type":"Person","name":"Shamoon Abbasi"},
+  "actor":[{"@type":"Person","name":"Shamoon Abbasi"},{"@type":"Person","name":"Nazish Ali"},{"@type":"Person","name":"Danish Irshad"}],
   "editor":{"@type":"Person","name":"Syed Asad Raza Abidi"},
   "productionCompany":{"@type":"Organization","name":"Cinegma Films","url":"https://cinegmafilms.com"},
   "url":"https://cinegmafilms.com/projects/janjaal.html",
@@ -192,31 +207,130 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
         <h3>Production Details</h3>
         <ul>
           <li><strong>Director:</strong> Syed Asad Raza Abidi</li>
+          <li><strong>Writer:</strong> Ameer Hamza</li>
+          <li><strong>Co-Writer:</strong> Basil Hussain Zaidi</li>
           <li><strong>Producer:</strong> Faizan Ahmed</li>
-          <li><strong>Cast:</strong> Shamoon Abbasi</li>
           <li><strong>Cinematographer:</strong> Ghayas Uddin Siddiqui</li>
+          <li><strong>Music:</strong> Hassan Khan (Wild Media)</li>
           <li><strong>Editor:</strong> Syed Asad Raza Abidi</li>
           <li><strong>VFX &amp; Colorist:</strong> Syed Asad Raza Abidi</li>
           <li><strong>Production:</strong> Cinegma Films</li>
-          <li><strong>Year:</strong> 2024 &ndash; 2025</li>
+          <li><strong>Release:</strong> January 5, 2024 (Arena Cinemas)</li>
           <li><strong>Runtime:</strong> 23 minutes</li>
           <li><strong>Language:</strong> Urdu</li>
           <li><strong>Country:</strong> Pakistan</li>
+          <li><strong>Format:</strong> Digital (Sony FX3)</li>
+          <li><strong>Aspect Ratio:</strong> 2.35:1</li>
         </ul>
       </div>
       <div class="detail-block">
         <h3>Genre</h3>
-        <p>Psychological Thriller &middot; Short Film</p>
+        <p>Thriller &middot; Mystery &middot; Suspense &middot; Short Film</p>
       </div>
       <div class="detail-block">
         <h3>Synopsis</h3>
-        <p>A police officer discovers a cursed golden pocket watch. Each wish exacts a deadly price. Shot in 34 hours across Karachi, Janjaal is a psychological thriller that travelled across 9 countries, won 14 international awards, and had a theatrical release at Arena Cinemas, Karachi in January 2025.</p>
+        <p>A fisherman survives a deadly boat incident with a mysterious golden pocket watch that grants wishes, but at a steep cost. As a police officer seeks to revive his son, he discovers the dark power of the watch, leading to devastating consequences. Shot in 34 hours across Karachi, Janjaal travelled across 9 countries and won 14 international awards.</p>
       </div>
       <div class="project-cta">
         <a href="../watch.html#trailer-janjaal" class="btn-primary">Watch Trailer</a>
         <a href="https://www.imdb.com/title/tt35505024/" target="_blank" rel="noopener" class="btn-ghost">IMDb</a>
+        <a href="../assets/epk/Janjaal-EPK.pdf" download class="btn-ghost">Download EPK</a>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="project-section">
+  <h3 class="section-title">Cast</h3>
+  <div class="cast-grid">
+    <div class="cast-item"><strong>Shamoon Abbasi</strong> <span>as Raza</span></div>
+    <div class="cast-item"><strong>Nazish Ali</strong> <span>as Zareen</span></div>
+    <div class="cast-item"><strong>Danish Irshad</strong> <span>as Azad</span></div>
+    <div class="cast-item"><strong>Syed Ahsan</strong></div>
+    <div class="cast-item"><strong>Ameer Hamza</strong></div>
+    <div class="cast-item"><strong>Ali Mehdi Azmi</strong></div>
+    <div class="cast-item"><strong>Qasim Baloch</strong></div>
+    <div class="cast-item"><strong>Shehryar Habib</strong></div>
+    <div class="cast-item"><strong>Muhammad Usman</strong></div>
+  </div>
+</div>
+
+<div class="project-section">
+  <h3 class="section-title">Full Crew</h3>
+  <div class="crew-grid">
+    <div class="crew-dept">
+      <h4>Direction</h4>
+      <ul>
+        <li><strong>Director:</strong> Syed Asad Raza Abidi</li>
+        <li><strong>Associate Director:</strong> Saad Ali</li>
+        <li><strong>Assistant Director:</strong> Basil Hussain Zaidi</li>
+      </ul>
+    </div>
+    <div class="crew-dept">
+      <h4>Writing</h4>
+      <ul>
+        <li><strong>Screenplay:</strong> Syed Asad &amp; Ameer Hamza</li>
+        <li><strong>Co-Writer:</strong> Basil Hussain Zaidi</li>
+        <li><strong>Script Supervisor:</strong> Ameer Hamza</li>
+        <li><strong>Asst. Script Supervisor:</strong> Mohammad Qasim Baloch</li>
+      </ul>
+    </div>
+    <div class="crew-dept">
+      <h4>Camera</h4>
+      <ul>
+        <li><strong>Cinematographer:</strong> Ghayas Uddin Siddiqui</li>
+        <li><strong>Second Unit DOP:</strong> Ammar Bhatti</li>
+      </ul>
+    </div>
+    <div class="crew-dept">
+      <h4>Production</h4>
+      <ul>
+        <li><strong>Producer:</strong> Faizan Ahmed</li>
+        <li><strong>Associate Producer:</strong> Dayyan Sheikh</li>
+        <li><strong>Assistant Producer:</strong> Muhammad Shuja</li>
+        <li><strong>Line Producer:</strong> Syed Fazal Abbas</li>
+        <li><strong>Production Manager:</strong> Usman Tariq</li>
+        <li><strong>Production Coordinator:</strong> Muhammad Wasif Ali</li>
+        <li><strong>Location Manager:</strong> Syeda Fariah Shah</li>
+        <li><strong>Talent Coordinator:</strong> Ansar Mughal</li>
+      </ul>
+    </div>
+    <div class="crew-dept">
+      <h4>Art Department</h4>
+      <ul>
+        <li><strong>Production Designer:</strong> Aiza Ahmed</li>
+        <li><strong>Art Director:</strong> Abdul Basit</li>
+        <li><strong>Asst. Art Director:</strong> Syed Aashir Raza Zaidi</li>
+        <li><strong>Set Designer:</strong> Ghulam Mustafa</li>
+        <li><strong>Prop Master:</strong> M Mohsin</li>
+      </ul>
+    </div>
+    <div class="crew-dept">
+      <h4>Music &amp; Post</h4>
+      <ul>
+        <li><strong>Music:</strong> Hassan Khan (Wild Media)</li>
+        <li><strong>Editor:</strong> Syed Asad Raza Abidi</li>
+        <li><strong>VFX &amp; Colorist:</strong> Syed Asad Raza Abidi</li>
+      </ul>
+    </div>
+    <div class="crew-dept">
+      <h4>Production Assistants</h4>
+      <ul>
+        <li>Syed Saad Uddin</li>
+        <li>Bisam Saeed</li>
+        <li>Muhammad Ashir Gul</li>
+        <li>Syed Jari Abbas Zaidi</li>
+        <li>Muhammad Asad Arshad</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="project-section">
+  <h3 class="section-title">Director's Statement</h3>
+  <div class="director-statement">
+    <blockquote>Janjaal is a story about grief, desperation, and the dangerous allure of desire. I wanted to explore how far someone can go when faced with unbearable loss, and how even hope can become a curse when tainted by greed. The golden pocket watch symbolizes temptation &mdash; a gift that comes with a hidden knife. My goal was to make the audience feel unsettled, to confront them with the question: What would you sacrifice to change fate?</blockquote>
+    <cite>&mdash; Syed Asad Raza Abidi</cite>
   </div>
 </div>
 
@@ -234,9 +348,9 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
     <div class="award-item"><strong>Best Trailer</strong>TMFF Scotland 2025</div>
     <div class="award-item"><strong>Best Director</strong>Indus IFF 2025</div>
     <div class="award-item"><strong>Theatrical Release</strong>Arena Cinemas, Jan 2025</div>
-    <div class="award-item"><strong>Official Selection</strong>Turkey</div>
-    <div class="award-item"><strong>Official Selection</strong>Kosovo</div>
-    <div class="award-item"><strong>Official Selection</strong>United States</div>
+    <div class="award-item"><strong>Official Selection</strong>Islamabad International FF (Turkey)</div>
+    <div class="award-item"><strong>Official Selection</strong>Kosovo Young Filmmakers FF</div>
+    <div class="award-item"><strong>Official Selection</strong>Urbanite Art &amp; Film Festival (USA)</div>
     <div class="award-item"><strong>Official Selection</strong>Iran</div>
     <div class="award-item"><strong>Official Selection</strong>Spain</div>
   </div>
