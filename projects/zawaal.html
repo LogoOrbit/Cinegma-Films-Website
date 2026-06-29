@@ -51,6 +51,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content
 .project-hero-bg{position:absolute;inset:0;z-index:0;}
 .project-hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 20%;opacity:.45;filter:blur(2px);}
 .project-hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,8,.3) 0%,rgba(8,8,8,.6) 50%,rgba(8,8,8,.98) 100%);}
+.project-hero-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;z-index:0;}
+.project-hero-bg img{position:relative;z-index:0;}
+.project-hero-bg::after{z-index:2;}
+.hero-sound-btn{position:absolute;bottom:28px;right:28px;z-index:4;width:44px;height:44px;border-radius:50%;background:rgba(20,20,28,.72);border:1.5px solid rgba(240,236,228,.3);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--white);transition:background .2s,transform .2s,border-color .2s;}
+.hero-sound-btn:hover{background:rgba(240,236,228,.18);border-color:rgba(240,236,228,.6);transform:scale(1.08);}
+.hero-sound-btn svg{width:18px;height:18px;pointer-events:none;}
+@media(max-width:768px){.hero-sound-btn{bottom:16px;right:16px;width:38px;height:38px;}}
+.btn-stream{display:inline-flex;align-items:center;gap:10px;font-size:.82rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:16px 36px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:filter .2s,transform .2s,box-shadow .2s;text-decoration:none;margin-top:24px;}
+.btn-stream:hover{filter:brightness(1.1);transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,127,17,.3);}
+.btn-stream svg{width:14px;height:14px;fill:currentColor;}
 .project-hero-content{position:relative;z-index:2;max-width:700px;}
 .project-eyebrow{font-size:.7rem;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
 .project-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(3.5rem,8vw,7rem);line-height:.9;letter-spacing:.03em;color:var(--white);margin-bottom:8px;}
@@ -135,6 +145,7 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
 
 <section class="project-hero">
   <div class="project-hero-bg">
+    <video id="heroVid" autoplay muted loop playsinline preload="metadata" src="../assets/posters/Zawaal%20Cover%20Video.mp4"></video>
     <img src="../assets/posters/Zawaal%20Watch%20Cover.avif" alt="Zawaal — Cinegma Films"/>
   </div>
   <div class="project-hero-content">
@@ -142,7 +153,15 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
     <p class="project-eyebrow">Cinegma Films Original</p>
     <h1 class="project-title" lang="ur">Zawaal</h1>
     <p class="project-logline">A dark psychological thriller set in the streets of Karachi. The next Cinegma Films original.</p>
+    <a href="../watch.html#trailer-zawaal" class="btn-stream">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      Stream Now
+    </a>
   </div>
+  <button class="hero-sound-btn" id="heroSoundBtn" onclick="toggleHeroSound()">
+    <svg id="heroIconMuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+    <svg id="heroIconUnmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+  </button>
 </section>
 
 <div class="project-body">
@@ -176,6 +195,7 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
         <p>A dark psychological thriller set in the streets of Karachi. Zawaal pushes the boundaries of independent Pakistani cinema with a gripping narrative that explores the shadows of the human mind.</p>
       </div>
       <div class="project-cta">
+        <a href="../watch.html#trailer-zawaal" class="btn-stream" style="margin-top:0"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Stream Now</a>
         <a href="../watch.html#trailer-zawaal" class="btn-primary">Watch Trailer</a>
         <a href="https://www.imdb.com/title/tt41515311/" target="_blank" rel="noopener" class="btn-ghost">IMDb</a>
       </div>
@@ -195,6 +215,15 @@ footer{border-top:1px solid var(--border);padding:48px 60px;display:flex;justify
 </ul>
   <p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
 </footer>
+<script>
+function toggleHeroSound(){
+  var v=document.getElementById('heroVid');
+  if(!v)return;
+  v.muted=!v.muted;
+  document.getElementById('heroIconMuted').style.display=v.muted?'block':'none';
+  document.getElementById('heroIconUnmuted').style.display=v.muted?'none':'block';
+}
+</script>
 <script src="../assets/js/shared.js"></script>
 <script src="../assets/js/creative-enhancements.js" defer></script>
 <script src="../assets/js/sound-effects.js" defer></script>
