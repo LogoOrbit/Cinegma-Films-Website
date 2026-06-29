@@ -1581,8 +1581,10 @@ function goToWatch(hash) {
         document.querySelectorAll('.film-card').forEach(function(c) { c.classList.remove('touch-active'); });
         this.classList.add('touch-active');
       }
-      // If already active and tap was on the card background (not a button), just dismiss
+      // If already active and tap was on the card background (not a button), navigate to film page
       else {
+        var project = this.getAttribute('data-project');
+        if (project) { window.location.href = project; return; }
         this.classList.remove('touch-active');
       }
     }, {passive: false});

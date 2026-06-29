@@ -729,7 +729,7 @@ a.crew-link{color:inherit;text-decoration:none;transition:color .3s;}a.crew-link
   </div>
 
   <!-- ── FEATURED SPOTLIGHT ── -->
-  <div class="featured-spotlight" onclick="openPasswordModal('https://CinegmaFilms.b-cdn.net/A%20Soldier%20Besides%20Me%204K%2024.mp4','A Soldier Beside Me','soldier_screener_2026')">
+  <div class="featured-spotlight" onclick="location.href='projects/a-soldier-beside-me.html'">
     <div class="spot-bg"><img src="assets/posters/Soldier%20Watch%20Cover.avif" alt="A Soldier Beside Me" loading="lazy"/></div>
     <div class="spot-gradient"></div>
     <div class="spot-content">
@@ -1779,19 +1779,12 @@ document.querySelectorAll('.stream-free-btn').forEach(function(btn) {
   });
 });
 
-/* ── CARD CLICK -> PASSWORD ── */
-document.querySelectorAll('.film-card.streamable').forEach(function(card) {
+/* ── CARD CLICK -> FILM PAGE ── */
+document.querySelectorAll('.film-card.streamable, .film-card.free-stream').forEach(function(card) {
   card.addEventListener('click', function(e) {
     if (e.target.closest('button,a')) return;
-    openPasswordModal(card.dataset.movie, card.dataset.title, card.dataset.password);
-  });
-});
-
-/* ── CARD CLICK -> FREE STREAM ── */
-document.querySelectorAll('.film-card.free-stream').forEach(function(card) {
-  card.addEventListener('click', function(e) {
-    if (e.target.closest('button,a')) return;
-    openMovieModal(card.dataset.movie, card.dataset.title);
+    var link = card.querySelector('.card-title');
+    if (link) window.location.href = link.getAttribute('href');
   });
 });
 
