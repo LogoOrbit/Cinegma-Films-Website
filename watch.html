@@ -1574,12 +1574,21 @@ function toggleCardMute(e, btn) {
   var card = btn.closest('.film-card');
   var vid  = card.querySelector('.card-video');
   if (!vid) return;
+  var wantUnmute = vid.muted;
   vid.muted = !vid.muted;
   if (card._sfxUserUnmuted) card._sfxUserUnmuted(!vid.muted);
   btn.querySelector('.icon-muted').style.display   = vid.muted ? '' : 'none';
   btn.querySelector('.icon-unmuted').style.display = vid.muted ? 'none' : '';
-  if (!vid.muted && vid.paused) {
-    vid.play().catch(function() { vid.muted = true; if (card._sfxUserUnmuted) card._sfxUserUnmuted(false); btn.querySelector('.icon-muted').style.display=''; btn.querySelector('.icon-unmuted').style.display='none'; });
+  if (wantUnmute) {
+    var t = vid.currentTime;
+    vid.pause();
+    vid.currentTime = t;
+    vid.play().catch(function() {
+      vid.muted = true;
+      if (card._sfxUserUnmuted) card._sfxUserUnmuted(false);
+      btn.querySelector('.icon-muted').style.display='';
+      btn.querySelector('.icon-unmuted').style.display='none';
+    });
   }
 }
 
@@ -1856,9 +1865,20 @@ document.querySelectorAll('.genre-pill').forEach(function(pill) {
 /* ── HERO SOUND ── */
 function toggleHeroSound() {
   var vid = document.getElementById('heroVideo');
+  var wantUnmute = vid.muted;
   vid.muted = !vid.muted;
   document.getElementById('heroIconMuted').style.display   = vid.muted ? '' : 'none';
   document.getElementById('heroIconUnmuted').style.display = vid.muted ? 'none' : '';
+  if (wantUnmute) {
+    var t = vid.currentTime;
+    vid.pause();
+    vid.currentTime = t;
+    vid.play().catch(function() {
+      vid.muted = true;
+      document.getElementById('heroIconMuted').style.display = '';
+      document.getElementById('heroIconUnmuted').style.display = 'none';
+    });
+  }
 }
 
 /* ── NAV ── */
