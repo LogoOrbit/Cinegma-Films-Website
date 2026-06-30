@@ -131,7 +131,7 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
 }
 .portfolio-section{background:var(--black);border-top:1px solid var(--border);}
 .portfolio-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px;}
-.portfolio-card{border:1px solid var(--border);overflow:hidden;transition:border-color .3s,background .3s;}
+.portfolio-card{display:block;text-decoration:none;color:inherit;border:1px solid var(--border);overflow:hidden;transition:border-color .3s,background .3s;}
 .portfolio-card:hover{border-color:rgba(240,236,228,.3);background:rgba(240,236,228,.02);}
 .portfolio-media{position:relative;aspect-ratio:2/3;overflow:hidden;background:var(--mid);}
 .portfolio-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s;}
@@ -263,42 +263,42 @@ a.work-tag{text-decoration:none;}
 <section class="portfolio-section">
   <p class="section-label reveal">Portfolio</p>
   <div class="portfolio-grid">
-    <div class="portfolio-card reveal">
+    <a class="portfolio-card reveal" href="../projects/zawaal.html">
       <div class="portfolio-media"><img src="../assets/posters/Zawaal_Opt_01.avif" alt="Zawaal" loading="lazy"/></div>
       <div class="portfolio-info">
         <p class="portfolio-title">Zawaal</p>
         <p class="portfolio-role">Producer</p>
         <p class="portfolio-year">2026 &middot; Psychological Thriller</p>
-        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/Zawaal%204K%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+        <button class="portfolio-trailer-btn" onclick="event.preventDefault();event.stopPropagation();playTrailer('https://CinegmaFilms.b-cdn.net/Zawaal%204K%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
       </div>
-    </div>
-    <div class="portfolio-card reveal">
+    </a>
+    <a class="portfolio-card reveal" href="../projects/portrait-of-life.html">
       <div class="portfolio-media"><img src="../assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life" loading="lazy"/></div>
       <div class="portfolio-info">
         <p class="portfolio-title">Portrait of Life</p>
         <p class="portfolio-role">Producer</p>
         <p class="portfolio-year">2025 &middot; Drama</p>
-        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/Portrait%20Of%20Life%20(Official%20Teaser)%20%EF%BD%9C%20A%20Film%20By%20Syed%20Asad.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+        <button class="portfolio-trailer-btn" onclick="event.preventDefault();event.stopPropagation();playTrailer('https://CinegmaFilms.b-cdn.net/Portrait%20Of%20Life%20(Official%20Teaser)%20%EF%BD%9C%20A%20Film%20By%20Syed%20Asad.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
       </div>
-    </div>
-    <div class="portfolio-card reveal">
+    </a>
+    <a class="portfolio-card reveal" href="../projects/a-soldier-beside-me.html">
       <div class="portfolio-media"><img src="../assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me" loading="lazy"/></div>
       <div class="portfolio-info">
         <p class="portfolio-title">A Soldier Beside Me</p>
         <p class="portfolio-role">Associate Producer</p>
         <p class="portfolio-year">2026 &middot; War Drama</p>
-        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/A%20Soldier%20Beside%20Me%20-%20Offical%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+        <button class="portfolio-trailer-btn" onclick="event.preventDefault();event.stopPropagation();playTrailer('https://CinegmaFilms.b-cdn.net/A%20Soldier%20Beside%20Me%20-%20Offical%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
       </div>
-    </div>
-    <div class="portfolio-card reveal">
+    </a>
+    <a class="portfolio-card reveal" href="../projects/janjaal.html">
       <div class="portfolio-media"><img src="../assets/posters/Janjaal_Opt_01.avif" alt="Janjaal" loading="lazy"/></div>
       <div class="portfolio-info">
         <p class="portfolio-title">Janjaal (Tussle)</p>
         <p class="portfolio-role">Associate Producer</p>
         <p class="portfolio-year">2024 &middot; Psychological Thriller</p>
-        <button class="portfolio-trailer-btn" onclick="playTrailer('https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
+        <button class="portfolio-trailer-btn" onclick="event.preventDefault();event.stopPropagation();playTrailer('https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4')"><svg viewBox="0 0 16 16"><path d="M3 2l10 6-10 6V2z"/></svg>Watch Trailer</button>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
