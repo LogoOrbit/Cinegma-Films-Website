@@ -655,6 +655,102 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   </div>
 </section>
 
+<!-- INTRO REEL -->
+<style>
+#intro-reel{background:var(--black);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:90px 60px;position:relative;}
+.ir-head{text-align:center;max-width:620px;margin:0 auto 48px;}
+.ir-eyebrow{font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--grey);margin-bottom:16px;}
+.ir-headline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1.3rem,2.6vw,2rem);color:rgba(240,236,228,.8);line-height:1.5;}
+.ir-stage{position:relative;max-width:1100px;margin:0 auto;border:1px solid var(--border);background:#000;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.55);}
+.ir-stage video{display:block;width:100%;height:auto;}
+.ir-sound{position:absolute;bottom:16px;right:16px;display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(8,8,8,.55);border:1px solid var(--border);backdrop-filter:blur(6px);border-radius:999px;font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(240,236,228,.75);pointer-events:none;opacity:0;transition:opacity .5s ease;}
+.ir-stage.audio-on .ir-sound{opacity:1;}
+.ir-sound .ir-wave{display:flex;align-items:flex-end;gap:2px;height:11px;}
+.ir-sound .ir-wave i{width:2px;background:var(--gold);height:30%;animation:irWave 1s ease-in-out infinite;}
+.ir-sound .ir-wave i:nth-child(2){animation-delay:.2s;}
+.ir-sound .ir-wave i:nth-child(3){animation-delay:.4s;}
+.ir-sound .ir-wave i:nth-child(4){animation-delay:.15s;}
+@keyframes irWave{0%,100%{height:30%}50%{height:100%}}
+@media(max-width:600px){#intro-reel{padding:60px 20px;}}
+@media(prefers-reduced-motion:reduce){.ir-sound .ir-wave i{animation:none;height:60%;}}
+</style>
+<section id="intro-reel">
+  <div class="ir-head reveal">
+    <p class="ir-eyebrow">Cinegma Films</p>
+    <p class="ir-headline">Who we are, in sixty seconds.</p>
+  </div>
+  <div class="ir-stage reveal" id="introStage" style="transition-delay:.1s">
+    <video id="introVid"
+      src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/videos/1782781752585-CINEGMA%20INTRO.mp4"
+      autoplay loop muted playsinline preload="metadata"
+      disablepictureinpicture controlslist="nodownload noplaybackrate"></video>
+    <div class="ir-sound" aria-hidden="true"><span class="ir-wave"><i></i><i></i><i></i><i></i></span>Sound On</div>
+  </div>
+</section>
+<script>
+/* Intro reel — always looping, no controls; audio fades in only when the
+   video sits in the middle of the viewport, and fades back out on scroll away. */
+(function(){
+  var v = document.getElementById('introVid');
+  var stage = document.getElementById('introStage');
+  if(!v) return;
+
+  var MAX_VOL = 1;          // peak volume when perfectly centred
+  var EASE = 0.12;          // fade smoothing per frame
+  var targetVol = 0;
+  var raf = null;
+
+  // keep it playing, muted, so autoplay is never blocked
+  v.muted = true;
+  v.volume = 0;
+  function keepPlaying(){ if(v.paused){ v.play().catch(function(){}); } }
+  v.addEventListener('pause', keepPlaying);
+
+  function computeTarget(){
+    var r = v.getBoundingClientRect();
+    var vh = window.innerHeight || document.documentElement.clientHeight;
+    if(r.bottom <= 0 || r.top >= vh) return 0;            // off-screen
+    var elCenter = r.top + r.height / 2;
+    var dist = Math.abs(elCenter - vh / 2);               // distance from viewport centre
+    var range = vh / 2;                                   // zero by the time it's a half-screen off-centre
+    var t = 1 - dist / range;
+    return Math.max(0, Math.min(1, t)) * MAX_VOL;
+  }
+
+  function tick(){
+    keepPlaying();
+    var cur = v.muted ? 0 : v.volume;
+    var diff = targetVol - cur;
+
+    if(Math.abs(diff) < 0.015){
+      if(targetVol <= 0.015){ v.volume = 0; v.muted = true; }
+      else { v.muted = false; v.volume = targetVol; }
+      stage.classList.toggle('audio-on', !v.muted);
+      raf = null;
+      return;
+    }
+
+    var next = Math.max(0, Math.min(1, cur + diff * EASE));
+    if(next > 0.001) v.muted = false;                     // browser may keep muted until a user gesture
+    v.volume = next;
+    stage.classList.toggle('audio-on', !v.muted && next > 0.02);
+    raf = requestAnimationFrame(tick);
+  }
+
+  function onScroll(){
+    targetVol = computeTarget();
+    if(raf === null) raf = requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll, {passive:true});
+  document.addEventListener('visibilitychange', function(){
+    if(document.hidden){ targetVol = 0; onScroll(); } else { keepPlaying(); onScroll(); }
+  });
+  onScroll();
+})();
+</script>
+
 <!-- BY THE NUMBERS -->
 <style>
 #numbers{background:#060606;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 60px;}
