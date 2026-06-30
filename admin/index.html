@@ -326,6 +326,8 @@
           <button data-page="activity" id="navActivity" style="display:none;"><svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg> Activity Log</button>
           <button data-page="admins" id="navAdmins" style="display:none;"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Admins</button>
           <button data-page="view-site"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> View Blog</button>
+          <div class="group-label">Account</div>
+          <button data-page="profile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> My Profile</button>
         </nav>
         <div class="userbox">
           <div class="who"><div class="avatar" id="ubAvatar">?</div><div><div class="name" id="ubName">—</div><div class="role" id="ubRole">—</div></div></div>
@@ -416,6 +418,7 @@
     else if(currentPage==='analytics')renderAnalytics();
     else if(currentPage==='activity')renderActivity();
     else if(currentPage==='admins')renderAdmins();
+    else if(currentPage==='profile')renderProfile();
   }
 
   // ============ ARTICLES ============
@@ -803,6 +806,70 @@
       $('adList').innerHTML=html;
       document.querySelectorAll('[data-del]').forEach(b=>{b.onclick=async()=>{if(!confirm('Remove admin "'+b.dataset.name+'"?'))return;try{await api('/api/auth',{method:'POST',body:JSON.stringify({action:'delete',id:b.dataset.del})});toast('Admin removed');renderAdmins();}catch(e){toast(e.message,false);}};});
     }catch(e){$('adList').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
+  }
+
+  // ============ MY PROFILE (everyone) ============
+  async function renderProfile(){
+    app.innerHTML=pageHead('Account','My Profile','Manage your basic profile information. These details are tied to your account.')+
+      `<div id="profileArea"><div class="loading-state"><span class="spinner"></span> Loading your profile…</div></div>`;
+    let profile;
+    try{
+      const r=await api('/api/auth',{method:'POST',body:JSON.stringify({action:'profile_get'})});
+      profile=r.profile;
+    }catch(e){$('profileArea').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;return;}
+
+    const isOwner=session.role==='owner';
+    const initial=(profile.full_name||profile.username||'?').charAt(0).toUpperCase();
+    $('profileArea').innerHTML=`
+      <div class="editor glass" style="padding:34px 38px;margin-bottom:26px;">
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:30px;flex-wrap:wrap;">
+          <div id="pfAvatar" style="width:64px;height:64px;font-size:1.6rem;border-radius:50%;background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#111;display:flex;align-items:center;justify-content:center;font-weight:600;flex:none;">${esc(initial)}</div>
+          <div>
+            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;">${esc(profile.full_name||profile.username)}</div>
+            <div style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);">${esc(profile.username)} · ${esc(profile.role)}</div>
+          </div>
+        </div>
+        <div class="field-row"><div class="field"><label>Username</label><input type="text" value="${attr(profile.username)}" readonly style="opacity:.6;cursor:not-allowed;"/><div class="hint">Your sign-in name can't be changed here.</div></div><div class="field"><label>Role</label><input type="text" value="${attr(profile.role)}" readonly style="opacity:.6;cursor:not-allowed;"/></div></div>
+        <div class="field"><label>Full name</label><input type="text" id="pfFullName" value="${attr(profile.full_name||'')}" placeholder="e.g. Asad Syed"/></div>
+        <div class="field"><label>Job title / position</label><input type="text" id="pfTitle" value="${attr(profile.title||'')}" placeholder="e.g. Editor, Director, Producer"/></div>
+        <div class="field-row"><div class="field"><label>Email</label><input type="email" id="pfEmail" value="${attr(profile.email||'')}" placeholder="you@example.com"/></div><div class="field"><label>Phone</label><input type="text" id="pfPhone" value="${attr(profile.phone||'')}" placeholder="+92 300 0000000"/></div></div>
+        <div class="field"><label>Location</label><input type="text" id="pfLocation" value="${attr(profile.location||'')}" placeholder="e.g. Karachi, Pakistan"/></div>
+        <div class="field"><label>Avatar image URL (optional)</label><input type="text" id="pfAvatarUrl" value="${attr(profile.avatar_url||'')}" placeholder="Paste an image URL"/></div>
+        <div class="field" style="margin-bottom:0;"><label>Bio</label><textarea id="pfBio" style="min-height:120px;" placeholder="A short bio about yourself…">${esc(profile.bio||'')}</textarea></div>
+        <div class="editor-actions"><div class="spacer" style="flex:1;"></div><button class="btn btn-primary" id="pfSave"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg> Save Profile</button></div>
+      </div>
+      <div class="editor glass" style="padding:34px 38px;">
+        <h3 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.4rem;margin-bottom:6px;">Change Password</h3>
+        <p class="hint" style="margin-top:0;margin-bottom:20px;">${isOwner?"The owner password is set via an environment variable and can't be changed here.":'Update the password you use to sign in.'}</p>
+        <div class="field-row"><div class="field"><label>Current password</label><input type="password" id="pfCurPass" autocomplete="current-password" ${isOwner?'disabled':''} placeholder="••••••••"/></div><div class="field"><label>New password</label><input type="password" id="pfNewPass" autocomplete="new-password" ${isOwner?'disabled':''} placeholder="At least 6 characters"/></div></div>
+        <div class="editor-actions"><div class="spacer" style="flex:1;"></div><button class="btn btn-ghost" id="pfPassSave" ${isOwner?'disabled':''}>Update Password</button></div>
+      </div>`;
+
+    $('pfSave').onclick=async()=>{
+      const body={full_name:$('pfFullName').value.trim(),title:$('pfTitle').value.trim(),email:$('pfEmail').value.trim(),phone:$('pfPhone').value.trim(),location:$('pfLocation').value.trim(),avatar_url:$('pfAvatarUrl').value.trim(),bio:$('pfBio').value};
+      $('pfSave').disabled=true;
+      try{
+        const r=await api('/api/auth',{method:'POST',body:JSON.stringify({action:'profile_update',profile:body})});
+        toast('Profile saved');
+        const nm=r.profile.full_name||r.profile.username;
+        $('pfAvatar').textContent=(nm||'?').charAt(0).toUpperCase();
+      }catch(e){toast(e.message,false);}
+      finally{$('pfSave').disabled=false;}
+    };
+
+    if(!isOwner){
+      $('pfPassSave').onclick=async()=>{
+        const cur=$('pfCurPass').value,nw=$('pfNewPass').value;
+        if(!cur||!nw){toast('Enter your current and new password',false);return;}
+        $('pfPassSave').disabled=true;
+        try{
+          await api('/api/auth',{method:'POST',body:JSON.stringify({action:'password_change',current_password:cur,new_password:nw})});
+          toast('Password updated');
+          $('pfCurPass').value='';$('pfNewPass').value='';
+        }catch(e){toast(e.message,false);}
+        finally{$('pfPassSave').disabled=false;}
+      };
+    }
   }
 
   // ===== Boot =====
