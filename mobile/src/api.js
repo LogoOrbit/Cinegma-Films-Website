@@ -16,7 +16,7 @@ const storage = {
   },
 };
 
-let BASE_URL = '';
+let BASE_URL = 'https://cinegmafilms.com';
 
 export function setBaseUrl(url) {
   BASE_URL = url.replace(/\/$/, '');

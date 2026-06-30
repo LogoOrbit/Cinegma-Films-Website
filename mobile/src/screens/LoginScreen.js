@@ -3,8 +3,15 @@ import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
   KeyboardAvoidingView, Platform, ActivityIndicator,
 } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import { colors } from '../theme';
 import { useAuth } from '../context/AuthContext';
+import { setBaseUrl, getBaseUrl } from '../api';
+
+const storageSet = async (key, value) => {
+  if (Platform.OS === 'web') { localStorage.setItem(key, value); return; }
+  return SecureStore.setItemAsync(key, value);
+};
 
 export default function LoginScreen() {
   const { login } = useAuth();
@@ -12,6 +19,8 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showServer, setShowServer] = useState(false);
+  const [serverUrl, setServerUrl] = useState(getBaseUrl());
 
   const handleLogin = async () => {
     if (!username.trim() || !password) {
@@ -21,6 +30,11 @@ export default function LoginScreen() {
     setError('');
     setLoading(true);
     try {
+      const url = serverUrl.replace(/\/$/, '').trim();
+      if (url) {
+        setBaseUrl(url);
+        await storageSet('cms_server_url', url);
+      }
       await login(username.trim(), password);
     } catch (e) {
       setError(e.message);
@@ -77,6 +91,28 @@ export default function LoginScreen() {
             <Text style={styles.btnText}>Enter Studio</Text>
           )}
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => setShowServer((s) => !s)}>
+          <Text style={styles.serverToggle}>
+            {showServer ? 'Hide server settings' : 'Server settings'}
+          </Text>
+        </TouchableOpacity>
+
+        {showServer ? (
+          <View>
+            <Text style={styles.label}>SERVER URL</Text>
+            <TextInput
+              style={styles.input}
+              value={serverUrl}
+              onChangeText={setServerUrl}
+              placeholder="https://cinegmafilms.com"
+              placeholderTextColor={colors.faint}
+              autoCapitalize="none"
+              autoCorrect={false}
+              keyboardType="url"
+            />
+          </View>
+        ) : null}
       </View>
     </KeyboardAvoidingView>
   );
@@ -159,6 +195,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   btnDisabled: { opacity: 0.5 },
+  serverToggle: {
+    color: colors.gold,
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 16,
+    marginBottom: 4,
+  },
   btnText: {
     color: '#111',
     fontSize: 14,
