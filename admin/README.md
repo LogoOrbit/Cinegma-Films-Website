@@ -23,6 +23,16 @@ Three roles, created by the owner under **Admins**:
 Every post and uploaded asset is automatically attributed to the logged-in user
 server-side; the byline that appears on the blog cannot be spoofed from the client.
 
+## My Profile
+
+Every member — owner, admin, and user — has a **My Profile** page (under
+**Account** in the sidebar) to manage their basic info: full name, job title,
+email, phone, location, avatar image URL, and a short bio. Database admins and
+users can also change their sign-in password from here. The owner account signs
+in with the `DASHBOARD_PASSWORD` environment variable, so its password can't be
+changed from the dashboard. Profiles are stored server-side and a member can
+only ever see and edit their own.
+
 ## One-time setup (Vercel → Project → Settings → Environment Variables)
 
 | Variable | Required | What it is |
@@ -45,6 +55,8 @@ Run the SQL files in the Supabase SQL Editor, in order:
 2. `supabase-admins.sql` — admin accounts + media captions.
 3. `supabase-authorship.sql` — adds the `author` / `author_role` columns that
    power the per-account visibility model and the public blog byline.
+4. `supabase-profiles.sql` — adds the `profiles` table that backs the
+   **My Profile** page.
 
 ## Notes
 - Functions live in `/api` (`upload-image.js`, `bunny-create.js`). Vercel installs
