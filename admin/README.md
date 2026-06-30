@@ -7,11 +7,13 @@ manage blog posts.
   image upload also creates a **draft blog post** (with the image as its cover,
   a required title, and the uploader as the author). Review it on the **Articles**
   page and hit publish to make it live on `blog.html`.
-- **Videos / audio** (Upload Media page) → committed straight into this GitHub
-  repo (max **25 MB**), then a **GitHub Action optimizes them with ffmpeg** and
-  publishes the result to `assets/videos/…` (or `assets/audio/…`). The dashboard
-  shows the final path the moment the upload finishes; the optimized file goes
-  live ~1–2 minutes later. See **"Video & audio uploads"** below.
+- **Videos / audio** (Upload Media page only — **not** available from the article
+  editor) → committed straight into this GitHub repo (max **25 MB**), then a
+  **GitHub Action optimizes them with ffmpeg, always preserving the audio track**,
+  and publishes the result to `assets/videos/…` (or `assets/audio/…`). The upload
+  is also cataloged in the **Media Library** page immediately so you can find and
+  copy its URL right away; the optimized file itself goes live ~1–2 minutes later.
+  See **"Video & audio uploads"** below.
 
 ## Accounts & visibility
 
@@ -34,6 +36,7 @@ server-side; the byline that appears on the blog cannot be spoofed from the clie
 | `GITHUB_REPO` | ✅ (images, video) | `logoorbit/cinegma-films-website` |
 | `GITHUB_BRANCH` | ✅ (images, video) | Production branch, e.g. `main`. |
 | `GITHUB_STAGING_BRANCH` | optional | Branch used to stage video chunks before optimization (default `media-staging`). |
+| `SITE_URL` | optional | Public site origin used to build the catalog URL shown in the Media Library (default `https://cinegmafilms.com`). |
 
 After adding the variables, redeploy once so the serverless functions pick them up.
 
@@ -44,11 +47,16 @@ no Bunny. Because Vercel caps request bodies at ~4.5 MB, the browser streams the
 file in 3 MB chunks to `/api/video-commit`, which commits them to the
 `media-staging` branch and writes a `manifest.json` last.
 
-That manifest triggers **`.github/workflows/optimize-media.yml`**, which:
+Finalizing also writes a row into the same Supabase `media` table the **Media
+Library** page reads, so the upload is immediately browsable/copyable there —
+the same as an image upload — even while the optimized file is still publishing.
+
+The manifest triggers **`.github/workflows/optimize-media.yml`**, which:
 
 1. reassembles the chunks,
-2. compresses with ffmpeg (video → H.264/AAC, downscaled to ≤1920px wide,
-   `+faststart`; audio → 192 kbps MP3),
+2. compresses with ffmpeg (video → H.264, downscaled to ≤1920px wide,
+   `+faststart`, **audio track always re-encoded to AAC and kept** — never
+   stripped; audio-only files → 192 kbps MP3),
 3. commits the optimized file to `assets/videos/<id>.mp4` (or `assets/audio/<id>.mp3`)
    on the production branch, and
 4. clears the staging files.

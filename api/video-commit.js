@@ -12,7 +12,9 @@
 //   GITHUB_REPO     – "owner/repo"      (required)
 //   GITHUB_BRANCH   – production branch (optional, default "main")
 //   GITHUB_STAGING_BRANCH – staging branch (optional, default "media-staging")
+//   SITE_URL        – public site origin used to build the catalog URL (optional, default below)
 
+const { createClient } = require('@supabase/supabase-js');
 const auth = require('../lib/auth');
 const { logEvent } = require('../lib/audit');
 
@@ -24,6 +26,11 @@ const repo = () => process.env.GITHUB_REPO || 'LogoOrbit/Cinegma-Films-Website';
 const prodBranch = () => process.env.GITHUB_BRANCH || 'main';
 const stagingBranch = () => process.env.GITHUB_STAGING_BRANCH || 'media-staging';
 const ghToken = () => process.env.GITHUB_TOKEN;
+const siteUrl = () => process.env.SITE_URL || 'https://cinegmafilms.com';
+
+function getSupabase() {
+  return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+}
 
 async function gh(path, opts = {}) {
   const r = await fetch(GH_API + path, Object.assign({}, opts, {
@@ -116,11 +123,27 @@ module.exports = async (req, res) => {
       const b64 = Buffer.from(JSON.stringify(manifest, null, 2)).toString('base64');
       await putFile(`${stageDir}/manifest.json`, b64, `media: finalize ${uploadId}`);
 
+      const publicUrl = `${siteUrl()}/${finalPath}`;
+
+      // Catalog the upload in the same `media` table the dashboard's Media
+      // Library page reads, so it shows up there like every other asset (the
+      // file itself lands at this URL a minute or two later, once the
+      // optimize-media Action finishes publishing it).
+      try {
+        await getSupabase().from('media').insert({
+          url: publicUrl, name: manifest.name, type, size_bytes: manifest.fileSize,
+          caption: manifest.caption, author: me.username, author_role: me.role,
+        });
+      } catch (_) {
+        // Never block the upload on the catalog write — the file is already
+        // safely committed to the repo and will publish regardless.
+      }
+
       await logEvent(req, {
         action: type + '_uploaded', category: 'media', username: me.username, role: me.role,
-        details: { filename: manifest.name, size_bytes: manifest.fileSize, url: '/' + finalPath, media_type: type },
+        details: { filename: manifest.name, size_bytes: manifest.fileSize, url: publicUrl, media_type: type },
       });
-      return res.json({ ok: true, processing: true, path: '/' + finalPath });
+      return res.json({ ok: true, processing: true, path: '/' + finalPath, url: publicUrl });
     }
 
     // ---- Chunk: commit one part file to the staging branch.
