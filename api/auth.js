@@ -20,13 +20,14 @@ const auth = require('../lib/auth');
 const { logEvent } = require('../lib/audit');
 
 const SESSION_MS = 1000 * 60 * 60 * 24 * 30; // 30 days
+const ALLOWED_ORIGIN = process.env.SITE_URL || 'https://cinegmafilms.com';
 
 function sb() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 }
 
 module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,X-Session-Token');
   if (req.method === 'OPTIONS') return res.status(200).end();

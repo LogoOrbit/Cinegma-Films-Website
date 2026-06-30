@@ -1,11 +1,13 @@
 const { createClient } = require('@supabase/supabase-js');
 
+const ALLOWED_ORIGIN = process.env.SITE_URL || 'https://cinegmafilms.com';
+
 function sb() {
   return createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
 }
 
 module.exports = async (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type,X-Session-Token');
   if (req.method === 'OPTIONS') return res.status(200).end();

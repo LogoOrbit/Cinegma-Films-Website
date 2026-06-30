@@ -93,8 +93,13 @@ module.exports = async (req, res) => {
     if (!uploadId || !/^[a-z0-9][a-z0-9-]{0,99}$/.test(String(uploadId))) {
       return res.status(400).json({ error: 'Invalid uploadId' });
     }
-    if (typeof fileSize === 'number' && fileSize > MAX_TOTAL) {
-      return res.status(413).json({ error: 'File exceeds the 25 MB limit.' });
+    if (finalize) {
+      if (typeof fileSize !== 'number' || !Number.isFinite(fileSize) || fileSize <= 0) {
+        return res.status(400).json({ error: 'A valid fileSize is required to finalize an upload.' });
+      }
+      if (fileSize > MAX_TOTAL) {
+        return res.status(413).json({ error: 'File exceeds the 25 MB limit.' });
+      }
     }
 
     const type = mediaType === 'audio' ? 'audio' : 'video';
