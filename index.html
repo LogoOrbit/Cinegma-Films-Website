@@ -164,11 +164,12 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 
 /* films */
 #films{padding:clamp(70px,9vw,130px) 0 40px}
-.film{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:clamp(28px,5vw,80px);align-items:center;padding:clamp(48px,6vw,90px) 0;border-top:1px solid var(--line);margin-top:56px}
+.film{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:clamp(28px,5vw,80px);align-items:center;padding:clamp(48px,6vw,90px) 0;border-top:1px solid var(--line);margin-top:56px}
 .film~.film{margin-top:0}
-.film:nth-of-type(even){grid-template-columns:1fr minmax(0,420px)}
+.film:nth-of-type(even){grid-template-columns:1fr minmax(0,560px)}
 .film:nth-of-type(even) .poster-w{order:2}
-.poster-w{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:2/3;max-width:420px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.poster-w{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:2/3;width:100%;max-width:560px;box-shadow:0 50px 130px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.06);transition:box-shadow .5s,transform .5s cubic-bezier(.2,.9,.3,1)}
+.poster-w:hover{box-shadow:0 60px 160px rgba(0,0,0,.9),0 0 80px rgba(255,255,255,.08);transform:translateY(-6px)}
 .poster-w img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.9,.3,1),opacity .4s}
 .poster-w video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
 .poster-w.playing video{opacity:1}
@@ -187,7 +188,7 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 .film .lnx{display:flex;flex-wrap:wrap;gap:22px;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600}
 .film .lnx a{display:inline-flex;gap:8px;align-items:center;color:#e6e0d4;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:4px;transition:color .25s,border-color .25s}
 .film .lnx a:hover{color:var(--b);border-color:var(--b)}
-@media(max-width:860px){.film,.film:nth-of-type(even){grid-template-columns:1fr}.film:nth-of-type(even) .poster-w{order:0}.poster-w{max-width:340px}}
+@media(max-width:860px){.film,.film:nth-of-type(even){grid-template-columns:1fr}.film:nth-of-type(even) .poster-w{order:0}.poster-w{max-width:none}}
 
 /* watch cta */
 #watchcta{margin:clamp(60px,8vw,110px) 0}
@@ -197,6 +198,20 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 #watchcta h2{position:relative}
 #watchcta .mini{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:30px 0 38px;position:relative}
 #watchcta .mini span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#c9c3b8;border:1px solid var(--line);padding:9px 18px;border-radius:999px;background:rgba(255,255,255,.03)}
+
+/* explore */
+#explore{padding:clamp(60px,8vw,110px) 0}
+#explore .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){#explore .duo{grid-template-columns:1fr}}
+.xp{position:relative;border:1px solid var(--line);border-radius:24px;padding:clamp(30px,4vw,52px);background:var(--bg2);overflow:hidden;transition:border-color .35s,transform .35s}
+.xp:hover{border-color:rgba(255,255,255,.4);transform:translateY(-5px)}
+.xp h3{font-family:var(--disp);font-size:clamp(34px,4vw,56px);line-height:.95;text-transform:uppercase;margin:14px 0 12px}
+.xp p{color:var(--mut);font-weight:300;line-height:1.7;margin-bottom:22px;max-width:420px}
+.xp .links{display:flex;flex-wrap:wrap;gap:9px}
+.xp .links a{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;padding:9px 16px;border:1px solid var(--line);border-radius:999px;color:#c9c3b8;transition:all .25s}
+.xp .links a:hover{background:#fff;color:#06060a;border-color:#fff}
+.xp .arrow{position:absolute;top:26px;right:30px;font-family:var(--disp);font-size:30px;color:rgba(255,255,255,.35);transition:color .3s,transform .3s}
+.xp:hover .arrow{color:#fff;transform:translate(4px,-4px)}
 
 /* awards */
 #awards{padding:clamp(70px,9vw,130px) 0}
@@ -497,6 +512,7 @@ footer .fine a{color:#9a948a}
         <div class="lnx"><a href="watch.html#watch-urdu-bazaar">▶ Watch Now</a><a href="projects/urdu-bazaar-karachi.html">Film Page</a></div>
       </div>
     </article>
+    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:56px 0 10px;border-top:1px solid var(--line)"><a class="btn" href="#explore">Browse All Film Pages ↓</a><a class="btn" href="watch.html">▶ Stream The Films</a></div>
   </div>
 </section>
 
@@ -510,6 +526,41 @@ footer .fine a{color:#9a948a}
         <span>Janjaal · Thriller · 14 Awards</span><span>Portrait of Life · Drama</span><span>Main Aur Achu · Family · Full Film</span><span>Urdu Bazaar · Documentary · Full</span>
       </div>
       <a class="btn solid" href="watch.html">Enter The Screening Room</a>
+    </div>
+  </div>
+</section>
+
+<section id="explore">
+  <div class="wrap duo">
+    <div class="xp v3-reveal">
+      <span class="arrow">↗</span>
+      <span class="kicker">Explore · Film Pages</span>
+      <h3>Every Film,<br/><span class="serif-i">Its Own Page</span></h3>
+      <p>Posters, synopses, full cast &amp; crew, awards, trailers and production details — a dedicated page for each production.</p>
+      <div class="links">
+        <a href="projects/janjaal.html">Janjaal</a>
+        <a href="projects/portrait-of-life.html">Portrait of Life</a>
+        <a href="projects/zawaal.html">Zawaal</a>
+        <a href="projects/a-soldier-beside-me.html">A Soldier Beside Me</a>
+        <a href="projects/payam-e-dil.html">Payam e Dil</a>
+        <a href="projects/main-aur-achu.html">Main Aur Achu</a>
+        <a href="projects/phir-se.html">Phir Se</a>
+        <a href="projects/urdu-bazaar-karachi.html">Urdu Bazaar</a>
+      </div>
+    </div>
+    <div class="xp v3-reveal">
+      <span class="arrow">↗</span>
+      <span class="kicker">Explore · Team Pages</span>
+      <h3>Meet The<br/><span class="serif-i">Full Team</span></h3>
+      <p>Complete profiles of the six core creatives — full bios, portfolios, skills, and every credit across the filmography.</p>
+      <div class="links">
+        <a href="team/syed-asad.html">Syed Asad</a>
+        <a href="team/ghayas-uddin.html">Ghayas Uddin</a>
+        <a href="team/ameer-hamza.html">Ameer Hamza</a>
+        <a href="team/faizan-ahmed.html">Faizan Ahmed</a>
+        <a href="team/usman-ali.html">Usman Ali</a>
+        <a href="team/dayyan-khalid.html">Dayyan Khalid</a>
+      </div>
     </div>
   </div>
 </section>
@@ -615,6 +666,7 @@ footer .fine a{color:#9a948a}
       <a class="tcard v3-reveal" href="team/usman-ali.html"><img loading="lazy" src="assets/posters/Usman.avif" alt="Usman Ali Akbar"/><span class="no">05</span><div class="ov"><b>Usman Ali Akbar</b><i>Music Composer</i></div></a>
       <a class="tcard v3-reveal" href="team/dayyan-khalid.html"><img loading="lazy" src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid"/><span class="no">06</span><div class="ov"><b>Dayyan Khalid</b><i>Producer · Production Manager</i></div></a>
     </div>
+    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px"><a class="btn" href="team/syed-asad.html">Meet The Founder →</a><a class="btn" href="#explore">All Team Pages ↓</a></div>
   </div>
 </section>
 
