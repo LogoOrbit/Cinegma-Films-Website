@@ -10,7 +10,7 @@
   position: fixed; top: 0; left: 0; right: 0;
   height: 2px; z-index: 12000;
   pointer-events: none;
-  background: linear-gradient(90deg, var(--gold, #7c5cff), #a998ff);
+  background: linear-gradient(90deg, var(--gold, #ffffff), #cfcfcf);
   transform-origin: 0 50%;
   transform: scaleX(0);
   opacity: 0;
@@ -40,7 +40,7 @@ html.rv-js .nav-links a { position: relative; }
 .nav-links a::after {
   content: ''; position: absolute;
   left: 0; right: 100%; bottom: -6px;
-  height: 1px; background: var(--gold, #7c5cff);
+  height: 1px; background: var(--gold, #ffffff);
   transition: right .35s cubic-bezier(.22,1,.36,1);
 }
 .nav-links a:hover::after,
@@ -92,7 +92,7 @@ html.rv-js .rv-split.rv-in .rv-wi { transform: translateY(0); }
     background: radial-gradient(
       420px circle at var(--rv-gx, 50%) var(--rv-gy, 50%),
       rgba(255,235,210,.10) 0%,
-      rgba(124,92,255,.04) 35%,
+      rgba(255,255,255,.04) 35%,
       transparent 70%
     );
     mix-blend-mode: screen;
@@ -114,8 +114,8 @@ h1, h2, h3, .hero-title, .section-title { text-wrap: balance; }
 p { text-wrap: pretty; }
 
 /* ── SELECTION + SCROLLBAR + FOCUS ── */
-::selection { background: rgba(124,92,255,.85); color: #080808; }
-::-moz-selection { background: rgba(124,92,255,.85); color: #080808; }
+::selection { background: rgba(255,255,255,.85); color: #080808; }
+::-moz-selection { background: rgba(255,255,255,.85); color: #080808; }
 
 @media (hover: hover) and (pointer: fine) {
   ::-webkit-scrollbar { width: 11px; }
@@ -124,12 +124,12 @@ p { text-wrap: pretty; }
     background: #262320; border-radius: 6px;
     border: 3px solid #0a0a0a;
   }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(124,92,255,.55); }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.55); }
   html { scrollbar-color: #262320 #0a0a0a; scrollbar-width: thin; }
 }
 
 :focus-visible {
-  outline: 2px solid rgba(124,92,255,.85);
+  outline: 2px solid rgba(255,255,255,.85);
   outline-offset: 3px;
   border-radius: 2px;
 }

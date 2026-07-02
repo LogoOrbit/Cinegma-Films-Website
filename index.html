@@ -56,7 +56,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --a:#7c5cff;--a-dim:rgba(124,92,255,.5);--b:#22e0c9;
+  --a:#ffffff;--a-dim:rgba(255,255,255,.5);--b:#a8a8a8;
   --ink:#f0ece4;--mut:#9a948a;--bg:#080809;--bg2:#0d0d12;
   --line:rgba(255,255,255,.08);
   --disp:'Bebas Neue',sans-serif;--serif:'Cormorant Garamond',serif;--body:'Space Grotesk',sans-serif;
@@ -76,11 +76,11 @@ section{position:relative;z-index:1}
 .btn{position:relative;display:inline-flex;align-items:center;gap:12px;padding:16px 30px;border-radius:999px;
   font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;overflow:hidden;
   border:1px solid var(--a-dim);transition:transform .3s cubic-bezier(.2,.9,.3,1),box-shadow .3s,border-color .3s;cursor:pointer;background:transparent;color:var(--ink)}
-.btn::before{content:"";position:absolute;inset:0;background:linear-gradient(100deg,var(--a),var(--b));opacity:0;transition:opacity .3s;z-index:-1}
-.btn:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(124,92,255,.35);border-color:transparent;color:#06060a}
+.btn::before{content:"";position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .3s;z-index:-1}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 44px rgba(255,255,255,.35);border-color:transparent;color:#06060a}
 .btn:hover::before{opacity:1}
-.btn.solid{background:linear-gradient(100deg,var(--a),var(--b));color:#06060a;border-color:transparent}
-.btn.solid:hover{box-shadow:0 18px 54px rgba(34,224,201,.4)}
+.btn.solid{background:linear-gradient(100deg,#7c5cff,#22e0c9);color:#06060a;border-color:transparent}
+.btn.solid:hover{box-shadow:0 18px 54px rgba(124,92,255,.45)}
 
 /* preloader */
 #pre{position:fixed;inset:0;background:#050507;z-index:2147483500;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;transition:transform .9s cubic-bezier(.76,0,.24,1)}
@@ -104,7 +104,7 @@ section{position:relative;z-index:1}
 #nav .links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:linear-gradient(90deg,var(--a),var(--b));transition:width .3s}
 #nav .links a:hover,#nav .links a.on{color:#fff}
 #nav .links a:hover::after,#nav .links a.on::after{width:100%}
-#nav .cta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:11px 22px;border-radius:999px;background:linear-gradient(100deg,var(--a),var(--b));color:#06060a;font-weight:700}
+#nav .cta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:11px 22px;border-radius:999px;background:#fff;color:#06060a;font-weight:700}
 #burger{display:none;background:none;border:0;cursor:pointer;width:40px;height:40px;position:relative;z-index:1202}
 #burger span{position:absolute;left:8px;right:8px;height:2px;background:var(--ink);transition:.35s}
 #burger span:nth-child(1){top:14px}#burger span:nth-child(2){top:20px}#burger span:nth-child(3){top:26px}
@@ -122,7 +122,7 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 #hero{min-height:100svh;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
 #hero .media{position:absolute;inset:0;z-index:0}
 #hero video{width:100%;height:100%;object-fit:cover;filter:saturate(.85) contrast(1.06);transform:scale(1.06)}
-#hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,9,.55) 0%,rgba(8,8,9,.15) 40%,rgba(8,8,9,.92) 88%,var(--bg) 100%),radial-gradient(90% 60% at 70% 20%,rgba(124,92,255,.18),transparent 60%)}
+#hero .shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,8,9,.55) 0%,rgba(8,8,9,.15) 40%,rgba(8,8,9,.92) 88%,var(--bg) 100%),radial-gradient(90% 60% at 70% 20%,rgba(255,255,255,.18),transparent 60%)}
 #hero .content{position:relative;z-index:2;padding:120px clamp(20px,4vw,56px) 0;width:100%;max-width:1420px;margin:0 auto}
 #hero .loc{display:flex;gap:14px;align-items:center;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#cfc9bd;margin-bottom:26px}
 #hero .loc b{color:var(--b);font-weight:600}
@@ -132,7 +132,7 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 #hero h1 .line:nth-child(2) span{animation-delay:.12s}
 #hero h1 .line:nth-child(3) span{animation-delay:.24s}
 #hero h1 .hollow{color:transparent;-webkit-text-stroke:1.5px rgba(240,236,228,.85)}
-#hero h1 .glow{background:linear-gradient(100deg,var(--a) 20%,var(--b));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#hero h1 .glow{color:#fff}
 @keyframes hup{to{transform:none}}
 #hero .sub{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:26px;margin:34px 0 44px}
 #hero .sub p{max-width:520px}
@@ -174,7 +174,7 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 .poster-w.playing video{opacity:1}
 .poster-w.playing img{opacity:0}
 .poster-w:hover img{transform:scale(1.05)}
-.poster-w .edge{position:absolute;inset:0;border-radius:18px;border:1px solid rgba(124,92,255,.35);pointer-events:none}
+.poster-w .edge{position:absolute;inset:0;border-radius:18px;border:1px solid rgba(255,255,255,.35);pointer-events:none}
 .poster-w .no{position:absolute;top:14px;left:14px;font-family:var(--disp);font-size:15px;letter-spacing:.2em;background:rgba(6,6,10,.7);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--b);z-index:2}
 .film .meta .yr{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--b);margin-bottom:14px;display:block}
 .film h3{font-family:var(--disp);font-size:clamp(46px,6.4vw,96px);line-height:.9;text-transform:uppercase;margin-bottom:16px}
@@ -185,14 +185,14 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 .film .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
 .film .tags i{font-style:normal;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;padding:7px 14px;border:1px solid var(--line);border-radius:999px;color:#b9b3a7}
 .film .lnx{display:flex;flex-wrap:wrap;gap:22px;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600}
-.film .lnx a{display:inline-flex;gap:8px;align-items:center;color:#e6e0d4;border-bottom:1px solid rgba(124,92,255,.4);padding-bottom:4px;transition:color .25s,border-color .25s}
+.film .lnx a{display:inline-flex;gap:8px;align-items:center;color:#e6e0d4;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:4px;transition:color .25s,border-color .25s}
 .film .lnx a:hover{color:var(--b);border-color:var(--b)}
 @media(max-width:860px){.film,.film:nth-of-type(even){grid-template-columns:1fr}.film:nth-of-type(even) .poster-w{order:0}.poster-w{max-width:340px}}
 
 /* watch cta */
 #watchcta{margin:clamp(60px,8vw,110px) 0}
-#watchcta .panel{position:relative;border-radius:28px;overflow:hidden;padding:clamp(56px,8vw,120px) clamp(24px,6vw,90px);text-align:center;border:1px solid rgba(124,92,255,.35);background:radial-gradient(120% 160% at 50% 0%,rgba(124,92,255,.22),rgba(8,8,10,.9) 55%),linear-gradient(160deg,#0c0c14,#080810)}
-#watchcta .panel::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 60%,rgba(34,224,201,.15),transparent 75%);animation:spin 9s linear infinite;pointer-events:none}
+#watchcta .panel{position:relative;border-radius:28px;overflow:hidden;padding:clamp(56px,8vw,120px) clamp(24px,6vw,90px);text-align:center;border:1px solid rgba(255,255,255,.35);background:radial-gradient(120% 160% at 50% 0%,rgba(255,255,255,.22),rgba(8,8,10,.9) 55%),linear-gradient(160deg,#0c0c14,#080810)}
+#watchcta .panel::before{content:"";position:absolute;inset:-40%;background:conic-gradient(from 0deg,transparent 60%,rgba(255,255,255,.15),transparent 75%);animation:spin 9s linear infinite;pointer-events:none}
 @keyframes spin{to{transform:rotate(360deg)}}
 #watchcta h2{position:relative}
 #watchcta .mini{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:30px 0 38px;position:relative}
@@ -202,10 +202,10 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 #awards{padding:clamp(70px,9vw,130px) 0}
 .laurel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:52px}
 .laurel{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;align-items:center;justify-content:center;transition:transform .35s,border-color .35s,box-shadow .35s}
-.laurel:hover{transform:translateY(-6px);border-color:var(--a-dim);box-shadow:0 16px 40px rgba(124,92,255,.2)}
+.laurel:hover{transform:translateY(-6px);border-color:var(--a-dim);box-shadow:0 16px 40px rgba(255,255,255,.2)}
 .laurel img{width:100%;height:auto;filter:brightness(1.05)}
 .countries{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
-.countries span{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--b);border:1px solid rgba(34,224,201,.3);border-radius:999px;padding:8px 18px}
+.countries span{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--b);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 18px}
 
 /* reels */
 #reels{padding:0 0 clamp(70px,9vw,120px)}
@@ -226,9 +226,9 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 #story{padding:clamp(70px,9vw,130px) 0}
 .tl{position:relative;margin-top:64px;padding-left:34px}
 .tl::before{content:"";position:absolute;left:8px;top:0;bottom:0;width:1px;background:var(--line)}
-.tl .fill{position:absolute;left:8px;top:0;width:1px;height:0;background:linear-gradient(180deg,var(--a),var(--b));box-shadow:0 0 10px var(--a-dim)}
+.tl .fill{position:absolute;left:8px;top:0;width:2px;height:0;background:linear-gradient(180deg,#7c5cff,#22e0c9);box-shadow:0 0 12px rgba(124,92,255,.6)}
 .ev{position:relative;padding:0 0 clamp(44px,5vw,70px) clamp(10px,3vw,40px)}
-.ev::before{content:"";position:absolute;left:-31px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid var(--a);box-shadow:0 0 14px rgba(124,92,255,.5)}
+.ev::before{content:"";position:absolute;left:-31px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--bg);border:2px solid #7c5cff;box-shadow:0 0 14px rgba(124,92,255,.55)}
 .ev .when{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--b);margin-bottom:10px}
 .ev h4{font-family:var(--disp);font-size:clamp(26px,3vw,42px);text-transform:uppercase;letter-spacing:.02em;margin-bottom:10px}
 .ev p{color:var(--mut);line-height:1.75;font-weight:300;max-width:640px}
@@ -255,10 +255,32 @@ body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibilit
 #aboutseo p a{border-bottom:1px solid var(--a-dim)}
 @media(max-width:820px){#aboutseo .cols{grid-template-columns:1fr}}
 
+/* who we are */
+#who{padding:clamp(70px,9vw,130px) 0}
+#who .frame{position:relative;margin-top:52px;border-radius:24px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:#000;box-shadow:0 40px 110px rgba(0,0,0,.65)}
+#who .frame video{width:100%;height:100%;object-fit:cover}
+#who .bars{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,8,.5),transparent 18%,transparent 82%,rgba(5,5,8,.6))}
+#who .snd{position:absolute;right:18px;bottom:18px;display:flex;align-items:center;gap:10px;padding:11px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(6,6,10,.7);backdrop-filter:blur(10px);color:#fff;font-size:11px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .3s}
+#who .snd:hover{background:#fff;color:#06060a;transform:translateY(-2px)}
+#who .rec{position:absolute;left:20px;top:18px;display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#e6e0d4}
+#who .rec i{width:9px;height:9px;border-radius:50%;background:#fff;animation:v3-pulse 1.6s infinite}
+#who .tc{position:absolute;right:20px;top:18px;font-family:var(--disp);font-size:13px;letter-spacing:.18em;color:#cfc9bd}
+
+/* faces */
+#faces{padding:clamp(70px,9vw,130px) 0;border-top:1px solid var(--line)}
+.faces-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:52px}
+.face{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;border:1px solid var(--line);background:var(--bg2)}
+.face img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(1) contrast(1.08);transition:filter .6s,transform .9s cubic-bezier(.2,.9,.3,1)}
+.face:hover img{filter:grayscale(0);transform:scale(1.06)}
+.face .nm{position:absolute;inset:auto 0 0 0;padding:56px 16px 16px;background:linear-gradient(transparent,rgba(4,4,6,.95))}
+.face .nm b{font-family:var(--disp);font-size:22px;letter-spacing:.06em;text-transform:uppercase;display:block}
+.face .nm i{font-style:normal;font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut)}
+@media(max-width:760px){.faces-grid{grid-template-columns:repeat(2,1fr)}}
+
 /* footer */
 footer{position:relative;border-top:1px solid var(--line);padding:clamp(70px,9vw,120px) 0 40px;overflow:hidden;z-index:1}
-footer .mega{font-family:var(--disp);font-size:clamp(80px,16vw,260px);line-height:.8;text-transform:uppercase;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(124,92,255,.35);user-select:none;letter-spacing:.04em;transition:color .6s}
-footer .mega:hover{color:rgba(124,92,255,.12)}
+footer .mega{font-family:var(--disp);font-size:clamp(80px,16vw,260px);line-height:.8;text-transform:uppercase;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.35);user-select:none;letter-spacing:.04em;transition:color .6s}
+footer .mega:hover{color:rgba(255,255,255,.12)}
 footer .cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:30px;margin:60px 0 40px}
 footer .cols nav{display:flex;flex-wrap:wrap;gap:26px;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
 footer .cols nav a{color:#b9b3a7;transition:color .25s}
@@ -338,7 +360,7 @@ footer .fine a{color:#9a948a}
 <section id="stats">
   <div class="wrap">
     <span class="kicker v3-reveal">The Work So Far</span>
-    <h2 class="h-lg v3-reveal">Two years in.<br/><span class="serif-i v3-grad">Here's what the films have done.</span></h2>
+    <h2 class="h-lg v3-reveal">Two years in.<br/><span class="serif-i">Here's what the films have done.</span></h2>
     <div class="grid">
       <div class="cell v3-reveal"><div class="num"><span data-count="14">0</span><sup>+</sup></div><div class="lbl">International Awards</div></div>
       <div class="cell v3-reveal"><div class="num"><span data-count="22">0</span></div><div class="lbl">Festival Selections</div></div>
@@ -363,7 +385,7 @@ footer .fine a{color:#9a948a}
       </div>
       <div class="meta">
         <span class="yr">2024 – 2025 · Theatrical Release</span>
-        <h3><a href="projects/janjaal.html">Janjaal <span class="serif-i v3-grad">Tussle</span></a></h3>
+        <h3><a href="projects/janjaal.html">Janjaal <span class="serif-i">Tussle</span></a></h3>
         <div class="roles">Director · Editor · VFX · Colorist</div>
         <p class="desc">A police officer discovers a cursed golden pocket watch. Each wish exacts a deadly price. 14 international awards · Theatrical release at Arena Cinemas.</p>
         <div class="tags"><i>Thriller</i><i>24 min</i><i>Urdu</i><i>14 Awards</i></div>
@@ -378,7 +400,7 @@ footer .fine a{color:#9a948a}
       </div>
       <div class="meta">
         <span class="yr">2025</span>
-        <h3><a href="projects/portrait-of-life.html">Portrait <span class="serif-i v3-grad">of Life</span></a></h3>
+        <h3><a href="projects/portrait-of-life.html">Portrait <span class="serif-i">of Life</span></a></h3>
         <div class="roles">Writer · Director · Editor · Colorist</div>
         <p class="desc">A painter struggles to portray his wife the way he once did. A meditation on love, memory, and the limits of art.</p>
         <div class="tags"><i>Drama</i><i>Thesis Film</i></div>
@@ -408,7 +430,7 @@ footer .fine a{color:#9a948a}
       </div>
       <div class="meta">
         <span class="yr">2026 — In Production</span>
-        <h3><a href="projects/a-soldier-beside-me.html">A Soldier <span class="serif-i v3-grad">Beside Me</span></a></h3>
+        <h3><a href="projects/a-soldier-beside-me.html">A Soldier <span class="serif-i">Beside Me</span></a></h3>
         <div class="roles">Director of Photography · Editor · Colorist</div>
         <p class="desc">Two soldiers question each other's fate on the frontline. A short film on loyalty, war, and humanity.</p>
         <div class="tags"><i>War Drama</i><i>Short Film</i></div>
@@ -423,7 +445,7 @@ footer .fine a{color:#9a948a}
       </div>
       <div class="meta">
         <span class="yr">2026 — In Production</span>
-        <h3><a href="projects/payam-e-dil.html">Payam <span class="serif-i v3-grad">e Dil</span></a></h3>
+        <h3><a href="projects/payam-e-dil.html">Payam <span class="serif-i">e Dil</span></a></h3>
         <div class="roles">Associate Director</div>
         <p class="desc">A family drama unfolding in the posh heart of Karachi. A short film on class, love, and emotion.</p>
         <div class="tags"><i>Drama</i><i>Short Film</i></div>
@@ -438,7 +460,7 @@ footer .fine a{color:#9a948a}
       </div>
       <div class="meta">
         <span class="yr">2024</span>
-        <h3><a href="projects/main-aur-achu.html">Main Aur <span class="serif-i v3-grad">Achu</span></a></h3>
+        <h3><a href="projects/main-aur-achu.html">Main Aur <span class="serif-i">Achu</span></a></h3>
         <div class="roles">Director · Editor · Colorist</div>
         <p class="desc">Abdul, a young boy from a small village, and his beloved goat Achu — a heartwarming story about sacrifice, family, and the meaning of Eid ul Azha. A Silverlight Studios film.</p>
         <div class="tags"><i>Drama</i><i>Family</i><i>Urdu</i></div>
@@ -468,7 +490,7 @@ footer .fine a{color:#9a948a}
       </div>
       <div class="meta">
         <span class="yr">Documentary</span>
-        <h3><a href="projects/urdu-bazaar-karachi.html">Urdu Bazaar <span class="serif-i v3-grad">Karachi</span></a></h3>
+        <h3><a href="projects/urdu-bazaar-karachi.html">Urdu Bazaar <span class="serif-i">Karachi</span></a></h3>
         <div class="roles">Writer · Director · Editor · Drone</div>
         <p class="desc">Inside the narrow lanes and bookshops of Karachi's historic literary market — a film on books, culture, and the challenges a city's memory faces today.</p>
         <div class="tags"><i>Documentary</i><i>Urdu</i></div>
@@ -482,7 +504,7 @@ footer .fine a{color:#9a948a}
   <div class="wrap">
     <div class="panel v3-reveal">
       <span class="kicker" style="justify-content:center;display:flex">Now Streaming · cinegmafilms.com/watch</span>
-      <h2 class="h-lg" style="margin-top:18px">The Films Are<br/><span class="serif-i v3-grad">Streaming Now</span></h2>
+      <h2 class="h-lg" style="margin-top:18px">The Films Are<br/><span class="serif-i">Streaming Now</span></h2>
       <p class="lead" style="max-width:620px;margin:22px auto 0">Award-winning shorts, a documentary, and the latest trailers — all in one place. No sign-up, no paywall. Press play and watch the work that travelled across 9 countries.</p>
       <div class="mini">
         <span>Janjaal · Thriller · 14 Awards</span><span>Portrait of Life · Drama</span><span>Main Aur Achu · Family · Full Film</span><span>Urdu Bazaar · Documentary · Full</span>
@@ -495,7 +517,7 @@ footer .fine a{color:#9a948a}
 <section id="awards">
   <div class="wrap">
     <span class="kicker v3-reveal">Recognised Worldwide · Officially Selected · Screened · Awarded</span>
-    <h2 class="h-lg v3-reveal">Official Selections<br/><span class="serif-i v3-grad">&amp; Awards</span></h2>
+    <h2 class="h-lg v3-reveal">Official Selections<br/><span class="serif-i">&amp; Awards</span></h2>
     <div class="laurel-grid">
       <div class="laurel v3-reveal"><img loading="lazy" src="assets/laurels/Toronto-FantasySci-Fi-Film--Screenplay-Festival---BEST-SHORT-FILM---2025.webp" alt="Best Short Film — Toronto Fantasy/Sci-Fi Film Festival"/></div>
       <div class="laurel v3-reveal"><img loading="lazy" src="assets/laurels/BESTDIRECTOR-AWARD-GandharaIndependentFilmFestival2025Online.webp" alt="Best Director — Gandhara Independent Film Festival 2025"/></div>
@@ -528,7 +550,7 @@ footer .fine a{color:#9a948a}
 <section id="reels">
   <div class="wrap">
     <span class="kicker v3-reveal">Latest · Reels</span>
-    <h2 class="h-lg v3-reveal">Straight From <span class="serif-i v3-grad">The Set</span></h2>
+    <h2 class="h-lg v3-reveal">Straight From <span class="serif-i">The Set</span></h2>
     <p class="lead v3-reveal" style="max-width:600px;margin-top:18px">Behind the scenes, trailers and moments from the making of Cinegma Films. Follow <a href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener" style="color:var(--b)">@asadsyed711</a>.</p>
   </div>
   <div class="rail">
@@ -537,6 +559,21 @@ footer .fine a{color:#9a948a}
     <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Zawaalbts.mp4" muted loop playsinline preload="none"></video><div class="cap">Zawaal · BTS</div></div>
     <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" muted loop playsinline preload="none"></video><div class="cap">Portrait of Life · Reel</div></div>
     <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/SoldierBTS.mp4" muted loop playsinline preload="none"></video><div class="cap">A Soldier Beside Me · BTS</div></div>
+  </div>
+</section>
+
+<section id="who">
+  <div class="wrap">
+    <span class="kicker v3-reveal">Cinegma Films · Sixty Seconds</span>
+    <h2 class="h-lg v3-reveal">Who <span class="serif-i">We Are</span></h2>
+    <p class="lead v3-reveal" style="max-width:600px;margin-top:18px">The whole story, straight from the studio — who we are, in sixty seconds. Sound on.</p>
+    <div class="frame v3-reveal">
+      <video id="whoVid" class="lazy-video" data-src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/videos/1782781752585-CINEGMA%20INTRO.mp4" muted loop playsinline preload="none" poster="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"></video>
+      <div class="bars"></div>
+      <div class="rec"><i></i>REC · CINEGMA</div>
+      <div class="tc">00:60</div>
+      <button class="snd" id="whoSnd" aria-label="Toggle sound">🔇 Sound On</button>
+    </div>
   </div>
 </section>
 
@@ -552,7 +589,7 @@ footer .fine a{color:#9a948a}
 <section id="story">
   <div class="wrap">
     <span class="kicker v3-reveal">The Story So Far</span>
-    <h2 class="h-lg v3-reveal">From a Student Film<br/><span class="serif-i v3-grad">to Nine Countries</span></h2>
+    <h2 class="h-lg v3-reveal">From a Student Film<br/><span class="serif-i">to Nine Countries</span></h2>
     <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">It hasn't been a straight line. Here's how a small Karachi crew ended up on festival screens around the world.</p>
     <div class="tl">
       <div class="fill"></div>
@@ -568,7 +605,7 @@ footer .fine a{color:#9a948a}
 <section id="team">
   <div class="wrap">
     <span class="kicker v3-reveal">Team Cinegma Films</span>
-    <h2 class="h-lg v3-reveal">The People<br/><span class="serif-i v3-grad">Behind the Frames</span></h2>
+    <h2 class="h-lg v3-reveal">The People<br/><span class="serif-i">Behind the Frames</span></h2>
     <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Writers, directors, composers, and producers who make Cinegma Films what it is.</p>
     <div class="team-grid">
       <a class="tcard v3-reveal" href="team/syed-asad.html"><img loading="lazy" src="assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi"/><span class="no">01</span><div class="ov"><b>Syed Asad Raza Abidi</b><i>Founder · Director · Editor · Sound Designer</i></div></a>
@@ -578,9 +615,19 @@ footer .fine a{color:#9a948a}
       <a class="tcard v3-reveal" href="team/usman-ali.html"><img loading="lazy" src="assets/posters/Usman.avif" alt="Usman Ali Akbar"/><span class="no">05</span><div class="ov"><b>Usman Ali Akbar</b><i>Music Composer</i></div></a>
       <a class="tcard v3-reveal" href="team/dayyan-khalid.html"><img loading="lazy" src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid"/><span class="no">06</span><div class="ov"><b>Dayyan Khalid</b><i>Producer · Production Manager</i></div></a>
     </div>
-    <div class="cast v3-reveal">
-      <em>Faces of Cinegma</em>
-      <span>Shamoon Abbasi</span><span>Aahin Babar</span><span>Nazish Ali</span><span>Danish Irshad</span>
+  </div>
+</section>
+
+<section id="faces">
+  <div class="wrap">
+    <span class="kicker v3-reveal">Faces of Cinegma</span>
+    <h2 class="h-lg v3-reveal">The Actors<br/><span class="serif-i">Who Carry the Stories</span></h2>
+    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">The performers who bring Cinegma Films' characters to life on screen.</p>
+    <div class="faces-grid">
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782778223372-Shamoon.avif" alt="Shamoon Abbasi"/><div class="nm"><b>Shamoon Abbasi</b><i>Janjaal · Payam e Dil</i></div></div>
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782778924297-Screenshot%202026-06-30%20052125.avif" alt="Aahin Babar"/><div class="nm"><b>Aahin Babar</b><i>Payam e Dil</i></div></div>
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782779010636-vlcsnap-2026-01-14-14h45m30s049.avif" alt="Nazish Ali"/><div class="nm"><b>Nazish Ali</b><i>Janjaal · Payam e Dil</i></div></div>
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782779205514-78185a87-ec5f-42a6-ab46-50ef05ac0ddc.avif" alt="Danish Irshad"/><div class="nm"><b>Danish Irshad</b><i>Janjaal</i></div></div>
     </div>
   </div>
 </section>
@@ -588,7 +635,7 @@ footer .fine a{color:#9a948a}
 <section id="aboutseo">
   <div class="wrap">
     <span class="kicker v3-reveal">About Cinegma Films</span>
-    <h2 class="h-lg v3-reveal">Independent Pakistani Cinema,<br/><span class="serif-i v3-grad">Made in Karachi</span></h2>
+    <h2 class="h-lg v3-reveal">Independent Pakistani Cinema,<br/><span class="serif-i">Made in Karachi</span></h2>
     <div class="cols v3-reveal">
       <div>
         <p><b>Cinegma Films</b> is an independent film production company founded in January 2024 and based in Karachi, Pakistan. Founded by filmmaker and director <a href="team/syed-asad.html">Syed Asad Raza Abidi</a>, the banner was built around a single conviction: Pakistani short films and documentary cinema deserve to be made with the same precision and ambition as any internationally recognised production.</p>
@@ -687,6 +734,14 @@ var vio=new IntersectionObserver(function(es){
   });
 },{threshold:.4});
 document.querySelectorAll('.lazy-video').forEach(function(v){vio.observe(v);});
+
+/* who-we-are sound toggle */
+var wv=document.getElementById('whoVid'),ws=document.getElementById('whoSnd');
+if(wv&&ws)ws.addEventListener('click',function(){
+  wv.muted=!wv.muted;
+  if(!wv.muted){if(!wv.src&&wv.dataset.src)wv.src=wv.dataset.src;wv.play().catch(function(){});}
+  ws.innerHTML=wv.muted?'\ud83d\udd07 Sound On':'\ud83d\udd0a Sound Off';
+});
 
 /* timeline progress */
 var tl=document.querySelector('.tl'),fill=document.querySelector('.tl .fill');
