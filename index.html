@@ -214,6 +214,37 @@ body.menu-open #nav{z-index:1200}
 .xp .arrow{position:absolute;top:26px;right:30px;font-family:var(--disp);font-size:30px;color:rgba(255,255,255,.35);transition:color .3s,transform .3s}
 .xp:hover .arrow{color:#fff;transform:translate(4px,-4px)}
 
+/* holo 3d showcase */
+#holo{padding:clamp(70px,9vw,130px) 0}
+#holo .stage{position:relative;margin-top:52px;height:clamp(400px,62vh,640px);border-radius:28px;overflow:hidden;isolation:isolate;
+  border:1px solid rgba(110,205,255,.16);
+  background:radial-gradient(120% 150% at 50% -10%,rgba(34,224,201,.08),transparent 55%),radial-gradient(100% 130% at 50% 115%,rgba(124,92,255,.12),transparent 60%),linear-gradient(165deg,#0a0a13,#06060c);
+  box-shadow:0 40px 120px rgba(0,0,0,.7),inset 0 0 130px rgba(48,150,255,.06)}
+#holo .stage::before{content:"";position:absolute;inset:0;z-index:6;pointer-events:none;mix-blend-mode:screen;
+  background:repeating-linear-gradient(0deg,rgba(140,215,255,.03) 0 1px,transparent 1px 4px)}
+#holo .stage::after{content:"";position:absolute;inset:0;z-index:7;pointer-events:none;border-radius:28px;
+  background:linear-gradient(180deg,rgba(140,215,255,.08),transparent 20%,transparent 80%,rgba(124,92,255,.08))}
+#holo canvas{position:absolute;inset:0;z-index:2;width:100%!important;height:100%!important;display:block;touch-action:pan-y;cursor:grab;opacity:0;transition:opacity 1.2s ease}
+#holo .stage.on canvas{opacity:1}
+#holo canvas:active{cursor:grabbing}
+#holo .hud{position:absolute;z-index:8;font-size:9.5px;letter-spacing:.32em;text-transform:uppercase;color:rgba(150,215,255,.5);pointer-events:none;font-weight:500}
+#holo .hud i{font-style:normal;display:inline-block;width:7px;height:7px;border-radius:50%;background:rgba(90,200,255,.8);box-shadow:0 0 10px rgba(90,200,255,.9);margin-right:9px;vertical-align:middle;animation:v3-pulse 2s infinite}
+#holo .hud-a{top:18px;left:22px}
+#holo .hud-b{top:18px;right:22px}
+#holo .hud-c{bottom:16px;left:22px}
+#holo .hud-d{bottom:16px;right:22px}
+#holo .fb{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;transition:opacity .9s}
+#holo .stage.on .fb{opacity:0}
+#holo .fb .ring{position:relative;width:min(52vw,300px);aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(110,205,255,.4);
+  background:radial-gradient(circle,rgba(60,175,255,.16),transparent 62%);
+  box-shadow:0 0 80px rgba(60,170,255,.25),inset 0 0 70px rgba(60,170,255,.14);
+  animation:holo-spin 18s linear infinite}
+#holo .fb .ring::before{content:"";position:absolute;inset:11%;border-radius:50%;border:1px dashed rgba(110,205,255,.3)}
+#holo .fb .ring::after{content:"";position:absolute;inset:37%;border-radius:50%;border:1px solid rgba(124,92,255,.55);box-shadow:0 0 34px rgba(124,92,255,.35)}
+@keyframes holo-spin{to{transform:rotate(360deg)}}
+@media(max-width:760px){#holo .stage{height:clamp(340px,58vh,480px)}#holo .hud-b,#holo .hud-c{display:none}}
+
 /* awards */
 #awards{padding:clamp(70px,9vw,130px) 0}
 .laurel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:52px}
@@ -307,6 +338,8 @@ footer .fine a{color:#9a948a}
   #hero h1 .line span{animation:none;transform:none}
   .tk-track{animation:none}
   #watchcta .panel::before{animation:none}
+  #holo .fb .ring{animation:none}
+  #holo .hud i{animation:none}
 }
 </style>
 </head>
@@ -566,6 +599,21 @@ footer .fine a{color:#9a948a}
   </div>
 </section>
 
+<section id="holo" aria-label="Interactive holographic film reel showcase">
+  <div class="wrap">
+    <span class="kicker v3-reveal">The Cinegma Core · Interactive</span>
+    <h2 class="h-lg v3-reveal">Cinema,<br/><span class="serif-i">Suspended in Light</span></h2>
+    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Every story we tell passes through the reel. Move your cursor — or tilt your phone — and bend the light around it.</p>
+    <div class="stage v3-reveal" id="holoStage">
+      <div class="fb" aria-hidden="true"><div class="ring"></div></div>
+      <div class="hud hud-a"><i></i>Cinegma · Holo-Reel 01</div>
+      <div class="hud hud-b">24 FPS · ∞ Loop</div>
+      <div class="hud hud-c">KHI · 24.8607° N, 67.0011° E</div>
+      <div class="hud hud-d">Drag / Tilt to Explore</div>
+    </div>
+  </div>
+</section>
+
 <section id="awards">
   <div class="wrap">
     <span class="kicker v3-reveal">Recognised Worldwide · Officially Selected · Screened · Awarded</span>
@@ -810,6 +858,192 @@ if(hv&&!reduced)addEventListener('scroll',function(){
   var y=Math.min(scrollY,innerHeight);
   hv.style.transform='scale(1.06) translateY('+(y*.18)+'px)';
 },{passive:true});
+
+/* ---- holographic 3D film reel ---- */
+(function(){
+var stage=document.getElementById('holoStage');
+if(!stage)return;
+function webglOK(){try{var c=document.createElement('canvas');return !!(window.WebGLRenderingContext&&(c.getContext('webgl')||c.getContext('experimental-webgl')));}catch(e){return false;}}
+if(reduced||!webglOK())return; /* CSS fallback ring stays */
+
+/* lazy: fetch the engine only when the section approaches the viewport */
+var booted=false;
+var lio=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting&&!booted){booted=true;lio.disconnect();load();}});
+},{rootMargin:'520px'});
+lio.observe(stage);
+
+function load(){
+  if(window.THREE)return init();
+  var urls=['https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js','https://unpkg.com/three@0.160.1/build/three.min.js'],i=0;
+  (function next(){
+    if(i>=urls.length)return; /* both CDNs down → keep fallback */
+    var s=document.createElement('script');s.src=urls[i++];s.async=true;
+    s.onload=init;s.onerror=next;
+    document.head.appendChild(s);
+  })();
+}
+function init(){try{boot();}catch(e){/* keep fallback */}}
+
+function boot(){
+  var THREE=window.THREE;
+  var mobile=matchMedia('(pointer:coarse)').matches;
+  var renderer=new THREE.WebGLRenderer({antialias:!mobile,alpha:true,powerPreference:'high-performance'});
+  var maxDpr=mobile?1.5:2,dpr=Math.min(devicePixelRatio||1,maxDpr);
+  renderer.setPixelRatio(dpr);
+  stage.appendChild(renderer.domElement);
+
+  var scene=new THREE.Scene();
+  var cam=new THREE.PerspectiveCamera(38,1,.1,60);
+  cam.position.set(0,0,7.4);
+
+  function holoMat(hex,op){
+    return new THREE.ShaderMaterial({
+      uniforms:{uC:{value:new THREE.Color(hex)},uO:{value:op}},
+      vertexShader:'varying vec3 vN,vV;void main(){vec4 mv=modelViewMatrix*vec4(position,1.0);vN=normalize(normalMatrix*normal);vV=normalize(-mv.xyz);gl_Position=projectionMatrix*mv;}',
+      fragmentShader:'uniform vec3 uC;uniform float uO;varying vec3 vN,vV;void main(){float f=pow(1.0-abs(dot(normalize(vN),normalize(vV))),1.6);gl_FragColor=vec4(uC,(0.12+f*0.9)*uO);}',
+      transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide});
+  }
+
+  var world=new THREE.Group();scene.add(world);
+  var reel=new THREE.Group();world.add(reel);
+
+  var mCyan=holoMat(0x39d7ff,1),mTeal=holoMat(0x22e0c9,.85),mViolet=holoMat(0x8f78ff,.95);
+  reel.add(new THREE.Mesh(new THREE.TorusGeometry(1.9,.075,20,mobile?72:110),mCyan));
+  reel.add(new THREE.Mesh(new THREE.TorusGeometry(1.62,.028,14,mobile?64:96),mTeal));
+  var hub=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.34,40,1,true),mViolet);
+  hub.rotation.x=Math.PI/2;reel.add(hub);
+  reel.add(new THREE.Mesh(new THREE.TorusGeometry(.42,.03,12,48),mViolet));
+
+  var spokeGeo=new THREE.BoxGeometry(.06,1.14,.06),i,a;
+  for(i=0;i<6;i++){
+    a=i/6*Math.PI*2;
+    var sp=new THREE.Mesh(spokeGeo,mTeal);
+    sp.position.set(Math.cos(a)*1.0,Math.sin(a)*1.0,0);
+    sp.rotation.z=a-Math.PI/2;
+    reel.add(sp);
+  }
+  var dotGeo=new THREE.SphereGeometry(.05,10,10);
+  for(i=0;i<16;i++){
+    a=i/16*Math.PI*2;
+    var d=new THREE.Mesh(dotGeo,mCyan);
+    d.position.set(Math.cos(a)*1.76,Math.sin(a)*1.76,0);
+    reel.add(d);
+  }
+
+  /* orbiting film strip */
+  function stripTex(){
+    var c=document.createElement('canvas');c.width=512;c.height=64;
+    var g=c.getContext('2d');
+    g.strokeStyle='rgba(130,215,255,.95)';g.lineWidth=2;
+    for(var x=8;x<512;x+=64)g.strokeRect(x,15,48,34);
+    g.fillStyle='rgba(130,215,255,.95)';
+    for(x=4;x<512;x+=16){g.fillRect(x,4,6,5);g.fillRect(x,55,6,5);}
+    var t=new THREE.CanvasTexture(c);
+    t.wrapS=THREE.RepeatWrapping;t.repeat.x=3;
+    return t;
+  }
+  var stripWrap=new THREE.Group();world.add(stripWrap);
+  var strip=new THREE.Mesh(
+    new THREE.CylinderGeometry(2.38,2.38,.56,mobile?56:80,1,true),
+    new THREE.MeshBasicMaterial({map:stripTex(),color:0x9adcff,transparent:true,opacity:.45,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
+  strip.rotation.x=Math.PI/2;
+  stripWrap.add(strip);
+  stripWrap.rotation.x=.18;
+
+  /* containment shell */
+  var shell=new THREE.Mesh(new THREE.IcosahedronGeometry(3.05,1),holoMat(0x7c5cff,.16));
+  shell.material.wireframe=true;
+  world.add(shell);
+
+  /* volumetric glow */
+  function glowTex(){
+    var c=document.createElement('canvas');c.width=c.height=256;
+    var g=c.getContext('2d'),r=g.createRadialGradient(128,128,0,128,128,128);
+    r.addColorStop(0,'rgba(90,190,255,.55)');r.addColorStop(.45,'rgba(70,150,255,.18)');r.addColorStop(1,'rgba(0,0,0,0)');
+    g.fillStyle=r;g.fillRect(0,0,256,256);
+    return new THREE.CanvasTexture(c);
+  }
+  var glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:.85}));
+  glow.scale.set(8,8,1);glow.position.z=-1.4;
+  world.add(glow);
+
+  /* particles */
+  var N=mobile?140:320,pos=new Float32Array(N*3);
+  for(i=0;i<N;i++){
+    var r0=2.3+Math.random()*1.5,th=Math.random()*Math.PI*2,ph=(Math.random()-.5)*Math.PI*.7;
+    pos[i*3]=Math.cos(th)*Math.cos(ph)*r0;
+    pos[i*3+1]=Math.sin(ph)*r0*.8;
+    pos[i*3+2]=Math.sin(th)*Math.cos(ph)*r0;
+  }
+  var pgeo=new THREE.BufferGeometry();
+  pgeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+  var pts=new THREE.Points(pgeo,new THREE.PointsMaterial({size:.035,color:0x7fd4ff,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true}));
+  world.add(pts);
+
+  /* sizing */
+  function resize(){
+    var w=stage.clientWidth,h=stage.clientHeight;
+    if(!w||!h)return;
+    renderer.setSize(w,h,false);
+    cam.aspect=w/h;cam.updateProjectionMatrix();
+  }
+  resize();
+  if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);
+  else addEventListener('resize',resize,{passive:true});
+
+  /* input: cursor / touch-drag / gyroscope — never blocks page scroll */
+  var tx=0,ty=0,cx=0,cy=0,vel=0,dragging=false,px=0;
+  stage.addEventListener('pointermove',function(e){
+    var r=stage.getBoundingClientRect();
+    tx=((e.clientX-r.left)/r.width-.5)*2;
+    ty=((e.clientY-r.top)/r.height-.5)*2;
+    if(dragging){vel+=(e.clientX-px)*.0035;px=e.clientX;}
+  },{passive:true});
+  stage.addEventListener('pointerdown',function(e){dragging=true;px=e.clientX;},{passive:true});
+  addEventListener('pointerup',function(){dragging=false;},{passive:true});
+  stage.addEventListener('pointercancel',function(){dragging=false;},{passive:true});
+  stage.addEventListener('pointerleave',function(){dragging=false;},{passive:true});
+  if(mobile&&typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission!=='function'){
+    addEventListener('deviceorientation',function(e){
+      if(e.gamma==null||e.beta==null)return;
+      tx=Math.max(-1,Math.min(1,e.gamma/28));
+      ty=Math.max(-1,Math.min(1,(e.beta-45)/28));
+    },{passive:true});
+  }
+
+  /* render only when visible; adapt quality to sustain 60fps */
+  var visible=false;
+  new IntersectionObserver(function(es){visible=es[0].isIntersecting;},{threshold:0}).observe(stage);
+  renderer.domElement.addEventListener('webglcontextlost',function(e){e.preventDefault();stage.classList.remove('on');},false);
+  renderer.domElement.addEventListener('webglcontextrestored',function(){stage.classList.add('on');},false);
+
+  var clock=new THREE.Clock(),t=0,fn=0,ft=0,shown=false;
+  function loop(){
+    requestAnimationFrame(loop);
+    if(!visible||document.hidden){clock.getDelta();return;}
+    var dt=Math.min(clock.getDelta(),.05);t+=dt;
+    cx+=(tx-cx)*.055;cy+=(ty-cy)*.055;
+    world.rotation.y=-.42+cx*.5;
+    world.rotation.x=.16+cy*.3;
+    world.position.y=Math.sin(t*.8)*.07;
+    reel.rotation.z-=dt*.35+vel;vel*=.94;
+    stripWrap.rotation.z+=dt*.1;
+    shell.rotation.y+=dt*.05;shell.rotation.x+=dt*.028;
+    pts.rotation.y+=dt*.03;
+    glow.material.opacity=.72+Math.sin(t*1.4)*.14;
+    renderer.render(scene,cam);
+    if(!shown){shown=true;stage.classList.add('on');}
+    fn++;ft+=dt;
+    if(ft>=2){
+      var fps=fn/ft;fn=0;ft=0;
+      if(fps<45&&dpr>.8){dpr=Math.max(.8,dpr-.25);renderer.setPixelRatio(dpr);resize();}
+      if(fps<28)pts.visible=false;
+    }
+  }
+  loop();
+}
+})();
 })();
 </script>
 </body>
