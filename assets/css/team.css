@@ -1,4 +1,4 @@
-:root{--black:#080808;--white:#f0ece4;--grey:#acbfa4;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#ff7f11;}
+:root{--black:#080808;--white:#f0ece4;--grey:#acbfa4;--mid:#141414;--border:rgba(240,236,228,0.1);--gold:#7c5cff;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;overflow-x:hidden;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}body::before{animation:none!important;}}
