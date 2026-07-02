@@ -32,8 +32,6 @@
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://cinegmafilms.com/"},{"@type":"ListItem","position":2,"name":"Services","item":"https://cinegmafilms.com/services.html"}]}
 </script>
 
-<link rel="stylesheet" href="assets/css/creative-enhancements.css"/>
-<link rel="stylesheet" href="assets/css/revamp.css"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,wght@0,300..700;1,300..700&display=swap"/>
@@ -60,38 +58,40 @@
 html{scroll-behavior:smooth;overflow-x:hidden;}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;}body::before{animation:none!important;}}
 body{background:var(--black);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;text-size-adjust:100%;}
-@media(hover:hover) and (pointer:fine){body.custom-cursor-ready{cursor:none;}}
 ::selection{background:rgba(240,236,228,.18);color:var(--white);}
 
-/* ── CURSOR ── */
-.cursor{position:fixed;width:10px;height:10px;background:var(--white);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference;}
-.cursor-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(240,236,228,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform .18s ease;mix-blend-mode:difference;}
-@media(hover:none),(pointer:coarse){.cursor,.cursor-ring{display:none;}}
-@media(scripting:none){body{cursor:auto;}}
 
 /* ── GRAIN ── */
 body::before{content:'';position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:1000;pointer-events:none;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:180px;animation:grain 8s steps(8) infinite;will-change:transform;transform:translateZ(0);}
 @keyframes grain{0%{transform:translate3d(0,0,0)}10%{transform:translate3d(-5%,-10%,0)}20%{transform:translate3d(-15%,5%,0)}30%{transform:translate3d(-15%,5%,0)}40%{transform:translate3d(-5%,25%,0)}50%{transform:translate3d(-15%,10%,0)}60%{transform:translate3d(15%,0,0)}70%{transform:translate3d(0,15%,0)}80%{transform:translate3d(3%,35%,0)}90%{transform:translate3d(-10%,10%,0)}100%{transform:translate3d(0,0,0)}}
 @media(prefers-reduced-motion:reduce){body::before{animation-play-state:paused;}}
 
-/* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:24px 60px;background:linear-gradient(to bottom,rgba(8,8,8,.97) 0%,transparent 100%);transition:padding .3s;}
-.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.25em;color:var(--white);text-decoration:none;opacity:.9;}
-.nav-links{display:flex;gap:36px;list-style:none;}
-.nav-links a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(240,236,228,.55);text-decoration:none;transition:color .3s;}
-.nav-links a:hover,.nav-links a.active{color:var(--white);}
-.nav-contact-cta{border:1px solid rgba(240,236,228,.5) !important;padding:5px 14px !important;color:rgba(240,236,228,.85) !important;transition:background .3s,border-color .3s,color .3s !important;}
-.nav-contact-cta:hover{background:var(--white) !important;color:var(--black) !important;border-color:var(--white) !important;}
-.nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:10px;z-index:2100;background:none;border:none;min-width:44px;min-height:44px;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;}
-.nav-hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:transform .3s,opacity .3s;}
-.nav-mobile{display:flex !important;opacity:0;pointer-events:none;transform:translateY(-8px);transition:opacity .35s ease,transform .35s ease;position:fixed;inset:0;background:rgba(8,8,8,.98);z-index:2100;flex-direction:column;justify-content:center;align-items:center;gap:32px;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);}
-.nav-mobile.open{opacity:1;pointer-events:all;transform:translateY(0);}
-.nav-mobile a{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;letter-spacing:.12em;color:var(--white);text-decoration:none;opacity:.7;transition:opacity .2s;}
-.nav-mobile a:hover,.nav-mobile a.active{opacity:1;}
-.nav-mobile a.active{text-decoration:underline;text-underline-offset:6px;text-decoration-color:rgba(240,236,228,.4);}
-.nav-mobile-close{position:absolute;top:max(22px,env(safe-area-inset-top));right:22px;font-size:1.8rem;color:var(--white);cursor:pointer;opacity:.5;line-height:1;background:none;border:none;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;}
-@media(max-width:1200px){.nav-links{gap:22px;}.nav-links a{font-size:.72rem;letter-spacing:.1em;}}
-@media(max-width:1040px){.nav-links{gap:14px;}.nav-links a{font-size:.68rem;}}
+/* ── NAV — unified site header ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:2050;transition:transform .45s cubic-bezier(.2,.9,.3,1),background .35s,border-color .35s;border-bottom:1px solid transparent}
+#nav.scrolled{background:rgba(8,8,10,.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-color:var(--border)}
+#nav.hide{transform:translateY(-100%)}
+#nav .inner{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,4vw,56px)}
+#nav .brand{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.22em;display:flex;align-items:center;gap:10px;color:var(--white);text-decoration:none}
+#nav .brand em{width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 12px #fff;font-style:normal}
+#nav .links{display:flex;gap:34px;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase}
+#nav .links a{position:relative;padding:6px 0;color:#c9c3b8;text-decoration:none;transition:color .25s}
+#nav .links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:#fff;transition:width .3s}
+#nav .links a:hover,#nav .links a.on{color:#fff}
+#nav .links a:hover::after,#nav .links a.on::after{width:100%}
+#nav .cta{font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:11px 22px;border-radius:999px;background:#fff;color:#06060a;font-weight:700;text-decoration:none}
+#burger{display:none;background:none;border:0;cursor:pointer;width:40px;height:40px;position:relative;z-index:2202}
+#burger span{position:absolute;left:8px;right:8px;height:2px;background:var(--white);transition:.35s}
+#burger span:nth-child(1){top:14px}#burger span:nth-child(2){top:20px}#burger span:nth-child(3){top:26px}
+body.menu-open #burger span:nth-child(1){top:20px;transform:rotate(45deg)}
+body.menu-open #burger span:nth-child(2){opacity:0}
+body.menu-open #burger span:nth-child(3){top:20px;transform:rotate(-45deg)}
+#mmenu{position:fixed;inset:0;background:rgba(6,6,10,.96);backdrop-filter:blur(24px);z-index:2100;display:flex;flex-direction:column;justify-content:center;padding:0 10vw;gap:6px;clip-path:circle(0 at calc(100% - 44px) 38px);transition:clip-path .65s cubic-bezier(.76,0,.24,1);visibility:hidden}
+body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibility:visible}
+body.menu-open #nav{z-index:2300}
+#mmenu a{font-family:'Bebas Neue',sans-serif;font-size:clamp(38px,9vw,64px);letter-spacing:.06em;text-transform:uppercase;color:var(--white);display:flex;align-items:baseline;gap:16px;opacity:.9;text-decoration:none}
+#mmenu a i{font-family:'DM Sans',sans-serif;font-style:normal;font-size:11px;color:#a8a8a8;letter-spacing:.3em}
+#mmenu a:hover{color:transparent;-webkit-text-stroke:1px #fff}
+@media(max-width:900px){#nav .links,#nav .cta{display:none}#burger{display:block}}
 
 /* ── BACK TO TOP ── */
 .back-to-top{position:fixed;bottom:32px;right:32px;z-index:450;width:44px;height:44px;background:rgba(240,236,228,.1);border:1px solid rgba(240,236,228,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(16px);transition:opacity .4s ease,transform .4s ease,background .3s;backdrop-filter:blur(8px);}
@@ -226,18 +226,12 @@ section{padding:100px 60px;position:relative;}
 .seo-article a{color:rgba(240,236,228,.85);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(240,236,228,.3);}
 .seo-article a:hover{text-decoration-color:rgba(240,236,228,.8);}
 
-/* ── FOOTER ── */
-footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;}
-.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.3em;color:rgba(240,236,228,.5);}
-.footer-tagline{font-family:'Cormorant Garamond',serif;font-size:.82rem;font-style:italic;color:rgba(240,236,228,.5);margin-top:6px;}
-.footer-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap;}
-.footer-links a{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .3s;padding:8px 6px;}
-.footer-links a:hover{color:var(--white);}
-.footer-copy{font-size:.62rem;letter-spacing:.1em;color:rgba(240,236,228,.5);}
-.footer-social{display:flex;gap:12px;list-style:none;}
-.footer-social a{display:flex;align-items:center;justify-content:center;width:32px;height:32px;color:var(--grey);text-decoration:none;transition:color .3s;}
-.footer-social a:hover{color:var(--white);}
-.footer-social svg{width:16px;height:16px;fill:currentColor;}
+/* ── FOOTER — unified site footer ── */
+footer{border-top:1px solid var(--border);padding:44px clamp(20px,4vw,56px);position:relative;z-index:1}
+footer .row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;max-width:1240px;margin:0 auto;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,228,.5)}
+footer .row nav{display:flex;flex-wrap:wrap;gap:20px}
+footer .row a{color:inherit;text-decoration:none;transition:color .25s}
+footer .row a:hover{color:#fff}
 
 /* ════════════════════════════════════════════════
    RESPONSIVE
@@ -247,9 +241,6 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   .process-grid{grid-template-columns:1fr;gap:48px;}
 }
 @media(max-width:900px){
-  nav{padding:16px 20px;}
-  .nav-links{display:none;}
-  .nav-hamburger{display:flex;}
   section{padding:74px 20px;}
   .page-hero-content{padding:0 20px 60px;}
   .page-hero-meta{gap:30px;}
@@ -258,10 +249,8 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   .dept-code{flex-direction:row;align-items:baseline;gap:12px;}
   .dept-go{justify-self:start;margin-top:4px;}
   .dept:hover .dept-title{transform:none;}
-  footer{padding:40px 20px;}
 }
 @media(max-width:600px){
-  nav{padding:14px 16px;}
   section{padding:60px 16px;}
   .page-hero{min-height:560px;}
   .page-hero-content{padding:0 16px 52px;}
@@ -275,9 +264,6 @@ footer{padding:56px 60px;border-top:1px solid var(--border);display:flex;justify
   .step{grid-template-columns:48px 1fr;gap:18px;}
   .cta-buttons{flex-direction:column;}
   .btn-primary,.btn-ghost{width:100%;justify-content:center;}
-  footer{padding:32px 16px;}
-  .footer-links{gap:14px;}
-  .footer-links a{font-size:.58rem;}
 }
 </style>
 <style id="cinematic-layer">
@@ -319,7 +305,7 @@ body::after{
 /* Base: 300 (light) DM Sans reads thin on near-black — lift to 400
    and smooth the rendering. Display type keeps its own weights. */
 body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;}
-.hero-eyebrow,.section-label,.nav-links a,.footer-links a{font-weight:400;}
+.hero-eyebrow,.section-label{font-weight:400;}
 
 @media(min-width:768px){
   /* ── Section labels & eyebrows (uppercase, letterspaced) ── */
@@ -362,8 +348,6 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
   .ns-cta,.link-arrow{font-size:.74rem;}
 
   /* ── Footer ── */
-  .footer-tagline{font-size:.92rem;}
-  .footer-links a,.footer-copy{font-size:.72rem;letter-spacing:.16em;}
 
   /* ── Stats / meta / fine print ── */
   .stat-label,.num-label,.page-stat-label,.aw-stat-label,.fact-label,
@@ -388,8 +372,6 @@ body{font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:
 
 /* Nav scoped to wide screens so the 1040/1200 shrink stays intact. */
 @media(min-width:1201px){
-  .nav-links a{font-size:.82rem;letter-spacing:.12em;}
-  .nav-logo{font-size:1.3rem;}
 }
 a.crew-link{color:inherit;text-decoration:none;transition:color .3s;}a.crew-link:hover{color:var(--gold);}
 </style>
@@ -397,36 +379,33 @@ a.crew-link{color:inherit;text-decoration:none;transition:color .3s;}a.crew-link
 <script src="assets/js/v3.js" defer></script>
 </head>
 <body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
 
 <!-- NAV -->
-<nav>
-  <a href="index.html" class="nav-logo">Cinegma Films</a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="watch.html">Watch</a></li>
-    <li><a href="services.html">Services</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="press.html">Press</a></li>
-    <li><a href="blog.html">Blog</a></li>
-    <li><a href="contact.html" class="nav-contact-cta">Contact</a></li>
-  </ul>
-  <button class="nav-hamburger" id="hamburger" type="button" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu" onclick="openMenu()">
-    <span></span><span></span><span></span>
-  </button>
+<header id="nav">
+  <div class="inner">
+    <a class="brand" href="index.html">CINEGMA<em></em></a>
+    <nav class="links" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="watch.html">Watch</a>
+      <a href="services.html" class="on">Services</a>
+      <a href="about.html">About</a>
+      <a href="press.html">Press</a>
+      <a href="blog.html">Blog</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <a class="cta" href="watch.html">▶ Stream Films</a>
+    <button id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<nav id="mmenu" aria-label="Mobile">
+  <a href="index.html"><i>01</i>Home</a>
+  <a href="watch.html"><i>02</i>Watch</a>
+  <a href="services.html"><i>03</i>Services</a>
+  <a href="about.html"><i>04</i>About</a>
+  <a href="press.html"><i>05</i>Press</a>
+  <a href="blog.html"><i>06</i>Blog</a>
+  <a href="contact.html"><i>07</i>Contact</a>
 </nav>
-
-<div class="nav-mobile" id="mobileMenu">
-  <button class="nav-mobile-close" onclick="closeMenu()" aria-label="Close menu">✕</button>
-  <a href="index.html" onclick="closeMenu()">Home</a>
-  <a href="watch.html" onclick="closeMenu()">Watch</a>
-  <a href="services.html" onclick="closeMenu()">Services</a>
-  <a href="about.html" onclick="closeMenu()">About</a>
-  <a href="press.html" onclick="closeMenu()">Press</a>
-  <a href="blog.html" onclick="closeMenu()">Blog</a>
-  <a href="contact.html" onclick="closeMenu()">Contact</a>
-</div>
 
 <!-- BACK TO TOP -->
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">
@@ -689,36 +668,25 @@ a.crew-link{color:inherit;text-decoration:none;transition:color .3s;}a.crew-link
 
 <!-- ═══════════════ FOOTER ═══════════════ -->
 <footer>
-<div>
-<p class="footer-logo">Cinegma Films</p>
-<p class="footer-tagline">Cinema without compromise.</p>
-</div>
-<ul class="footer-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="watch.html">Watch</a></li>
-<li><a href="services.html">Services</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="contact.html">Contact</a></li>
-<li><a href="press.html">Press</a></li>
-    <li><a href="blog.html">Blog</a></li>
-</ul>
-<ul class="footer-social">
-<li><a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener" aria-label="IMDb"><svg viewBox="0 0 24 24"><path d="M14.31 9.588v.005c-.077-.048-.227-.07-.42-.07v4.815c.27 0 .44-.064.5-.189.062-.125.095-.408.095-.848v-2.93c0-.338-.014-.553-.043-.643-.063-.165-.18-.252-.42-.25zm-2.31-9.588C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-3.07 15.257H7.114V8.743H8.93v6.514zm3.178-.85c-.1.292-.257.498-.47.617-.215.12-.517.179-.91.179H9.38V8.743h1.355c.706 0 1.147.065 1.323.197.176.133.295.395.356.787.034.23.052.73.052 1.5v1.696c0 .76-.03 1.24-.09 1.484zm3.663.028c-.098.264-.232.44-.403.527-.172.087-.435.13-.79.13-.276 0-.528-.048-.757-.143-.23-.096-.424-.234-.583-.415v.523h-1.16V8.743h1.16v2.19c.15-.172.33-.303.54-.395.21-.09.435-.137.676-.137.336 0 .598.072.787.214.188.142.318.344.39.605.046.17.07.493.07.966v1.5c0 .435-.022.742-.066.919z"/></svg></a></li>
-<li><a href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a></li>
-<li><a href="https://youtube.com/@syedasad" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a></li>
-<li><a href="https://www.facebook.com/share/1A39G6PmRG/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a></li>
-</ul>
-<p class="footer-copy">&copy; 2026 Cinegma Films LLC &middot; Karachi, Pakistan</p>
+  <div class="row">
+    <span>© 2026 Cinegma Films LLC · Karachi, Pakistan</span>
+    <nav aria-label="Footer"><a href="index.html">Home</a><a href="watch.html">Watch</a><a href="services.html">Services</a><a href="about.html">About</a><a href="press.html">Press</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></nav>
+  </div>
 </footer>
 
 <script src="assets/js/shared.js"></script>
-<script src="assets/js/revamp.js" defer></script>
-<script src="assets/js/creative-enhancements.js" defer></script>
-<script src="assets/js/sound-effects.js" defer></script>
 <script>
 // ── HERO PARALLAX
 initHeroParallax('heroImg','pageHero',0.26,1.06);
 </script>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+<script>
+(function(){
+var nav=document.getElementById('nav'),burger=document.getElementById('burger'),lastY=window.scrollY;
+window.addEventListener('scroll',function(){var y=window.scrollY;nav.classList.toggle('scrolled',y>40);if(!document.body.classList.contains('menu-open'))nav.classList.toggle('hide',y>420&&y>lastY);lastY=y;},{passive:true});
+burger.addEventListener('click',function(){var open=document.body.classList.toggle('menu-open');burger.setAttribute('aria-expanded',open);document.body.style.overflow=open?'hidden':'';});
+document.querySelectorAll('#mmenu a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open');document.body.style.overflow='';});});
+})();
+</script>
 </body>
 </html>
