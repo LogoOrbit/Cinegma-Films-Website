@@ -28,7 +28,7 @@
       if (!isInternal(href)) return;
       e.preventDefault();
       overlay.classList.add('active');
-      setTimeout(function(){ window.location.href = href; }, 500);
+      setTimeout(function(){ window.location.href = href; }, 380);
     });
 
     // Page enter animation
