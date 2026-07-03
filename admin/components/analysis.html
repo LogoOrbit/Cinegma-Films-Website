@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Analysis</title>
+<style>
+  html,body{margin:0;padding:0;background:transparent;font-family:Inter,system-ui,sans-serif;}
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+    padding:4px;
+  }
+  .card{
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,.35);
+    background:#0f172a;
+  }
+  .card.wide{grid-column:span 2;aspect-ratio:600/340;}
+  .card.small{aspect-ratio:16/11;}
+  @media(max-width:760px){
+    .grid{grid-template-columns:1fr;}
+    .card.wide{grid-column:span 1;}
+  }
+  .rp-fallback{color:#94a3b8;padding:24px;font-size:14px;}
+</style>
+</head>
+<body>
+<div id="root"><div class="rp-fallback">Loading visualizations…</div></div>
+
+<!-- Self-contained bundle: React + Remotion + @remotion/player + the four
+     verbatim .jsx components (admin/components/index.jsx). No runtime CDN. -->
+<script src="analysis.bundle.js"></script>
+</body>
+</html>
