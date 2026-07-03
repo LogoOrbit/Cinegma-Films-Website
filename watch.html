@@ -222,6 +222,7 @@ body.menu-open #nav{z-index:2300}
 .yt-frame.noimg::before{content:attr(data-name);position:absolute;left:18px;top:16px;right:18px;font-family:var(--disp);font-size:24px;line-height:1.05;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.45)}
 .yt-frame:hover img{transform:scale(1.06)}
 .yt-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.yt-frame[data-on] .yt-play{display:none}
 .yt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(transparent 40%,rgba(6,6,8,.6))}
 .yt-play i{width:56px;height:56px;border-radius:50%;border:1px solid rgba(255,255,255,.6);background:rgba(8,8,10,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;transition:transform .3s var(--ease),background .3s}
 .yt-frame:hover .yt-play i{transform:scale(1.12);background:#fff}
@@ -822,14 +823,35 @@ $$('#rail-uni .yt-frame img').forEach(function(im){
   });
 });
 
-/* YouTube facade → real embed on demand */
-document.addEventListener('click', function(e){
-  var fr=e.target.closest('.yt-frame'); if(!fr||fr.dataset.on) return;
+/* YouTube embeds — autoplay muted while in view, unload when scrolled away */
+var saveData = navigator.connection && navigator.connection.saveData;
+function ytStart(fr, muted){
+  if(fr.dataset.on) return;
   fr.dataset.on='1';
   var ifr=document.createElement('iframe');
-  ifr.src='https://www.youtube.com/embed/'+fr.dataset.yt+'?autoplay=1&rel=0';
+  ifr.src='https://www.youtube.com/embed/'+fr.dataset.yt+'?autoplay=1'+(muted?'&mute=1':'')+'&playsinline=1&rel=0&modestbranding=1&loop=1&playlist='+fr.dataset.yt;
   ifr.title='YouTube video'; ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'; ifr.allowFullscreen=true;
   fr.appendChild(ifr);
+}
+function ytStop(fr){
+  if(!fr.dataset.on || fr.dataset.pinned) return;
+  delete fr.dataset.on;
+  var i=fr.querySelector('iframe'); if(i) i.remove();
+}
+if('IntersectionObserver' in window && !reduced && !saveData){
+  var yio=new IntersectionObserver(function(es){
+    es.forEach(function(en){
+      if(en.intersectionRatio>=0.6) ytStart(en.target, true);
+      else if(en.intersectionRatio===0) ytStop(en.target);
+    });
+  },{threshold:[0,0.6]});
+  $$('#rail-uni .yt-frame').forEach(function(fr){yio.observe(fr)});
+}
+/* tap on the facade (reduced-motion / data-saver / IO-less browsers) starts it with sound */
+document.addEventListener('click', function(e){
+  var fr=e.target.closest('.yt-frame'); if(!fr||fr.dataset.on) return;
+  fr.dataset.pinned='1';
+  ytStart(fr, false);
 });
 document.addEventListener('keydown', function(e){
   if((e.key==='Enter'||e.key===' ')&&e.target.classList&&e.target.classList.contains('yt-frame')){e.preventDefault();e.target.click();}
