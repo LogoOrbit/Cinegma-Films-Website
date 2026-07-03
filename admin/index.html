@@ -701,32 +701,13 @@ a{color:inherit;text-decoration:none}
   // ============ SITE ANALYTICS (owner only) ============
   async function renderAnalytics(){
     app.innerHTML=pageHead('Intelligence','Site Analytics','Real-time visitor analytics — page views, devices, referrers, and every interaction on your website.')+
-      `<div class="toolbar"><div class="spacer"></div><button class="btn btn-ghost btn-sm" id="anlRefresh"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Refresh</button></div><div id="anlStats"><div class="loading-state"><span class="spinner"></span> Loading analytics…</div></div><div class="a-section" style="margin-top:24px;"><h3>Visual Intelligence</h3><iframe id="anlCharts" src="components/analysis.html" title="Analysis visualizations" style="width:100%;border:0;min-height:900px;background:transparent;" loading="lazy"></iframe></div><div id="anlFeed"></div>`;
+      `<div class="toolbar"><div class="spacer"></div><button class="btn btn-ghost btn-sm" id="anlRefresh"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Refresh</button></div><div id="anlStats"><div class="loading-state"><span class="spinner"></span> Loading analytics…</div></div><div id="anlFeed"></div>`;
     $('anlRefresh').onclick=()=>renderAnalytics();
-
-    // Feed real dashboard metrics into the Remotion visualizations (iframe).
-    let anlChartData=null;
-    function pushChartData(){
-      const f=$('anlCharts');
-      if(f&&f.contentWindow&&anlChartData)f.contentWindow.postMessage(Object.assign({type:'analysis-data'},anlChartData),'*');
-    }
-    window.addEventListener('message',ev=>{ if(ev.data&&ev.data.type==='analysis-ready')pushChartData(); });
 
     // Load overview stats (may partially fail if RPCs not set up — that's fine)
     try{
       const stats=await api('/api/site-activity?action=stats');
       $('anlStats').innerHTML=`<div class="analytics-grid"><div class="a-card"><div class="a-num">${stats.views_today}</div><div class="a-lbl">Views Today</div></div><div class="a-card"><div class="a-num">${stats.visitors_today}</div><div class="a-lbl">Visitors Today</div></div><div class="a-card"><div class="a-num">${stats.views_week}</div><div class="a-lbl">Views This Week</div></div><div class="a-card"><div class="a-num">${stats.visitors_week}</div><div class="a-lbl">Visitors This Week</div></div><div class="a-card"><div class="a-num">${stats.views_month}</div><div class="a-lbl">Views (30 Days)</div></div></div>`;
-
-      // Real metrics for the Progress Bars: engagement ratios derived from stats.
-      const vMonth=Math.max(stats.views_month||0,1);
-      const pct=n=>Math.max(0,Math.min(100,Math.round((n||0)/vMonth*100)));
-      anlChartData=Object.assign(anlChartData||{},{skills:[
-        {label:'Views Today',value:pct(stats.views_today),color:'#4361ee'},
-        {label:'Visitors Today',value:pct(stats.visitors_today),color:'#f72585'},
-        {label:'Views This Week',value:pct(stats.views_week),color:'#4cc9f0'},
-        {label:'Visitors This Week',value:pct(stats.visitors_week),color:'#7209b7'},
-      ]});
-      pushChartData();
     }catch(e){$('anlStats').innerHTML=`<div class="analytics-grid"><div class="a-card"><div class="a-lbl" style="color:var(--err);">Stats unavailable: ${esc(e.message)}</div></div></div>`;}
 
     // Load recent feed
@@ -743,18 +724,6 @@ a{color:inherit;text-decoration:none}
         if(e.referrer&&!e.referrer.includes(location.hostname)){try{const h=new URL(e.referrer).hostname;referrerCounts[h]=(referrerCounts[h]||0)+1;}catch(_){}}
         eventCounts[e.event]=(eventCounts[e.event]||0)+1;
       });
-
-      // Real metrics for the Line & Area charts: page views per day (last 7 days).
-      const dayViews=new Array(7).fill(0);
-      const startDay=new Date();startDay.setHours(0,0,0,0);
-      events.forEach(e=>{
-        if(e.event!=='page_view')return;
-        const diff=Math.floor((startDay-new Date(new Date(e.created_at).setHours(0,0,0,0)))/86400000);
-        if(diff>=0&&diff<7)dayViews[6-diff]++;
-      });
-      const series=dayViews.map((y,x)=>({x,y}));
-      anlChartData=Object.assign(anlChartData||{},{lineData:series,areaData:series});
-      pushChartData();
 
       function barList(obj,max){
         const sorted=Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,8);
