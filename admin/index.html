@@ -593,6 +593,96 @@ a { color: inherit; text-decoration: none; }
   margin: 0 auto;
 }
 
+/* Editor Modals */
+.editor-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.2s ease;
+}
+
+.editor-modal {
+  width: min(700px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.6);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+.editor-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 28px;
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: var(--panel);
+  z-index: 1;
+}
+
+.editor-header h2 {
+  font-family: var(--disp);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+}
+
+.btn-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--mut);
+  font-size: 24px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.btn-close:hover {
+  color: #fff;
+  border-color: var(--line2);
+}
+
+.editor-form {
+  padding: 28px;
+}
+
+.editor-form .form-group:last-child {
+  margin-bottom: 0;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.editor-actions .btn {
+  flex: 1;
+}
+
 /* Utilities */
 .hidden { display: none !important; }
 .full-width { width: 100%; }
@@ -805,6 +895,7 @@ a { color: inherit; text-decoration: none; }
   </div>
 </div>
 
+<script src="/admin/editors.js"></script>
 <script>
 // ════════════════════════════════════════════════════════════════
 // CINEGMA STUDIO CMS — JavaScript
@@ -812,6 +903,8 @@ a { color: inherit; text-decoration: none; }
 
 const API_URL = '/api';
 let session = { token: null, username: null, role: null };
+let currentEditingId = null;
+let currentEditingType = null;
 
 // ═══ Auth ═══
 async function login(e) {
@@ -890,6 +983,20 @@ function showSection(sectionId) {
   document.getElementById('sectionTitle').textContent = title;
   document.getElementById('sectionSub').textContent = sub;
 
+  // Update header actions
+  const headerActions = document.getElementById('headerActions');
+  const buttons = {
+    films: '<button class="btn btn-primary" onclick="openFilmEditor()">+ New Film</button>',
+    team: '<button class="btn btn-primary" onclick="openTeamEditor()">+ Add Member</button>',
+    services: '<button class="btn btn-primary" onclick="openServiceEditor()">+ New Service</button>',
+    gallery: '<button class="btn btn-primary">+ Add Gallery Item</button>',
+    awards: '<button class="btn btn-primary">+ Add Award</button>',
+    messages: '<button class="btn btn-ghost">Mark All as Read</button>',
+    pages: '<button class="btn btn-primary">+ New Page</button>',
+  };
+
+  headerActions.innerHTML = buttons[sectionId] || '';
+
   // Load data
   if (sectionId === 'dashboard') loadDashboard();
   else if (sectionId === 'films') loadFilms();
@@ -955,12 +1062,18 @@ async function loadFilms() {
     const list = document.getElementById('filmsList');
 
     if (!data.films || data.films.length === 0) {
-      list.innerHTML = '<div class="empty-state"><h3>No Films Yet</h3><p>Create your first film to get started</p></div>';
+      list.innerHTML = `
+        <div class="empty-state">
+          <h3>No Films Yet</h3>
+          <p>Create your first film to get started</p>
+          <button class="btn btn-primary" onclick="openFilmEditor()">Create Film</button>
+        </div>
+      `;
       return;
     }
 
     list.innerHTML = data.films.map(film => `
-      <div class="list-item" onclick="editFilm('${film.id}')">
+      <div class="list-item" onclick="editFilm('${film.id}', '${escapeHtml(JSON.stringify(film).replace(/"/g, '&quot;'))}')">
         <div class="list-item-info">
           <div class="list-item-title">${escapeHtml(film.title)}</div>
           <div class="list-item-meta">${film.slug} • ${film.status}</div>
@@ -974,8 +1087,43 @@ async function loadFilms() {
   }
 }
 
-function editFilm(id) {
-  alert(`Film editor for ${id} coming soon`);
+function openFilmEditor() {
+  currentEditingId = null;
+  currentEditingType = 'film';
+  onEditorSubmit = submitFilm;
+  openEditor(FilmEditor, {});
+}
+
+function editFilm(id, filmData) {
+  try {
+    const film = JSON.parse(filmData);
+    currentEditingId = id;
+    currentEditingType = 'film';
+    onEditorSubmit = submitFilm;
+    openEditor(FilmEditor, film);
+  } catch (e) {
+    console.error('Parse film data error:', e);
+  }
+}
+
+async function submitFilm(data) {
+  try {
+    if (currentEditingId) {
+      await apiCall(`/films/${currentEditingId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ film: data }),
+      });
+    } else {
+      await apiCall('/films', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'create', film: data }),
+      });
+    }
+    closeEditor();
+    loadFilms();
+  } catch (e) {
+    alert('Error saving film: ' + e.message);
+  }
 }
 
 // ═══ Team ═══
@@ -985,12 +1133,18 @@ async function loadTeam() {
     const list = document.getElementById('teamList');
 
     if (!data.members || data.members.length === 0) {
-      list.innerHTML = '<div class="empty-state"><h3>No Team Members</h3><p>Add your first team member</p></div>';
+      list.innerHTML = `
+        <div class="empty-state">
+          <h3>No Team Members</h3>
+          <p>Add your first team member</p>
+          <button class="btn btn-primary" onclick="openTeamEditor()">Add Member</button>
+        </div>
+      `;
       return;
     }
 
     list.innerHTML = data.members.map(m => `
-      <div class="list-item" onclick="editTeam('${m.id}')">
+      <div class="list-item" onclick="editTeam('${m.id}', '${escapeHtml(JSON.stringify(m).replace(/"/g, '&quot;'))}')">
         <div class="list-item-info">
           <div class="list-item-title">${escapeHtml(m.name)}</div>
           <div class="list-item-meta">${m.position || 'No position'}</div>
@@ -1003,8 +1157,43 @@ async function loadTeam() {
   }
 }
 
-function editTeam(id) {
-  alert(`Team editor for ${id} coming soon`);
+function openTeamEditor() {
+  currentEditingId = null;
+  currentEditingType = 'team';
+  onEditorSubmit = submitTeam;
+  openEditor(TeamEditor, {});
+}
+
+function editTeam(id, memberData) {
+  try {
+    const member = JSON.parse(memberData);
+    currentEditingId = id;
+    currentEditingType = 'team';
+    onEditorSubmit = submitTeam;
+    openEditor(TeamEditor, member);
+  } catch (e) {
+    console.error('Parse team data error:', e);
+  }
+}
+
+async function submitTeam(data) {
+  try {
+    if (currentEditingId) {
+      await apiCall(`/team/${currentEditingId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ member: data }),
+      });
+    } else {
+      await apiCall('/team', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'create', member: data }),
+      });
+    }
+    closeEditor();
+    loadTeam();
+  } catch (e) {
+    alert('Error saving team member: ' + e.message);
+  }
 }
 
 // ═══ Services ═══
@@ -1014,12 +1203,18 @@ async function loadServices() {
     const list = document.getElementById('servicesList');
 
     if (!data.services || data.services.length === 0) {
-      list.innerHTML = '<div class="empty-state"><h3>No Services</h3><p>Add your first service</p></div>';
+      list.innerHTML = `
+        <div class="empty-state">
+          <h3>No Services</h3>
+          <p>Add your first service</p>
+          <button class="btn btn-primary" onclick="openServiceEditor()">Create Service</button>
+        </div>
+      `;
       return;
     }
 
     list.innerHTML = data.services.map(s => `
-      <div class="list-item" onclick="editService('${s.id}')">
+      <div class="list-item" onclick="editService('${s.id}', '${escapeHtml(JSON.stringify(s).replace(/"/g, '&quot;'))}')">
         <div class="list-item-info">
           <div class="list-item-title">${escapeHtml(s.title)}</div>
           <div class="list-item-meta">${s.slug}</div>
@@ -1032,8 +1227,43 @@ async function loadServices() {
   }
 }
 
-function editService(id) {
-  alert(`Service editor for ${id} coming soon`);
+function openServiceEditor() {
+  currentEditingId = null;
+  currentEditingType = 'service';
+  onEditorSubmit = submitService;
+  openEditor(ServiceEditor, {});
+}
+
+function editService(id, serviceData) {
+  try {
+    const service = JSON.parse(serviceData);
+    currentEditingId = id;
+    currentEditingType = 'service';
+    onEditorSubmit = submitService;
+    openEditor(ServiceEditor, service);
+  } catch (e) {
+    console.error('Parse service data error:', e);
+  }
+}
+
+async function submitService(data) {
+  try {
+    if (currentEditingId) {
+      await apiCall(`/services/${currentEditingId}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ service: data }),
+      });
+    } else {
+      await apiCall('/services', {
+        method: 'POST',
+        body: JSON.stringify({ action: 'create', service: data }),
+      });
+    }
+    closeEditor();
+    loadServices();
+  } catch (e) {
+    alert('Error saving service: ' + e.message);
+  }
 }
 
 // ═══ Utilities ═══
