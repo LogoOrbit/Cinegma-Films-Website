@@ -1,10 +1,12 @@
 (function(){
   'use strict';
 
-  // ── LOAD SITE TRACKER ──
-  var ts=document.createElement('script');
-  ts.src=(location.pathname.indexOf('/projects/')===0||location.pathname.indexOf('/team/')===0?'../':'')+'assets/js/tracker.js';
-  ts.defer=true;document.head.appendChild(ts);
+  // ── LOAD SITE TRACKER (once — some pages already include it directly) ──
+  if(!document.querySelector('script[src*="tracker.js"]')){
+    var ts=document.createElement('script');
+    ts.src=(location.pathname.indexOf('/projects/')>=0||location.pathname.indexOf('/team/')>=0?'../':'')+'assets/js/tracker.js';
+    ts.defer=true;document.head.appendChild(ts);
+  }
 
   // ── NAV: set active link based on current page ──
   var page = location.pathname.split('/').pop() || 'index.html';
@@ -204,6 +206,15 @@
     '.cg-launch{display:inline-flex;align-items:center;gap:8px;background:0 0;border:1px solid rgba(255,255,255,.3);color:#ffffff;font-family:"Bebas Neue",sans-serif;font-size:.74rem;letter-spacing:.2em;padding:10px 24px;margin:36px auto 0;cursor:pointer;transition:all .3s;}'+
     '.cg-launch:hover{background:#ffd23f;border-color:#ffd23f;color:#080808;}'+
     '.cg-launch-wrap{width:100%;text-align:center;padding:28px 20px 0;}'+
+    /* ── nav "PLAY GAME" button (desktop pill + mobile-menu entry) ── */
+    '.cg-navbtn{display:inline-flex;align-items:center;gap:8px;background:0 0;border:1px solid rgba(255,255,255,.28);color:#fff;font-family:"Bebas Neue",sans-serif;font-size:.72rem;letter-spacing:.2em;padding:8px 16px;margin-left:18px;cursor:pointer;border-radius:999px;line-height:1;white-space:nowrap;transition:background .3s,border-color .3s,color .3s;}'+
+    '.cg-navbtn:hover{background:#ffd23f;border-color:#ffd23f;color:#080808;}'+
+    '.cg-navdot{width:7px;height:7px;border-radius:50%;background:#ffd23f;box-shadow:0 0 8px #ffd23f;transition:background .3s,box-shadow .3s;}'+
+    '.cg-navbtn:hover .cg-navdot{background:#080808;box-shadow:none;}'+
+    '.cg-mmbtn{font-family:"Bebas Neue",sans-serif;font-size:clamp(38px,9vw,64px);letter-spacing:.06em;text-transform:uppercase;color:#ffd23f;background:0 0;border:0;padding:0;margin-top:8px;display:flex;align-items:baseline;gap:16px;cursor:pointer;text-align:left;line-height:1;transition:color .25s;}'+
+    '.cg-mmbtn i{font-family:"DM Sans",sans-serif;font-style:normal;font-size:11px;color:rgba(255,210,63,.6);letter-spacing:.3em;}'+
+    '.cg-mmbtn:hover{color:#fff;}'+
+    '@media(max-width:900px){.cg-navbtn{display:none;}}'+
     '@media(max-width:500px){.cg-nud{left:14px;bottom:16px;}.cg-chip{height:48px;}.cg-str-t{font-size:2.2rem;}}';
   document.head.appendChild(st);
 
@@ -217,6 +228,9 @@
   function dismissed(){try{return !!sessionStorage.getItem('cg_off');}catch(e){return false;}}
 
   setTimeout(function(){if(!dismissed()&&!shown&&!bd) showChip();},POPUP_DELAY);
+
+  // ── global launcher (used by nav button, footer, chip) ──
+  window.cgPlayGame=function(){if(!bd) showGame();};
 
   // ── footer launcher ──
   function addLauncher(){
@@ -232,8 +246,40 @@
     wrap.appendChild(b);
     foot.appendChild(wrap);
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addLauncher);
-  else addLauncher();
+
+  // ── nav "PLAY GAME" button: small pill on desktop, entry at the
+  //    bottom of the mobile menu ──
+  function addNavButton(){
+    var burger=document.querySelector('#nav #burger');
+    var host=burger?burger.parentNode:document.querySelector('#nav');
+    if(host && !host.querySelector('.cg-navbtn')){
+      var b=document.createElement('button');
+      b.className='cg-navbtn';
+      b.type='button';
+      b.setAttribute('aria-label','Play Pac-Man');
+      b.innerHTML='<span class="cg-navdot"></span>PLAY GAME';
+      b.onclick=function(){if(!bd) showGame();};
+      if(burger) host.insertBefore(b,burger);
+      else host.appendChild(b);
+    }
+    var mm=document.getElementById('mmenu');
+    if(mm && !mm.querySelector('.cg-mmbtn')){
+      var m=document.createElement('button');
+      m.className='cg-mmbtn';
+      m.type='button';
+      m.innerHTML='<i>★</i>Play Game';
+      m.onclick=function(){
+        document.body.classList.remove('menu-open');
+        document.body.style.overflow='';
+        if(!bd) showGame();
+      };
+      mm.appendChild(m);
+    }
+  }
+
+  function cgInit(){addLauncher();addNavButton();}
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',cgInit);
+  else cgInit();
 
   // ── corner arcade chip ──
   var chipW,chipT1,chipT2;
