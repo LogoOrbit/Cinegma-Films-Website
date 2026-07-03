@@ -176,33 +176,27 @@ body.menu-open #nav{z-index:1200}
 #stats .lbl{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-top:12px}
 @media(max-width:760px){#stats .grid{grid-template-columns:repeat(2,1fr)}}
 
-/* films */
+/* films — poster grid (2 per row, phone + desktop) */
 #films{padding:clamp(70px,9vw,130px) 0 40px}
-.film{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:clamp(28px,5vw,80px);align-items:center;padding:clamp(48px,6vw,90px) 0;border-top:1px solid var(--line);margin-top:56px}
-.film~.film{margin-top:0}
-.film:nth-of-type(even){grid-template-columns:1fr minmax(0,560px)}
-.film:nth-of-type(even) .poster-w{order:2}
-.poster-w{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:2/3;width:100%;max-width:560px;box-shadow:0 50px 130px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.06);transition:box-shadow .5s,transform .5s cubic-bezier(.2,.9,.3,1)}
-.poster-w:hover{box-shadow:0 60px 160px rgba(0,0,0,.9),0 0 80px rgba(255,255,255,.08);transform:translateY(-6px)}
-.poster-w img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.9,.3,1),opacity .4s}
-.poster-w video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
-.poster-w.playing video{opacity:1}
-.poster-w.playing img{opacity:0}
-.poster-w:hover img{transform:scale(1.05)}
-.poster-w .edge{position:absolute;inset:0;border-radius:18px;border:1px solid rgba(255,255,255,.35);pointer-events:none}
-.poster-w .no{position:absolute;top:14px;left:14px;font-family:var(--disp);font-size:15px;letter-spacing:.2em;background:rgba(6,6,10,.7);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:6px 14px;color:var(--b);z-index:2}
-.film .meta .yr{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--b);margin-bottom:14px;display:block}
-.film h3{font-family:var(--disp);font-size:clamp(46px,6.4vw,96px);line-height:.9;text-transform:uppercase;margin-bottom:16px}
-.film h3 a{transition:color .3s}
-.film h3 a:hover{color:transparent;-webkit-text-stroke:1.5px var(--a)}
-.film .roles{font-family:var(--serif);font-style:italic;font-size:clamp(16px,1.6vw,20px);color:#d9d3c7;margin-bottom:18px}
-.film .desc{color:var(--mut);line-height:1.75;font-weight:300;max-width:560px;margin-bottom:22px}
-.film .tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:26px}
-.film .tags i{font-style:normal;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;padding:7px 14px;border:1px solid var(--line);border-radius:999px;color:#b9b3a7}
-.film .lnx{display:flex;flex-wrap:wrap;gap:22px;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600}
-.film .lnx a{display:inline-flex;gap:8px;align-items:center;color:#e6e0d4;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:4px;transition:color .25s,border-color .25s}
-.film .lnx a:hover{color:var(--b);border-color:var(--b)}
-@media(max-width:860px){.film,.film:nth-of-type(even){grid-template-columns:1fr}.film:nth-of-type(even) .poster-w{order:0}.poster-w{max-width:none}}
+.poster-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(12px,2.6vw,26px);margin-top:clamp(36px,5vw,56px)}
+.pcard{display:block;position:relative;border-radius:16px;overflow:hidden;background:var(--bg2);border:1px solid var(--line);
+  box-shadow:0 30px 80px rgba(0,0,0,.6);transition:transform .5s cubic-bezier(.2,.9,.3,1),box-shadow .5s,border-color .35s;cursor:pointer}
+.pcard:hover{transform:translateY(-6px);box-shadow:0 46px 120px rgba(0,0,0,.85),0 0 60px rgba(255,255,255,.06);border-color:var(--a-dim)}
+.pc-media{position:relative;aspect-ratio:2/3;overflow:hidden}
+.pc-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.9,.3,1),opacity .4s}
+.pc-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
+.pcard.playing video{opacity:1}
+.pcard.playing .pc-media img{opacity:0}
+.pcard:hover .pc-media img{transform:scale(1.06)}
+.pc-media .no{position:absolute;top:12px;left:12px;font-family:var(--disp);font-size:14px;letter-spacing:.2em;background:rgba(6,6,10,.7);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:999px;padding:5px 12px;color:var(--b);z-index:2}
+.pc-media .edge{position:absolute;inset:0;border:1px solid rgba(255,255,255,.14);border-radius:16px;pointer-events:none}
+.pc-info{padding:clamp(13px,1.8vw,22px)}
+.pc-info .yr{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--b);margin-bottom:9px;display:block}
+.pc-info h3{font-family:var(--disp);font-size:clamp(22px,3.6vw,42px);line-height:.94;text-transform:uppercase;margin-bottom:8px}
+.pc-info .roles{font-family:var(--serif);font-style:italic;font-size:clamp(12.5px,1.4vw,17px);color:#d9d3c7;margin-bottom:10px}
+.pc-info .tags{display:flex;flex-wrap:wrap;gap:7px}
+.pc-info .tags i{font-style:normal;font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--line);border-radius:999px;color:#b9b3a7}
+@media(max-width:520px){.pc-info .roles,.pc-info .tags{display:none}.pc-info{padding:12px}}
 
 /* watch cta */
 #watchcta{margin:clamp(60px,8vw,110px) 0}
@@ -229,7 +223,7 @@ body.menu-open #nav{z-index:1200}
 
 /* holo 3d showcase */
 #holo{padding:clamp(70px,9vw,130px) 0}
-#holo .stage{position:relative;margin-top:52px;height:clamp(400px,62vh,640px);border-radius:28px;overflow:hidden;isolation:isolate;
+#holo .stage{position:relative;margin-top:52px;aspect-ratio:16/9;width:100%;height:auto;max-height:76vh;border-radius:28px;overflow:hidden;isolation:isolate;
   border:1px solid rgba(110,205,255,.16);
   background:radial-gradient(120% 150% at 50% -10%,rgba(34,224,201,.08),transparent 55%),radial-gradient(100% 130% at 50% 115%,rgba(124,92,255,.12),transparent 60%),linear-gradient(165deg,#0a0a13,#06060c);
   box-shadow:0 40px 120px rgba(0,0,0,.7),inset 0 0 130px rgba(48,150,255,.06)}
@@ -256,14 +250,27 @@ body.menu-open #nav{z-index:1200}
 #holo .fb .ring::before{content:"";position:absolute;inset:11%;border-radius:50%;border:1px dashed rgba(110,205,255,.3)}
 #holo .fb .ring::after{content:"";position:absolute;inset:37%;border-radius:50%;border:1px solid rgba(124,92,255,.55);box-shadow:0 0 34px rgba(124,92,255,.35)}
 @keyframes holo-spin{to{transform:rotate(360deg)}}
-@media(max-width:760px){#holo .stage{height:clamp(340px,58vh,480px)}#holo .hud-b,#holo .hud-c{display:none}}
+@media(max-width:760px){#holo .stage{aspect-ratio:5/4;max-height:64vh}#holo .hud-b,#holo .hud-c{display:none}}
 
 /* awards */
 #awards{padding:clamp(70px,9vw,130px) 0}
-.laurel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;margin-top:52px}
-.laurel{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;align-items:center;justify-content:center;transition:transform .35s,border-color .35s,box-shadow .35s}
-.laurel:hover{transform:translateY(-6px);border-color:var(--a-dim);box-shadow:0 16px 40px rgba(255,255,255,.2)}
-.laurel img{width:100%;height:auto;filter:brightness(1.05)}
+/* floating / scattered laurels — desktop + mobile */
+.laurel-grid{position:relative;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:0;margin-top:clamp(30px,4vw,52px);padding:20px 0}
+.laurel{background:transparent;border:0;padding:0;display:flex;align-items:center;justify-content:center;
+  margin:clamp(-10px,-1.4vw,-6px) clamp(-4px,-0.5vw,-2px);
+  transition:transform .5s cubic-bezier(.2,.9,.3,1),filter .5s,opacity .5s;will-change:transform;position:relative;z-index:1}
+.laurel img{width:auto;height:auto;max-width:100%;filter:brightness(1.08) drop-shadow(0 10px 30px rgba(0,0,0,.6))}
+/* varied sizes + defocus, scattered-in-air feel */
+.laurel{width:clamp(96px,13vw,150px)}
+.laurel:nth-child(4n+1){width:clamp(120px,17vw,200px);transform:translateY(-18px) rotate(-4deg)}
+.laurel:nth-child(4n+2){width:clamp(78px,10vw,120px);transform:translateY(26px) rotate(3deg);filter:blur(1.4px);opacity:.62}
+.laurel:nth-child(4n+3){width:clamp(104px,14vw,164px);transform:translateY(-6px) rotate(2.5deg)}
+.laurel:nth-child(4n){width:clamp(70px,9vw,108px);transform:translateY(38px) rotate(-3deg);filter:blur(2px);opacity:.48}
+.laurel:nth-child(6n+2){transform:translateY(-30px) rotate(5deg)}
+.laurel:nth-child(7n+3){filter:blur(2.4px);opacity:.4;transform:translateY(14px) rotate(-6deg)}
+.laurel:nth-child(5n+1){z-index:3}
+.laurel:hover{transform:translateY(-10px) scale(1.14) rotate(0deg)!important;filter:none!important;opacity:1!important;z-index:9}
+@media(prefers-reduced-motion:reduce){.laurel{transform:none!important;filter:none!important;opacity:1!important}}
 .countries{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
 .countries span{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--b);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 18px}
 
@@ -418,147 +425,118 @@ footer .fine a{color:#9a948a}
   </div>
 </section>
 
-<section id="stats">
-  <div class="wrap">
-    <span class="kicker v3-reveal">The Work So Far</span>
-    <h2 class="h-lg v3-reveal">Two years in.<br/><span class="serif-i">Here's what the films have done.</span></h2>
-    <div class="grid">
-      <div class="cell v3-reveal"><div class="num"><span data-count="14">0</span><sup>+</sup></div><div class="lbl">International Awards</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="22">0</span></div><div class="lbl">Festival Selections</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="9">0</span></div><div class="lbl">Countries Reached</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="8">0</span></div><div class="lbl">Films &amp; Counting</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="34">0</span><sup>hr</sup></div><div class="lbl">To Shoot Janjaal</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="100">0</span><sup>%</sup></div><div class="lbl">Made In-House</div></div>
-    </div>
-  </div>
-</section>
-
 <section id="films">
   <div class="wrap">
     <span class="kicker v3-reveal">The Filmography</span>
     <h2 class="h-lg v3-reveal" data-scramble>Eight Films. One Obsession.</h2>
-    <p class="lead v3-reveal" style="max-width:640px;margin-top:20px">Hover any poster to roll footage. Every one of these started as a late-night idea that wouldn't leave me alone — and ended up on a screen somewhere in the world.</p>
+    <p class="lead v3-reveal" style="max-width:640px;margin-top:20px">Tap any poster to open its film page. Every one of these started as a late-night idea that wouldn't leave me alone — and ended up on a screen somewhere in the world.</p>
 
-    <article class="film v3-reveal" id="movie-janjaal">
-      <div class="poster-w" data-cover="assets/posters/Janjaal%20Cover%20Video.mp4">
+    <div class="poster-grid">
+    <a class="pcard v3-reveal" id="movie-janjaal" href="projects/janjaal.html" data-cover="assets/posters/Janjaal%20Cover%20Video.mp4" aria-label="Janjaal (Tussle) — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/Janjaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Janjaal_Opt_01.avif" alt="Janjaal (Tussle) poster" loading="lazy"/></picture>
         <span class="no">01</span><span class="edge"></span>
       </div>
-      <div class="meta">
-        <span class="yr">2024 – 2025 · Theatrical Release</span>
-        <h3><a href="projects/janjaal.html">Janjaal <span class="serif-i">Tussle</span></a></h3>
+      <div class="pc-info">
+        <span class="yr">2024 – 2025 · Theatrical</span>
+        <h3>Janjaal <span class="serif-i">Tussle</span></h3>
         <div class="roles">Director · Editor · VFX · Colorist</div>
-        <p class="desc">A police officer discovers a cursed golden pocket watch. Each wish exacts a deadly price. 14 international awards · Theatrical release at Arena Cinemas.</p>
-        <div class="tags"><i>Thriller</i><i>24 min</i><i>Urdu</i><i>14 Awards</i></div>
-        <div class="lnx"><a href="watch.html#trailer-janjaal">▶ Watch Trailer</a><a href="projects/janjaal.html">Film Page</a><a href="https://www.imdb.com/title/tt35505024/" target="_blank" rel="noopener">IMDb ↗</a></div>
+        <div class="tags"><i>Thriller</i><i>24 min</i><i>14 Awards</i></div>
       </div>
-    </article>
+    </a>
 
-    <article class="film v3-reveal" id="movie-portrait-of-life">
-      <div class="poster-w" data-cover="assets/posters/Portrait%20of%20Life%20Cover%20Video.mp4">
+    <a class="pcard v3-reveal" id="movie-portrait-of-life" href="projects/portrait-of-life.html" data-cover="assets/posters/Portrait%20of%20Life%20Cover%20Video.mp4" aria-label="Portrait of Life — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/Potrait_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Potrait_Opt_01.avif" alt="Portrait of Life poster" loading="lazy"/></picture>
         <span class="no">02</span><span class="edge"></span>
       </div>
-      <div class="meta">
+      <div class="pc-info">
         <span class="yr">2025</span>
-        <h3><a href="projects/portrait-of-life.html">Portrait <span class="serif-i">of Life</span></a></h3>
+        <h3>Portrait <span class="serif-i">of Life</span></h3>
         <div class="roles">Writer · Director · Editor · Colorist</div>
-        <p class="desc">A painter struggles to portray his wife the way he once did. A meditation on love, memory, and the limits of art.</p>
         <div class="tags"><i>Drama</i><i>Thesis Film</i></div>
-        <div class="lnx"><a href="watch.html#trailer-portrait">▶ Watch Trailer</a><a href="projects/portrait-of-life.html">Film Page</a><a href="https://www.imdb.com/title/tt38935019/" target="_blank" rel="noopener">IMDb ↗</a></div>
       </div>
-    </article>
+    </a>
 
-    <article class="film v3-reveal" id="movie-zawaal">
-      <div class="poster-w" data-cover="assets/posters/Zawaal%20Cover%20Video.mp4">
+    <a class="pcard v3-reveal" id="movie-zawaal" href="projects/zawaal.html" data-cover="assets/posters/Zawaal%20Cover%20Video.mp4" aria-label="Zawaal — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/Zawaal_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Zawaal_Opt_01.avif" alt="Zawaal poster" loading="lazy"/></picture>
         <span class="no">03</span><span class="edge"></span>
       </div>
-      <div class="meta">
+      <div class="pc-info">
         <span class="yr">2026 — In Production</span>
-        <h3><a href="projects/zawaal.html">Zawaal</a></h3>
+        <h3>Zawaal</h3>
         <div class="roles">Director · Editor · Colorist</div>
-        <p class="desc">A dark psychological thriller set in the streets of Karachi. The next Cinegma Films original.</p>
         <div class="tags"><i>Psychological Thriller</i></div>
-        <div class="lnx"><a href="watch.html#trailer-zawaal">▶ Watch Trailer</a><a href="projects/zawaal.html">Film Page</a><a href="https://www.imdb.com/title/tt41515311/" target="_blank" rel="noopener">IMDb ↗</a></div>
       </div>
-    </article>
+    </a>
 
-    <article class="film v3-reveal" id="movie-a-soldier-beside-me">
-      <div class="poster-w" data-cover="assets/posters/A%20Soldier%20Cover%20Video.mp4">
+    <a class="pcard v3-reveal" id="movie-a-soldier-beside-me" href="projects/a-soldier-beside-me.html" data-cover="assets/posters/A%20Soldier%20Cover%20Video.mp4" aria-label="A Soldier Beside Me — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/Solder_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Solder_Opt_01.avif" alt="A Soldier Beside Me poster" loading="lazy"/></picture>
         <span class="no">04</span><span class="edge"></span>
       </div>
-      <div class="meta">
+      <div class="pc-info">
         <span class="yr">2026 — In Production</span>
-        <h3><a href="projects/a-soldier-beside-me.html">A Soldier <span class="serif-i">Beside Me</span></a></h3>
+        <h3>A Soldier <span class="serif-i">Beside Me</span></h3>
         <div class="roles">Director of Photography · Editor · Colorist</div>
-        <p class="desc">Two soldiers question each other's fate on the frontline. A short film on loyalty, war, and humanity.</p>
         <div class="tags"><i>War Drama</i><i>Short Film</i></div>
-        <div class="lnx"><a href="watch.html#trailer-soldier">▶ Watch Trailer</a><a href="projects/a-soldier-beside-me.html">Film Page</a><a href="https://www.imdb.com/title/tt41563842/" target="_blank" rel="noopener">IMDb ↗</a></div>
       </div>
-    </article>
+    </a>
 
-    <article class="film v3-reveal" id="movie-payam-e-dil">
-      <div class="poster-w" data-cover="assets/posters/Payam%20e%20Dil%20Cover%20Video.mp4">
+    <a class="pcard v3-reveal" id="movie-payam-e-dil" href="projects/payam-e-dil.html" data-cover="assets/posters/Payam%20e%20Dil%20Cover%20Video.mp4" aria-label="Payam e Dil — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/Payam_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Payam_Opt_01.avif" alt="Payam e Dil poster" loading="lazy"/></picture>
         <span class="no">05</span><span class="edge"></span>
       </div>
-      <div class="meta">
+      <div class="pc-info">
         <span class="yr">2026 — In Production</span>
-        <h3><a href="projects/payam-e-dil.html">Payam <span class="serif-i">e Dil</span></a></h3>
+        <h3>Payam <span class="serif-i">e Dil</span></h3>
         <div class="roles">Associate Director</div>
-        <p class="desc">A family drama unfolding in the posh heart of Karachi. A short film on class, love, and emotion.</p>
         <div class="tags"><i>Drama</i><i>Short Film</i></div>
-        <div class="lnx"><a href="watch.html#trailer-payam">▶ Watch Trailer</a><a href="projects/payam-e-dil.html">Film Page</a></div>
       </div>
-    </article>
+    </a>
 
-    <article class="film v3-reveal" id="movie-main-aur-achu">
-      <div class="poster-w" data-cover="assets/posters/Main%20aur%20achu%20Cover%20Video.mp4">
+    <a class="pcard v3-reveal" id="movie-main-aur-achu" href="projects/main-aur-achu.html" data-cover="assets/posters/Main%20aur%20achu%20Cover%20Video.mp4" aria-label="Main Aur Achu — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/Achu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Achu_Opt_01.avif" alt="Main Aur Achu poster" loading="lazy"/></picture>
         <span class="no">06</span><span class="edge"></span>
       </div>
-      <div class="meta">
+      <div class="pc-info">
         <span class="yr">2024</span>
-        <h3><a href="projects/main-aur-achu.html">Main Aur <span class="serif-i">Achu</span></a></h3>
+        <h3>Main Aur <span class="serif-i">Achu</span></h3>
         <div class="roles">Director · Editor · Colorist</div>
-        <p class="desc">Abdul, a young boy from a small village, and his beloved goat Achu — a heartwarming story about sacrifice, family, and the meaning of Eid ul Azha. A Silverlight Studios film.</p>
         <div class="tags"><i>Drama</i><i>Family</i><i>Urdu</i></div>
-        <div class="lnx"><a href="watch.html#trailer-mainaurachu">▶ Watch Trailer</a><a href="projects/main-aur-achu.html">Film Page</a><a href="https://www.imdb.com/title/tt41515367/" target="_blank" rel="noopener">IMDb ↗</a></div>
       </div>
-    </article>
+    </a>
 
-    <article class="film v3-reveal" id="movie-phir-se">
-      <div class="poster-w">
+    <a class="pcard v3-reveal" id="movie-phir-se" href="projects/phir-se.html" aria-label="Phir Se — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/PhirSe_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/PhirSe_Opt_01.avif" alt="Phir Se poster" loading="lazy"/></picture>
         <span class="no">07</span><span class="edge"></span>
       </div>
-      <div class="meta">
+      <div class="pc-info">
         <span class="yr">2025</span>
-        <h3><a href="projects/phir-se.html">Phir Se</a></h3>
+        <h3>Phir Se</h3>
         <div class="roles">DOP · Editor</div>
-        <p class="desc">A 7T7 Productions film directed by Rashid Yaseen. Syed Asad served as Director of Photography and Editor on this production.</p>
         <div class="tags"><i>Short Film</i></div>
-        <div class="lnx"><a href="projects/phir-se.html">Film Page</a></div>
       </div>
-    </article>
+    </a>
 
-    <article class="film v3-reveal" id="movie-urdu-bazaar-karachi">
-      <div class="poster-w" data-cover="assets/posters/Urdu%20Bazaar%20Cover%20Video.mp4">
+    <a class="pcard v3-reveal" id="movie-urdu-bazaar-karachi" href="projects/urdu-bazaar-karachi.html" data-cover="assets/posters/Urdu%20Bazaar%20Cover%20Video.mp4" aria-label="Urdu Bazaar Karachi — film page">
+      <div class="pc-media">
         <picture><source media="(max-width:768px)" srcset="assets/posters/Urdu_Opt_01-400w.avif" type="image/avif"/><img src="assets/posters/Urdu_Opt_01.avif" alt="Urdu Bazaar Karachi poster" loading="lazy"/></picture>
         <span class="no">08</span><span class="edge"></span>
       </div>
-      <div class="meta">
+      <div class="pc-info">
         <span class="yr">Documentary</span>
-        <h3><a href="projects/urdu-bazaar-karachi.html">Urdu Bazaar <span class="serif-i">Karachi</span></a></h3>
+        <h3>Urdu Bazaar <span class="serif-i">Karachi</span></h3>
         <div class="roles">Writer · Director · Editor · Drone</div>
-        <p class="desc">Inside the narrow lanes and bookshops of Karachi's historic literary market — a film on books, culture, and the challenges a city's memory faces today.</p>
         <div class="tags"><i>Documentary</i><i>Urdu</i></div>
-        <div class="lnx"><a href="watch.html#watch-urdu-bazaar">▶ Watch Now</a><a href="projects/urdu-bazaar-karachi.html">Film Page</a></div>
       </div>
-    </article>
-    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:56px 0 10px;border-top:1px solid var(--line)"><a class="btn" href="#explore">Browse All Film Pages ↓</a><a class="btn" href="watch.html">▶ Stream The Films</a></div>
+    </a>
+    </div>
+    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:56px 0 10px;border-top:1px solid var(--line)"><a class="btn" href="watch.html">▶ Stream The Films</a></div>
   </div>
 </section>
 
@@ -569,58 +547,23 @@ footer .fine a{color:#9a948a}
       <h2 class="h-lg" style="margin-top:18px">The Films Are<br/><span class="serif-i">Streaming Now</span></h2>
       <p class="lead" style="max-width:620px;margin:22px auto 0">Award-winning shorts, a documentary, and the latest trailers — all in one place. No sign-up, no paywall. Press play and watch the work that travelled across 9 countries.</p>
       <div class="mini">
-        <span>Janjaal · Thriller · 14 Awards</span><span>Portrait of Life · Drama</span><span>Main Aur Achu · Family · Full Film</span><span>Urdu Bazaar · Documentary · Full</span>
+        <a href="projects/janjaal.html"><span>Janjaal · Thriller · 14 Awards</span></a><a href="projects/portrait-of-life.html"><span>Portrait of Life · Drama</span></a><a href="projects/main-aur-achu.html"><span>Main Aur Achu · Family · Full Film</span></a><a href="projects/urdu-bazaar-karachi.html"><span>Urdu Bazaar · Documentary · Full</span></a>
       </div>
       <a class="btn solid" href="watch.html">Enter The Screening Room</a>
     </div>
   </div>
 </section>
 
-<section id="explore">
-  <div class="wrap duo">
-    <div class="xp v3-reveal">
-      <span class="arrow">↗</span>
-      <span class="kicker">Explore · Film Pages</span>
-      <h3>Every Film,<br/><span class="serif-i">Its Own Page</span></h3>
-      <p>Posters, synopses, full cast &amp; crew, awards, trailers and production details — a dedicated page for each production.</p>
-      <div class="links">
-        <a href="projects/janjaal.html">Janjaal</a>
-        <a href="projects/portrait-of-life.html">Portrait of Life</a>
-        <a href="projects/zawaal.html">Zawaal</a>
-        <a href="projects/a-soldier-beside-me.html">A Soldier Beside Me</a>
-        <a href="projects/payam-e-dil.html">Payam e Dil</a>
-        <a href="projects/main-aur-achu.html">Main Aur Achu</a>
-        <a href="projects/phir-se.html">Phir Se</a>
-        <a href="projects/urdu-bazaar-karachi.html">Urdu Bazaar</a>
-      </div>
-    </div>
-    <div class="xp v3-reveal">
-      <span class="arrow">↗</span>
-      <span class="kicker">Explore · Team Pages</span>
-      <h3>Meet The<br/><span class="serif-i">Full Team</span></h3>
-      <p>Complete profiles of the six core creatives — full bios, portfolios, skills, and every credit across the filmography.</p>
-      <div class="links">
-        <a href="team/syed-asad.html">Syed Asad</a>
-        <a href="team/ghayas-uddin.html">Ghayas Uddin</a>
-        <a href="team/ameer-hamza.html">Ameer Hamza</a>
-        <a href="team/faizan-ahmed.html">Faizan Ahmed</a>
-        <a href="team/usman-ali.html">Usman Ali</a>
-        <a href="team/dayyan-khalid.html">Dayyan Khalid</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="holo" aria-label="Interactive holographic film reel showcase">
+<section id="holo" aria-label="Interactive holographic awards globe">
   <div class="wrap">
-    <span class="kicker v3-reveal">The Cinegma Core · Interactive</span>
-    <h2 class="h-lg v3-reveal">Cinema,<br/><span class="serif-i">Suspended in Light</span></h2>
-    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Every story we tell passes through the reel. Move your cursor — or tilt your phone — and bend the light around it.</p>
+    <span class="kicker v3-reveal">The Cinegma Globe · Interactive</span>
+    <h2 class="h-lg v3-reveal">Our Awards,<br/><span class="serif-i">Mapped to the World</span></h2>
+    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Nine countries have screened our films. Drag to spin the globe — each award glows above the city that gave it. Move your cursor, or tilt your phone.</p>
     <div class="stage v3-reveal" id="holoStage">
       <div class="fb" aria-hidden="true"><div class="ring"></div></div>
-      <div class="hud hud-a"><i></i>Cinegma · Holo-Reel 01</div>
-      <div class="hud hud-b">24 FPS · ∞ Loop</div>
-      <div class="hud hud-c">KHI · 24.8607° N, 67.0011° E</div>
+      <div class="hud hud-a"><i></i>Cinegma · Award Globe</div>
+      <div class="hud hud-b">14 Awards · 9 Countries</div>
+      <div class="hud hud-c">Origin · Karachi, Pakistan</div>
       <div class="hud hud-d">Drag / Tilt to Explore</div>
     </div>
   </div>
@@ -689,6 +632,52 @@ footer .fine a{color:#9a948a}
   </div>
 </section>
 
+<section id="team">
+  <div class="wrap">
+    <span class="kicker v3-reveal">Team Cinegma Films</span>
+    <h2 class="h-lg v3-reveal">The People<br/><span class="serif-i">Behind the Frames</span></h2>
+    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Writers, directors, composers, and producers who make Cinegma Films what it is.</p>
+    <div class="team-grid">
+      <a class="tcard v3-reveal" href="team/syed-asad.html"><img loading="lazy" src="assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi"/><span class="no">01</span><div class="ov"><b>Syed Asad Raza Abidi</b><i>Founder · Director · Editor · Sound Designer</i></div></a>
+      <a class="tcard v3-reveal" href="team/ghayas-uddin.html"><img loading="lazy" src="assets/posters/Ghayas.avif" alt="Ghayas Uddin Siddiqui"/><span class="no">02</span><div class="ov"><b>Ghayas Uddin Siddiqui</b><i>Director of Photography · Cinematographer</i></div></a>
+      <a class="tcard v3-reveal" href="team/ameer-hamza.html"><img loading="lazy" src="assets/posters/Ameer.avif" alt="Ameer Hamza"/><span class="no">03</span><div class="ov"><b>Ameer Hamza</b><i>Writer · Producer</i></div></a>
+      <a class="tcard v3-reveal" href="team/faizan-ahmed.html"><img loading="lazy" src="assets/posters/Faizan%20Ahmed%20Team.avif" alt="Faizan Ahmed"/><span class="no">04</span><div class="ov"><b>Faizan Ahmed</b><i>Production Designer · Art Director</i></div></a>
+      <a class="tcard v3-reveal" href="team/usman-ali.html"><img loading="lazy" src="assets/posters/Usman.avif" alt="Usman Ali Akbar"/><span class="no">05</span><div class="ov"><b>Usman Ali Akbar</b><i>Music Composer</i></div></a>
+      <a class="tcard v3-reveal" href="team/dayyan-khalid.html"><img loading="lazy" src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid"/><span class="no">06</span><div class="ov"><b>Dayyan Khalid</b><i>Producer · Production Manager</i></div></a>
+    </div>
+    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px"><a class="btn" href="team/syed-asad.html">Meet The Founder →</a><a class="btn" href="about.html">About The Studio →</a></div>
+  </div>
+</section>
+
+<section id="faces">
+  <div class="wrap">
+    <span class="kicker v3-reveal">Faces of Cinegma</span>
+    <h2 class="h-lg v3-reveal">The Actors<br/><span class="serif-i">Who Carry the Stories</span></h2>
+    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">The performers who bring Cinegma Films' characters to life on screen.</p>
+    <div class="faces-grid">
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782778223372-Shamoon.avif" alt="Shamoon Abbasi"/><div class="nm"><b>Shamoon Abbasi</b><i>Janjaal · Payam e Dil</i></div></div>
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782778924297-Screenshot%202026-06-30%20052125.avif" alt="Aahin Babar"/><div class="nm"><b>Aahin Babar</b><i>Payam e Dil</i></div></div>
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782779010636-vlcsnap-2026-01-14-14h45m30s049.avif" alt="Nazish Ali"/><div class="nm"><b>Nazish Ali</b><i>Janjaal · Payam e Dil</i></div></div>
+      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782779205514-78185a87-ec5f-42a6-ab46-50ef05ac0ddc.avif" alt="Danish Irshad"/><div class="nm"><b>Danish Irshad</b><i>Janjaal</i></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="wrap">
+    <span class="kicker v3-reveal">The Work So Far</span>
+    <h2 class="h-lg v3-reveal">Two years in.<br/><span class="serif-i">Here's what the films have done.</span></h2>
+    <div class="grid">
+      <div class="cell v3-reveal"><div class="num"><span data-count="14">0</span><sup>+</sup></div><div class="lbl">International Awards</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="22">0</span></div><div class="lbl">Festival Selections</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="9">0</span></div><div class="lbl">Countries Reached</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="8">0</span></div><div class="lbl">Films &amp; Counting</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="34">0</span><sup>hr</sup></div><div class="lbl">To Shoot Janjaal</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="100">0</span><sup>%</sup></div><div class="lbl">Made In-House</div></div>
+    </div>
+  </div>
+</section>
+
 <section id="quote">
   <div class="wrap">
     <blockquote class="v3-reveal">
@@ -710,37 +699,6 @@ footer .fine a{color:#9a948a}
       <div class="ev v3-reveal"><div class="when">January 2025 · The Big Screen</div><h4>Theatrical release at Arena Cinemas</h4><p>Janjaal played on a real cinema screen in Karachi — seeing it with an actual audience, in the dark, was the moment it all felt worth it.</p></div>
       <div class="ev v3-reveal"><div class="when">2025 – 2026 · The Recognition</div><h4>14 awards across 9 countries</h4><p>Best Director, Best Short Film, Best Trailer — from Toronto and India to Scotland and Kosovo. 22 official festival selections and counting.</p></div>
       <div class="ev v3-reveal"><div class="when">Right Now · In Production</div><h4>Zawaal, A Soldier Beside Me &amp; Payam e Dil</h4><p>Three new films in the works — a dark thriller, a war drama, and a family story. The slate keeps growing. This part of the story is still being written.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="team">
-  <div class="wrap">
-    <span class="kicker v3-reveal">Team Cinegma Films</span>
-    <h2 class="h-lg v3-reveal">The People<br/><span class="serif-i">Behind the Frames</span></h2>
-    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Writers, directors, composers, and producers who make Cinegma Films what it is.</p>
-    <div class="team-grid">
-      <a class="tcard v3-reveal" href="team/syed-asad.html"><img loading="lazy" src="assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi"/><span class="no">01</span><div class="ov"><b>Syed Asad Raza Abidi</b><i>Founder · Director · Editor · Sound Designer</i></div></a>
-      <a class="tcard v3-reveal" href="team/ghayas-uddin.html"><img loading="lazy" src="assets/posters/Ghayas.avif" alt="Ghayas Uddin Siddiqui"/><span class="no">02</span><div class="ov"><b>Ghayas Uddin Siddiqui</b><i>Director of Photography · Cinematographer</i></div></a>
-      <a class="tcard v3-reveal" href="team/ameer-hamza.html"><img loading="lazy" src="assets/posters/Ameer.avif" alt="Ameer Hamza"/><span class="no">03</span><div class="ov"><b>Ameer Hamza</b><i>Writer · Producer</i></div></a>
-      <a class="tcard v3-reveal" href="team/faizan-ahmed.html"><img loading="lazy" src="assets/posters/Faizan%20Ahmed%20Team.avif" alt="Faizan Ahmed"/><span class="no">04</span><div class="ov"><b>Faizan Ahmed</b><i>Production Designer · Art Director</i></div></a>
-      <a class="tcard v3-reveal" href="team/usman-ali.html"><img loading="lazy" src="assets/posters/Usman.avif" alt="Usman Ali Akbar"/><span class="no">05</span><div class="ov"><b>Usman Ali Akbar</b><i>Music Composer</i></div></a>
-      <a class="tcard v3-reveal" href="team/dayyan-khalid.html"><img loading="lazy" src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid"/><span class="no">06</span><div class="ov"><b>Dayyan Khalid</b><i>Producer · Production Manager</i></div></a>
-    </div>
-    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px"><a class="btn" href="team/syed-asad.html">Meet The Founder →</a><a class="btn" href="#explore">All Team Pages ↓</a></div>
-  </div>
-</section>
-
-<section id="faces">
-  <div class="wrap">
-    <span class="kicker v3-reveal">Faces of Cinegma</span>
-    <h2 class="h-lg v3-reveal">The Actors<br/><span class="serif-i">Who Carry the Stories</span></h2>
-    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">The performers who bring Cinegma Films' characters to life on screen.</p>
-    <div class="faces-grid">
-      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782778223372-Shamoon.avif" alt="Shamoon Abbasi"/><div class="nm"><b>Shamoon Abbasi</b><i>Janjaal · Payam e Dil</i></div></div>
-      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782778924297-Screenshot%202026-06-30%20052125.avif" alt="Aahin Babar"/><div class="nm"><b>Aahin Babar</b><i>Payam e Dil</i></div></div>
-      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782779010636-vlcsnap-2026-01-14-14h45m30s049.avif" alt="Nazish Ali"/><div class="nm"><b>Nazish Ali</b><i>Janjaal · Payam e Dil</i></div></div>
-      <div class="face v3-reveal"><img loading="lazy" src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/images/1782779205514-78185a87-ec5f-42a6-ab46-50ef05ac0ddc.avif" alt="Danish Irshad"/><div class="nm"><b>Danish Irshad</b><i>Janjaal</i></div></div>
     </div>
   </div>
 </section>
@@ -831,10 +789,10 @@ document.querySelectorAll('[data-count]').forEach(function(n){if(reduced){n.text
 
 /* poster hover video */
 if(matchMedia('(hover:hover)').matches&&!reduced){
-  document.querySelectorAll('.poster-w[data-cover]').forEach(function(w){
-    var v=null;
+  document.querySelectorAll('.pcard[data-cover]').forEach(function(w){
+    var v=null,media=w.querySelector('.pc-media')||w;
     w.addEventListener('mouseenter',function(){
-      if(!v){v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.src=w.dataset.cover;w.appendChild(v);}
+      if(!v){v=document.createElement('video');v.muted=true;v.loop=true;v.playsInline=true;v.src=w.dataset.cover;media.appendChild(v);}
       v.play().then(function(){w.classList.add('playing');}).catch(function(){});
     });
     w.addEventListener('mouseleave',function(){if(v){v.pause();w.classList.remove('playing');}});
@@ -921,57 +879,72 @@ function boot(){
   }
 
   var world=new THREE.Group();scene.add(world);
-  var reel=new THREE.Group();world.add(reel);
+  var globe=new THREE.Group();world.add(globe);   /* spins with drag */
+  var R=2.0,i,a;
 
   var mCyan=holoMat(0x39d7ff,1),mTeal=holoMat(0x22e0c9,.85),mViolet=holoMat(0x8f78ff,.95);
-  reel.add(new THREE.Mesh(new THREE.TorusGeometry(1.9,.075,20,mobile?72:110),mCyan));
-  reel.add(new THREE.Mesh(new THREE.TorusGeometry(1.62,.028,14,mobile?64:96),mTeal));
-  var hub=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.34,40,1,true),mViolet);
-  hub.rotation.x=Math.PI/2;reel.add(hub);
-  reel.add(new THREE.Mesh(new THREE.TorusGeometry(.42,.03,12,48),mViolet));
 
-  var spokeGeo=new THREE.BoxGeometry(.06,1.14,.06),i,a;
-  for(i=0;i<6;i++){
-    a=i/6*Math.PI*2;
-    var sp=new THREE.Mesh(spokeGeo,mTeal);
-    sp.position.set(Math.cos(a)*1.0,Math.sin(a)*1.0,0);
-    sp.rotation.z=a-Math.PI/2;
-    reel.add(sp);
+  /* glowing holographic core sphere */
+  globe.add(new THREE.Mesh(new THREE.SphereGeometry(R,mobile?40:64,mobile?28:48),mCyan));
+  /* graticule — latitude / longitude wireframe shell */
+  var grat=new THREE.Mesh(new THREE.SphereGeometry(R*1.004,mobile?24:36,mobile?16:24),mTeal);
+  grat.material=grat.material.clone();grat.material.wireframe=true;grat.material.uniforms.uO.value=.4;
+  globe.add(grat);
+  /* equator + tilt ring accents */
+  var eq=new THREE.Mesh(new THREE.TorusGeometry(R*1.01,.012,8,mobile?72:120),mViolet);
+  eq.rotation.x=Math.PI/2;globe.add(eq);
+  /* faint containment halo */
+  var halo=new THREE.Mesh(new THREE.IcosahedronGeometry(R*1.5,1),holoMat(0x7c5cff,.14));
+  halo.material.wireframe=true;world.add(halo);
+  globe.rotation.z=-.28; /* 23° axial tilt feel */
+
+  /* geo → 3D */
+  function geo(lat,lng,r){
+    var phi=(90-lat)*Math.PI/180,th=(lng+180)*Math.PI/180;
+    return new THREE.Vector3(-r*Math.sin(phi)*Math.cos(th),r*Math.cos(phi),r*Math.sin(phi)*Math.sin(th));
   }
-  var dotGeo=new THREE.SphereGeometry(.05,10,10);
-  for(i=0;i<16;i++){
-    a=i/16*Math.PI*2;
-    var d=new THREE.Mesh(dotGeo,mCyan);
-    d.position.set(Math.cos(a)*1.76,Math.sin(a)*1.76,0);
-    reel.add(d);
+
+  /* award markers — each pops up over its country of origin */
+  var AWARDS=[
+    {n:'Pakistan',lat:30.4,lng:69.3,big:true},
+    {n:'India',lat:22.6,lng:88.4},
+    {n:'Canada',lat:43.7,lng:-79.4},
+    {n:'Scotland',lat:56.5,lng:-4.2},
+    {n:'Kosovo',lat:42.6,lng:20.9},
+    {n:'United States',lat:38.9,lng:-77.0},
+    {n:'Spain',lat:40.4,lng:-3.7},
+    {n:'Egypt',lat:26.8,lng:30.8},
+    {n:'Iran',lat:32.4,lng:53.7}
+  ];
+  function pinTex(hot){
+    var c=document.createElement('canvas');c.width=c.height=128;
+    var g=c.getContext('2d'),r=g.createRadialGradient(64,64,0,64,64,64);
+    if(hot){r.addColorStop(0,'rgba(255,240,200,.95)');r.addColorStop(.3,'rgba(255,200,90,.7)');r.addColorStop(1,'rgba(255,160,40,0)');}
+    else{r.addColorStop(0,'rgba(210,245,255,.95)');r.addColorStop(.35,'rgba(90,200,255,.55)');r.addColorStop(1,'rgba(60,170,255,0)');}
+    g.fillStyle=r;g.fillRect(0,0,128,128);
+    return new THREE.CanvasTexture(c);
   }
+  var dotGeo=new THREE.SphereGeometry(.045,10,10);
+  var markers=[];
+  AWARDS.forEach(function(w){
+    var base=geo(w.lat,w.lng,R),nrm=base.clone().normalize(),h=w.big?.9:.6;
+    var top=base.clone().add(nrm.clone().multiplyScalar(h));
+    /* surface dot */
+    var dm=(w.big?mViolet:mCyan);
+    var dot=new THREE.Mesh(dotGeo,dm);dot.position.copy(base);dot.scale.setScalar(w.big?1.5:1);globe.add(dot);
+    /* beam */
+    var bh=h,beam=new THREE.Mesh(new THREE.CylinderGeometry(w.big?.02:.012,.004,bh,6,1,true),dm);
+    beam.position.copy(base.clone().add(nrm.clone().multiplyScalar(bh/2)));
+    beam.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),nrm);
+    globe.add(beam);
+    /* glowing award sprite on top */
+    var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:pinTex(w.big),transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,opacity:.9}));
+    var s=w.big?.62:.42;sp.scale.set(s,s,1);sp.position.copy(top);
+    globe.add(sp);
+    markers.push({sp:sp,dot:dot,ph:Math.random()*6.28,big:w.big});
+  });
 
-  /* orbiting film strip */
-  function stripTex(){
-    var c=document.createElement('canvas');c.width=512;c.height=64;
-    var g=c.getContext('2d');
-    g.strokeStyle='rgba(130,215,255,.95)';g.lineWidth=2;
-    for(var x=8;x<512;x+=64)g.strokeRect(x,15,48,34);
-    g.fillStyle='rgba(130,215,255,.95)';
-    for(x=4;x<512;x+=16){g.fillRect(x,4,6,5);g.fillRect(x,55,6,5);}
-    var t=new THREE.CanvasTexture(c);
-    t.wrapS=THREE.RepeatWrapping;t.repeat.x=3;
-    return t;
-  }
-  var stripWrap=new THREE.Group();world.add(stripWrap);
-  var strip=new THREE.Mesh(
-    new THREE.CylinderGeometry(2.38,2.38,.56,mobile?56:80,1,true),
-    new THREE.MeshBasicMaterial({map:stripTex(),color:0x9adcff,transparent:true,opacity:.45,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
-  strip.rotation.x=Math.PI/2;
-  stripWrap.add(strip);
-  stripWrap.rotation.x=.18;
-
-  /* containment shell */
-  var shell=new THREE.Mesh(new THREE.IcosahedronGeometry(3.05,1),holoMat(0x7c5cff,.16));
-  shell.material.wireframe=true;
-  world.add(shell);
-
-  /* volumetric glow */
+  /* volumetric glow behind globe */
   function glowTex(){
     var c=document.createElement('canvas');c.width=c.height=256;
     var g=c.getContext('2d'),r=g.createRadialGradient(128,128,0,128,128,128);
@@ -983,17 +956,17 @@ function boot(){
   glow.scale.set(8,8,1);glow.position.z=-1.4;
   world.add(glow);
 
-  /* particles */
+  /* star particles */
   var N=mobile?140:320,pos=new Float32Array(N*3);
   for(i=0;i<N;i++){
-    var r0=2.3+Math.random()*1.5,th=Math.random()*Math.PI*2,ph=(Math.random()-.5)*Math.PI*.7;
+    var r0=3.0+Math.random()*1.8,th=Math.random()*Math.PI*2,ph=(Math.random()-.5)*Math.PI*.9;
     pos[i*3]=Math.cos(th)*Math.cos(ph)*r0;
     pos[i*3+1]=Math.sin(ph)*r0*.8;
     pos[i*3+2]=Math.sin(th)*Math.cos(ph)*r0;
   }
   var pgeo=new THREE.BufferGeometry();
   pgeo.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  var pts=new THREE.Points(pgeo,new THREE.PointsMaterial({size:.035,color:0x7fd4ff,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true}));
+  var pts=new THREE.Points(pgeo,new THREE.PointsMaterial({size:.03,color:0x7fd4ff,transparent:true,opacity:.5,blending:THREE.AdditiveBlending,depthWrite:false,sizeAttenuation:true}));
   world.add(pts);
 
   /* sizing */
@@ -1039,13 +1012,17 @@ function boot(){
     if(!visible||document.hidden){clock.getDelta();return;}
     var dt=Math.min(clock.getDelta(),.05);t+=dt;
     cx+=(tx-cx)*.055;cy+=(ty-cy)*.055;
-    world.rotation.y=-.42+cx*.5;
-    world.rotation.x=.16+cy*.3;
-    world.position.y=Math.sin(t*.8)*.07;
-    reel.rotation.z-=dt*.35+vel;vel*=.94;
-    stripWrap.rotation.z+=dt*.1;
-    shell.rotation.y+=dt*.05;shell.rotation.x+=dt*.028;
-    pts.rotation.y+=dt*.03;
+    world.rotation.x=.14+cy*.3;          /* tilt with cursor / phone */
+    world.rotation.y=cx*.4;
+    world.position.y=Math.sin(t*.8)*.06;
+    globe.rotation.y+=dt*.12+vel;vel*=.93; /* auto-spin + drag momentum */
+    halo.rotation.y-=dt*.05;halo.rotation.x+=dt*.02;
+    pts.rotation.y+=dt*.02;
+    for(var mi=0;mi<markers.length;mi++){
+      var m=markers[mi],pu=0.85+Math.sin(t*(m.big?2.2:1.6)+m.ph)*(m.big?.35:.22);
+      m.sp.material.opacity=Math.max(.2,pu);
+      var base=(m.big?.62:.42)*(0.92+pu*0.12);m.sp.scale.set(base,base,1);
+    }
     glow.material.opacity=.72+Math.sin(t*1.4)*.14;
     renderer.render(scene,cam);
     if(!shown){shown=true;stage.classList.add('on');}

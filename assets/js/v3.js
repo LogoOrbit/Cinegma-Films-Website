@@ -158,3 +158,58 @@
 
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
 })();
+
+/* ── Dismissible floating widgets (bottom play + nav buttons) ──
+   Mobile: swipe/slide on the widget hides it.
+   Desktop: a visible × control hides it on click. */
+(function () {
+  var coarse = matchMedia('(pointer:coarse)').matches;
+  var css = document.createElement('style');
+  css.textContent =
+    '.wx-dismissed{display:none!important}' +
+    '.wx-close{position:absolute;top:-9px;right:-9px;width:20px;height:20px;border-radius:50%;' +
+    'background:rgba(14,14,18,.95);border:1px solid rgba(255,255,255,.35);color:#fff;font-size:12px;line-height:1;' +
+    'display:none;align-items:center;justify-content:center;cursor:pointer;z-index:5;padding:0;transition:transform .2s,background .2s}' +
+    '.wx-close:hover{transform:scale(1.15);background:#fff;color:#06060a}' +
+    '@media(hover:hover) and (pointer:fine){.wx-host{position:relative}.wx-host .wx-close{display:flex}}';
+  document.head.appendChild(css);
+
+  function enhance(elm) {
+    if (!elm || elm.dataset.wxDone) return;
+    elm.dataset.wxDone = '1';
+    elm.classList.add('wx-host');
+    /* desktop × */
+    var x = document.createElement('button');
+    x.type = 'button'; x.className = 'wx-close'; x.setAttribute('aria-label', 'Hide'); x.innerHTML = '&times;';
+    x.addEventListener('click', function (e) {
+      e.stopPropagation(); e.preventDefault(); elm.classList.add('wx-dismissed');
+    });
+    elm.appendChild(x);
+    /* mobile swipe-to-hide */
+    if (coarse) {
+      var sx = 0, sy = 0, moved = 0;
+      elm.addEventListener('touchstart', function (e) {
+        var t = e.touches[0]; sx = t.clientX; sy = t.clientY; moved = 0;
+      }, { passive: true });
+      elm.addEventListener('touchmove', function (e) {
+        var t = e.touches[0]; moved = Math.max(Math.abs(t.clientX - sx), Math.abs(t.clientY - sy));
+        if (moved > 44) {
+          var dx = t.clientX - sx, dy = t.clientY - sy;
+          elm.style.transition = 'transform .25s ease, opacity .25s ease';
+          elm.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+          elm.style.opacity = Math.max(0, 1 - moved / 160);
+        }
+      }, { passive: true });
+      elm.addEventListener('touchend', function () {
+        if (moved > 60) { elm.classList.add('wx-dismissed'); }
+        elm.style.transform = ''; elm.style.opacity = ''; elm.style.transition = '';
+      }, { passive: true });
+    }
+  }
+
+  var ids = ['v3-k-fab', 'sfxToggle'];
+  function sweep() { ids.forEach(function (id) { enhance(document.getElementById(id)); }); }
+  sweep();
+  /* widgets may mount asynchronously */
+  var tries = 0, iv = setInterval(function () { sweep(); if (++tries > 40) clearInterval(iv); }, 250);
+})();
