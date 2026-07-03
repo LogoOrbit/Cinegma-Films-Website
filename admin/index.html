@@ -4,901 +4,1061 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="robots" content="noindex, nofollow"/>
-  <title>Cinegma Studio</title>
+  <title>Cinegma Studio — CMS</title>
   <link rel="icon" href="/assets/posters/CinegmaFevicon.png" type="image/png"/>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet"/>
   <style>
-/* ============================================================
-   CINEGMA STUDIO — professional admin app theme
-   ============================================================ */
-:root{
-  --bg:#0a0b0e;--bg2:#0f1117;--panel:#12141c;--panel2:#171a24;
-  --line:rgba(255,255,255,.08);--line2:rgba(255,255,255,.14);
-  --ink:#eef0f4;--mut:#8b909c;--dim:#5c6170;
-  --acc:#ffffff;--ok:#3ecf8e;--warn:#f5b64b;--err:#f0625d;
-  --r:12px;--r-lg:16px;
-  --font:'DM Sans','Inter',system-ui,-apple-system,sans-serif;
-  --disp:'Bebas Neue',var(--font);
-  --shadow:0 20px 60px rgba(0,0,0,.5);
+/* ═══════════════════════════════════════════════════════════════
+   CINEGMA STUDIO — Professional CMS Admin Dashboard
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #0a0b0e;
+  --bg2: #0f1117;
+  --panel: #12141c;
+  --panel2: #171a24;
+  --line: rgba(255,255,255,0.08);
+  --line2: rgba(255,255,255,0.14);
+  --ink: #eef0f4;
+  --mut: #8b909c;
+  --dim: #5c6170;
+  --acc: #ffffff;
+  --ok: #3ecf8e;
+  --warn: #f5b64b;
+  --err: #f0625d;
+  --font: 'DM Sans', system-ui, sans-serif;
+  --disp: 'Bebas Neue', var(--font);
 }
-*{margin:0;padding:0;box-sizing:border-box}
-html{height:100%}
-body{min-height:100%;background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(60% 45% at 15% 0%,rgba(255,255,255,.05),transparent 60%),radial-gradient(50% 40% at 100% 100%,rgba(255,255,255,.035),transparent 60%)}
-body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.03;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
-a{color:inherit;text-decoration:none}
-::selection{background:#fff;color:#000}
-::-webkit-scrollbar{width:10px;height:10px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#262a36;border-radius:6px;border:2px solid var(--bg)}
-::-webkit-scrollbar-thumb:hover{background:#333848}
 
-/* ===== Animated wordmark ===== */
-.logo-anim{width:min(430px,84vw);height:auto;display:block}
-.logo-anim text{font-family:var(--disp);font-size:96px;letter-spacing:.1em}
-.logo-anim .ln2{font-size:52px;letter-spacing:.55em}
-.logo-anim .stroke{fill:none;stroke:rgba(255,255,255,.85);stroke-width:1.2;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.4s ease forwards}
-.logo-anim .ln2.stroke{animation-delay:.35s}
-.logo-anim .fill{fill:url(#goldGrad);opacity:0;animation:fillin 1s ease 1.7s forwards}
-@keyframes draw{to{stroke-dashoffset:0}}
-@keyframes fillin{to{opacity:1}}
-
-/* ===== watermark ===== */
-.bg-mark{position:fixed;inset:auto 0 -4vw 0;z-index:0;pointer-events:none;overflow:hidden;text-align:center}
-.bg-mark span{font-family:var(--disp);font-size:22vw;line-height:.8;letter-spacing:.06em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.035)}
-
-/* ===== LOGIN ===== */
-.login{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:38px;background:var(--bg);padding:20px}
-.login .logo-wrap{display:flex;justify-content:center}
-.login-card{width:min(400px,100%);background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:34px;box-shadow:var(--shadow)}
-.login-card .kicker{font-size:10px;letter-spacing:.4em;text-transform:uppercase;color:var(--mut);margin-bottom:8px}
-.login-card h1{font-size:19px;font-weight:600;letter-spacing:.01em;margin-bottom:24px}
-.login-card label{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin:16px 0 7px}
-.login-card input{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:13px 14px;color:var(--ink);font:inherit;outline:0;transition:border-color .25s,box-shadow .25s}
-.login-card input:focus{border-color:rgba(255,255,255,.45);box-shadow:0 0 0 3px rgba(255,255,255,.07)}
-.login-err{display:none;margin-top:14px;padding:11px 14px;border-radius:10px;border:1px solid rgba(240,98,93,.35);background:rgba(240,98,93,.08);color:#ff9b97;font-size:13px}
-.hidden{display:none!important}
-
-/* ===== Buttons ===== */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:10px;border:1px solid var(--line2);background:var(--panel2);color:var(--ink);font:600 13px/1 var(--font);letter-spacing:.02em;cursor:pointer;transition:all .22s ease;white-space:nowrap}
-.btn svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.btn:hover{border-color:rgba(255,255,255,.35);transform:translateY(-1px)}
-.btn-primary{background:#fff;border-color:#fff;color:#0a0b0e;position:relative;overflow:hidden}
-.btn-primary:hover{box-shadow:0 8px 26px rgba(255,255,255,.22)}
-.btn-primary::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(0,0,0,.08) 50%,transparent 70%);transform:translateX(-120%);transition:transform .6s}
-.btn-primary:hover::after{transform:translateX(120%)}
-.btn-ghost{background:transparent}
-.btn-ghost:hover{background:var(--panel2)}
-.btn-danger{background:rgba(240,98,93,.1);border-color:rgba(240,98,93,.35);color:#ff9b97}
-.btn-danger:hover{background:rgba(240,98,93,.2)}
-.btn-sm{padding:7px 13px;font-size:12px;border-radius:8px}
-.btn-full{width:100%;margin-top:22px;padding:13px}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-
-/* ===== Layout ===== */
-#appShell{position:relative;z-index:1}
-.shell{margin-left:262px;min-height:100vh}
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:262px;z-index:40;display:flex;flex-direction:column;background:var(--bg2);border-right:1px solid var(--line)}
-.brand{padding:26px 22px 18px}
-.brand .mark{font-family:var(--disp);font-size:23px;letter-spacing:.18em;color:#fff}
-.brand .mark span{color:var(--mut);font-size:15px;letter-spacing:.3em}
-.brand .sub{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--dim);margin-top:4px}
-.brand .rule{height:1px;background:var(--line);margin-top:18px}
-.nav{flex:1;overflow-y:auto;padding:10px 12px}
-.nav .group-label{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);padding:16px 12px 7px}
-.nav button{display:flex;align-items:center;gap:12px;width:100%;padding:10px 12px;margin:1px 0;border:0;border-radius:9px;background:transparent;color:var(--mut);font:500 13.5px/1 var(--font);letter-spacing:.02em;cursor:pointer;transition:all .18s;position:relative;text-align:left}
-.nav button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:0 0 17px}
-.nav button:hover{background:rgba(255,255,255,.05);color:var(--ink)}
-.nav button.active{background:rgba(255,255,255,.09);color:#fff}
-.nav button.active::before{content:"";position:absolute;left:-12px;top:8px;bottom:8px;width:3px;border-radius:3px;background:#fff}
-.userbox{border-top:1px solid var(--line);padding:16px 18px}
-.userbox .who{display:flex;align-items:center;gap:11px;margin-bottom:12px}
-.userbox .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(140deg,#2a2e3c,#171a24);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;font:700 13px/1 var(--font);color:#fff;overflow:hidden}
-.userbox .avatar img{width:100%;height:100%;object-fit:cover}
-.userbox .name{font-size:13px;font-weight:600;color:var(--ink)}
-.userbox .role{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim)}
-.userbox .logout{width:100%;padding:9px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--mut);font:600 12px/1 var(--font);cursor:pointer;transition:all .2s}
-.userbox .logout:hover{border-color:rgba(240,98,93,.4);color:#ff9b97;background:rgba(240,98,93,.06)}
-.main{padding:0}
-.main-inner{max-width:1180px;margin:0 auto;padding:38px clamp(20px,3.5vw,44px) 90px;animation:pgin .35s ease}
-@keyframes pgin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-
-/* ===== Page head / toolbar ===== */
-.page-head{margin-bottom:28px}
-.page-head .kicker{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--mut);margin-bottom:6px}
-.page-head h2{font-family:var(--disp);font-size:clamp(30px,3.6vw,44px);letter-spacing:.04em;line-height:1;color:#fff;font-weight:400}
-.page-head p{color:var(--mut);margin-top:8px;max-width:640px}
-.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px}
-.toolbar .spacer{flex:1}
-.glass{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:24px}
-
-/* ===== Article cards ===== */
-.art-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
-.art-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s}
-.art-card:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:var(--shadow)}
-.art-card .cover{aspect-ratio:16/9;background:var(--bg2);overflow:hidden;position:relative}
-.art-card .cover img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-.art-card:hover .cover img{transform:scale(1.05)}
-.art-card .cover .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim)}
-.art-card .cover .ph svg{width:34px;height:34px;fill:none;stroke:currentColor;stroke-width:1.5}
-.art-card .body{padding:16px 18px 18px}
-.art-card .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:9px}
-.art-card h3{font-size:15px;font-weight:600;line-height:1.35;color:var(--ink)}
-.art-card .date{font-size:11.5px;color:var(--dim);margin-top:8px}
-.pill{display:inline-flex;align-items:center;padding:4px 11px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--line2);color:var(--mut)}
-.pill-ok{border-color:rgba(62,207,142,.4);color:var(--ok);background:rgba(62,207,142,.08)}
-.pill-draft{border-color:rgba(245,182,75,.4);color:var(--warn);background:rgba(245,182,75,.08)}
-.pill-cat{border-color:var(--line2);color:#c6cad4;background:rgba(255,255,255,.04)}
-
-/* ===== Editor / forms ===== */
-.editor{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:clamp(20px,3vw,34px)}
-.field{margin-bottom:18px}
-.field label{display:block;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-bottom:8px}
-.field input,.field select,.field textarea{width:100%;background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);font:inherit;outline:0;transition:border-color .25s,box-shadow .25s}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:rgba(255,255,255,.45);box-shadow:0 0 0 3px rgba(255,255,255,.06)}
-.field input::placeholder,.field textarea::placeholder{color:var(--dim)}
-.field textarea{min-height:130px;resize:vertical;line-height:1.7}
-.field .title-input{font-size:21px;font-weight:600;padding:15px 16px}
-.field .title-input:focus{border-color:rgba(255,255,255,.5)}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-.field-row .field{margin-bottom:18px}
-@media(max-width:720px){.field-row{grid-template-columns:1fr}}
-.hint{font-size:11.5px;color:var(--dim);margin-top:6px}
-.toggle{display:inline-flex;align-items:center;gap:11px;cursor:pointer;user-select:none}
-.toggle input{display:none}
-.toggle .track{width:42px;height:23px;border-radius:999px;background:var(--panel2);border:1px solid var(--line2);position:relative;transition:background .25s,border-color .25s}
-.toggle .track::after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:var(--mut);transition:all .25s}
-.toggle input:checked + .track{background:rgba(62,207,142,.25);border-color:rgba(62,207,142,.5)}
-.toggle input:checked + .track::after{left:21px;background:var(--ok)}
-.toggle input:checked ~ .lbl{color:var(--ok)}
-.editor-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;padding-top:22px;border-top:1px solid var(--line)}
-.cover-row{display:flex;gap:12px;align-items:flex-end}
-.cover-row .field{flex:1;margin-bottom:0}
-.cover-row .btn{flex:0 0 auto}
-
-/* ===== Media toolbar ===== */
-.media-toolbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
-.media-toolbar button{display:inline-flex;align-items:center;gap:8px;padding:9px 15px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--mut);font:600 12.5px/1 var(--font);cursor:pointer;transition:all .2s}
-.media-toolbar button:hover{color:#fff;border-color:var(--line2);background:var(--panel2)}
-.media-toolbar button.active{background:#fff;color:#0a0b0e;border-color:#fff}
-.media-toolbar button svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2}
-
-/* ===== Modal ===== */
-.upload-overlay{position:fixed;inset:0;z-index:60;background:rgba(5,6,9,.75);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:20px}
-.upload-modal{width:min(560px,100%);max-height:88vh;overflow-y:auto;background:var(--panel);border:1px solid var(--line2);border-radius:var(--r-lg);padding:28px;box-shadow:var(--shadow);position:relative;animation:pgin .3s ease}
-.upload-modal h3{font-family:var(--disp);font-size:24px;letter-spacing:.06em;font-weight:400;margin-bottom:18px}
-.upload-modal .close-modal{position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--mut);font-size:16px;cursor:pointer;transition:all .2s}
-.upload-modal .close-modal:hover{color:#fff;border-color:var(--line2);background:var(--panel2)}
-
-/* ===== Log table / filters ===== */
-.log-filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
-.log-filters select,.log-filters input{background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:9px 12px;color:var(--ink);font:inherit;font-size:13px;outline:0;transition:border-color .25s}
-.log-filters select:focus,.log-filters input:focus{border-color:rgba(255,255,255,.4)}
-.log-table,.admin-table{width:100%;border-collapse:separate;border-spacing:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;font-size:13px}
-.log-table th,.admin-table th{text-align:left;padding:13px 16px;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);background:var(--bg2);border-bottom:1px solid var(--line);font-weight:600}
-.log-table td,.admin-table td{padding:13px 16px;border-bottom:1px solid var(--line);color:#c6cad4;vertical-align:top}
-.log-table tr:last-child td,.admin-table tr:last-child td{border-bottom:0}
-.log-table tr:hover td,.admin-table tr:hover td{background:rgba(255,255,255,.025)}
-.log-action{display:inline-flex;padding:3px 10px;border-radius:999px;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--line2);color:var(--mut)}
-.log-action.auth{border-color:rgba(99,161,255,.4);color:#8db4ff;background:rgba(99,161,255,.08)}
-.log-action.content{border-color:rgba(62,207,142,.4);color:var(--ok);background:rgba(62,207,142,.08)}
-.log-action.media{border-color:rgba(245,182,75,.4);color:var(--warn);background:rgba(245,182,75,.08)}
-.log-action.danger{border-color:rgba(240,98,93,.45);color:#ff9b97;background:rgba(240,98,93,.08)}
-.log-device .primary{color:var(--ink);font-size:12.5px}
-.log-device .secondary{color:var(--dim);font-size:11px}
-.log-details{color:var(--dim);font-size:12px;max-width:340px}
-.log-pagination{display:flex;justify-content:center;gap:10px;margin-top:18px}
-
-/* ===== Analytics ===== */
-.analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:24px}
-.a-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px 22px;transition:border-color .25s,transform .25s}
-.a-card:hover{border-color:var(--line2);transform:translateY(-2px)}
-.a-card .a-num{font-family:var(--disp);font-size:36px;line-height:1;color:#fff;letter-spacing:.03em}
-.a-card .a-lbl{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--mut);margin-top:7px}
-.a-section{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;margin-bottom:16px}
-.a-section h3{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--mut);margin-bottom:16px;font-weight:600}
-.a-bar-list{display:flex;flex-direction:column;gap:11px}
-.a-bar-item{display:grid;grid-template-columns:minmax(90px,180px) 1fr 46px;gap:12px;align-items:center;font-size:12.5px}
-.a-bar-item .a-bar-name{color:#c6cad4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.a-bar-item .a-bar-count{color:var(--mut);text-align:right;font-variant-numeric:tabular-nums}
-.a-bar-item .a-bar-track{height:7px;border-radius:99px;background:var(--bg2);overflow:hidden}
-.a-bar-item .a-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#e6e8ee,#8b909c);transition:width .8s cubic-bezier(.2,.9,.3,1)}
-.a-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:860px){.a-cols{grid-template-columns:1fr}}
-
-/* ===== Dropzones ===== */
-.drop{border:1.5px dashed var(--line2);border-radius:var(--r-lg);background:var(--bg2);padding:46px 22px;text-align:center;cursor:pointer;transition:all .25s}
-.drop:hover,.drop.hover{border-color:rgba(255,255,255,.5);background:var(--panel2)}
-.drop .ico{width:52px;height:52px;margin:0 auto 14px;border-radius:14px;background:var(--panel2);border:1px solid var(--line2);display:flex;align-items:center;justify-content:center;color:var(--ink)}
-.drop .ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
-.drop .big{font-size:15px;font-weight:600;color:var(--ink)}
-.drop .small{font-size:12px;color:var(--dim);margin-top:5px}
-
-/* ===== Cropper ===== */
-.crop-presets{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
-.crop-presets button{padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:transparent;color:var(--mut);font:600 12px/1 var(--font);cursor:pointer;transition:all .2s}
-.crop-presets button.active{background:#fff;color:#0a0b0e;border-color:#fff}
-.crop-frame{position:relative;border-radius:var(--r);overflow:hidden;background:#000;cursor:grab;border:1px solid var(--line2)}
-.crop-frame.grabbing{cursor:grabbing}
-.crop-frame img{user-select:none;-webkit-user-drag:none;pointer-events:none}
-.crop-frame::after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);
-  background:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:33.4% 33.4%}
-.crop-zoom{display:flex;align-items:center;gap:12px;margin-top:14px}
-.crop-zoom .lbl{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
-.crop-zoom input[type=range]{flex:1;accent-color:#fff}
-
-/* ===== Media grid ===== */
-.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
-.media-card{position:relative;border-radius:var(--r);overflow:hidden;background:var(--panel);border:1px solid var(--line);aspect-ratio:4/3;cursor:pointer;transition:transform .25s,border-color .25s}
-.media-card:hover{transform:translateY(-3px);border-color:var(--line2)}
-.media-card img,.media-card .vid{width:100%;height:100%;object-fit:cover;display:flex;align-items:center;justify-content:center;color:var(--dim)}
-.media-card .overlay{position:absolute;inset:auto 0 0 0;padding:26px 12px 10px;background:linear-gradient(transparent,rgba(4,5,8,.92));opacity:0;transition:opacity .25s}
-.media-card:hover .overlay{opacity:1}
-.media-card .overlay .nm{font-size:12px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.media-card .overlay .cap{font-size:10.5px;color:var(--mut)}
-.media-card .copy-hint{position:absolute;top:9px;right:9px;padding:5px 10px;border-radius:999px;background:rgba(8,9,12,.8);border:1px solid var(--line2);font-size:10px;letter-spacing:.1em;color:#fff;opacity:0;transition:opacity .25s}
-.media-card:hover .copy-hint{opacity:1}
-.result-url{display:flex;gap:10px;margin-top:14px}
-.result-url input{flex:1;background:var(--bg2);border:1px solid var(--line);border-radius:9px;padding:10px 12px;color:var(--ink);font:12.5px/1.4 ui-monospace,monospace;outline:0}
-
-/* ===== States ===== */
-.spinner{width:22px;height:22px;border:2.5px solid var(--line2);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;display:inline-block}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-state{display:flex;align-items:center;justify-content:center;gap:12px;padding:60px 0;color:var(--mut)}
-.empty{text-align:center;padding:70px 20px;color:var(--mut)}
-.empty .ico{width:60px;height:60px;margin:0 auto 16px;border-radius:16px;background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--dim)}
-.empty h3{font-size:16px;color:var(--ink);margin-bottom:6px}
-.empty p{font-size:13px}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:24px}
-.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px 20px;transition:border-color .25s}
-.stat:hover{border-color:var(--line2)}
-.stat .num{font-family:var(--disp);font-size:32px;line-height:1;color:#fff;letter-spacing:.03em}
-.stat .lbl{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-top:6px}
-
-/* ===== Toasts ===== */
-.toast{position:fixed;bottom:24px;right:24px;z-index:80;display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:12px;background:var(--panel);border:1px solid var(--line2);color:var(--ink);font-size:13.5px;font-weight:500;box-shadow:var(--shadow);animation:pgin .3s ease}
-.toast::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--mut)}
-.toast-ok{border-color:rgba(62,207,142,.45)}
-.toast-ok::before{background:var(--ok);box-shadow:0 0 10px var(--ok)}
-.toast-err{border-color:rgba(240,98,93,.5)}
-.toast-err::before{background:var(--err);box-shadow:0 0 10px var(--err)}
-
-/* ===== Mobile ===== */
-.mobile-bar{display:none;position:fixed;top:0;left:0;right:0;z-index:45;align-items:center;gap:14px;padding:13px 16px;background:rgba(10,11,14,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.mobile-bar .mark{font-family:var(--disp);font-size:19px;letter-spacing:.16em;color:#fff}
-.mobile-bar .mark span{color:var(--mut);font-size:13px;letter-spacing:.28em}
-.burger{width:38px;height:38px;border-radius:9px;border:1px solid var(--line);background:transparent;position:relative;cursor:pointer}
-.burger span{position:absolute;left:9px;right:9px;height:2px;background:#fff;border-radius:2px;transition:.3s}
-.burger span:nth-child(1){top:12px}.burger span:nth-child(2){top:18px}.burger span:nth-child(3){top:24px}
-.scrim{display:none;position:fixed;inset:0;z-index:39;background:rgba(4,5,8,.6);backdrop-filter:blur(4px)}
-.scrim.show{display:block}
-@media(max-width:900px){
-  .sidebar{transform:translateX(-100%);transition:transform .35s cubic-bezier(.2,.9,.3,1)}
-  .sidebar.open{transform:none;box-shadow:var(--shadow)}
-  .shell{margin-left:0}
-  .mobile-bar{display:flex}
-  .main-inner{padding-top:86px}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { height: 100%; }
+body {
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
 }
-</style>
+
+a { color: inherit; text-decoration: none; }
+::selection { background: #fff; color: #000; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #262a36; border-radius: 6px; }
+
+/* ═══ LOGIN SCREEN ═══ */
+.login-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  background: var(--bg);
+  padding: 20px;
+}
+
+.login-wrapper.active { display: flex; }
+
+.login-card {
+  width: min(420px, 100%);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.login-card h1 {
+  font-family: var(--disp);
+  font-size: 32px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.login-card .sub {
+  color: var(--mut);
+  font-size: 13px;
+  margin-bottom: 28px;
+}
+
+.login-card label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin: 16px 0 7px;
+}
+
+.login-card input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--ink);
+  font: inherit;
+  outline: 0;
+  transition: border-color 0.25s;
+}
+
+.login-card input:focus {
+  border-color: rgba(255,255,255,0.4);
+}
+
+.login-err {
+  display: none;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(240,98,93,0.35);
+  background: rgba(240,98,93,0.08);
+  color: #ff9b97;
+  font-size: 13px;
+}
+
+.login-err.show { display: block; }
+
+.btn-submit {
+  width: 100%;
+  margin-top: 26px;
+  padding: 13px;
+  border-radius: 10px;
+  border: 0;
+  background: #fff;
+  color: #0a0b0e;
+  font: 600 13px var(--font);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: box-shadow 0.3s;
+}
+
+.btn-submit:hover {
+  box-shadow: 0 8px 26px rgba(255,255,255,0.25);
+}
+
+/* ═══ APP SHELL ═══ */
+.app {
+  display: flex;
+  min-height: 100vh;
+  margin-left: 260px;
+}
+
+/* ═══ SIDEBAR ═══ */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 260px;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg2);
+  border-right: 1px solid var(--line);
+}
+
+.brand {
+  padding: 26px 22px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.brand h1 {
+  font-family: var(--disp);
+  font-size: 20px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.brand .tag {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-top: 4px;
+}
+
+.nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+.nav-section {
+  margin-bottom: 20px;
+}
+
+.nav-section-label {
+  font-size: 9.5px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 12px 12px 8px;
+  margin-bottom: 4px;
+}
+
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 12px;
+  margin: 2px 0;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--mut);
+  font: 500 13.5px var(--font);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.18s;
+  text-align: left;
+  position: relative;
+}
+
+.nav-btn svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: 0 0 17px;
+}
+
+.nav-btn:hover {
+  background: rgba(255,255,255,0.05);
+  color: var(--ink);
+}
+
+.nav-btn.active {
+  background: rgba(255,255,255,0.09);
+  color: #fff;
+}
+
+.nav-btn.active::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 8px;
+  bottom: 8px;
+  width: 3px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.user-box {
+  border-top: 1px solid var(--line);
+  padding: 16px 18px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #2a2e3c, #171a24);
+  border: 1px solid var(--line2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 13px var(--font);
+  color: #fff;
+}
+
+.user-details h4 {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.user-details .role {
+  font-size: 11px;
+  color: var(--mut);
+  letter-spacing: 0.02em;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: rgba(240,98,93,0.1);
+  border: 1px solid rgba(240,98,93,0.35);
+  color: #ff9b97;
+  font: 11px var(--font);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+
+.logout-btn:hover {
+  background: rgba(240,98,93,0.2);
+}
+
+/* ═══ MAIN CONTENT ═══ */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.header {
+  padding: 24px 32px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.header h2 {
+  font-family: var(--disp);
+  font-size: 28px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid var(--line2);
+  background: var(--panel2);
+  color: var(--ink);
+  font: 600 13px var(--font);
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.22s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  border-color: rgba(255,255,255,0.35);
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #fff;
+  border-color: #fff;
+  color: #0a0b0e;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 8px 26px rgba(255,255,255,0.22);
+}
+
+.header-sub {
+  font-size: 13px;
+  color: var(--mut);
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+}
+
+/* ═══ DASHBOARD SECTIONS ═══ */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* Dashboard Stats */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color 0.3s;
+}
+
+.stat-card:hover {
+  border-color: var(--line2);
+}
+
+.stat-label {
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  font-family: var(--disp);
+  font-size: 38px;
+  letter-spacing: 0.06em;
+  color: #fff;
+}
+
+/* Forms */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 11px 14px;
+  color: var(--ink);
+  font: inherit;
+  outline: 0;
+  transition: border-color 0.25s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: rgba(255,255,255,0.4);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Lists */
+.list-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.list-item {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.list-item:hover {
+  border-color: var(--line2);
+  transform: translateY(-2px);
+}
+
+.list-item-info {
+  flex: 1;
+}
+
+.list-item-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #fff;
+}
+
+.list-item-meta {
+  font-size: 12px;
+  color: var(--mut);
+}
+
+.list-item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Cards */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 800px;
+}
+
+.card h3 {
+  font-family: var(--disp);
+  font-size: 22px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  color: #fff;
+}
+
+/* Status badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.badge-draft {
+  background: rgba(139,144,156,0.2);
+  color: #8b909c;
+  border: 1px solid rgba(139,144,156,0.3);
+}
+
+.badge-published {
+  background: rgba(62,207,142,0.2);
+  color: #3ecf8e;
+  border: 1px solid rgba(62,207,142,0.3);
+}
+
+.badge-pending {
+  background: rgba(245,182,75,0.2);
+  color: #f5b64b;
+  border: 1px solid rgba(245,182,75,0.3);
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--mut);
+}
+
+.empty-state h3 {
+  font-family: var(--disp);
+  font-size: 24px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.empty-state p {
+  margin-bottom: 20px;
+  font-size: 13px;
+}
+
+.empty-state .btn {
+  margin: 0 auto;
+}
+
+/* Utilities */
+.hidden { display: none !important; }
+.full-width { width: 100%; }
+.text-center { text-align: center; }
+.mt-24 { margin-top: 24px; }
+.gap-12 { gap: 12px; }
+  </style>
 </head>
 <body>
-  <!-- Animated wordmark definition (gradient reused everywhere) -->
-  <svg width="0" height="0" style="position:absolute"><defs>
-    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#888"/><stop offset="50%" stop-color="#e0e0e0"/><stop offset="100%" stop-color="#888"/>
-    </linearGradient>
-  </defs></svg>
 
-  <!-- ===== LOGIN ===== -->
-  <div class="login" id="loginScreen">
-    <div class="logo-wrap">
-      <svg class="logo-anim" viewBox="0 0 600 230">
-        <text class="ln1 stroke" x="300" y="120" text-anchor="middle">CINEGMA</text>
-        <text class="ln1 fill"   x="300" y="120" text-anchor="middle">CINEGMA</text>
-        <text class="ln2 stroke" x="300" y="188" text-anchor="middle">FILMS</text>
-        <text class="ln2 fill"   x="300" y="188" text-anchor="middle">FILMS</text>
-      </svg>
+<!-- Login Screen -->
+<div class="login-wrapper active" id="loginWrapper">
+  <svg width="300" height="80" viewBox="0 0 400 100" style="margin-bottom: 20px;">
+    <text x="200" y="70" text-anchor="middle" font-family="Bebas Neue" font-size="64" letter-spacing="8" fill="#fff" text-transform="uppercase">
+      CINEGMA STUDIO
+    </text>
+  </svg>
+  <div class="login-card">
+    <h1>Login</h1>
+    <p class="sub">Enter your credentials to access the CMS</p>
+    <form id="loginForm">
+      <label>Username</label>
+      <input type="text" id="username" required placeholder="owner">
+      <label>Password</label>
+      <input type="password" id="password" required>
+      <div class="login-err" id="loginErr"></div>
+      <button type="submit" class="btn-submit">Sign In</button>
+    </form>
+  </div>
+</div>
+
+<!-- App -->
+<div class="app" id="appShell" style="display: none;">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="brand">
+      <h1>STUDIO</h1>
+      <div class="tag">CMS</div>
     </div>
-    <div class="login-card">
-      <div class="kicker">Content Studio</div>
-      <h1>Sign in to continue</h1>
-      <form id="loginForm">
-        <label>Username</label>
-        <input type="text" id="loginUser" autocomplete="username" placeholder="Your username"/>
-        <label>Password</label>
-        <input type="password" id="loginPass" autocomplete="current-password" placeholder="Your password"/>
-        <div class="login-err" id="loginErr"></div>
-        <button type="submit" class="btn btn-primary btn-full" id="loginBtn">Enter Studio</button>
-      </form>
+
+    <div class="nav">
+      <!-- Main Nav -->
+      <div class="nav-section">
+        <button class="nav-btn active" data-section="dashboard">
+          <svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-1h2v15h-2z"/></svg>
+          Dashboard
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="nav-section">
+        <div class="nav-section-label">Content</div>
+        <button class="nav-btn" data-section="films">
+          <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="1"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          Films
+        </button>
+        <button class="nav-btn" data-section="team">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+          Team
+        </button>
+        <button class="nav-btn" data-section="services">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="9" height="9"/><rect x="12" y="3" width="9" height="9"/><rect x="3" y="12" width="9" height="9"/><rect x="12" y="12" width="9" height="9"/></svg>
+          Services
+        </button>
+        <button class="nav-btn" data-section="gallery">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="9" cy="9" r="2"/><path d="M21 15l-5-5L5 21"/></svg>
+          Gallery
+        </button>
+        <button class="nav-btn" data-section="awards">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Awards
+        </button>
+      </div>
+
+      <!-- Site -->
+      <div class="nav-section">
+        <div class="nav-section-label">Site</div>
+        <button class="nav-btn" data-section="messages">
+          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Messages
+        </button>
+        <button class="nav-btn" data-section="pages">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 9h2m-2 4h6m-6 4h6"/></svg>
+          Pages & SEO
+        </button>
+        <button class="nav-btn" data-section="analytics">
+          <svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><polyline points="18 5 12 11 9 8 6 12"/></svg>
+          Analytics
+        </button>
+      </div>
+
+      <!-- Config -->
+      <div class="nav-section">
+        <div class="nav-section-label">Config</div>
+        <button class="nav-btn" data-section="settings">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><path d="M12 1v6m0 6v6M4.22 4.22l4.24 4.24m6.08 0l4.24-4.24M1 12h6m6 0h6m-16.78 7.78l4.24-4.24m6.08 0l4.24 4.24"/></svg>
+          Settings
+        </button>
+      </div>
+    </div>
+
+    <!-- User Box -->
+    <div class="user-box">
+      <div class="user-info">
+        <div class="avatar">C</div>
+        <div class="user-details">
+          <h4 id="userDisplay">Admin</h4>
+          <div class="role" id="roleDisplay">owner</div>
+        </div>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Logout</button>
     </div>
   </div>
 
-  <!-- ===== APP ===== -->
-  <div id="appShell" class="hidden">
-    <div class="bg-mark" aria-hidden="true"><span>CINEGMA</span></div>
-    <div class="mobile-bar">
-      <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
-      <div class="mark">CINEGMA <span>STUDIO</span></div>
+  <!-- Main Content -->
+  <div class="content">
+    <!-- Header -->
+    <div class="header">
+      <div class="header-top">
+        <div>
+          <h2 id="sectionTitle">Dashboard</h2>
+          <p class="header-sub" id="sectionSub">Overview and recent activity</p>
+        </div>
+        <div class="header-actions" id="headerActions"></div>
+      </div>
     </div>
-    <div class="scrim" id="scrim"></div>
-    <aside class="sidebar" id="sidebar">
-        <div class="brand">
-          <div class="mark">CINEGMA <span>STUDIO</span></div>
-          <div class="sub">Content Studio</div>
-          <div class="rule"></div>
+
+    <!-- Main Area -->
+    <div class="main">
+      <!-- Dashboard -->
+      <div class="section active" id="dashboard">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Films</div>
+            <div class="stat-value" id="statFilms">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Team Members</div>
+            <div class="stat-value" id="statTeam">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Services</div>
+            <div class="stat-value" id="statServices">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Media Files</div>
+            <div class="stat-value" id="statMedia">0</div>
+          </div>
         </div>
-        <nav class="nav">
-          <div class="group-label">Create</div>
-          <button class="active" data-page="articles"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Articles</button>
-          <button data-page="upload-image"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Upload Image</button>
-          <button data-page="upload-video"><svg viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg> Upload Video</button>
-          <div class="group-label">Manage</div>
-          <button data-page="media"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> Media Library</button>
-          <button data-page="messages" id="navMessages" style="display:none;"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg> Messages</button>
-          <button data-page="analytics" id="navAnalytics" style="display:none;"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Site Analytics</button>
-          <button data-page="activity" id="navActivity" style="display:none;"><svg viewBox="0 0 24 24"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20v-4"/></svg> Activity Log</button>
-          <button data-page="admins" id="navAdmins" style="display:none;"><svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg> Admins</button>
-          <button data-page="view-site"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> View Blog</button>
-          <div class="group-label">Account</div>
-          <button data-page="profile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> My Profile</button>
-        </nav>
-        <div class="userbox">
-          <div class="who"><div class="avatar" id="ubAvatar">?</div><div><div class="name" id="ubName">—</div><div class="role" id="ubRole">—</div></div></div>
-          <button class="logout" id="logoutBtn">Sign out</button>
+        <div class="card">
+          <h3>Recent Activity</h3>
+          <div class="list-items" id="recentActivity">
+            <p class="text-center" style="color: var(--mut);">Loading...</p>
+          </div>
         </div>
-    </aside>
-    <div class="shell">
-      <main class="main"><div class="main-inner" id="app"></div></main>
+      </div>
+
+      <!-- Films -->
+      <div class="section" id="films">
+        <div class="list-items" id="filmsList">
+          <p class="text-center" style="color: var(--mut); padding: 40px 0;">Loading films...</p>
+        </div>
+      </div>
+
+      <!-- Team -->
+      <div class="section" id="team">
+        <div class="list-items" id="teamList">
+          <p class="text-center" style="color: var(--mut); padding: 40px 0;">Loading team...</p>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <div class="section" id="services">
+        <div class="list-items" id="servicesList">
+          <p class="text-center" style="color: var(--mut); padding: 40px 0;">Loading services...</p>
+        </div>
+      </div>
+
+      <!-- Placeholders for other sections -->
+      <div class="section" id="gallery" style="text-align: center; padding: 60px 20px; color: var(--mut);">
+        <h3 style="font-family: var(--disp); font-size: 24px; color: #fff; margin-bottom: 8px;">Gallery</h3>
+        <p>Coming soon — Portfolio and behind-the-scenes images</p>
+      </div>
+
+      <div class="section" id="awards" style="text-align: center; padding: 60px 20px; color: var(--mut);">
+        <h3 style="font-family: var(--disp); font-size: 24px; color: #fff; margin-bottom: 8px;">Awards</h3>
+        <p>Coming soon — Festival wins and selections</p>
+      </div>
+
+      <div class="section" id="messages" style="text-align: center; padding: 60px 20px; color: var(--mut);">
+        <h3 style="font-family: var(--disp); font-size: 24px; color: #fff; margin-bottom: 8px;">Messages</h3>
+        <p>Coming soon — Contact form submissions</p>
+      </div>
+
+      <div class="section" id="pages" style="text-align: center; padding: 60px 20px; color: var(--mut);">
+        <h3 style="font-family: var(--disp); font-size: 24px; color: #fff; margin-bottom: 8px;">Pages & SEO</h3>
+        <p>Coming soon — Meta tags and sitemap management</p>
+      </div>
+
+      <div class="section" id="analytics" style="text-align: center; padding: 60px 20px; color: var(--mut);">
+        <h3 style="font-family: var(--disp); font-size: 24px; color: #fff; margin-bottom: 8px;">Analytics</h3>
+        <p>Coming soon — Traffic and performance metrics</p>
+      </div>
+
+      <div class="section" id="settings" style="text-align: center; padding: 60px 20px; color: var(--mut);">
+        <h3 style="font-family: var(--disp); font-size: 24px; color: #fff; margin-bottom: 8px;">Settings</h3>
+        <p>Coming soon — Site configuration</p>
+      </div>
     </div>
   </div>
+</div>
 
 <script>
-(function(){
-  const $=id=>document.getElementById(id);
-  const app=$('app');
-  let session={token:localStorage.getItem('cms_token')||'',role:localStorage.getItem('cms_role')||'',username:localStorage.getItem('cms_username')||''};
-  let currentPage='articles';
-  let currentEditId=null;
+// ════════════════════════════════════════════════════════════════
+// CINEGMA STUDIO CMS — JavaScript
+// ════════════════════════════════════════════════════════════════
 
-  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-  function attr(s){return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
-  function fmtDate(d){return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});}
-  function toast(msg,ok=true){const t=document.createElement('div');t.className='toast '+(ok?'toast-ok':'toast-err');t.textContent=msg;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .3s';setTimeout(()=>t.remove(),300);},2800);}
+const API_URL = '/api';
+let session = { token: null, username: null, role: null };
 
-  async function api(path,opts={}){
-    const headers=Object.assign({'Content-Type':'application/json','X-Session-Token':session.token},opts.headers||{});
-    const r=await fetch(path,Object.assign({},opts,{headers}));
-    let d={};try{d=await r.json();}catch(_){}
-    if(r.status===401){logout();throw new Error('Session expired — please sign in again');}
-    if(!r.ok)throw new Error(d.error||'Request failed');
-    return d;
+// ═══ Auth ═══
+async function login(e) {
+  e.preventDefault();
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const err = document.getElementById('loginErr');
+  err.classList.remove('show');
+
+  try {
+    const res = await fetch(`${API_URL}/auth`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'login', username, password }),
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+
+    session.token = data.token;
+    session.username = data.username;
+    session.role = data.role;
+
+    localStorage.setItem('cms_token', data.token);
+    showApp();
+  } catch (e) {
+    err.textContent = e.message;
+    err.classList.add('show');
   }
+}
 
-  // ===== Auth =====
-  function showLogin(){$('loginScreen').classList.remove('hidden');$('appShell').classList.add('hidden');}
-  function showApp(){
-    $('loginScreen').classList.add('hidden');$('appShell').classList.remove('hidden');
-    $('ubName').textContent=session.username;
-    $('ubRole').textContent=session.role;
-    $('ubAvatar').textContent=(session.username||'?').charAt(0).toUpperCase();
-    $('navAdmins').style.display=session.role==='owner'?'flex':'none';
-    $('navActivity').style.display=session.role==='owner'?'flex':'none';
-    $('navAnalytics').style.display=session.role==='owner'?'flex':'none';
-    $('navMessages').style.display=session.role==='owner'?'flex':'none';
-    render();
-  }
-  function logout(){session={token:'',role:'',username:''};localStorage.removeItem('cms_token');localStorage.removeItem('cms_role');localStorage.removeItem('cms_username');showLogin();}
+function logout() {
+  session = { token: null, username: null, role: null };
+  localStorage.removeItem('cms_token');
+  document.getElementById('loginWrapper').classList.add('active');
+  document.getElementById('appShell').style.display = 'none';
+  document.getElementById('loginForm').reset();
+}
 
-  $('loginForm').onsubmit=async(e)=>{
-    e.preventDefault();
-    const u=$('loginUser').value.trim(),p=$('loginPass').value;
-    $('loginErr').textContent='';$('loginBtn').disabled=true;$('loginBtn').textContent='Signing in…';
-    try{
-      const r=await fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',username:u,password:p})});
-      const d=await r.json();
-      if(!r.ok)throw new Error(d.error||'Login failed');
-      session={token:d.token,role:d.role,username:d.username};
-      localStorage.setItem('cms_token',d.token);localStorage.setItem('cms_role',d.role);localStorage.setItem('cms_username',d.username);
-      $('loginPass').value='';showApp();
-    }catch(err){$('loginErr').textContent=err.message;}
-    finally{$('loginBtn').disabled=false;$('loginBtn').textContent='Enter Studio';}
+function showApp() {
+  document.getElementById('loginWrapper').classList.remove('active');
+  document.getElementById('appShell').style.display = 'flex';
+  document.getElementById('userDisplay').textContent = session.username || 'Admin';
+  document.getElementById('roleDisplay').textContent = session.role || 'user';
+  loadDashboard();
+}
+
+// ═══ Section Navigation ═══
+function showSection(sectionId) {
+  // Hide all
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+  // Show selected
+  const section = document.getElementById(sectionId);
+  if (section) section.classList.add('active');
+
+  const navBtn = document.querySelector(`[data-section="${sectionId}"]`);
+  if (navBtn) navBtn.classList.add('active');
+
+  // Update header
+  const titles = {
+    dashboard: ['Dashboard', 'Overview and recent activity'],
+    films: ['Films', 'Manage your video content'],
+    team: ['Team', 'Cast and crew'],
+    services: ['Services', 'Production services offered'],
+    gallery: ['Gallery', 'Portfolio and behind-the-scenes'],
+    awards: ['Awards', 'Festival wins and selections'],
+    messages: ['Messages', 'Contact form submissions'],
+    pages: ['Pages & SEO', 'Meta tags and sitemap'],
+    analytics: ['Analytics', 'Traffic and performance'],
+    settings: ['Settings', 'Site configuration'],
   };
-  $('logoutBtn').onclick=logout;
 
-  // Mobile nav
-  const sidebar=$('sidebar'),scrim=$('scrim');
-  function closeNav(){sidebar.classList.remove('open');scrim.classList.remove('show');}
-  $('burger').onclick=()=>{sidebar.classList.toggle('open');scrim.classList.toggle('show');};
-  scrim.onclick=closeNav;
+  const [title, sub] = titles[sectionId] || ['Section', ''];
+  document.getElementById('sectionTitle').textContent = title;
+  document.getElementById('sectionSub').textContent = sub;
 
-  document.querySelectorAll('.nav button[data-page]').forEach(b=>{
-    b.onclick=()=>{
-      if(b.dataset.page==='view-site'){window.open('/blog.html','_blank');return;}
-      document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
-      b.classList.add('active');currentPage=b.dataset.page;currentEditId=null;closeNav();render();
-    };
+  // Load data
+  if (sectionId === 'dashboard') loadDashboard();
+  else if (sectionId === 'films') loadFilms();
+  else if (sectionId === 'team') loadTeam();
+  else if (sectionId === 'services') loadServices();
+}
+
+// ═══ API Calls ═══
+async function apiCall(path, options = {}) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (session.token) headers['X-Session-Token'] = session.token;
+
+  const res = await fetch(API_URL + path, {
+    ...options,
+    headers: { ...headers, ...options.headers },
   });
 
-  function pageHead(kicker,title,desc){return `<div class="page-head"><div class="kicker">${kicker}</div><h2>${title}</h2>${desc?`<p>${desc}</p>`:''}</div>`;}
-
-  function render(){
-    if(currentPage==='articles')renderArticles();
-    else if(currentPage==='edit-article')renderEditArticle(currentEditId);
-    else if(currentPage==='media')renderMedia();
-    else if(currentPage==='upload-image')renderUploadImage();
-    else if(currentPage==='upload-video')renderUploadVideo();
-    else if(currentPage==='messages')renderMessages();
-    else if(currentPage==='analytics')renderAnalytics();
-    else if(currentPage==='activity')renderActivity();
-    else if(currentPage==='admins')renderAdmins();
-    else if(currentPage==='profile')renderProfile();
+  if (res.status === 401) {
+    logout();
+    throw new Error('Session expired');
   }
 
-  // ============ ARTICLES ============
-  async function renderArticles(){
-    app.innerHTML=pageHead('Editorial','Articles','Write, publish and manage everything on your blog. Published posts appear live instantly.')+
-      `<div class="toolbar"><div class="spacer"></div><button class="btn btn-primary" id="newArt"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> New Article</button></div><div id="statsRow"></div><div id="artList"><div class="loading-state"><span class="spinner"></span> Loading your articles…</div></div>`;
-    $('newArt').onclick=()=>{currentEditId=null;currentPage='edit-article';render();};
-    try{
-      const arts=await api('/api/articles?drafts=1');
-      const pub=arts.filter(a=>a.published).length;
-      $('statsRow').innerHTML=`<div class="stats"><div class="stat"><div class="num">${arts.length}</div><div class="lbl">Total Articles</div></div><div class="stat"><div class="num">${pub}</div><div class="lbl">Published</div></div><div class="stat"><div class="num">${arts.length-pub}</div><div class="lbl">Drafts</div></div></div>`;
-      if(!arts.length){$('artList').innerHTML=`<div class="empty"><svg class="ico" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><h3>Your story starts here</h3><p>Create your first article and it'll show up on your blog.</p></div>`;return;}
-      let html='<div class="art-grid">';
-      for(const a of arts){html+=`<div class="art-card" data-edit="${a.id}"><div class="cover">${a.cover_image_url?`<img src="${attr(a.cover_image_url)}" alt="" loading="lazy"/>`:`<div class="ph"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>`}</div><div class="body"><div class="row">${a.published?'<span class="pill pill-ok">Live</span>':'<span class="pill pill-draft">Draft</span>'}${a.category?`<span class="pill pill-cat">${esc(a.category.replace(/-/g,' '))}</span>`:''}</div><h3>${esc(a.title)}</h3><div class="date">${fmtDate(a.created_at)}${a.author?` · by ${esc(a.author)}`:''}</div></div></div>`;}
-      html+='</div>';$('artList').innerHTML=html;
-      document.querySelectorAll('[data-edit]').forEach(c=>{c.onclick=()=>{currentEditId=c.dataset.edit;currentPage='edit-article';render();};});
-    }catch(e){$('artList').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
-  }
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'API error');
+  return data;
+}
 
-  // ============ EDITOR ============
-  async function renderEditArticle(id){
-    app.innerHTML=pageHead(id?'Editing':'New Story',id?'Edit Article':'Compose','')+`<div class="toolbar"><button class="btn btn-ghost btn-sm" id="backBtn"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg> Back</button></div><div id="editorArea"><div class="loading-state"><span class="spinner"></span> Loading…</div></div>`;
-    $('backBtn').onclick=()=>{currentPage='articles';render();};
-    let article={title:'',body:'',cover_image_url:'',category:'news',published:false};
-    if(id){try{article=await api('/api/articles?id='+id+'&drafts=1');}catch(e){toast(e.message,false);return;}}
-    renderEditorForm(article,!!id);
-  }
-  function renderEditorForm(a,isEdit){
-    const cats=[['news','News'],['behind-the-scenes','Behind the Scenes'],['press','Press'],['awards','Awards'],['blog','Blog']];
-    $('editorArea').innerHTML=`<div class="editor glass" style="padding:34px 38px;"><div class="field"><label>Title</label><input type="text" id="artTitle" class="title-input" value="${attr(a.title)}" placeholder="An unforgettable headline…"/></div><div class="field-row"><div class="field"><label>Category</label><select id="artCat">${cats.map(c=>`<option value="${c[0]}" ${a.category===c[0]?'selected':''}>${c[1]}</option>`).join('')}</select></div><div class="field"><label>Cover Image URL</label><div class="cover-row"><input type="text" id="artCover" value="${attr(a.cover_image_url||'')}" placeholder="Paste a URL or upload one" style="flex:1;"/><button class="btn btn-ghost btn-sm" id="coverUploadBtn" type="button"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg> Upload</button></div></div></div><div class="field"><label>Body — Markdown</label><div class="media-toolbar"><button type="button" id="tbImg"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg> Image</button></div><textarea id="artBody" placeholder="Tell the story…">${esc(a.body||'')}</textarea><div class="hint">Markdown: <strong>#</strong> headings · <strong>**bold**</strong> · <strong>*italic*</strong> · <strong>&gt;</strong> quote · <strong>![alt](url)</strong> image · <strong>[text](url)</strong> link · Use toolbar above to upload & insert media</div></div><div class="editor-actions"><label class="toggle"><input type="checkbox" id="artPub" ${a.published?'checked':''}/><span class="track"></span><span class="lbl">Published</span></label><div class="spacer" style="flex:1;"></div>${isEdit?'<button class="btn btn-danger btn-sm" id="artDel"><svg viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg> Delete</button>':''}<button class="btn btn-ghost" id="artSaveDraft">Save Draft</button><button class="btn btn-primary" id="artPublish"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg> Save & Publish</button></div></div>`;
+// ═══ Dashboard ═══
+async function loadDashboard() {
+  try {
+    const data = await apiCall('/analytics/summary');
+    const stats = data.stats;
 
-    // Cover image upload
-    const coverFileInput=document.createElement('input');coverFileInput.type='file';coverFileInput.accept='image/*';coverFileInput.style.display='none';document.body.appendChild(coverFileInput);
-    $('coverUploadBtn').onclick=()=>coverFileInput.click();
-    coverFileInput.onchange=async()=>{
-      const f=coverFileInput.files[0];if(!f)return;
-      $('coverUploadBtn').disabled=true;$('coverUploadBtn').textContent='Uploading…';
-      try{
-        const bmp=await createImageBitmap(f);
-        let w=bmp.width,h=bmp.height;const s=Math.min(1,2560/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);
-        const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(bmp,0,0,w,h);
-        const dataUrl=await new Promise(r=>{c.toBlob(b=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);},'image/webp',0.95);});
-        const res=await api('/api/media-upload',{method:'POST',body:JSON.stringify({title:$('artTitle').value||f.name.replace(/\.[^.]+$/,''),filename:f.name,caption:null,dataUrl})});
-        $('artCover').value=res.url;toast('Cover image uploaded');
-      }catch(e){toast(e.message,false);}
-      finally{$('coverUploadBtn').disabled=false;$('coverUploadBtn').innerHTML='<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" fill="none" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg> Upload';coverFileInput.value='';}
-    };
+    document.getElementById('statFilms').textContent = stats.totalFilms || 0;
+    document.getElementById('statTeam').textContent = stats.totalTeam || 0;
+    document.getElementById('statServices').textContent = stats.totalServices || 0;
+    document.getElementById('statMedia').textContent = stats.totalMedia || 0;
 
-    // Media toolbar — insert image into body
-    function insertAtCursor(text){const ta=$('artBody');const start=ta.selectionStart,end=ta.selectionEnd;ta.value=ta.value.substring(0,start)+text+ta.value.substring(end);ta.selectionStart=ta.selectionEnd=start+text.length;ta.focus();}
-
-    function showUploadModal(){
-      const overlay=document.createElement('div');overlay.className='upload-overlay';
-      overlay.innerHTML=`<div class="upload-modal" style="position:relative;"><button class="close-modal" id="modalClose">&times;</button><h3>Upload Image</h3><div class="drop" id="modalDrop" style="padding:32px 20px;"><svg class="ico" viewBox="0 0 24 24" style="width:36px;height:36px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg><div class="big">Drop image here</div><div class="small">or click to browse</div></div><input type="file" id="modalFile" accept="image/*" style="display:none;"/><div id="modalProgress" style="margin-top:14px;"></div></div>`;
-      document.body.appendChild(overlay);
-      const drop=overlay.querySelector('#modalDrop'),inp=overlay.querySelector('#modalFile'),prog=overlay.querySelector('#modalProgress');
-      overlay.querySelector('#modalClose').onclick=()=>overlay.remove();
-      overlay.onclick=e=>{if(e.target===overlay)overlay.remove();};
-      drop.onclick=()=>inp.click();
-      drop.ondragover=e=>{e.preventDefault();drop.classList.add('hover');};
-      drop.ondragleave=()=>drop.classList.remove('hover');
-      drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hover');if(e.dataTransfer.files[0])handleModalFile(e.dataTransfer.files[0]);};
-      inp.onchange=()=>{if(inp.files[0])handleModalFile(inp.files[0]);};
-
-      async function handleModalFile(f){
-        drop.querySelector('.big').textContent=f.name;
-        drop.querySelector('.small').textContent=(f.size/1048576).toFixed(1)+' MB';
-        prog.innerHTML='<div class="loading-state" style="padding:8px 0;justify-content:flex-start;"><span class="spinner"></span> Uploading…</div>';
-        try{
-          const bmp=await createImageBitmap(f);
-          let w=bmp.width,h=bmp.height;const s=Math.min(1,2560/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);
-          const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(bmp,0,0,w,h);
-          const dataUrl=await new Promise(r=>{c.toBlob(b=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);},'image/webp',0.95);});
-          const res=await api('/api/media-upload',{method:'POST',body:JSON.stringify({title:$('artTitle').value||f.name.replace(/\.[^.]+$/,''),filename:f.name,caption:null,dataUrl})});
-          insertAtCursor(`\n![${f.name}](${res.url})\n`);
-          toast('Image uploaded & inserted');
-          overlay.remove();
-        }catch(e){prog.innerHTML=`<div style="color:var(--err);font-size:.85rem;">${esc(e.message)}</div>`;toast(e.message,false);}
-      }
-    }
-
-    $('tbImg').onclick=()=>showUploadModal();
-    async function save(publish){const body={title:$('artTitle').value,body:$('artBody').value,cover_image_url:$('artCover').value||null,category:$('artCat').value,published:publish!==undefined?publish:$('artPub').checked};if(!body.title){toast('Give it a title first',false);return;}try{if(isEdit){body.id=a.id;await api('/api/articles',{method:'PUT',body:JSON.stringify(body)});}else{await api('/api/articles',{method:'POST',body:JSON.stringify(body)});}toast(publish?'Published live!':'Draft saved');currentPage='articles';render();}catch(e){toast(e.message,false);}}
-    $('artSaveDraft').onclick=()=>save(false);$('artPublish').onclick=()=>save(true);
-    if(isEdit&&$('artDel'))$('artDel').onclick=async()=>{if(!confirm('Delete this article permanently?'))return;try{await api('/api/articles?id='+a.id,{method:'DELETE'});toast('Deleted');currentPage='articles';render();}catch(e){toast(e.message,false);}};
-  }
-
-  // ============ MEDIA ============
-  async function renderMedia(){
-    app.innerHTML=pageHead('Assets','Media Library','Every image and video you have uploaded. Click any item to copy its URL.')+`<div id="mediaArea"><div class="loading-state"><span class="spinner"></span> Loading media…</div></div>`;
-    try{
-      const list=await api('/api/media-list');
-      if(!list.length){$('mediaArea').innerHTML=`<div class="empty"><svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg><h3>Nothing here yet</h3><p>Upload an image to start your library.</p></div>`;return;}
-      let html='<div class="media-grid">';
-      for(const m of list){html+=`<div class="media-card" data-url="${attr(m.url)}">${m.type==='image'?`<img src="${attr(m.url)}" alt="" loading="lazy"/>`:'<div class="vid">🎬</div>'}<span class="copy-hint">Copy URL</span><div class="overlay"><span class="nm">${esc(m.name||'untitled')}</span>${m.caption?`<span class="cap">${esc(m.caption)}</span>`:''}</div></div>`;}
-      html+='</div>';$('mediaArea').innerHTML=html;
-      document.querySelectorAll('.media-card').forEach(c=>{c.onclick=()=>{navigator.clipboard.writeText(c.dataset.url);toast('URL copied to clipboard');};});
-    }catch(e){$('mediaArea').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
-  }
-
-  // ============ UPLOAD IMAGE (with caption + crop) ============
-  function renderUploadImage(){
-    app.innerHTML=pageHead('Optimize','Upload Image','Add a title, optionally crop, and we convert it to AVIF on a fast CDN. Each upload becomes a draft blog post you can review and publish.')+
-      `<div class="editor glass" style="padding:34px 38px;">
-        <div class="field"><label>Post title</label><input type="text" id="imgTitle" placeholder="e.g. Janjaal — Behind the Scenes"/><div class="hint">Required. This becomes a draft post on the blog, credited to <strong>${esc(session.username)}</strong>.</div></div>
-        <div class="field"><label>File name (optional)</label><input type="text" id="imgName" placeholder="Internal asset name"/></div>
-        <div class="field"><label>Caption (optional)</label><input type="text" id="imgCaption" placeholder="A short description / alt text — also used as the post excerpt"/></div>
-        <div class="drop" id="imgDrop"><svg class="ico" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg><div class="big">Drop an image here</div><div class="small">or click to browse · JPG, PNG, WebP, HEIC</div></div>
-        <input type="file" id="imgFile" accept="image/*" style="display:none;"/>
-        <div id="cropSection" style="margin-top:20px;display:none;">
-          <label class="toggle" style="margin-bottom:16px;"><input type="checkbox" id="cropToggle"/><span class="track"></span><span class="lbl">Crop image</span></label>
-          <div id="cropWrap" style="display:none;">
-            <div class="crop-presets" id="cropPresets">
-              <button data-ar="0" class="active">Original</button>
-              <button data-ar="1.7777">16:9</button>
-              <button data-ar="1">1:1</button>
-              <button data-ar="0.8">4:5</button>
-              <button data-ar="1.5">3:2</button>
-            </div>
-            <div class="crop-frame" id="cropFrame"><img id="cropImg" alt=""/></div>
-            <div class="crop-zoom"><span class="lbl">ZOOM</span><input type="range" id="cropZoom" min="1" max="3" step="0.01" value="1"/></div>
+    const messages = stats.recentMessages || [];
+    const activity = document.getElementById('recentActivity');
+    if (messages.length === 0) {
+      activity.innerHTML = '<p class="text-center" style="color: var(--mut); padding: 20px 0;">No recent activity</p>';
+    } else {
+      activity.innerHTML = messages.map(m => `
+        <div class="list-item">
+          <div class="list-item-info">
+            <div class="list-item-title">${escapeHtml(m.name)}</div>
+            <div class="list-item-meta">${escapeHtml(m.subject)} • ${new Date(m.created_at).toLocaleDateString()}</div>
           </div>
-          <img id="imgThumb" style="max-width:240px;border-radius:12px;margin-top:8px;display:none;"/>
+          <span class="badge badge-draft">${m.status}</span>
         </div>
-        <div id="imgProgress" style="margin-top:16px;"></div>
-        <button class="btn btn-primary" id="imgGo" disabled style="margin-top:20px;"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg> Optimize & Upload</button>
-        <div id="imgResult" style="margin-top:18px;"></div>
-      </div>`;
+      `).join('');
+    }
+  } catch (e) {
+    console.error('Dashboard error:', e);
+  }
+}
 
-    let file=null,bmp=null;
-    const drop=$('imgDrop'),inp=$('imgFile');
-    drop.onclick=()=>inp.click();
-    drop.ondragover=e=>{e.preventDefault();drop.classList.add('hover');};
-    drop.ondragleave=()=>drop.classList.remove('hover');
-    drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hover');if(e.dataTransfer.files[0])setFile(e.dataTransfer.files[0]);};
-    inp.onchange=()=>{if(inp.files[0])setFile(inp.files[0]);};
+// ═══ Films ═══
+async function loadFilms() {
+  try {
+    const data = await apiCall('/films');
+    const list = document.getElementById('filmsList');
 
-    // Cropper state
-    const frame=$('cropFrame'),cimg=$('cropImg'),zoom=$('cropZoom');
-    let aspect=0,baseScale=1,tx=0,ty=0,dragging=false,sx=0,sy=0;
-    function frameDims(){const w=frame.clientWidth;const h=aspect>0?w/aspect:(bmp?w*(bmp.height/bmp.width):w);frame.style.height=h+'px';return{w,h};}
-    function layout(){if(!bmp)return;const{w,h}=frameDims();baseScale=Math.max(w/bmp.width,h/bmp.height);apply();}
-    function apply(){if(!bmp)return;const{w,h}=frameDims();const z=parseFloat(zoom.value);const dispW=bmp.width*baseScale*z,dispH=bmp.height*baseScale*z;tx=Math.min(0,Math.max(w-dispW,tx));ty=Math.min(0,Math.max(h-dispH,ty));cimg.style.width=bmp.width+'px';cimg.style.transform=`translate(${tx}px,${ty}px) scale(${baseScale*z})`;}
-    function centre(){const{w,h}=frameDims();const z=parseFloat(zoom.value);tx=(w-bmp.width*baseScale*z)/2;ty=(h-bmp.height*baseScale*z)/2;apply();}
-    frame.addEventListener('pointerdown',e=>{dragging=true;sx=e.clientX-tx;sy=e.clientY-ty;frame.classList.add('grabbing');frame.setPointerCapture(e.pointerId);});
-    frame.addEventListener('pointermove',e=>{if(!dragging)return;tx=e.clientX-sx;ty=e.clientY-sy;apply();});
-    frame.addEventListener('pointerup',()=>{dragging=false;frame.classList.remove('grabbing');});
-    zoom.oninput=apply;
-    $('cropPresets').querySelectorAll('button').forEach(b=>{b.onclick=()=>{$('cropPresets').querySelectorAll('button').forEach(x=>x.classList.remove('active'));b.classList.add('active');aspect=parseFloat(b.dataset.ar);zoom.value=1;layout();centre();};});
-    $('cropToggle').onchange=()=>{const on=$('cropToggle').checked;$('cropWrap').style.display=on?'block':'none';$('imgThumb').style.display=on?'none':'block';if(on&&bmp){requestAnimationFrame(()=>{layout();centre();});}};
-
-    async function setFile(f){
-      file=f;
-      drop.querySelector('.big').textContent=f.name;
-      drop.querySelector('.small').textContent=(f.size/1024).toFixed(0)+' KB selected';
-      const base=f.name.replace(/\.[^.]+$/,'');
-      if(!$('imgName').value)$('imgName').value=base;
-      if(!$('imgTitle').value)$('imgTitle').value=base;
-      $('cropSection').style.display='block';
-      const t=$('imgThumb');t.src=URL.createObjectURL(f);t.style.display=$('cropToggle').checked?'none':'block';
-      try{bmp=await createImageBitmap(f);cimg.src=t.src;if($('cropToggle').checked){layout();centre();}}catch(_){}
-      $('imgGo').disabled=false;
+    if (!data.films || data.films.length === 0) {
+      list.innerHTML = '<div class="empty-state"><h3>No Films Yet</h3><p>Create your first film to get started</p></div>';
+      return;
     }
 
-    function exportCropped(){
-      const{w,h}=frameDims();const z=parseFloat(zoom.value);const s=baseScale*z;
-      let srcX=-tx/s,srcY=-ty/s,srcW=w/s,srcH=h/s;
-      const maxDim=2560;let outW=srcW,outH=srcH;const m=Math.max(outW,outH);if(m>maxDim){const r=maxDim/m;outW*=r;outH*=r;}
-      const c=document.createElement('canvas');c.width=Math.round(outW);c.height=Math.round(outH);
-      c.getContext('2d').drawImage(bmp,srcX,srcY,srcW,srcH,0,0,c.width,c.height);
-      return new Promise(r=>{c.toBlob(b=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);},'image/webp',0.95);});
-    }
-    function exportPlain(maxDim=2560){
-      let w=bmp.width,h=bmp.height;const s=Math.min(1,maxDim/Math.max(w,h));w=Math.round(w*s);h=Math.round(h*s);
-      const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(bmp,0,0,w,h);
-      return new Promise(r=>{c.toBlob(b=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b);},'image/webp',0.95);});
-    }
-
-    $('imgGo').onclick=async()=>{
-      if(!file||!bmp)return;
-      const title=$('imgTitle').value.trim();
-      if(!title){toast('Give the post a title first',false);$('imgTitle').focus();return;}
-      $('imgGo').disabled=true;
-      $('imgProgress').innerHTML='<div class="loading-state" style="padding:0;justify-content:flex-start;"><span class="spinner"></span> Optimizing & uploading…</div>';
-      try{
-        const dataUrl=$('cropToggle').checked?await exportCropped():await exportPlain();
-        const res=await api('/api/media-upload',{method:'POST',body:JSON.stringify({title,filename:$('imgName').value||file.name,caption:$('imgCaption').value||null,dataUrl})});
-        $('imgProgress').innerHTML='';
-        $('imgResult').innerHTML=`<div style="color:var(--ok);font-weight:500;display:flex;align-items:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Uploaded · optimized to ${(res.size/1024).toFixed(0)} KB · saved as a draft post</div><div class="hint" style="margin-top:8px;">Review it under <strong>Articles</strong> and hit publish to make it live on the blog.</div><div class="result-url"><input type="text" value="${attr(res.url)}" readonly onclick="this.select();navigator.clipboard.writeText(this.value);"/><button class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText('${attr(res.url)}');">Copy</button></div><img src="${attr(res.url)}" style="max-width:340px;border-radius:12px;margin-top:14px;"/>`;
-        toast('Uploaded — draft post created');
-      }catch(e){$('imgProgress').innerHTML='';$('imgResult').innerHTML=`<div style="color:var(--err)">${esc(e.message)}</div>`;}
-      finally{$('imgGo').disabled=false;}
-    };
-    window.addEventListener('resize',()=>{if(bmp&&$('cropToggle').checked)apply();});
-  }
-
-  // ============ UPLOAD VIDEO ============
-  function renderUploadVideo(){
-    app.innerHTML=pageHead('Upload','Upload Media','Upload a video or audio file (max 25 MB). It is committed to the GitHub repo, optimized with ffmpeg, and published to the site automatically.')+
-      `<div class="editor glass" style="padding:34px 38px;"><div class="field"><label>Title</label><input type="text" id="vidName" placeholder="e.g. Janjaal — Official Trailer"/></div><div class="field"><label>Caption (optional)</label><input type="text" id="vidCaption" placeholder="A short description"/></div><div class="field"><label>Type</label><select id="vidType"><option value="video">Video</option><option value="audio">Audio</option></select></div><div class="drop" id="vidDrop"><svg class="ico" viewBox="0 0 24 24"><path d="m22 8-6 4 6 4V8z"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg><div class="big">Drop a file here</div><div class="small">or click to browse · MP4, MOV, WebM, MP3, WAV, OGG · max 25 MB</div></div><input type="file" id="vidFile" accept="video/*,audio/*" style="display:none;"/><div id="vidProgress" style="margin-top:16px;"></div><button class="btn btn-primary" id="vidGo" disabled style="margin-top:20px;"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5M12 5v12"/></svg> Upload</button><div id="vidResult" style="margin-top:18px;"></div></div>`;
-    let file=null;const drop=$('vidDrop'),inp=$('vidFile');
-    drop.onclick=()=>inp.click();drop.ondragover=e=>{e.preventDefault();drop.classList.add('hover');};drop.ondragleave=()=>drop.classList.remove('hover');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('hover');if(e.dataTransfer.files[0])setVid(e.dataTransfer.files[0]);};inp.onchange=()=>{if(inp.files[0])setVid(inp.files[0]);};
-    function setVid(f){
-      file=f;drop.querySelector('.big').textContent=f.name;drop.querySelector('.small').textContent=(f.size/1048576).toFixed(1)+' MB selected';
-      if(!$('vidName').value)$('vidName').value=f.name.replace(/\.[^.]+$/,'');
-      if(f.type.startsWith('audio'))$('vidType').value='audio';
-      $('vidGo').disabled=false;
-    }
-    // base64 of a Blob slice (without the data:...;base64, prefix)
-    function sliceB64(blob){return new Promise((res,rej)=>{const fr=new FileReader();fr.onload=()=>res(String(fr.result).split(',')[1]||'');fr.onerror=rej;fr.readAsDataURL(blob);});}
-    $('vidGo').onclick=async()=>{
-      if(!file)return;
-      const maxSize=25*1024*1024;
-      if(file.size>maxSize){toast('File too large. Max 25 MB — please export a smaller file.',false);return;}
-      const mediaType=$('vidType').value;
-      const title=$('vidName').value||file.name.replace(/\.[^.]+$/,'');
-      const slug=(title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60))||(mediaType==='audio'?'audio':'video');
-      const uploadId=Date.now().toString(36)+'-'+slug;
-      const ext=mediaType==='audio'?'mp3':'mp4';
-      const finalPath='/assets/'+(mediaType==='audio'?'audio':'videos')+'/'+uploadId+'.'+ext;
-      const CHUNK=3*1024*1024;                     // stay well under Vercel's body limit
-      const total=Math.ceil(file.size/CHUNK);
-      $('vidGo').disabled=true;$('vidResult').innerHTML='';
-      try{
-        for(let i=0;i<total;i++){
-          const slice=file.slice(i*CHUNK,Math.min(file.size,(i+1)*CHUNK));
-          const chunk=await sliceB64(slice);
-          $('vidProgress').innerHTML='<div class="loading-state" style="padding:0;justify-content:flex-start;"><span class="spinner"></span> Uploading to repository… '+Math.round(i/total*100)+'%</div>';
-          await api('/api/video-commit',{method:'POST',body:JSON.stringify({uploadId,index:i,total,chunk,fileSize:file.size,mediaType})});
-        }
-        $('vidProgress').innerHTML='<div class="loading-state" style="padding:0;justify-content:flex-start;"><span class="spinner"></span> Finalizing…</div>';
-        const res=await api('/api/video-commit',{method:'POST',body:JSON.stringify({uploadId,total,finalize:true,filename:file.name,name:title,caption:$('vidCaption').value||null,fileSize:file.size,mediaType})});
-        const url=res.url||finalPath;
-        $('vidProgress').innerHTML='';
-        $('vidResult').innerHTML=`<div style="color:var(--ok);font-weight:500;display:flex;align-items:center;gap:8px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6 9 17l-5-5"/></svg> Uploaded · saved to the Media Library · optimizing now</div><div class="hint" style="margin-top:8px;">A GitHub Action is compressing the file with ffmpeg (audio is always preserved) and publishing it to the repo. It will be live at the URL below in about 1–2 minutes.</div><div class="result-url"><input type="text" value="${attr(url)}" readonly onclick="this.select();navigator.clipboard.writeText(this.value);"/><button class="btn btn-ghost btn-sm" onclick="navigator.clipboard.writeText('${attr(url)}');">Copy</button></div>`;
-        toast('Uploaded — optimizing on GitHub…');
-      }catch(e){$('vidProgress').innerHTML='';$('vidResult').innerHTML=`<div style="color:var(--err)">${esc(e.message)}</div>`;}
-      finally{$('vidGo').disabled=false;}
-    };
-  }
-
-  // ============ MESSAGES (owner only) ============
-  async function renderMessages(){
-    app.innerHTML=pageHead('Inbox','Contact Messages','Every message sent through the contact form. Unread messages are highlighted.')+
-      `<div class="toolbar"><div class="spacer"></div><button class="btn btn-ghost btn-sm" id="msgRefresh"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Refresh</button></div><div id="msgArea"><div class="loading-state"><span class="spinner"></span> Loading messages…</div></div>`;
-    $('msgRefresh').onclick=()=>renderMessages();
-    try{
-      const{data:msgs,total}=await api('/api/contact?limit=100');
-      if(!msgs.length){$('msgArea').innerHTML=`<div class="empty"><svg class="ico" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="m22 6-10 7L2 6"/></svg><h3>No messages yet</h3><p>Messages from the contact form will appear here.</p></div>`;return;}
-      const unread=msgs.filter(m=>!m.read).length;
-      let html=`<div class="stats" style="grid-template-columns:repeat(2,1fr);margin-bottom:24px;"><div class="stat"><div class="num">${total}</div><div class="lbl">Total Messages</div></div><div class="stat"><div class="num" style="color:${unread?'var(--err)':'var(--ok)'}">${unread}</div><div class="lbl">Unread</div></div></div>`;
-      html+='<div style="display:flex;flex-direction:column;gap:16px;">';
-      for(const m of msgs){
-        const isUnread=!m.read;
-        html+=`<div class="glass" style="padding:22px 26px;border-left:3px solid ${isUnread?'var(--gold-bright)':'transparent'};${isUnread?'background:rgba(200,200,200,.04);':''}"><div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;"><strong style="font-size:1rem;">${esc(m.name)}</strong><a href="mailto:${attr(m.email)}" style="font-size:.82rem;color:var(--gold);">${esc(m.email)}</a>${m.inquiry?`<span class="pill pill-cat">${esc(m.inquiry)}</span>`:''}<span style="margin-left:auto;font-size:.72rem;color:var(--faint);">${fmtDate(m.created_at)} · ${new Date(m.created_at).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true})}</span></div><p style="font-size:.9rem;line-height:1.7;color:var(--txt);white-space:pre-wrap;margin-bottom:14px;">${esc(m.message)}</p><div style="display:flex;gap:10px;align-items:center;">${isUnread?`<button class="btn btn-ghost btn-sm msg-read" data-id="${m.id}">Mark as read</button>`:`<span style="font-size:.72rem;color:var(--ok);">✓ Read</span>`}<a href="mailto:${attr(m.email)}?subject=${encodeURIComponent('Re: '+( m.inquiry||'Your inquiry')+' — Cinegma Films')}" class="btn btn-ghost btn-sm">Reply via Email</a><a href="https://wa.me/${m.email.includes('@')?'':''}?text=${encodeURIComponent('Hi '+m.name+', thanks for reaching out to Cinegma Films regarding your '+( m.inquiry||'inquiry')+'. ')}" target="_blank" class="btn btn-ghost btn-sm" style="display:none;">Reply on WhatsApp</a></div></div>`;
-      }
-      html+='</div>';
-      $('msgArea').innerHTML=html;
-      document.querySelectorAll('.msg-read').forEach(b=>{b.onclick=async()=>{try{await api('/api/contact',{method:'PUT',body:JSON.stringify({id:b.dataset.id,read:true})});toast('Marked as read');renderMessages();}catch(e){toast(e.message,false);}};});
-    }catch(e){$('msgArea').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
-  }
-
-  // ============ SITE ANALYTICS (owner only) ============
-  async function renderAnalytics(){
-    app.innerHTML=pageHead('Intelligence','Site Analytics','Real-time visitor analytics — page views, devices, referrers, and every interaction on your website.')+
-      `<div class="toolbar"><div class="spacer"></div><button class="btn btn-ghost btn-sm" id="anlRefresh"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Refresh</button></div><div id="anlStats"><div class="loading-state"><span class="spinner"></span> Loading analytics…</div></div><div id="anlFeed"></div>`;
-    $('anlRefresh').onclick=()=>renderAnalytics();
-
-    // Load overview stats (may partially fail if RPCs not set up — that's fine)
-    try{
-      const stats=await api('/api/site-activity?action=stats');
-      $('anlStats').innerHTML=`<div class="analytics-grid"><div class="a-card"><div class="a-num">${stats.views_today}</div><div class="a-lbl">Views Today</div></div><div class="a-card"><div class="a-num">${stats.visitors_today}</div><div class="a-lbl">Visitors Today</div></div><div class="a-card"><div class="a-num">${stats.views_week}</div><div class="a-lbl">Views This Week</div></div><div class="a-card"><div class="a-num">${stats.visitors_week}</div><div class="a-lbl">Visitors This Week</div></div><div class="a-card"><div class="a-num">${stats.views_month}</div><div class="a-lbl">Views (30 Days)</div></div></div>`;
-    }catch(e){$('anlStats').innerHTML=`<div class="analytics-grid"><div class="a-card"><div class="a-lbl" style="color:var(--err);">Stats unavailable: ${esc(e.message)}</div></div></div>`;}
-
-    // Load recent feed
-    try{
-      const{data:events,total}=await api('/api/site-activity?limit=100');
-      if(!events.length){$('anlFeed').innerHTML='<div class="empty"><h3>No activity yet</h3><p>Visitor events will appear here once someone visits the site.</p></div>';return;}
-
-      // Build top pages, browsers, devices from raw data
-      const pageCounts={},browserCounts={},deviceCounts={},referrerCounts={},eventCounts={};
-      events.forEach(e=>{
-        if(e.event==='page_view'){pageCounts[e.page]=(pageCounts[e.page]||0)+1;}
-        if(e.browser)browserCounts[e.browser]=(browserCounts[e.browser]||0)+1;
-        if(e.device)deviceCounts[e.device]=(deviceCounts[e.device]||0)+1;
-        if(e.referrer&&!e.referrer.includes(location.hostname)){try{const h=new URL(e.referrer).hostname;referrerCounts[h]=(referrerCounts[h]||0)+1;}catch(_){}}
-        eventCounts[e.event]=(eventCounts[e.event]||0)+1;
-      });
-
-      function barList(obj,max){
-        const sorted=Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,8);
-        const top=sorted[0]?sorted[0][1]:1;
-        return sorted.map(([name,count])=>`<div class="a-bar-item"><span class="a-bar-name">${esc(name)}</span><div class="a-bar-track"><div class="a-bar-fill" style="width:${Math.round(count/top*100)}%"></div></div><span class="a-bar-count">${count}</span></div>`).join('');
-      }
-
-      let html='<div class="a-cols"><div class="a-section glass" style="padding:24px;"><h3>Top Pages</h3>'+barList(pageCounts)+'</div><div class="a-section glass" style="padding:24px;"><h3>Event Types</h3>'+barList(eventCounts)+'</div></div>';
-      html+='<div class="a-cols" style="margin-top:24px;"><div class="a-section glass" style="padding:24px;"><h3>Browsers</h3>'+barList(browserCounts)+'</div><div class="a-section glass" style="padding:24px;"><h3>Devices</h3>'+barList(deviceCounts)+'</div></div>';
-      if(Object.keys(referrerCounts).length) html+='<div class="a-section glass" style="padding:24px;margin-top:24px;"><h3>Top Referrers</h3>'+barList(referrerCounts)+'</div>';
-
-      // Recent live feed
-      html+='<div class="a-section" style="margin-top:30px;"><h3>Live Feed</h3><div class="glass" style="overflow-x:auto;"><table class="log-table"><thead><tr><th>Time</th><th>Event</th><th>Page</th><th>Device</th><th>Details</th></tr></thead><tbody>';
-      function fmtTime(d){return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});}
-      function eventPill(ev){const cls=ev.includes('click')||ev==='form_submit'?'content':ev.includes('video')||ev.includes('audio')?'media':ev==='page_view'?'auth':'content';return `<span class="log-action ${cls}">${esc(ev.replace(/_/g,' '))}</span>`;}
-      for(const e of events.slice(0,50)){
-        const det=e.details?Object.entries(e.details).map(([k,v])=>k+': '+String(v).slice(0,40)).join(' · '):'—';
-        html+=`<tr><td style="white-space:nowrap;color:var(--faint);">${fmtTime(e.created_at)}</td><td>${eventPill(e.event)}</td><td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(e.page)}</td><td><span style="color:var(--txt);">${esc(e.browser||'')} · ${esc(e.os||'')}</span><br><span style="font-size:.7rem;color:var(--faint);">${esc(e.device||'')}${e.ip_address?' · '+esc(e.ip_address):''}</span></td><td class="log-details">${esc(det)}</td></tr>`;
-      }
-      html+='</tbody></table></div></div>';
-      html+=`<div style="text-align:center;padding:14px;font-size:.78rem;color:var(--faint);">${total} total events recorded</div>`;
-
-      $('anlFeed').innerHTML=html;
-    }catch(e){$('anlFeed').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
-  }
-
-  // ============ ACTIVITY LOG (owner only) ============
-  let activityOffset=0;
-  async function renderActivity(offset){
-    if(offset!==undefined)activityOffset=offset;
-    const PER_PAGE=50;
-    app.innerHTML=pageHead('Intelligence','Activity Log','Complete audit trail — logins, uploads, edits, deletions. Every action by every member.')+
-      `<div class="log-filters"><select id="logCat"><option value="">All categories</option><option value="auth">Auth</option><option value="content">Content</option><option value="media">Media</option></select><select id="logUser"><option value="">All users</option></select><button class="btn btn-ghost btn-sm" id="logRefresh"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg> Refresh</button><button class="btn btn-ghost btn-sm" id="logExport"><svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5M12 15V3"/></svg> Export CSV</button></div><div id="logArea"><div class="loading-state"><span class="spinner"></span> Loading activity…</div></div>`;
-
-    $('logRefresh').onclick=()=>renderActivity(0);
-    $('logCat').onchange=()=>renderActivity(0);
-    $('logUser').onchange=()=>renderActivity(0);
-
-    try{
-      const cat=$('logCat').value;const user=$('logUser').value;
-      let url=`/api/audit-log?limit=${PER_PAGE}&offset=${activityOffset}`;
-      if(cat)url+=`&category=${cat}`;if(user)url+=`&username=${encodeURIComponent(user)}`;
-      const{data:logs,total}=await api(url);
-
-      // populate user dropdown
-      const userSet=new Set();logs.forEach(l=>userSet.add(l.username));
-      const uSel=$('logUser');const curUser=uSel.value;
-      if(uSel.options.length<=1){
-        try{const allLogs=await api('/api/audit-log?limit=500');const us=new Set();allLogs.data.forEach(l=>us.add(l.username));us.forEach(u=>{const o=document.createElement('option');o.value=u;o.textContent=u;uSel.appendChild(o);});uSel.value=curUser;}catch(_){}
-      }
-
-      if(!logs.length){$('logArea').innerHTML=`<div class="empty"><h3>No activity yet</h3><p>Actions will be logged here as they happen.</p></div>`;return;}
-
-      function fmtTime(d){return new Date(d).toLocaleString('en-US',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});}
-      function actionClass(a){if(a.includes('delete')||a.includes('failed'))return 'danger';if(a.category==='auth')return 'auth';if(a.category==='media')return 'media';return 'content';}
-      function actionLabel(a){return a.replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());}
-      function detailStr(d){if(!d)return '—';const parts=[];if(d.title)parts.push('Title: '+d.title);if(d.filename)parts.push('File: '+d.filename);if(d.target_username)parts.push('User: '+d.target_username);if(d.article_id)parts.push('ID: '+d.article_id.slice(0,8));if(d.size_bytes)parts.push('Size: '+(d.size_bytes>1048576?(d.size_bytes/1048576).toFixed(1)+' MB':(d.size_bytes/1024).toFixed(0)+' KB'));if(d.published!==undefined)parts.push(d.published?'Published':'Draft');if(d.reason)parts.push(d.reason);return parts.join(' · ')||'—';}
-
-      let html=`<div class="glass" style="overflow-x:auto;"><table class="log-table"><thead><tr><th>Time</th><th>User</th><th>Action</th><th>Device / Location</th><th>Details</th></tr></thead><tbody>`;
-      for(const l of logs){
-        const cls=l.action.includes('delete')||l.action.includes('failed')?'danger':l.category;
-        html+=`<tr><td style="white-space:nowrap;color:var(--faint);">${fmtTime(l.created_at)}</td><td><strong>${esc(l.username)}</strong><br><span style="font-size:.68rem;color:var(--faint);">${esc(l.role)}</span></td><td><span class="log-action ${cls}">${actionLabel(l.action)}</span></td><td><div class="log-device"><span class="primary">${esc(l.browser||'')} · ${esc(l.os||'')}</span><span class="secondary">${esc(l.device||'')}${l.ip_address?' · '+esc(l.ip_address):''}</span></div></td><td class="log-details">${esc(detailStr(l.details))}</td></tr>`;
-      }
-      html+='</tbody></table></div>';
-
-      const totalPages=Math.ceil(total/PER_PAGE);const curPage=Math.floor(activityOffset/PER_PAGE);
-      if(totalPages>1){
-        html+='<div class="log-pagination">';
-        if(curPage>0)html+=`<button class="btn btn-ghost btn-sm" id="logPrev">Previous</button>`;
-        html+=`<span style="padding:8px 14px;font-size:.78rem;color:var(--faint);">Page ${curPage+1} of ${totalPages} · ${total} events</span>`;
-        if(curPage<totalPages-1)html+=`<button class="btn btn-ghost btn-sm" id="logNext">Next</button>`;
-        html+='</div>';
-      }else{
-        html+=`<div style="text-align:center;padding:14px;font-size:.78rem;color:var(--faint);">${total} events total</div>`;
-      }
-      $('logArea').innerHTML=html;
-      if($('logPrev'))$('logPrev').onclick=()=>renderActivity(activityOffset-PER_PAGE);
-      if($('logNext'))$('logNext').onclick=()=>renderActivity(activityOffset+PER_PAGE);
-
-      $('logExport').onclick=()=>{
-        let csv='Time,User,Role,Action,Category,Browser,OS,Device,IP,Details\n';
-        for(const l of logs){csv+=`"${l.created_at}","${l.username}","${l.role}","${l.action}","${l.category}","${l.browser}","${l.os}","${l.device}","${l.ip_address||''}","${detailStr(l.details).replace(/"/g,'""')}"\n`;}
-        const blob=new Blob([csv],{type:'text/csv'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='cinegma-activity-'+new Date().toISOString().slice(0,10)+'.csv';a.click();toast('CSV downloaded');
-      };
-    }catch(e){$('logArea').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
-  }
-
-  // ============ ADMINS (owner only) ============
-  async function renderAdmins(){
-    app.innerHTML=pageHead('Team','Admins','Add or remove people who can sign in to the Studio. Only you (the owner) can see this page.')+
-      `<div class="glass" style="padding:30px 34px;margin-bottom:26px;"><div class="field-row"><div class="field" style="margin-bottom:0;"><label>New username</label><input type="text" id="adUser" placeholder="e.g. editor1"/></div><div class="field" style="margin-bottom:0;"><label>Password</label><input type="text" id="adPass" placeholder="Set a password"/></div><div class="field" style="margin-bottom:0;max-width:160px;"><label>Role</label><select id="adRole"><option value="user">User</option><option value="admin">Admin</option><option value="owner">Owner</option></select></div></div><button class="btn btn-primary" id="adAdd" style="margin-top:18px;"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg> Add Admin</button></div><div id="adList"><div class="loading-state"><span class="spinner"></span> Loading admins…</div></div>`;
-    $('adAdd').onclick=async()=>{const username=$('adUser').value.trim(),password=$('adPass').value,role=$('adRole').value;if(!username||!password){toast('Username and password required',false);return;}try{await api('/api/auth',{method:'POST',body:JSON.stringify({action:'create',username,password,role})});toast('Admin added');renderAdmins();}catch(e){toast(e.message,false);}};
-    try{
-      const list=await api('/api/auth',{method:'POST',body:JSON.stringify({action:'list'})});
-      let html=`<table class="admin-table"><thead><tr><th>Username</th><th>Role</th><th>Added</th><th></th></tr></thead><tbody>`;
-      html+=`<tr><td><strong>${esc(session.username)}</strong></td><td><span class="pill pill-cat">Owner (you)</span></td><td style="color:var(--faint)">—</td><td style="text-align:right;color:var(--faint);font-size:.78rem;">Protected</td></tr>`;
-      for(const a of list){html+=`<tr><td><strong>${esc(a.username)}</strong></td><td><span class="pill ${a.role==='owner'?'pill-cat':'pill-draft'}">${esc(a.role)}</span></td><td style="color:var(--faint)">${fmtDate(a.created_at)}</td><td style="text-align:right;"><button class="btn btn-danger btn-sm" data-del="${a.id}" data-name="${attr(a.username)}">Remove</button></td></tr>`;}
-      html+='</tbody></table>';
-      $('adList').innerHTML=html;
-      document.querySelectorAll('[data-del]').forEach(b=>{b.onclick=async()=>{if(!confirm('Remove admin "'+b.dataset.name+'"?'))return;try{await api('/api/auth',{method:'POST',body:JSON.stringify({action:'delete',id:b.dataset.del})});toast('Admin removed');renderAdmins();}catch(e){toast(e.message,false);}};});
-    }catch(e){$('adList').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;}
-  }
-
-  // ============ MY PROFILE (everyone) ============
-  async function renderProfile(){
-    app.innerHTML=pageHead('Account','My Profile','Manage your basic profile information. These details are tied to your account.')+
-      `<div id="profileArea"><div class="loading-state"><span class="spinner"></span> Loading your profile…</div></div>`;
-    let profile;
-    try{
-      const r=await api('/api/auth',{method:'POST',body:JSON.stringify({action:'profile_get'})});
-      profile=r.profile;
-    }catch(e){$('profileArea').innerHTML=`<div class="empty"><h3>Couldn't load</h3><p style="color:var(--err)">${esc(e.message)}</p></div>`;return;}
-
-    const isOwner=session.role==='owner';
-    const initial=(profile.full_name||profile.username||'?').charAt(0).toUpperCase();
-    $('profileArea').innerHTML=`
-      <div class="editor glass" style="padding:34px 38px;margin-bottom:26px;">
-        <div style="display:flex;align-items:center;gap:18px;margin-bottom:30px;flex-wrap:wrap;">
-          <div id="pfAvatar" style="width:64px;height:64px;font-size:1.6rem;border-radius:50%;background:linear-gradient(135deg,var(--gold-bright),var(--gold));color:#111;display:flex;align-items:center;justify-content:center;font-weight:600;flex:none;">${esc(initial)}</div>
-          <div>
-            <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;">${esc(profile.full_name||profile.username)}</div>
-            <div style="font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);">${esc(profile.username)} · ${esc(profile.role)}</div>
-          </div>
+    list.innerHTML = data.films.map(film => `
+      <div class="list-item" onclick="editFilm('${film.id}')">
+        <div class="list-item-info">
+          <div class="list-item-title">${escapeHtml(film.title)}</div>
+          <div class="list-item-meta">${film.slug} • ${film.status}</div>
         </div>
-        <div class="field-row"><div class="field"><label>Username</label><input type="text" value="${attr(profile.username)}" readonly style="opacity:.6;cursor:not-allowed;"/><div class="hint">Your sign-in name can't be changed here.</div></div><div class="field"><label>Role</label><input type="text" value="${attr(profile.role)}" readonly style="opacity:.6;cursor:not-allowed;"/></div></div>
-        <div class="field"><label>Full name</label><input type="text" id="pfFullName" value="${attr(profile.full_name||'')}" placeholder="e.g. Asad Syed"/></div>
-        <div class="field"><label>Job title / position</label><input type="text" id="pfTitle" value="${attr(profile.title||'')}" placeholder="e.g. Editor, Director, Producer"/></div>
-        <div class="field-row"><div class="field"><label>Email</label><input type="email" id="pfEmail" value="${attr(profile.email||'')}" placeholder="you@example.com"/></div><div class="field"><label>Phone</label><input type="text" id="pfPhone" value="${attr(profile.phone||'')}" placeholder="+92 300 0000000"/></div></div>
-        <div class="field"><label>Location</label><input type="text" id="pfLocation" value="${attr(profile.location||'')}" placeholder="e.g. Karachi, Pakistan"/></div>
-        <div class="field"><label>Avatar image URL (optional)</label><input type="text" id="pfAvatarUrl" value="${attr(profile.avatar_url||'')}" placeholder="Paste an image URL"/></div>
-        <div class="field" style="margin-bottom:0;"><label>Bio</label><textarea id="pfBio" style="min-height:120px;" placeholder="A short bio about yourself…">${esc(profile.bio||'')}</textarea></div>
-        <div class="editor-actions"><div class="spacer" style="flex:1;"></div><button class="btn btn-primary" id="pfSave"><svg viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg> Save Profile</button></div>
+        <span class="badge badge-${film.status === 'published' ? 'published' : film.status === 'draft' ? 'draft' : 'pending'}">${film.status}</span>
       </div>
-      <div class="editor glass" style="padding:34px 38px;">
-        <h3 style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:1.4rem;margin-bottom:6px;">Change Password</h3>
-        <p class="hint" style="margin-top:0;margin-bottom:20px;">${isOwner?"The owner password is set via an environment variable and can't be changed here.":'Update the password you use to sign in.'}</p>
-        <div class="field-row"><div class="field"><label>Current password</label><input type="password" id="pfCurPass" autocomplete="current-password" ${isOwner?'disabled':''} placeholder="••••••••"/></div><div class="field"><label>New password</label><input type="password" id="pfNewPass" autocomplete="new-password" ${isOwner?'disabled':''} placeholder="At least 6 characters"/></div></div>
-        <div class="editor-actions"><div class="spacer" style="flex:1;"></div><button class="btn btn-ghost" id="pfPassSave" ${isOwner?'disabled':''}>Update Password</button></div>
-      </div>`;
+    `).join('');
+  } catch (e) {
+    console.error('Load films error:', e);
+    document.getElementById('filmsList').innerHTML = '<div style="color: var(--err); text-align: center; padding: 20px;">Error loading films</div>';
+  }
+}
 
-    $('pfSave').onclick=async()=>{
-      const body={full_name:$('pfFullName').value.trim(),title:$('pfTitle').value.trim(),email:$('pfEmail').value.trim(),phone:$('pfPhone').value.trim(),location:$('pfLocation').value.trim(),avatar_url:$('pfAvatarUrl').value.trim(),bio:$('pfBio').value};
-      $('pfSave').disabled=true;
-      try{
-        const r=await api('/api/auth',{method:'POST',body:JSON.stringify({action:'profile_update',profile:body})});
-        toast('Profile saved');
-        const nm=r.profile.full_name||r.profile.username;
-        $('pfAvatar').textContent=(nm||'?').charAt(0).toUpperCase();
-      }catch(e){toast(e.message,false);}
-      finally{$('pfSave').disabled=false;}
-    };
+function editFilm(id) {
+  alert(`Film editor for ${id} coming soon`);
+}
 
-    if(!isOwner){
-      $('pfPassSave').onclick=async()=>{
-        const cur=$('pfCurPass').value,nw=$('pfNewPass').value;
-        if(!cur||!nw){toast('Enter your current and new password',false);return;}
-        $('pfPassSave').disabled=true;
-        try{
-          await api('/api/auth',{method:'POST',body:JSON.stringify({action:'password_change',current_password:cur,new_password:nw})});
-          toast('Password updated');
-          $('pfCurPass').value='';$('pfNewPass').value='';
-        }catch(e){toast(e.message,false);}
-        finally{$('pfPassSave').disabled=false;}
-      };
+// ═══ Team ═══
+async function loadTeam() {
+  try {
+    const data = await apiCall('/team');
+    const list = document.getElementById('teamList');
+
+    if (!data.members || data.members.length === 0) {
+      list.innerHTML = '<div class="empty-state"><h3>No Team Members</h3><p>Add your first team member</p></div>';
+      return;
     }
-  }
 
-  // ===== Boot =====
-  async function boot(){
-    if(!session.token){showLogin();return;}
-    try{const me=await fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json','X-Session-Token':session.token},body:JSON.stringify({action:'me'})});if(!me.ok)throw 0;const d=await me.json();session.role=d.role;session.username=d.username;localStorage.setItem('cms_role',d.role);localStorage.setItem('cms_username',d.username);showApp();}
-    catch(_){logout();}
+    list.innerHTML = data.members.map(m => `
+      <div class="list-item" onclick="editTeam('${m.id}')">
+        <div class="list-item-info">
+          <div class="list-item-title">${escapeHtml(m.name)}</div>
+          <div class="list-item-meta">${m.position || 'No position'}</div>
+        </div>
+        ${m.featured ? '<span class="badge badge-published">Featured</span>' : ''}
+      </div>
+    `).join('');
+  } catch (e) {
+    console.error('Load team error:', e);
   }
-  boot();
-})();
+}
+
+function editTeam(id) {
+  alert(`Team editor for ${id} coming soon`);
+}
+
+// ═══ Services ═══
+async function loadServices() {
+  try {
+    const data = await apiCall('/services');
+    const list = document.getElementById('servicesList');
+
+    if (!data.services || data.services.length === 0) {
+      list.innerHTML = '<div class="empty-state"><h3>No Services</h3><p>Add your first service</p></div>';
+      return;
+    }
+
+    list.innerHTML = data.services.map(s => `
+      <div class="list-item" onclick="editService('${s.id}')">
+        <div class="list-item-info">
+          <div class="list-item-title">${escapeHtml(s.title)}</div>
+          <div class="list-item-meta">${s.slug}</div>
+        </div>
+        ${s.featured ? '<span class="badge badge-published">Featured</span>' : ''}
+      </div>
+    `).join('');
+  } catch (e) {
+    console.error('Load services error:', e);
+  }
+}
+
+function editService(id) {
+  alert(`Service editor for ${id} coming soon`);
+}
+
+// ═══ Utilities ═══
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+// ═══ Init ═══
+document.getElementById('loginForm').addEventListener('submit', login);
+document.getElementById('logoutBtn').addEventListener('click', logout);
+
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => showSection(btn.dataset.section));
+});
+
+// Check for existing session
+const token = localStorage.getItem('cms_token');
+if (token) {
+  session.token = token;
+  showApp();
+}
 </script>
+
 </body>
 </html>
