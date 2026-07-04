@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
       const unread = req.query?.unread === '1';
 
       let query = sb().from('contact_messages').select('*', { count: 'exact' });
-      if (unread) query = query.eq('read', false);
+      if (unread) query = query.eq('status', 'new');
       query = query.order('created_at', { ascending: false }).range(offset, offset + limit - 1);
 
       const { data, error, count } = await query;
@@ -33,16 +33,16 @@ module.exports = async (req, res) => {
       return res.json({ data: data || [], total: count || 0 });
     }
 
-    // PUT: mark as read (owner only)
+    // PUT: update message status (owner only)
     if (req.method === 'PUT') {
       const auth = require('../lib/auth');
       const me = auth.getAuth(req);
       if (!me) return res.status(401).json({ error: 'Unauthorized' });
       if (me.role !== 'owner') return res.status(403).json({ error: 'Owner only' });
 
-      const { id, read } = req.body || {};
+      const { id, status } = req.body || {};
       if (!id) return res.status(400).json({ error: 'id required' });
-      const { error } = await sb().from('contact_messages').update({ read: read !== false }).eq('id', id);
+      const { error } = await sb().from('contact_messages').update({ status: status || 'read' }).eq('id', id);
       if (error) throw error;
       return res.json({ ok: true });
     }
@@ -50,21 +50,18 @@ module.exports = async (req, res) => {
     // POST: new contact submission (public)
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-    const { name, email, inquiry, message } = req.body || {};
+    const { name, email, phone, subject, message } = req.body || {};
     if (!name || !email || !message) return res.status(400).json({ error: 'Name, email, and message are required' });
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'Invalid email' });
 
-    const ua = req.headers['user-agent'] || '';
-    const ip = (req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || '').split(',')[0].trim();
-
-    // 1. Save to database
+    // 1. Save to database using new schema
     const { error: dbErr } = await sb().from('contact_messages').insert({
       name: String(name).slice(0, 200),
       email: String(email).slice(0, 200),
-      inquiry: inquiry ? String(inquiry).slice(0, 100) : null,
+      phone: phone ? String(phone).slice(0, 20) : null,
+      subject: subject ? String(subject).slice(0, 200) : null,
       message: String(message).slice(0, 5000),
-      ip_address: ip || null,
-      user_agent: ua.slice(0, 500),
+      status: 'new',
     });
     if (dbErr) throw dbErr;
 
