@@ -25,8 +25,8 @@ module.exports = async (req, res) => {
     if (!me) return res.status(401).json({ error: 'Unauthorized' });
 
     const pathParts = req.url?.split('/').filter(Boolean);
-    const resource = pathParts?.[1]; // 'films', 'team', 'services', 'gallery', 'awards'
-    const id = pathParts?.[2];
+    const resource = pathParts?.[0]; // 'films', 'team', 'services', 'gallery', 'awards'
+    const id = pathParts?.[1];
     const { action, film, member, service, item, award } = req.body || {};
 
     // ════════════════════ FILMS ════════════════════
