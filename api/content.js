@@ -1,6 +1,7 @@
 // ════════════════════════════════════════════════════════════════
 // Consolidated Content Management API
 // Handles: films, team, services, gallery, awards
+// Routed by ?type= query param (e.g. /api/content?type=films&id=123)
 // This consolidates 5 separate endpoint files into 1
 // ════════════════════════════════════════════════════════════════
 
@@ -24,9 +25,8 @@ module.exports = async (req, res) => {
     const me = auth.getAuth(req);
     if (!me) return res.status(401).json({ error: 'Unauthorized' });
 
-    const pathParts = req.url?.split('/').filter(Boolean);
-    const resource = pathParts?.[0]; // 'films', 'team', 'services', 'gallery', 'awards'
-    const id = pathParts?.[1];
+    const resource = req.query?.type; // 'films', 'team', 'services', 'gallery', 'awards'
+    const id = req.query?.id || null;
     const { action, film, member, service, item, award } = req.body || {};
 
     // ════════════════════ FILMS ════════════════════
@@ -362,7 +362,7 @@ module.exports = async (req, res) => {
       }
     }
 
-    return res.status(400).json({ error: 'Invalid request' });
+    return res.status(400).json({ error: 'Invalid request — unknown type: ' + resource });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

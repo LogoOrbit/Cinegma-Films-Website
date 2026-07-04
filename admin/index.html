@@ -1038,7 +1038,7 @@ async function apiCall(path, options = {}) {
 // ═══ Dashboard ═══
 async function loadDashboard() {
   try {
-    const data = await apiCall('/analytics/summary');
+    const data = await apiCall('/analytics?view=summary');
     const stats = data.stats;
 
     document.getElementById('statFilms').textContent = stats.totalFilms || 0;
@@ -1069,7 +1069,7 @@ async function loadDashboard() {
 // ═══ Films ═══
 async function loadFilms() {
   try {
-    const data = await apiCall('/content/films');
+    const data = await apiCall('/content?type=films');
     const list = document.getElementById('filmsList');
 
     if (!data.films || data.films.length === 0) {
@@ -1120,12 +1120,12 @@ function editFilm(id, filmData) {
 async function submitFilm(data) {
   try {
     if (currentEditingId) {
-      await apiCall(`/content/films/${currentEditingId}`, {
+      await apiCall(`/content?type=films&id=${currentEditingId}`, {
         method: 'PATCH',
         body: JSON.stringify({ film: data }),
       });
     } else {
-      await apiCall('/content/films', {
+      await apiCall('/content?type=films', {
         method: 'POST',
         body: JSON.stringify({ action: 'create', film: data }),
       });
@@ -1140,7 +1140,7 @@ async function submitFilm(data) {
 // ═══ Team ═══
 async function loadTeam() {
   try {
-    const data = await apiCall('/content/team');
+    const data = await apiCall('/content?type=team');
     const list = document.getElementById('teamList');
 
     if (!data.members || data.members.length === 0) {
@@ -1190,12 +1190,12 @@ function editTeam(id, memberData) {
 async function submitTeam(data) {
   try {
     if (currentEditingId) {
-      await apiCall(`/content/team/${currentEditingId}`, {
+      await apiCall(`/content?type=team&id=${currentEditingId}`, {
         method: 'PATCH',
         body: JSON.stringify({ member: data }),
       });
     } else {
-      await apiCall('/content/team', {
+      await apiCall('/content?type=team', {
         method: 'POST',
         body: JSON.stringify({ action: 'create', member: data }),
       });
@@ -1210,7 +1210,7 @@ async function submitTeam(data) {
 // ═══ Services ═══
 async function loadServices() {
   try {
-    const data = await apiCall('/content/services');
+    const data = await apiCall('/content?type=services');
     const list = document.getElementById('servicesList');
 
     if (!data.services || data.services.length === 0) {
@@ -1260,12 +1260,12 @@ function editService(id, serviceData) {
 async function submitService(data) {
   try {
     if (currentEditingId) {
-      await apiCall(`/content/services/${currentEditingId}`, {
+      await apiCall(`/content?type=services&id=${currentEditingId}`, {
         method: 'PATCH',
         body: JSON.stringify({ service: data }),
       });
     } else {
-      await apiCall('/content/services', {
+      await apiCall('/content?type=services', {
         method: 'POST',
         body: JSON.stringify({ action: 'create', service: data }),
       });
@@ -1280,7 +1280,7 @@ async function submitService(data) {
 // ═══ Gallery ═══
 async function loadGallery() {
   try {
-    const data = await apiCall('/content/gallery');
+    const data = await apiCall('/content?type=gallery');
     const list = document.getElementById('galleryList');
 
     if (!data.items || data.items.length === 0) {
@@ -1311,7 +1311,7 @@ async function loadGallery() {
 // ═══ Awards ═══
 async function loadAwards() {
   try {
-    const data = await apiCall('/content/awards');
+    const data = await apiCall('/content?type=awards');
     const list = document.getElementById('awardsList');
 
     if (!data.awards || data.awards.length === 0) {
