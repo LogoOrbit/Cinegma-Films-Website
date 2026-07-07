@@ -82,7 +82,28 @@
     var fab = el('button', 'v3-k-fab');
     fab.innerHTML = '<span class="dot"></span><span class="lbl">Quick Nav</span><kbd style="border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;font-size:10px">⌘K</kbd>';
     fab.setAttribute('aria-label', 'Open quick navigation');
-    b.appendChild(fab);
+    var fabOff = false; try { fabOff = !!sessionStorage.getItem('v3_fab_off'); } catch (e) { }
+    if (!fabOff) b.appendChild(fab);
+    function killFab() { fab.remove(); try { sessionStorage.setItem('v3_fab_off', '1'); } catch (e) { } }
+    var fx = document.createElement('span');
+    fx.id = 'v3-k-fabx'; fx.textContent = '\u00d7';
+    fx.setAttribute('role', 'button'); fx.setAttribute('aria-label', 'Hide quick nav button');
+    fx.addEventListener('click', function (e) { e.stopPropagation(); killFab(); });
+    fab.appendChild(fx);
+    var fsx = null, fdx = 0;
+    fab.addEventListener('touchstart', function (e) { fsx = e.touches[0].clientX; fdx = 0; fab.style.transition = 'none'; }, { passive: true });
+    fab.addEventListener('touchmove', function (e) {
+      if (fsx == null) return;
+      fdx = e.touches[0].clientX - fsx;
+      fab.style.transform = 'translateX(' + fdx + 'px)';
+      fab.style.opacity = Math.max(0, 1 - Math.abs(fdx) / 120);
+    }, { passive: true });
+    fab.addEventListener('touchend', function () {
+      fab.style.transition = '';
+      if (Math.abs(fdx) > 60) killFab();
+      else { fab.style.transform = ''; fab.style.opacity = ''; }
+      fsx = null;
+    }, { passive: true });
 
     var input = K.querySelector('input'), list = K.querySelector('.k-list'), sel = 0, cur = items;
     function render() {

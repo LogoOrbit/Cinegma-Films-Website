@@ -186,11 +186,12 @@ body.menu-open #nav{z-index:1200}
 
 /* films */
 #films{padding:clamp(70px,9vw,130px) 0 40px}
-.film{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:clamp(28px,5vw,80px);align-items:center;padding:clamp(48px,6vw,90px) 0;border-top:1px solid var(--line);margin-top:56px}
-.film~.film{margin-top:0}
-.film:nth-of-type(even){grid-template-columns:1fr minmax(0,560px)}
-.film:nth-of-type(even) .poster-w{order:2}
-.poster-w{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:2/3;width:100%;max-width:560px;box-shadow:0 50px 130px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.06);transition:box-shadow .5s,transform .5s cubic-bezier(.2,.9,.3,1)}
+#films .wrap{display:grid;grid-template-columns:1fr 1fr;gap:clamp(16px,3vw,40px)}
+#films .wrap>.kicker,#films .wrap>.h-lg,#films .wrap>.lead,#films .wrap>div.v3-reveal{grid-column:1/-1}
+.film{display:flex;flex-direction:column;gap:22px;padding:clamp(20px,3vw,36px) 0 clamp(28px,4vw,48px);border-top:1px solid var(--line)}
+.film h3{font-size:clamp(24px,3.4vw,52px)!important}
+@media(max-width:640px){.film .desc{font-size:13px}.film .roles{font-size:14px}.film .lnx{gap:14px;font-size:10.5px}}
+.poster-w{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:2/3;width:100%;cursor:pointer;box-shadow:0 50px 130px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.06);transition:box-shadow .5s,transform .5s cubic-bezier(.2,.9,.3,1)}
 .poster-w:hover{box-shadow:0 60px 160px rgba(0,0,0,.9),0 0 80px rgba(255,255,255,.08);transform:translateY(-6px)}
 .poster-w img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.9,.3,1),opacity .4s}
 .poster-w video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
@@ -210,7 +211,6 @@ body.menu-open #nav{z-index:1200}
 .film .lnx{display:flex;flex-wrap:wrap;gap:22px;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600}
 .film .lnx a{display:inline-flex;gap:8px;align-items:center;color:#e6e0d4;border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:4px;transition:color .25s,border-color .25s}
 .film .lnx a:hover{color:var(--b);border-color:var(--b)}
-@media(max-width:860px){.film,.film:nth-of-type(even){grid-template-columns:1fr}.film:nth-of-type(even) .poster-w{order:0}.poster-w{max-width:none}}
 
 /* watch cta */
 #watchcta{margin:clamp(60px,8vw,110px) 0}
@@ -220,20 +220,6 @@ body.menu-open #nav{z-index:1200}
 #watchcta h2{position:relative}
 #watchcta .mini{display:flex;justify-content:center;flex-wrap:wrap;gap:14px;margin:30px 0 38px;position:relative}
 #watchcta .mini span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#c9c3b8;border:1px solid var(--line);padding:9px 18px;border-radius:999px;background:rgba(255,255,255,.03)}
-
-/* explore */
-#explore{padding:clamp(60px,8vw,110px) 0}
-#explore .duo{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:860px){#explore .duo{grid-template-columns:1fr}}
-.xp{position:relative;border:1px solid var(--line);border-radius:24px;padding:clamp(30px,4vw,52px);background:var(--bg2);overflow:hidden;transition:border-color .35s,transform .35s}
-.xp:hover{border-color:rgba(255,255,255,.4);transform:translateY(-5px)}
-.xp h3{font-family:var(--disp);font-size:clamp(34px,4vw,56px);line-height:.95;text-transform:uppercase;margin:14px 0 12px}
-.xp p{color:var(--mut);font-weight:300;line-height:1.7;margin-bottom:22px;max-width:420px}
-.xp .links{display:flex;flex-wrap:wrap;gap:9px}
-.xp .links a{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;padding:9px 16px;border:1px solid var(--line);border-radius:999px;color:#c9c3b8;transition:all .25s}
-.xp .links a:hover{background:#fff;color:#06060a;border-color:#fff}
-.xp .arrow{position:absolute;top:26px;right:30px;font-family:var(--disp);font-size:30px;color:rgba(255,255,255,.35);transition:color .3s,transform .3s}
-.xp:hover .arrow{color:#fff;transform:translate(4px,-4px)}
 
 /* holo 3d showcase */
 #holo{padding:clamp(70px,9vw,130px) 0}
@@ -272,6 +258,12 @@ body.menu-open #nav{z-index:1200}
 .laurel{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;align-items:center;justify-content:center;transition:transform .35s,border-color .35s,box-shadow .35s}
 .laurel:hover{transform:translateY(-6px);border-color:var(--a-dim);box-shadow:0 16px 40px rgba(255,255,255,.2)}
 .laurel img{width:100%;height:auto;filter:brightness(1.05)}
+#laurelMore{display:none;margin:26px auto 0}
+@media(max-width:760px){
+  .laurel-grid{grid-template-columns:repeat(2,1fr)}
+  .laurel-grid.collapsed .laurel:nth-child(n+7){display:none}
+  #laurelMore{display:inline-flex}
+}
 .countries{display:flex;flex-wrap:wrap;gap:10px;margin-top:34px}
 .countries span{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--b);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 18px}
 
@@ -566,7 +558,7 @@ footer .fine a{color:#9a948a}
         <div class="lnx"><a href="watch.html#watch-urdu-bazaar">▶ Watch Now</a><a href="projects/urdu-bazaar-karachi.html">Film Page</a></div>
       </div>
     </article>
-    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:56px 0 10px;border-top:1px solid var(--line)"><a class="btn" href="#explore">Browse All Film Pages ↓</a><a class="btn" href="watch.html">▶ Stream The Films</a></div>
+    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:56px 0 10px;border-top:1px solid var(--line)"><a class="btn" href="portfolio.html">Browse The Portfolio →</a><a class="btn" href="watch.html">▶ Stream The Films</a></div>
   </div>
 </section>
 
@@ -584,52 +576,17 @@ footer .fine a{color:#9a948a}
   </div>
 </section>
 
-<section id="explore">
-  <div class="wrap duo">
-    <div class="xp v3-reveal">
-      <span class="arrow">↗</span>
-      <span class="kicker">Explore · Film Pages</span>
-      <h3>Every Film,<br/><span class="serif-i">Its Own Page</span></h3>
-      <p>Posters, synopses, full cast &amp; crew, awards, trailers and production details — a dedicated page for each production.</p>
-      <div class="links">
-        <a href="projects/janjaal.html">Janjaal</a>
-        <a href="projects/portrait-of-life.html">Portrait of Life</a>
-        <a href="projects/zawaal.html">Zawaal</a>
-        <a href="projects/a-soldier-beside-me.html">A Soldier Beside Me</a>
-        <a href="projects/payam-e-dil.html">Payam e Dil</a>
-        <a href="projects/main-aur-achu.html">Main Aur Achu</a>
-        <a href="projects/phir-se.html">Phir Se</a>
-        <a href="projects/urdu-bazaar-karachi.html">Urdu Bazaar</a>
-      </div>
-    </div>
-    <div class="xp v3-reveal">
-      <span class="arrow">↗</span>
-      <span class="kicker">Explore · Team Pages</span>
-      <h3>Meet The<br/><span class="serif-i">Full Team</span></h3>
-      <p>Complete profiles of the six core creatives — full bios, portfolios, skills, and every credit across the filmography.</p>
-      <div class="links">
-        <a href="team/syed-asad.html">Syed Asad</a>
-        <a href="team/ghayas-uddin.html">Ghayas Uddin</a>
-        <a href="team/ameer-hamza.html">Ameer Hamza</a>
-        <a href="team/faizan-ahmed.html">Faizan Ahmed</a>
-        <a href="team/usman-ali.html">Usman Ali</a>
-        <a href="team/dayyan-khalid.html">Dayyan Khalid</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="holo" aria-label="Interactive holographic film reel showcase">
+<section id="holo" aria-label="Interactive 3D film camera showcase">
   <div class="wrap">
-    <span class="kicker v3-reveal">The Cinegma Core · Interactive</span>
-    <h2 class="h-lg v3-reveal">Cinema,<br/><span class="serif-i">Suspended in Light</span></h2>
-    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Every story we tell passes through the reel. Move your cursor — or tilt your phone — and bend the light around it.</p>
+    <span class="kicker v3-reveal">On Set · Interactive</span>
+    <h2 class="h-lg v3-reveal">The Camera,<br/><span class="serif-i">Always Rolling</span></h2>
+    <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Every Cinegma story starts behind a camera. Grab it, spin it, let it glide — it moves the way we shoot: smooth.</p>
     <div class="stage v3-reveal" id="holoStage">
       <div class="fb" aria-hidden="true"><div class="ring"></div></div>
-      <div class="hud hud-a"><i></i>Cinegma · Holo-Reel 01</div>
-      <div class="hud hud-b">24 FPS · ∞ Loop</div>
+      <div class="hud hud-a"><i></i>Cinegma · Cam A · Rolling</div>
+      <div class="hud hud-b">24 FPS · 35MM</div>
       <div class="hud hud-c">KHI · 24.8607° N, 67.0011° E</div>
-      <div class="hud hud-d">Drag / Tilt to Explore</div>
+      <div class="hud hud-d">Drag to Spin</div>
     </div>
   </div>
 </section>
@@ -638,7 +595,7 @@ footer .fine a{color:#9a948a}
   <div class="wrap">
     <span class="kicker v3-reveal">Recognised Worldwide · Officially Selected · Screened · Awarded</span>
     <h2 class="h-lg v3-reveal">Official Selections<br/><span class="serif-i">&amp; Awards</span></h2>
-    <div class="laurel-grid">
+    <div class="laurel-grid collapsed" id="laurelGrid">
       <div class="laurel v3-reveal"><img loading="lazy" src="assets/laurels/Toronto-FantasySci-Fi-Film--Screenplay-Festival---BEST-SHORT-FILM---2025.webp" alt="Best Short Film — Toronto Fantasy/Sci-Fi Film Festival"/></div>
       <div class="laurel v3-reveal"><img loading="lazy" src="assets/laurels/BESTDIRECTOR-AWARD-GandharaIndependentFilmFestival2025Online.webp" alt="Best Director — Gandhara Independent Film Festival 2025"/></div>
       <div class="laurel v3-reveal"><img loading="lazy" src="assets/laurels/BESTFILM-AWARD-GandharaIndependentFilmFestival2025Online.webp" alt="Best Film — Gandhara Independent Film Festival 2025"/></div>
@@ -661,6 +618,7 @@ footer .fine a{color:#9a948a}
       <div class="laurel v3-reveal"><img loading="lazy" src="assets/laurels/OFFICIAL-SELECTION---FLAME-FirstCut-2026---2026.webp" alt="Official Selection — FLAME FirstCut 2026"/></div>
       <div class="laurel v3-reveal"><img loading="lazy" src="assets/laurels/nomineebesttrailer25-white.webp" alt="Nominee Best Trailer 2025"/></div>
     </div>
+    <div style="text-align:center"><button class="btn" id="laurelMore" type="button">Show More Awards ↓</button></div>
     <div class="countries v3-reveal">
       <span>Canada</span><span>India</span><span>Scotland</span><span>Kosovo</span><span>United States</span><span>Spain</span><span>Egypt</span><span>Iran</span><span>Pakistan</span>
     </div>
@@ -735,7 +693,7 @@ footer .fine a{color:#9a948a}
       <a class="tcard v3-reveal" href="team/usman-ali.html"><img loading="lazy" src="assets/posters/Usman.avif" alt="Usman Ali Akbar"/><span class="no">05</span><div class="ov"><b>Usman Ali Akbar</b><i>Music Composer</i></div></a>
       <a class="tcard v3-reveal" href="team/dayyan-khalid.html"><img loading="lazy" src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid"/><span class="no">06</span><div class="ov"><b>Dayyan Khalid</b><i>Producer · Production Manager</i></div></a>
     </div>
-    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px"><a class="btn" href="team/syed-asad.html">Meet The Founder →</a><a class="btn" href="#explore">All Team Pages ↓</a></div>
+    <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px"><a class="btn" href="team/syed-asad.html">Meet The Founder →</a><a class="btn" href="about.html">About The Studio →</a></div>
   </div>
 </section>
 
@@ -849,6 +807,19 @@ if(matchMedia('(hover:hover)').matches&&!reduced){
   });
 }
 
+/* poster click → film page */
+document.querySelectorAll('.film').forEach(function(f){
+  var a=f.querySelector('.meta h3 a'),w=f.querySelector('.poster-w');
+  if(a&&w)w.addEventListener('click',function(){location.href=a.getAttribute('href');});
+});
+
+/* laurels: show more on phone */
+var lg=document.getElementById('laurelGrid'),lm=document.getElementById('laurelMore');
+if(lg&&lm)lm.addEventListener('click',function(){
+  var c=lg.classList.toggle('collapsed');
+  lm.textContent=c?'Show More Awards ↓':'Show Fewer Awards ↑';
+});
+
 /* lazy BTS reels: load + autoplay in view */
 var vio=new IntersectionObserver(function(es){
   es.forEach(function(e){
@@ -929,32 +900,46 @@ function boot(){
   }
 
   var world=new THREE.Group();scene.add(world);
-  var reel=new THREE.Group();world.add(reel);
+  var camGrp=new THREE.Group();world.add(camGrp);
 
-  var mCyan=holoMat(0x39d7ff,1),mTeal=holoMat(0x22e0c9,.85),mViolet=holoMat(0x8f78ff,.95);
-  reel.add(new THREE.Mesh(new THREE.TorusGeometry(1.9,.075,20,mobile?72:110),mCyan));
-  reel.add(new THREE.Mesh(new THREE.TorusGeometry(1.62,.028,14,mobile?64:96),mTeal));
-  var hub=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,.34,40,1,true),mViolet);
-  hub.rotation.x=Math.PI/2;reel.add(hub);
-  reel.add(new THREE.Mesh(new THREE.TorusGeometry(.42,.03,12,48),mViolet));
+  var mCyan=holoMat(0x39d7ff,1),mTeal=holoMat(0x22e0c9,.85),mViolet=holoMat(0x8f78ff,.95),i,a;
 
-  var spokeGeo=new THREE.BoxGeometry(.06,1.14,.06),i,a;
-  for(i=0;i<6;i++){
-    a=i/6*Math.PI*2;
-    var sp=new THREE.Mesh(spokeGeo,mTeal);
-    sp.position.set(Math.cos(a)*1.0,Math.sin(a)*1.0,0);
-    sp.rotation.z=a-Math.PI/2;
-    reel.add(sp);
+  /* ── holographic film camera ── */
+  /* body */
+  camGrp.add(new THREE.Mesh(new THREE.BoxGeometry(1.7,1.05,.85),holoMat(0x39d7ff,.9)));
+  var bodyWire=new THREE.Mesh(new THREE.BoxGeometry(1.7,1.05,.85),holoMat(0x8f78ff,.5));
+  bodyWire.material.wireframe=true;camGrp.add(bodyWire);
+  /* lens barrel + hood */
+  var lens=new THREE.Mesh(new THREE.CylinderGeometry(.26,.26,.75,32,1,true),mTeal);
+  lens.rotation.z=Math.PI/2;lens.position.set(1.2,-.05,0);camGrp.add(lens);
+  var hood=new THREE.Mesh(new THREE.CylinderGeometry(.36,.26,.3,32,1,true),mCyan);
+  hood.rotation.z=Math.PI/2;hood.position.set(1.68,-.05,0);camGrp.add(hood);
+  var glass=new THREE.Mesh(new THREE.TorusGeometry(.3,.035,12,40),mViolet);
+  glass.rotation.y=Math.PI/2;glass.position.set(1.84,-.05,0);camGrp.add(glass);
+  /* viewfinder */
+  var vf=new THREE.Mesh(new THREE.CylinderGeometry(.11,.11,.5,18,1,true),mTeal);
+  vf.rotation.z=Math.PI/2;vf.position.set(-1.05,.32,.28);camGrp.add(vf);
+  /* two film reel magazines on top */
+  function makeReel(x){
+    var r=new THREE.Group();
+    r.add(new THREE.Mesh(new THREE.TorusGeometry(.55,.05,14,mobile?48:72),mCyan));
+    r.add(new THREE.Mesh(new THREE.TorusGeometry(.16,.03,10,30),mViolet));
+    var sg=new THREE.BoxGeometry(.04,.72,.04);
+    for(var k=0;k<4;k++){
+      var s=new THREE.Mesh(sg,mTeal),an=k/4*Math.PI;
+      s.rotation.z=an;r.add(s);
+    }
+    r.position.set(x,1.12,0);
+    camGrp.add(r);
+    return r;
   }
-  var dotGeo=new THREE.SphereGeometry(.05,10,10);
-  for(i=0;i<16;i++){
-    a=i/16*Math.PI*2;
-    var d=new THREE.Mesh(dotGeo,mCyan);
-    d.position.set(Math.cos(a)*1.76,Math.sin(a)*1.76,0);
-    reel.add(d);
-  }
+  var reelA=makeReel(-.52),reelB=makeReel(.52);
+  /* handle */
+  var grip=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.55,14,1,true),mViolet);
+  grip.position.set(.2,-.8,0);camGrp.add(grip);
+  camGrp.position.y=-.1;camGrp.rotation.y=-.5;
 
-  /* orbiting film strip */
+  /* orbiting film strip ring around the camera */
   function stripTex(){
     var c=document.createElement('canvas');c.width=512;c.height=64;
     var g=c.getContext('2d');
@@ -968,16 +953,11 @@ function boot(){
   }
   var stripWrap=new THREE.Group();world.add(stripWrap);
   var strip=new THREE.Mesh(
-    new THREE.CylinderGeometry(2.38,2.38,.56,mobile?56:80,1,true),
-    new THREE.MeshBasicMaterial({map:stripTex(),color:0x9adcff,transparent:true,opacity:.45,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
+    new THREE.CylinderGeometry(2.45,2.45,.5,mobile?56:80,1,true),
+    new THREE.MeshBasicMaterial({map:stripTex(),color:0x9adcff,transparent:true,opacity:.4,side:THREE.DoubleSide,blending:THREE.AdditiveBlending,depthWrite:false}));
   strip.rotation.x=Math.PI/2;
   stripWrap.add(strip);
-  stripWrap.rotation.x=.18;
-
-  /* containment shell */
-  var shell=new THREE.Mesh(new THREE.IcosahedronGeometry(3.05,1),holoMat(0x7c5cff,.16));
-  shell.material.wireframe=true;
-  world.add(shell);
+  stripWrap.rotation.x=.14;
 
   /* volumetric glow */
   function glowTex(){
@@ -1015,25 +995,18 @@ function boot(){
   if(window.ResizeObserver)new ResizeObserver(resize).observe(stage);
   else addEventListener('resize',resize,{passive:true});
 
-  /* input: cursor / touch-drag / gyroscope — never blocks page scroll */
-  var tx=0,ty=0,cx=0,cy=0,vel=0,dragging=false,px=0;
+  /* input: Shopify-globe-style inertial drag — never blocks page scroll */
+  var yaw=-.5,pitch=.12,vYaw=0,vPitch=0,dragging=false,px=0,py=0,idle=0;
+  stage.addEventListener('pointerdown',function(e){dragging=true;px=e.clientX;py=e.clientY;idle=0;},{passive:true});
   stage.addEventListener('pointermove',function(e){
-    var r=stage.getBoundingClientRect();
-    tx=((e.clientX-r.left)/r.width-.5)*2;
-    ty=((e.clientY-r.top)/r.height-.5)*2;
-    if(dragging){vel+=(e.clientX-px)*.0035;px=e.clientX;}
+    if(!dragging)return;
+    vYaw+=(e.clientX-px)*.00028;
+    vPitch+=(e.clientY-py)*.00022;
+    px=e.clientX;py=e.clientY;idle=0;
   },{passive:true});
-  stage.addEventListener('pointerdown',function(e){dragging=true;px=e.clientX;},{passive:true});
   addEventListener('pointerup',function(){dragging=false;},{passive:true});
   stage.addEventListener('pointercancel',function(){dragging=false;},{passive:true});
   stage.addEventListener('pointerleave',function(){dragging=false;},{passive:true});
-  if(mobile&&typeof DeviceOrientationEvent!=='undefined'&&typeof DeviceOrientationEvent.requestPermission!=='function'){
-    addEventListener('deviceorientation',function(e){
-      if(e.gamma==null||e.beta==null)return;
-      tx=Math.max(-1,Math.min(1,e.gamma/28));
-      ty=Math.max(-1,Math.min(1,(e.beta-45)/28));
-    },{passive:true});
-  }
 
   /* render only when visible; adapt quality to sustain 60fps */
   var visible=false;
@@ -1046,13 +1019,17 @@ function boot(){
     requestAnimationFrame(loop);
     if(!visible||document.hidden){clock.getDelta();return;}
     var dt=Math.min(clock.getDelta(),.05);t+=dt;
-    cx+=(tx-cx)*.055;cy+=(ty-cy)*.055;
-    world.rotation.y=-.42+cx*.5;
-    world.rotation.x=.16+cy*.3;
+    idle+=dt;
+    if(!dragging&&idle>1.6)vYaw+=(.0011-vYaw*.02)*dt*60; /* gentle auto-spin resumes */
+    yaw+=vYaw;pitch+=vPitch;
+    vYaw*=dragging?.86:.965;vPitch*=dragging?.86:.94; /* smooth inertia + friction */
+    pitch=Math.max(-.55,Math.min(.6,pitch));pitch+=(.12-pitch)*(dragging?0:.006);
+    world.rotation.y=yaw;
+    world.rotation.x=pitch;
     world.position.y=Math.sin(t*.8)*.07;
-    reel.rotation.z-=dt*.35+vel;vel*=.94;
+    reelA.rotation.z-=dt*(1.6+Math.abs(vYaw)*160);
+    reelB.rotation.z-=dt*(1.6+Math.abs(vYaw)*160);
     stripWrap.rotation.z+=dt*.1;
-    shell.rotation.y+=dt*.05;shell.rotation.x+=dt*.028;
     pts.rotation.y+=dt*.03;
     glow.material.opacity=.72+Math.sin(t*1.4)*.14;
     renderer.render(scene,cam);

@@ -215,6 +215,11 @@
     '.cg-mmbtn i{font-family:"DM Sans",sans-serif;font-style:normal;font-size:11px;color:rgba(255,210,63,.6);letter-spacing:.3em;}'+
     '.cg-mmbtn:hover{color:#fff;}'+
     '@media(max-width:900px){.cg-navbtn{display:none;}}'+
+    '.cg-navbtn{position:relative;}'+
+    '.cg-navx{position:absolute;top:-8px;right:-8px;width:18px;height:18px;border-radius:50%;background:#101014;border:1px solid rgba(255,255,255,.3);color:rgba(240,236,228,.65);font-size:.68rem;line-height:16px;text-align:center;cursor:pointer;opacity:0;transition:opacity .25s,color .2s;z-index:2;}'+
+    '.cg-navbtn:hover .cg-navx{opacity:1;}'+
+    '.cg-navx:hover{color:#fff;}'+
+    '.cg-nud.swiping .cg-chip{transition:none;}'+
     '@media(max-width:500px){.cg-nud{left:14px;bottom:16px;}.cg-chip{height:48px;}.cg-str-t{font-size:2.2rem;}}';
   document.head.appendChild(st);
 
@@ -259,8 +264,16 @@
       b.setAttribute('aria-label','Play Pac-Man');
       b.innerHTML='<span class="cg-navdot"></span>PLAY GAME';
       b.onclick=function(){if(!bd) showGame();};
-      if(burger) host.insertBefore(b,burger);
-      else host.appendChild(b);
+      var x=document.createElement('span');
+      x.className='cg-navx';x.textContent='×';
+      x.setAttribute('role','button');x.setAttribute('aria-label','Hide play game button');
+      x.onclick=function(e){e.stopPropagation();b.remove();try{sessionStorage.setItem('cg_navoff','1');}catch(err){}};
+      b.appendChild(x);
+      var navHidden=false;try{navHidden=!!sessionStorage.getItem('cg_navoff');}catch(err){}
+      if(!navHidden){
+        if(burger) host.insertBefore(b,burger);
+        else host.appendChild(b);
+      }
     }
     var mm=document.getElementById('mmenu');
     if(mm && !mm.querySelector('.cg-mmbtn')){
@@ -308,6 +321,23 @@
     chipW.querySelector('.cg-cx').addEventListener('click',function(e){
       e.stopPropagation();hideChip(true);
     });
+    // swipe / slide to dismiss on touch devices
+    if(TOUCH){
+      var sx0=null,sdx=0;
+      chipW.addEventListener('touchstart',function(e){sx0=e.touches[0].clientX;sdx=0;chipW.classList.add('swiping');},{passive:true});
+      chipW.addEventListener('touchmove',function(e){
+        if(sx0==null)return;
+        sdx=e.touches[0].clientX-sx0;
+        chip.style.transform='translateX('+sdx+'px)';
+        chip.style.opacity=Math.max(0,1-Math.abs(sdx)/120);
+      },{passive:true});
+      chipW.addEventListener('touchend',function(){
+        chipW.classList.remove('swiping');
+        if(Math.abs(sdx)>60){hideChip(true);}
+        else{chip.style.transform='';chip.style.opacity='';}
+        sx0=null;
+      },{passive:true});
+    }
   }
   function hideChip(dismiss){
     if(!chipW) return;

@@ -89,6 +89,9 @@ body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--v3-a),var(
 #v3-k-fab .dot{width:7px;height:7px;border-radius:50%;background:var(--v3-b);box-shadow:0 0 10px var(--v3-b);animation:v3-pulse 2.2s infinite}
 @keyframes v3-pulse{0%,100%{opacity:1}50%{opacity:.35}}
 @media(max-width:640px){#v3-k-fab span.lbl{display:none}}
+#v3-k-fabx{position:absolute;top:-8px;right:-8px;width:18px;height:18px;border-radius:50%;background:#101014;border:1px solid rgba(255,255,255,.3);color:rgba(240,236,228,.65);font-size:12px;line-height:16px;text-align:center;cursor:pointer;opacity:0;transition:opacity .25s,color .2s}
+#v3-k-fab:hover #v3-k-fabx{opacity:1}
+#v3-k-fabx:hover{color:#fff}
 
 /* ---- tilt cards ---- */
 [data-v3-tilt]{transform-style:preserve-3d;will-change:transform;transition:transform .35s cubic-bezier(.2,.9,.3,1)}
