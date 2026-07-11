@@ -174,7 +174,7 @@ body.menu-open #nav{z-index:1200}
 
 /* stats */
 #stats{padding:clamp(80px,10vw,150px) 0}
-#stats .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:56px}
+#stats .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:20px;overflow:hidden;margin-top:56px}
 #stats .cell{background:var(--bg2);padding:clamp(28px,3.4vw,52px);position:relative;overflow:hidden;transition:background .35s}
 #stats .cell:hover{background:#12121a}
 #stats .cell::after{content:"";position:absolute;inset:auto 0 0 0;height:2px;background:linear-gradient(90deg,var(--a),var(--b));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.9,.3,1)}
@@ -182,6 +182,8 @@ body.menu-open #nav{z-index:1200}
 #stats .num{font-family:var(--disp);font-size:clamp(52px,6.5vw,92px);line-height:1;background:linear-gradient(120deg,#fff 30%,var(--a));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 #stats .num sup{font-size:.45em;color:var(--b);-webkit-text-fill-color:var(--b)}
 #stats .lbl{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-top:12px}
+#stats .num{font-size:clamp(40px,4.2vw,64px)}
+@media(max-width:1100px){#stats .grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){#stats .grid{grid-template-columns:repeat(2,1fr)}}
 
 /* films */
@@ -269,9 +271,10 @@ body.menu-open #nav{z-index:1200}
 
 /* reels */
 #reels{padding:0 0 clamp(70px,9vw,120px)}
-.rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:48px clamp(20px,4vw,56px) 20px;scrollbar-width:none}
+.rail{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;padding:48px clamp(20px,4vw,56px) 20px;scrollbar-width:none}
 .rail::-webkit-scrollbar{display:none}
-.reel{flex:0 0 min(300px,72vw);scroll-snap-align:start;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:9/16;background:#0e0e14;border:1px solid var(--line)}
+.reel{flex:0 1 260px;max-width:280px;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:9/16;background:#0e0e14;border:1px solid var(--line)}
+@media(max-width:640px){.reel{flex:1 1 calc(50% - 9px);max-width:none}}
 .reel video{width:100%;height:100%;object-fit:cover}
 .reel .cap{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(transparent,rgba(5,5,8,.9));color:#e6e0d4}
 

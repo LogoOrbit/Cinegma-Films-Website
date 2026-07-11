@@ -211,9 +211,10 @@ footer nav{display:flex;flex-wrap:wrap;gap:20px}
 footer nav a:hover{color:#fff}
 @media (prefers-reduced-motion:reduce){.hero h1 .line span{animation:none;transform:none}.marq .t{animation:none}}
 
-.uni-rail{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:48px 0 20px;scrollbar-width:none}
+.uni-rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;padding:48px 0 20px;scrollbar-width:none}
 .uni-rail::-webkit-scrollbar{display:none}
-.uni-card{flex:0 0 min(380px,84vw);scroll-snap-align:start;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg2);transition:transform .35s,border-color .35s}
+.uni-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--bg2);transition:transform .35s,border-color .35s}
+@media(max-width:640px){.uni-rail{grid-template-columns:1fr}}
 .uni-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.35)}
 .uni-card .fr{aspect-ratio:16/9;background:#000;position:relative;display:flex;align-items:center;justify-content:center}
 .uni-card .fr iframe,.uni-card .fr video{width:100%;height:100%;border:0;position:absolute;inset:0;object-fit:cover}
