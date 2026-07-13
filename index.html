@@ -276,7 +276,12 @@ body.menu-open #nav{z-index:1200}
 .rail::-webkit-scrollbar{display:none}
 .reel{flex:0 1 260px;max-width:280px;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:9/16;background:#0e0e14;border:1px solid var(--line)}
 @media(max-width:640px){.reel{flex:1 1 calc(50% - 9px);max-width:none}}
-.reel video{width:100%;height:100%;object-fit:cover}
+.reel video{width:100%;height:100%;object-fit:cover;cursor:pointer}
+.reel::after{content:"▶";position:absolute;top:50%;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;
+  display:flex;align-items:center;justify-content:center;border-radius:50%;
+  background:rgba(6,6,10,.55);border:1px solid rgba(255,255,255,.4);backdrop-filter:blur(6px);
+  color:#fff;font-size:16px;padding-left:4px;pointer-events:none;opacity:.9;transition:opacity .4s}
+.reel.live::after{opacity:0}
 .reel .cap{position:absolute;left:0;right:0;bottom:0;padding:40px 16px 14px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;background:linear-gradient(transparent,rgba(5,5,8,.9));color:#e6e0d4}
 
 /* quote */
@@ -636,11 +641,11 @@ footer .fine a{color:#9a948a}
     <p class="lead v3-reveal" style="max-width:600px;margin-top:18px">Behind the scenes, trailers and moments from the making of Cinegma Films. Follow <a href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener" style="color:var(--b)">@asadsyed711</a>.</p>
   </div>
   <div class="rail">
-    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Janjaalbts.mp4" muted loop playsinline preload="none"></video><div class="cap">Janjaal · BTS</div></div>
-    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portraitbts.mp4" muted loop playsinline preload="none"></video><div class="cap">Portrait of Life · BTS</div></div>
-    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Zawaalbts.mp4" muted loop playsinline preload="none"></video><div class="cap">Zawaal · BTS</div></div>
-    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" muted loop playsinline preload="none"></video><div class="cap">Portrait of Life · Reel</div></div>
-    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/SoldierBTS.mp4" muted loop playsinline preload="none"></video><div class="cap">A Soldier Beside Me · BTS</div></div>
+    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Janjaalbts.mp4" poster="assets/posters/Janjaal_Opt_01-400w.avif" aria-label="Janjaal behind the scenes" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video><div class="cap">Janjaal · BTS</div></div>
+    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portraitbts.mp4" poster="assets/posters/Potrait_Opt_01-400w.avif" aria-label="Portrait of Life behind the scenes" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video><div class="cap">Portrait of Life · BTS</div></div>
+    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Zawaalbts.mp4" poster="assets/posters/Zawaal_Opt_01-400w.avif" aria-label="Zawaal behind the scenes" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video><div class="cap">Zawaal · BTS</div></div>
+    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" poster="assets/posters/Potrait_Opt_01-400w.avif" aria-label="Portrait of Life reel" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video><div class="cap">Portrait of Life · Reel</div></div>
+    <div class="reel"><video class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/SoldierBTS.mp4" poster="assets/posters/Solder_Opt_01-400w.avif" aria-label="A Soldier Beside Me behind the scenes" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video><div class="cap">A Soldier Beside Me · BTS</div></div>
   </div>
 </section>
 
@@ -824,15 +829,33 @@ if(lg&&lm)lm.addEventListener('click',function(){
   lm.textContent=c?'Show More Awards ↓':'Show Fewer Awards ↑';
 });
 
-/* lazy BTS reels: load + autoplay in view */
+/* lazy BTS reels: posters show instantly; video preloads just before view,
+   autoplays in view, pauses off-view. Data-saver/reduced-motion users get
+   tap-to-play instead of auto-downloading five clips. */
+var conn=navigator.connection||{};
+var lite=!!conn.saveData||/(^|-)2g/.test(conn.effectiveType||'')||reduced;
+function reelLoad(v){if(!v.src&&v.dataset.src){v.src=v.dataset.src;v.load();}}
+var pio=lite?null:new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){reelLoad(e.target);pio.unobserve(e.target);}});
+},{rootMargin:'420px 0px'});
 var vio=new IntersectionObserver(function(es){
   es.forEach(function(e){
     var v=e.target;
-    if(e.isIntersecting){if(!v.src&&v.dataset.src)v.src=v.dataset.src;v.play().catch(function(){});}
+    if(e.isIntersecting&&!lite){reelLoad(v);v.play().catch(function(){});}
     else if(v.src)v.pause();
   });
 },{threshold:.4});
-document.querySelectorAll('.lazy-video').forEach(function(v){vio.observe(v);});
+document.querySelectorAll('.lazy-video').forEach(function(v){
+  var reel=v.closest('.reel');
+  v.addEventListener('playing',function(){reel.classList.add('live');});
+  v.addEventListener('pause',function(){reel.classList.remove('live');});
+  if(pio)pio.observe(v);
+  vio.observe(v);
+  if(lite)v.addEventListener('click',function(){
+    if(v.paused){reelLoad(v);v.play().catch(function(){});}
+    else v.pause();
+  });
+});
 
 /* who-we-are sound toggle */
 var wv=document.getElementById('whoVid'),ws=document.getElementById('whoSnd');
