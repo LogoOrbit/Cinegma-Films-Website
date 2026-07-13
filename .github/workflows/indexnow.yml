@@ -1,0 +1,34 @@
+name: Ping IndexNow on deploy
+
+# Notifies Bing, Yandex and other IndexNow-partner search engines whenever
+# site content changes on main, so new/updated pages get crawled fast.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**/*.html"
+      - "sitemap.xml"
+      - "robots.txt"
+      - "llms.txt"
+  workflow_dispatch:
+
+jobs:
+  indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build URL list from sitemap and ping IndexNow
+        run: |
+          # Vercel needs a moment to finish deploying before engines crawl
+          sleep 90
+          grep -o '<loc>[^<]*</loc>' sitemap.xml | sed 's/<\/\?loc>//g' | sort -u > urls.txt
+          echo "Submitting $(wc -l < urls.txt) URLs"
+          jq -Rn --arg host "cinegmafilms.com" \
+                 --arg key "2dc554651ad24243a2081a7be6e72b2d" \
+                 --arg keyLocation "https://cinegmafilms.com/2dc554651ad24243a2081a7be6e72b2d.txt" \
+                 '{host:$host, key:$key, keyLocation:$keyLocation, urlList:[inputs]}' < urls.txt > payload.json
+          curl -sS -X POST "https://api.indexnow.org/indexnow" \
+               -H "Content-Type: application/json; charset=utf-8" \
+               -d @payload.json -w "\nIndexNow HTTP %{http_code}\n"
