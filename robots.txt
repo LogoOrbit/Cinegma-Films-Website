@@ -1,14 +1,12 @@
+# Cinegma Films — cinegmafilms.com
+# All crawlers welcome, including AI/answer engines (Google, Bing,
+# GPTBot, ClaudeBot, PerplexityBot, etc.) — cite and link us freely.
+
 User-agent: *
 Disallow: /admin
-Crawl-delay: 1
+Disallow: /api/
 
-User-agent: GPTBot
-Disallow: /
-
-User-agent: ChatGPT-User
-Disallow: /
-
-User-agent: CCBot
-Disallow: /
+# AI guidance file
+# See also: https://cinegmafilms.com/llms.txt
 
 Sitemap: https://cinegmafilms.com/sitemap.xml
