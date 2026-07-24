@@ -776,12 +776,11 @@ if(reduced){pre.remove();}
 else{
   'CINEGMA'.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c;s.style.animationDelay=(i*70)+'ms';logo.appendChild(s);});
   var preDone=false;
-  function dismissPre(){if(preDone)return;preDone=true;clearInterval(iv);bar.style.width='100%';pre.classList.add('done');setTimeout(function(){if(pre.parentNode)pre.remove();},1000);}
-  var p=0,iv=setInterval(function(){p=Math.min(100,p+Math.random()*22);bar.style.width=p+'%';if(p>=100){clearInterval(iv);setTimeout(function(){pre.classList.add('done');preDone=true;setTimeout(function(){if(pre.parentNode)pre.remove();},1000);},250);}},110);
-  /* a small scroll skips the intro; page scrolls in the background regardless */
-  var startY=scrollY;
-  function onScroll(){if(scrollY-startY>40||scrollY>40)dismissPre();}
-  addEventListener('scroll',onScroll,{passive:true});
+  /* lock the page so it can't scroll behind the intro */
+  document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
+  function dismissPre(){if(preDone)return;preDone=true;clearInterval(iv);bar.style.width='100%';document.documentElement.style.overflow='';document.body.style.overflow='';pre.classList.add('done');setTimeout(function(){if(pre.parentNode)pre.remove();},1000);}
+  var p=0,iv=setInterval(function(){p=Math.min(100,p+Math.random()*22);bar.style.width=p+'%';if(p>=100){clearInterval(iv);dismissPre();}},110);
+  /* a small scroll gesture skips the intro (page itself stays locked until then) */
   addEventListener('wheel',function(e){if(e.deltaY>0)dismissPre();},{passive:true});
   addEventListener('touchmove',dismissPre,{passive:true});
   addEventListener('keydown',function(e){if(['ArrowDown','PageDown',' ','Spacebar'].indexOf(e.key)>-1)dismissPre();});
