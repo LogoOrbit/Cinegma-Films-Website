@@ -257,7 +257,9 @@ body.menu-open #nav{z-index:2300}
 #sheet .grab i{width:44px;height:4px;border-radius:4px;background:rgba(255,255,255,.25)}
 #sheet .hero-img{position:relative;aspect-ratio:16/9;margin:0 16px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
 #sheet .hero-img img,#sheet .hero-img video{width:100%;height:100%;object-fit:cover;display:block}
-#sheet .hero-img::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(transparent,rgba(10,10,13,.8))}
+#sheet .hero-img::after{content:"";position:absolute;inset:auto 0 0 0;height:50%;background:linear-gradient(transparent,rgba(10,10,13,.8));pointer-events:none}
+#sheet .sh-mute{position:absolute;right:10px;bottom:10px;z-index:2;width:34px;height:34px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(10,10,13,.6);color:#fff;cursor:pointer;padding:0}
+#sheet .sh-mute svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #sheet .sx{position:absolute;top:14px;right:16px;z-index:4;width:38px;height:38px;border-radius:50%;background:rgba(8,8,10,.65);border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff}
 #sheet .bd{padding:20px 22px 4px}
 #sheet .line{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
@@ -554,7 +556,7 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
   <div class="panel">
     <div class="grab"><i></i></div>
     <button class="sx" aria-label="Close">✕</button>
-    <div class="hero-img"><video id="shImg" muted loop playsinline preload="none"></video></div>
+    <div class="hero-img"><video id="shImg" loop playsinline preload="none"></video><button class="sh-mute" id="shMute" aria-label="Toggle sound"></button></div>
     <div class="bd">
       <div class="line"><b id="shMatch"></b><span id="shMeta"></span></div>
       <h3 id="shTitle"></h3>
@@ -1013,9 +1015,28 @@ $$('.gpill').forEach(function(p){
 
 /* ═══ DETAIL SHEET ═══ */
 var sheet=$('#sheet'), sheetPanel=$('.panel',sheet), sheetFilm=null;
+/* sheet trailer plays with sound; browsers that block unmuted autoplay fall
+   back to muted so the visual still runs, and the toggle re-enables audio. */
+function syncSheetMute(v){
+  var b=$('#shMute'); if(!b) return;
+  b.innerHTML = v.muted
+    ? '<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>'
+    : '<svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
+  b.setAttribute('aria-label', v.muted ? 'Unmute preview' : 'Mute preview');
+}
+function playSheetVideo(v){
+  v.muted=false; v.volume=1;
+  var p=v.play();
+  if(p&&p.catch) p.catch(function(){
+    v.muted=true; syncSheetMute(v);
+    var q=v.play(); if(q&&q.catch) q.catch(function(){});
+  });
+  syncSheetMute(v);
+}
 function openSheet(id){
   var f=FILMS[id]; if(!f) return; sheetFilm=id;
-  var shV=$('#shImg'); shV.poster=f.poster; shV.src=f.trailer; try{shV.currentTime=0;}catch(e){} var pp=shV.play(); if(pp&&pp.catch)pp.catch(function(){});
+  var shV=$('#shImg'); shV.poster=f.poster; shV.src=f.trailer; try{shV.currentTime=0;}catch(e){}
+  playSheetVideo(shV);
   $('#shMatch').textContent=f.match;
   $('#shMeta').textContent=f.meta;
   $('#shTitle').textContent=f.title;
@@ -1035,6 +1056,12 @@ function closeSheet(){
   if(!$('#cine').classList.contains('open') && !$('#gate').classList.contains('open')) document.body.style.overflow='';
   sheetFilm=null;
 }
+$('#shMute').addEventListener('click', function(e){
+  e.stopPropagation();
+  var v=$('#shImg'); var wantUnmute=v.muted;
+  v.muted=!v.muted; syncSheetMute(v);
+  if(wantUnmute){ var p=v.play(); if(p&&p.catch) p.catch(function(){ v.muted=true; syncSheetMute(v); }); }
+});
 $('.back',sheet).addEventListener('click', closeSheet);
 $('.sx',sheet).addEventListener('click', closeSheet);
 $('#shStream').addEventListener('click', function(){ if(sheetFilm) requestStream(sheetFilm); });
