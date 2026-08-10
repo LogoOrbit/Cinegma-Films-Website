@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<script>/* arm the scroll-reveal gate, and disarm it if v3.js never runs so content can never stay hidden */(function(d){d.className+=' v3-js';setTimeout(function(){if(!window.__cinegmaV3)d.classList.remove('v3-js');},4000);})(document.documentElement);</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18200565991"></script>
 <script>
@@ -9,8 +12,6 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'AW-18200565991');
 </script>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Pakistani Filmmaker Syed Asad Raza Abidi — Cinegma Films</title>
 <link rel="icon" href="assets/posters/CinegmaFevicon.png" type="image/png"/>
 <link rel="apple-touch-icon" href="assets/posters/CinegmaFevicon.png"/>
@@ -83,11 +84,17 @@ gtag('config', 'AW-18200565991');
   --line:rgba(255,255,255,.08);
   --disp:'Bebas Neue','Bebas-fb',sans-serif;--serif:'Cormorant Garamond','Cormorant-fb',serif;--body:'Space Grotesk','Grotesk-fb',sans-serif;
 }
-html{scroll-behavior:smooth}
+/* scroll-padding keeps anchor jumps clear of the fixed header */
+html{scroll-behavior:smooth;scroll-padding-top:96px}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 img,video{display:block;max-width:100%}
 section{position:relative;z-index:1}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--a);outline-offset:3px;border-radius:4px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:2147483600;background:#fff;color:#06060a;
+  padding:12px 20px;border-radius:0 0 10px 0;font-size:12px;letter-spacing:.2em;text-transform:uppercase;font-weight:700}
+.skip-link:focus{left:0}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
 .kicker{display:inline-flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--b)}
 .kicker::before{content:"";width:34px;height:1px;background:linear-gradient(90deg,var(--a),var(--b))}
@@ -193,10 +200,9 @@ body.menu-open #nav{z-index:1200}
 #stats .cell:hover{background:#12121a}
 #stats .cell::after{content:"";position:absolute;inset:auto 0 0 0;height:2px;background:linear-gradient(90deg,var(--a),var(--b));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.2,.9,.3,1)}
 #stats .cell:hover::after{transform:scaleX(1)}
-#stats .num{font-family:var(--disp);font-size:clamp(52px,6.5vw,92px);line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(120deg,#fff 30%,var(--a));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+#stats .num{font-family:var(--disp);font-size:clamp(40px,4.2vw,64px);line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(120deg,#fff 30%,var(--a));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 #stats .num sup{font-size:.45em;color:var(--b);-webkit-text-fill-color:var(--b)}
 #stats .lbl{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);margin-top:12px}
-#stats .num{font-size:clamp(40px,4.2vw,64px)}
 @media(max-width:1100px){#stats .grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:760px){#stats .grid{grid-template-columns:repeat(2,1fr)}}
 
@@ -253,12 +259,14 @@ body.menu-open #nav{z-index:1200}
 .countries{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
 .countries span{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--b);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:8px 18px}
 
-/* reels */
+/* reels — five clips, so a five-up grid rather than a wrapping flex row that
+   left a lone orphan tile on its own line */
 #reels{padding:0 0 clamp(48px,5.5vw,84px)}
-.rail{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;padding:clamp(28px,3vw,40px) clamp(20px,4vw,56px) 0;scrollbar-width:none}
-.rail::-webkit-scrollbar{display:none}
-.reel{flex:0 1 260px;max-width:280px;border-radius:16px;overflow:hidden;position:relative;aspect-ratio:9/16;background:#0e0e14;border:1px solid var(--line)}
-@media(max-width:640px){.reel{flex:1 1 calc(50% - 9px);max-width:none}}
+.rail{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.2vw,18px);
+  max-width:1400px;margin:0 auto;padding:clamp(28px,3vw,40px) clamp(20px,4vw,56px) 0}
+.reel{border-radius:16px;overflow:hidden;position:relative;aspect-ratio:9/16;background:#0e0e14;border:1px solid var(--line)}
+@media(max-width:1100px){.rail{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.rail{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .reel video{width:100%;height:100%;object-fit:cover;cursor:pointer}
 .reel::after{content:"▶";position:absolute;top:50%;left:50%;width:52px;height:52px;margin:-26px 0 0 -26px;
   display:flex;align-items:center;justify-content:center;border-radius:50%;
@@ -269,8 +277,10 @@ body.menu-open #nav{z-index:1200}
 
 /* team */
 #team{padding:clamp(48px,5.5vw,84px) 0}
-.team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-top:clamp(28px,3vw,40px)}
-@media(max-width:640px){.team-grid{grid-template-columns:repeat(2,1fr);gap:12px}.tcard .ov{padding:38px 12px 12px}.tcard .ov b{font-size:17px}.tcard .ov i{font-size:9px;letter-spacing:.14em}}
+/* six people — a 3x2 grid reads as a set; auto-fill left a 5+1 orphan row */
+.team-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:clamp(28px,3vw,40px)}
+@media(max-width:900px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){.team-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tcard .ov{padding:38px 12px 12px}.tcard .ov b{font-size:17px}.tcard .ov i{font-size:9px;letter-spacing:.14em}}
 .tcard{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;border:1px solid var(--line);background:var(--bg2);display:block}
 .tcard img{width:100%;height:100%;object-fit:cover;filter:grayscale(.5) contrast(1.05);transition:filter .5s,transform .8s cubic-bezier(.2,.9,.3,1)}
 .tcard:hover img{filter:none;transform:scale(1.06)}
@@ -305,10 +315,27 @@ body.menu-open #nav{z-index:1200}
 footer{position:relative;border-top:1px solid var(--line);padding:clamp(48px,5.5vw,80px) 0 34px;overflow:hidden;z-index:1}
 footer .mega{font-family:var(--disp);font-size:clamp(80px,16vw,260px);line-height:.8;text-transform:uppercase;text-align:center;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.35);user-select:none;letter-spacing:.04em;transition:color .6s}
 footer .mega:hover{color:rgba(255,255,255,.12)}
-footer .cols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px;margin:40px 0 32px}
-footer .cols nav{display:flex;flex-wrap:wrap;gap:26px;font-size:11px;letter-spacing:.26em;text-transform:uppercase}
+/* three labelled columns — the old layout flowed 22 service links into one
+   undifferentiated wall with no way to tell the groups apart */
+footer .cols{display:grid;grid-template-columns:1fr 2fr 1fr;gap:clamp(24px,3vw,48px);margin:44px 0 32px;align-items:start}
+footer .col h3{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:var(--mut);font-weight:500;margin-bottom:16px}
+footer .cols nav{display:grid;grid-template-columns:1fr;gap:11px;font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+footer .col.svc nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px 22px}
 footer .cols nav a{color:#c3bdb1;transition:color .25s}
-footer .cols nav a:hover{color:var(--b)}
+footer .cols nav a:hover{color:#fff}
+@media(max-width:900px){
+  footer .cols{grid-template-columns:1fr 1fr;gap:30px}
+  footer .col.svc{grid-column:1/-1;order:3}
+  footer .col.svc nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  footer .cols{grid-template-columns:1fr}
+  footer .cols nav{font-size:10.5px;letter-spacing:.14em}
+  footer .col:not(.svc) nav{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:380px){footer .col.svc nav{grid-template-columns:1fr}}
+/* keep the floating widgets from landing on top of the last footer row */
+@media(max-width:900px){footer{padding-bottom:96px}}
 footer .fine{display:flex;flex-wrap:wrap;justify-content:space-between;gap:14px;font-size:11px;letter-spacing:.14em;color:#a8a29a;border-top:1px solid var(--line);padding-top:26px}
 footer .fine a{color:#ddd7cb;text-decoration:underline;text-underline-offset:3px}
 footer .fine a:hover{color:#fff}
@@ -320,6 +347,8 @@ footer .fine a:hover{color:#fff}
 </style>
 </head>
 <body>
+
+<a class="skip-link" href="#hero">Skip to content</a>
 
 <div id="pre" aria-hidden="true">
   <div class="logo"></div>
@@ -343,7 +372,7 @@ footer .fine a:hover{color:#fff}
     <button id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
 </header>
-<nav id="mmenu" aria-label="Mobile">
+<nav id="mmenu" aria-label="Mobile" aria-hidden="true">
   <a href="index.html"><i>01</i>Home</a>
   <a href="watch.html"><i>02</i>Watch</a>
   <a href="services.html"><i>03</i>Services</a>
@@ -353,9 +382,10 @@ footer .fine a:hover{color:#fff}
   <a href="contact.html"><i>07</i>Contact</a>
 </nav>
 
+<main id="main">
 <section id="hero">
-  <div class="media">
-    <video autoplay muted loop playsinline preload="metadata" src="assets/posters/HeroCompressed.mp4" poster="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"></video>
+  <div class="media" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="metadata" tabindex="-1" src="assets/posters/HeroCompressed.mp4" poster="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"></video>
     <div class="shade"></div>
   </div>
   <div class="content">
@@ -372,8 +402,8 @@ footer .fine a:hover{color:#fff}
       </div>
     </div>
   </div>
-  <div class="scroll">Scroll</div>
-  <div id="ticker">
+  <div class="scroll" aria-hidden="true">Scroll</div>
+  <div id="ticker" aria-hidden="true">
     <div class="tk-track">
       <span>14+ International Awards</span><span>22 Global Festival Selections</span><span>9 Countries Reached</span><span>Theatrical — Arena Cinemas 2025</span><span>100% Made In-House</span><span>Janjaal · Shot in 34 Hours</span>
       <span>14+ International Awards</span><span>22 Global Festival Selections</span><span>9 Countries Reached</span><span>Theatrical — Arena Cinemas 2025</span><span>100% Made In-House</span><span>Janjaal · Shot in 34 Hours</span>
@@ -386,12 +416,12 @@ footer .fine a:hover{color:#fff}
     <span class="kicker v3-reveal">The Work So Far</span>
     <h2 class="h-lg v3-reveal">Two years in.<br/><span class="serif-i">Here's what the films have done.</span></h2>
     <div class="grid">
-      <div class="cell v3-reveal"><div class="num"><span data-count="14">0</span><sup>+</sup></div><div class="lbl">International Awards</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="22">0</span></div><div class="lbl">Festival Selections</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="9">0</span></div><div class="lbl">Countries Reached</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="8">0</span></div><div class="lbl">Films &amp; Counting</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="34">0</span><sup>hr</sup></div><div class="lbl">To Shoot Janjaal</div></div>
-      <div class="cell v3-reveal"><div class="num"><span data-count="100">0</span><sup>%</sup></div><div class="lbl">Made In-House</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="14">14</span><sup>+</sup></div><div class="lbl">International Awards</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="22">22</span></div><div class="lbl">Festival Selections</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="9">9</span></div><div class="lbl">Countries Reached</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="8">8</span></div><div class="lbl">Films &amp; Counting</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="34">34</span><sup>hr</sup></div><div class="lbl">To Shoot Janjaal</div></div>
+      <div class="cell v3-reveal"><div class="num"><span data-count="100">100</span><sup>%</sup></div><div class="lbl">Made In-House</div></div>
     </div>
   </div>
 </section>
@@ -401,7 +431,7 @@ footer .fine a:hover{color:#fff}
     <div class="head">
       <span class="kicker v3-reveal">The Filmography</span>
       <h2 class="h-lg v3-reveal" data-scramble>Eight Films. One Obsession.</h2>
-      <p class="lead v3-reveal">Hover any poster to roll footage — tap it to open the film.</p>
+      <p class="lead v3-reveal">Tap a poster to open the film. On desktop, hover to roll footage.</p>
     </div>
 
     <div class="poster-grid">
@@ -538,7 +568,7 @@ footer .fine a:hover{color:#fff}
       <video id="whoVid" class="lazy-video" data-src="https://lriiaafqnjhfsizamdxz.supabase.co/storage/v1/object/public/media/videos/1782781752585-CINEGMA%20INTRO.mp4" muted loop playsinline preload="none" poster="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"></video>
       <div class="bars"></div>
       <div class="rec"><i></i>REC · CINEGMA</div>
-      <div class="tc">00:60</div>
+      <div class="tc">01:00</div>
       <button class="snd" id="whoSnd" aria-label="Toggle sound">🔇 Sound On</button>
     </div>
   </div>
@@ -550,12 +580,12 @@ footer .fine a:hover{color:#fff}
     <h2 class="h-lg v3-reveal">The People<br/><span class="serif-i">Behind the Frames</span></h2>
     <p class="lead v3-reveal" style="max-width:620px;margin-top:18px">Writers, directors, composers, and producers who make Cinegma Films what it is.</p>
     <div class="team-grid">
-      <a class="tcard v3-reveal" href="team/syed-asad.html"><img loading="lazy" src="assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi"/><span class="no">01</span><div class="ov"><b>Syed Asad Raza Abidi</b><i>Founder · Director · Editor · Sound Designer</i></div></a>
-      <a class="tcard v3-reveal" href="team/ghayas-uddin.html"><img loading="lazy" src="assets/posters/Ghayas.avif" alt="Ghayas Uddin Siddiqui"/><span class="no">02</span><div class="ov"><b>Ghayas Uddin Siddiqui</b><i>Director of Photography · Cinematographer</i></div></a>
-      <a class="tcard v3-reveal" href="team/ameer-hamza.html"><img loading="lazy" src="assets/posters/Ameer.avif" alt="Ameer Hamza"/><span class="no">03</span><div class="ov"><b>Ameer Hamza</b><i>Writer · Producer</i></div></a>
-      <a class="tcard v3-reveal" href="team/faizan-ahmed.html"><img loading="lazy" src="assets/posters/Faizan%20Ahmed%20Team.avif" alt="Faizan Ahmed"/><span class="no">04</span><div class="ov"><b>Faizan Ahmed</b><i>Production Designer · Art Director</i></div></a>
-      <a class="tcard v3-reveal" href="team/usman-ali.html"><img loading="lazy" src="assets/posters/Usman.avif" alt="Usman Ali Akbar"/><span class="no">05</span><div class="ov"><b>Usman Ali Akbar</b><i>Music Composer</i></div></a>
-      <a class="tcard v3-reveal" href="team/dayyan-khalid.html"><img loading="lazy" src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid"/><span class="no">06</span><div class="ov"><b>Dayyan Khalid</b><i>Producer · Production Manager</i></div></a>
+      <a class="tcard v3-reveal" href="team/syed-asad.html"><img loading="lazy" decoding="async" width="533" height="800" src="assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi"/><span class="no">01</span><div class="ov"><b>Syed Asad Raza Abidi</b><i>Founder · Director · Editor · Sound Designer</i></div></a>
+      <a class="tcard v3-reveal" href="team/ghayas-uddin.html"><img loading="lazy" decoding="async" width="2048" height="1366" src="assets/posters/Ghayas.avif" alt="Ghayas Uddin Siddiqui"/><span class="no">02</span><div class="ov"><b>Ghayas Uddin Siddiqui</b><i>Director of Photography · Cinematographer</i></div></a>
+      <a class="tcard v3-reveal" href="team/ameer-hamza.html"><img loading="lazy" decoding="async" width="1006" height="1512" src="assets/posters/Ameer.avif" alt="Ameer Hamza"/><span class="no">03</span><div class="ov"><b>Ameer Hamza</b><i>Writer · Producer</i></div></a>
+      <a class="tcard v3-reveal" href="team/faizan-ahmed.html"><img loading="lazy" decoding="async" width="800" height="800" src="assets/posters/Faizan%20Ahmed%20Team.avif" alt="Faizan Ahmed"/><span class="no">04</span><div class="ov"><b>Faizan Ahmed</b><i>Production Designer · Art Director</i></div></a>
+      <a class="tcard v3-reveal" href="team/usman-ali.html"><img loading="lazy" decoding="async" width="1200" height="1600" src="assets/posters/Usman.avif" alt="Usman Ali Akbar"/><span class="no">05</span><div class="ov"><b>Usman Ali Akbar</b><i>Music Composer</i></div></a>
+      <a class="tcard v3-reveal" href="team/dayyan-khalid.html"><img loading="lazy" decoding="async" width="1414" height="2000" src="assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid"/><span class="no">06</span><div class="ov"><b>Dayyan Khalid</b><i>Producer · Production Manager</i></div></a>
     </div>
     <div class="v3-reveal" style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:48px"><a class="btn" href="team/syed-asad.html">Meet The Founder →</a><a class="btn" href="about.html">About The Studio →</a></div>
   </div>
@@ -580,24 +610,34 @@ footer .fine a:hover{color:#fff}
     <div style="margin-top:20px"><a class="btn" href="about.html">Read the Full Story →</a></div>
   </div>
 </section>
+</main>
 
 <footer>
   <div class="wrap">
     <a href="#hero" aria-label="Back to top"><div class="mega">Cinegma</div></a>
     <div class="cols">
-      <nav aria-label="Footer">
-        <a href="index.html">Home</a><a href="watch.html">Watch</a><a href="services.html">Services</a><a href="about.html">About</a><a href="press.html">Press</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a>
-      </nav>
-      <nav aria-label="Film Production Services in Karachi">
-        <a href="film-production-company-karachi.html">Film Production Karachi</a><a href="video-production-karachi.html">Video Production</a><a href="tvc-commercial-production-karachi.html">TVC &amp; Commercials</a><a href="cinematography-services-karachi.html">Cinematography</a><a href="post-production-color-grading-karachi.html">Post &amp; Colour</a><a href="music-video-production-karachi.html">Music Videos</a><a href="documentary-production-karachi.html">Documentary</a><a href="corporate-video-production-karachi.html">Corporate Video</a><a href="wedding-videography-karachi.html">Wedding Films</a><a href="event-videography-karachi.html">Event Coverage</a><a href="drone-videography-karachi.html">Drone &amp; Aerial</a><a href="product-video-photography-karachi.html">Product Video</a><a href="real-estate-video-production-karachi.html">Real Estate Video</a><a href="fashion-film-photography-karachi.html">Fashion Film</a><a href="social-media-video-production-karachi.html">Social Media Video</a><a href="video-editing-services-karachi.html">Video Editing</a><a href="vfx-animation-services-karachi.html">VFX &amp; Animation</a><a href="short-film-production-pakistan.html">Short Film Production</a><a href="documentary-film-services-pakistan.html">Documentary Services</a><a href="portfolio.html">Portfolio</a><a href="faq.html">FAQ</a><a href="sitemap.html">Sitemap</a>
-      </nav>
-      <nav aria-label="Social">
-        <a href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://youtube.com/@syedasad" target="_blank" rel="noopener">YouTube</a>
-        <a href="https://www.linkedin.com/in/asadsyed711" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener">IMDb</a>
-        <a href="https://filmfreeway.com/SyedAsad" target="_blank" rel="noopener">FilmFreeway</a>
-      </nav>
+      <div class="col">
+        <h3 id="ft-explore">Explore</h3>
+        <nav aria-labelledby="ft-explore">
+          <a href="index.html">Home</a><a href="watch.html">Watch</a><a href="services.html">Services</a><a href="about.html">About</a><a href="press.html">Press</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a><a href="portfolio.html">Portfolio</a><a href="faq.html">FAQ</a><a href="sitemap.html">Sitemap</a>
+        </nav>
+      </div>
+      <div class="col svc">
+        <h3 id="ft-services">Production Services in Karachi</h3>
+        <nav aria-labelledby="ft-services">
+          <a href="film-production-company-karachi.html">Film Production</a><a href="video-production-karachi.html">Video Production</a><a href="tvc-commercial-production-karachi.html">TVC &amp; Commercials</a><a href="cinematography-services-karachi.html">Cinematography</a><a href="post-production-color-grading-karachi.html">Post &amp; Colour</a><a href="music-video-production-karachi.html">Music Videos</a><a href="documentary-production-karachi.html">Documentary</a><a href="corporate-video-production-karachi.html">Corporate Video</a><a href="wedding-videography-karachi.html">Wedding Films</a><a href="event-videography-karachi.html">Event Coverage</a><a href="drone-videography-karachi.html">Drone &amp; Aerial</a><a href="product-video-photography-karachi.html">Product Video</a><a href="real-estate-video-production-karachi.html">Real Estate Video</a><a href="fashion-film-photography-karachi.html">Fashion Film</a><a href="social-media-video-production-karachi.html">Social Media Video</a><a href="video-editing-services-karachi.html">Video Editing</a><a href="vfx-animation-services-karachi.html">VFX &amp; Animation</a><a href="short-film-production-pakistan.html">Short Film Production</a><a href="documentary-film-services-pakistan.html">Documentary Services</a>
+        </nav>
+      </div>
+      <div class="col">
+        <h3 id="ft-social">Follow</h3>
+        <nav aria-labelledby="ft-social">
+          <a href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener">Instagram ↗</a>
+          <a href="https://youtube.com/@syedasad" target="_blank" rel="noopener">YouTube ↗</a>
+          <a href="https://www.linkedin.com/in/asadsyed711" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener">IMDb ↗</a>
+          <a href="https://filmfreeway.com/SyedAsad" target="_blank" rel="noopener">FilmFreeway ↗</a>
+        </nav>
+      </div>
     </div>
     <div class="fine">
       <span>© 2026 Cinegma Films LLC · Karachi, Pakistan</span>
@@ -611,20 +651,35 @@ footer .fine a:hover{color:#fff}
 'use strict';
 var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* preloader */
-var pre=document.getElementById('pre'),logo=pre.querySelector('.logo'),bar=pre.querySelector('.bar i');
-if(reduced){pre.remove();}
+/* preloader — plays once per session; any gesture skips it, and a hard timeout
+   guarantees the scroll lock is always released even if something throws or the
+   tab is backgrounded and the interval is throttled. */
+var pre=document.getElementById('pre');
+var seen=false;try{seen=!!sessionStorage.getItem('cg_intro');}catch(e){}
+if(reduced||seen){if(pre&&pre.parentNode)pre.remove();}
 else{
+  var logo=pre.querySelector('.logo'),bar=pre.querySelector('.bar i');
   'CINEGMA'.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c;s.style.animationDelay=(i*70)+'ms';logo.appendChild(s);});
-  var preDone=false;
+  var preDone=false,iv=null,failsafe=null;
   /* lock the page so it can't scroll behind the intro */
   document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
-  function dismissPre(){if(preDone)return;preDone=true;clearInterval(iv);bar.style.width='100%';document.documentElement.style.overflow='';document.body.style.overflow='';pre.classList.add('done');setTimeout(function(){if(pre.parentNode)pre.remove();},1000);}
-  var p=0,iv=setInterval(function(){p=Math.min(100,p+Math.random()*22);bar.style.width=p+'%';if(p>=100){clearInterval(iv);dismissPre();}},110);
-  /* a small scroll gesture skips the intro (page itself stays locked until then) */
-  addEventListener('wheel',function(e){if(e.deltaY>0)dismissPre();},{passive:true});
+  function dismissPre(){
+    if(preDone)return;preDone=true;
+    clearInterval(iv);clearTimeout(failsafe);
+    try{sessionStorage.setItem('cg_intro','1');}catch(e){}
+    bar.style.width='100%';
+    document.documentElement.style.overflow='';document.body.style.overflow='';
+    pre.classList.add('done');
+    setTimeout(function(){if(pre.parentNode)pre.remove();},1000);
+  }
+  var p=0;iv=setInterval(function(){p=Math.min(100,p+Math.random()*22);bar.style.width=p+'%';if(p>=100)dismissPre();},110);
+  failsafe=setTimeout(dismissPre,2600);
+  /* any scroll, tap, click or key skips the intro */
+  addEventListener('wheel',dismissPre,{passive:true});
   addEventListener('touchmove',dismissPre,{passive:true});
-  addEventListener('keydown',function(e){if(['ArrowDown','PageDown',' ','Spacebar'].indexOf(e.key)>-1)dismissPre();});
+  addEventListener('keydown',dismissPre);
+  pre.addEventListener('click',dismissPre);
+  addEventListener('pagehide',dismissPre);
 }
 
 /* nav */
@@ -636,22 +691,44 @@ addEventListener('scroll',function(){
     nav.classList.toggle('hide',y>420&&y>lastY);
   lastY=y;
 },{passive:true});
-var burger=document.getElementById('burger');
-burger.addEventListener('click',function(){
-  var open=document.body.classList.toggle('menu-open');
-  burger.setAttribute('aria-expanded',open);
+var burger=document.getElementById('burger'),mmenu=document.getElementById('mmenu');
+/* aria-hidden must be false while the drawer is open, otherwise its own links
+   are hidden from assistive tech */
+function setMenuState(open){
+  document.body.classList.toggle('menu-open',open);
+  burger.setAttribute('aria-expanded',open?'true':'false');
+  mmenu.setAttribute('aria-hidden',open?'false':'true');
   document.body.style.overflow=open?'hidden':'';
+}
+burger.addEventListener('click',function(){
+  var open=!document.body.classList.contains('menu-open');
+  setMenuState(open);
+  if(open){var f=mmenu.querySelector('a');if(f)f.focus();}
 });
-document.querySelectorAll('#mmenu a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open');document.body.style.overflow='';});});
+document.querySelectorAll('#mmenu a').forEach(function(a){a.addEventListener('click',function(){setMenuState(false);});});
+/* Escape closes the drawer and hands focus back to the toggle */
+addEventListener('keydown',function(e){
+  if(e.key!=='Escape'||!document.body.classList.contains('menu-open'))return;
+  setMenuState(false);burger.focus();
+});
+/* keep focus inside the drawer while it is open */
+addEventListener('focusin',function(e){
+  if(!document.body.classList.contains('menu-open'))return;
+  if(mmenu.contains(e.target)||burger.contains(e.target))return;
+  var f=mmenu.querySelector('a');if(f)f.focus();
+});
 
-/* counters */
+/* counters — the true value ships in the markup, so no-JS visitors and
+   assistive tech read the real number; JS only animates up to it. */
 function count(elm){
   var end=+elm.dataset.count,t0=null,dur=1600;
   function step(t){if(!t0)t0=t;var k=Math.min(1,(t-t0)/dur);k=1-Math.pow(1-k,3);elm.textContent=Math.round(end*k);if(k<1)requestAnimationFrame(step);}
   requestAnimationFrame(step);
 }
-var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);cio.unobserve(e.target);}});},{threshold:.6});
-document.querySelectorAll('[data-count]').forEach(function(n){if(reduced){n.textContent=n.dataset.count;}else{cio.observe(n);}});
+if(!reduced&&'IntersectionObserver' in window){
+  var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){count(e.target);cio.unobserve(e.target);}});},{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(function(n){n.textContent='0';cio.observe(n);});
+}
 
 /* poster hover video */
 if(matchMedia('(hover:hover)').matches&&!reduced){
@@ -689,9 +766,12 @@ var vio=new IntersectionObserver(function(es){
   });
 },{threshold:.4});
 document.querySelectorAll('.lazy-video').forEach(function(v){
+  /* #whoVid is a lazy video but is not inside a .reel — guard the lookup */
   var reel=v.closest('.reel');
-  v.addEventListener('playing',function(){reel.classList.add('live');});
-  v.addEventListener('pause',function(){reel.classList.remove('live');});
+  if(reel){
+    v.addEventListener('playing',function(){reel.classList.add('live');});
+    v.addEventListener('pause',function(){reel.classList.remove('live');});
+  }
   if(pio)pio.observe(v);
   vio.observe(v);
   if(lite)v.addEventListener('click',function(){
@@ -708,12 +788,20 @@ if(wv&&ws)ws.addEventListener('click',function(){
   ws.innerHTML=wv.muted?'\ud83d\udd07 Sound On':'\ud83d\udd0a Sound Off';
 });
 
-/* hero parallax */
+/* hero parallax — batched into a frame so the scroll handler never writes
+   layout-triggering styles synchronously */
 var hv=document.querySelector('#hero video');
-if(hv&&!reduced)addEventListener('scroll',function(){
-  var y=Math.min(scrollY,innerHeight);
-  hv.style.transform='scale(1.06) translateY('+(y*.18)+'px)';
-},{passive:true});
+if(hv&&!reduced){
+  var pTick=false;
+  addEventListener('scroll',function(){
+    if(pTick)return;pTick=true;
+    requestAnimationFrame(function(){
+      var y=Math.min(scrollY,innerHeight);
+      hv.style.transform='scale(1.06) translateY('+(y*.18)+'px)';
+      pTick=false;
+    });
+  },{passive:true});
+}
 
 })();
 </script>

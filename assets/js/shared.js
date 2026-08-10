@@ -50,21 +50,41 @@
   document.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el); });
 
   // ── MOBILE MENU ──
-  window.openMenu = function(){
+  // Every page ships the same drawer: <nav id="mmenu"> toggled by body.menu-open
+  // and #burger. (A handful of older pages also carry #mobileMenu/#hamburger,
+  // so both shapes are handled here.)
+  function setMenu(open){
     var m = document.getElementById('mobileMenu');
-    var h = document.getElementById('hamburger');
-    if(m) m.classList.add('open');
-    if(h) h.setAttribute('aria-expanded','true');
-    document.body.style.overflow='hidden';
-  };
-  window.closeMenu = function(){
-    var m = document.getElementById('mobileMenu');
-    var h = document.getElementById('hamburger');
-    if(m) m.classList.remove('open');
-    if(h) h.setAttribute('aria-expanded','false');
-    document.body.style.overflow='';
-  };
-  document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeMenu(); });
+    var h = document.getElementById('hamburger') || document.getElementById('burger');
+    var mm = document.getElementById('mmenu');
+    if(m) m.classList.toggle('open', open);
+    if(mm) mm.setAttribute('aria-hidden', open ? 'false' : 'true');
+    document.body.classList.toggle('menu-open', open);
+    if(h) h.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  window.openMenu  = function(){ setMenu(true); };
+  window.closeMenu = function(){ setMenu(false); };
+
+  var mmenuEl = document.getElementById('mmenu');
+  if(mmenuEl && !mmenuEl.hasAttribute('aria-hidden')) mmenuEl.setAttribute('aria-hidden','true');
+
+  document.addEventListener('keydown', function(e){
+    if(e.key !== 'Escape') return;
+    if(!document.body.classList.contains('menu-open') &&
+       !(document.getElementById('mobileMenu')||{classList:{contains:function(){return false;}}}).classList.contains('open')) return;
+    window.closeMenu();
+    var b = document.getElementById('burger') || document.getElementById('hamburger');
+    if(b && b.focus) b.focus();
+  });
+
+  // Keep aria-hidden in step with the per-page burger handlers, which only
+  // toggle body.menu-open.
+  if(mmenuEl && 'MutationObserver' in window){
+    new MutationObserver(function(){
+      mmenuEl.setAttribute('aria-hidden', document.body.classList.contains('menu-open') ? 'false' : 'true');
+    }).observe(document.body, {attributes:true, attributeFilter:['class']});
+  }
 
   // ── BACK TO TOP ──
   var btt = document.getElementById('backToTop');
@@ -790,6 +810,9 @@
     document.body.style.overflow='hidden';
     bd=document.createElement('div');
     bd.className='cg-bd';
+    bd.setAttribute('role','dialog');
+    bd.setAttribute('aria-modal','true');
+    bd.setAttribute('aria-label','Pac-Man mini game');
     bd.innerHTML=
       '<div class="cg-modal">'+
         '<div class="cg-mhd">'+
@@ -891,7 +914,8 @@
     document.removeEventListener('keydown',keyFn);
     window.removeEventListener('resize',rsFn);
     bd.classList.remove('v');
-    document.body.style.overflow='';
+    // don't unlock the page if the mobile drawer is still holding the lock
+    if(!document.body.classList.contains('menu-open')) document.body.style.overflow='';
     var el=bd;bd=null;
     setTimeout(function(){el.remove();},400);
     try{sessionStorage.setItem('cg_off','1');}catch(e){}

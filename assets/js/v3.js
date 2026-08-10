@@ -3,13 +3,65 @@
 (function () {
   'use strict';
   if (window.__cinegmaV3) return; window.__cinegmaV3 = true;
+  /* Arm the reveal gate as early as this file runs. Pages also set it inline in
+     <head> so there is no flash; this is the belt-and-braces copy. */
+  document.documentElement.classList.add('v3-js');
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
   var root = location.pathname.match(/\/(projects|team|admin)\//) ? '../' : '';
 
   function el(tag, id, html) { var e = document.createElement(tag); if (id) e.id = id; if (html) e.innerHTML = html; return e; }
 
+  /* scramble text on scroll-into-view */
+  var CH = '!<>-_\\/[]{}—=+*^?#________';
+  function scramble(node) {
+    var final = node.dataset.v3Text || node.textContent; node.dataset.v3Text = final;
+    var frame = 0, len = final.length;
+    (function tick() {
+      var out = '', done = 0;
+      for (var i = 0; i < len; i++) {
+        if (frame >= i * 2 + 8) { out += final[i]; done++; }
+        else out += CH[(Math.random() * CH.length) | 0];
+      }
+      node.textContent = out;
+      if (done < len) { frame += 2; requestAnimationFrame(tick); }
+    })();
+  }
+
+  function revealAll() {
+    document.querySelectorAll('.v3-reveal').forEach(function (n) { n.classList.add('in'); });
+  }
+
+  /* Runs before every decorative feature so a later throw can never leave the
+     page hidden behind opacity:0. */
+  function initReveal() {
+    if (!('IntersectionObserver' in window)) { revealAll(); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        if (en.target.hasAttribute('data-scramble') && !reduced) scramble(en.target);
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.v3-reveal, [data-scramble]').forEach(function (n) { io.observe(n); });
+    /* failsafe: anything still hidden inside the viewport after load gets shown */
+    addEventListener('load', function () {
+      setTimeout(function () {
+        document.querySelectorAll('.v3-reveal:not(.in)').forEach(function (n) {
+          var r = n.getBoundingClientRect();
+          if (r.top < innerHeight && r.bottom > 0) n.classList.add('in');
+        });
+      }, 1200);
+    });
+  }
+
   function init() {
+    try { initReveal(); } catch (e) { revealAll(); }
+    try { decorate(); } catch (e) { /* never let chrome break the page */ }
+  }
+
+  function decorate() {
     var b = document.body;
 
     /* backdrop layers */
@@ -33,9 +85,10 @@
     if (fine && !reduced) {
       var dot = el('div', 'v3-cur-dot'), ring = el('div', 'v3-cur-ring');
       b.appendChild(dot); b.appendChild(ring);
-      var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my;
+      var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, live = false;
       addEventListener('mousemove', function (e) {
         mx = e.clientX; my = e.clientY;
+        if (!live) { live = true; rx = mx; ry = my; b.classList.add('v3-cur-live'); }
         dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
         var t = e.target.closest && e.target.closest('a,button,[role=button],input,select,textarea,[data-cursor]');
         b.classList.toggle('v3-cur-hover', !!t);
@@ -74,7 +127,7 @@
       { l: 'Dayyan Khalid — Producer', t: 'Team', u: root + 'team/dayyan-khalid.html' }
     ];
     var K = el('div', 'v3-k',
-      '<div class="k-box" role="dialog" aria-label="Quick navigation">' +
+      '<div class="k-box" role="dialog" aria-modal="true" aria-label="Quick navigation">' +
       '<input type="text" placeholder="Search films, pages, people…" aria-label="Search site">' +
       '<div class="k-list" role="listbox"></div>' +
       '<div class="k-hint"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div></div>');
@@ -108,11 +161,20 @@
     var input = K.querySelector('input'), list = K.querySelector('.k-list'), sel = 0, cur = items;
     function render() {
       list.innerHTML = cur.map(function (it, i) {
-        return '<div class="k-item' + (i === sel ? ' sel' : '') + '" data-i="' + i + '"><span>' + it.l + '</span><span class="k-tag">' + it.t + '</span></div>';
+        return '<div class="k-item' + (i === sel ? ' sel' : '') + '" role="option" aria-selected="' + (i === sel) +
+          '" data-i="' + i + '"><span>' + it.l + '</span><span class="k-tag">' + it.t + '</span></div>';
       }).join('') || '<div class="k-item">No results</div>';
     }
-    function open() { K.classList.add('open'); input.value = ''; cur = items; sel = 0; render(); setTimeout(function () { input.focus(); }, 30); }
-    function close() { K.classList.remove('open'); }
+    var lastFocus = null;
+    function open() {
+      lastFocus = document.activeElement;
+      K.classList.add('open'); input.value = ''; cur = items; sel = 0; render();
+      setTimeout(function () { input.focus(); }, 30);
+    }
+    function close() {
+      K.classList.remove('open');
+      if (lastFocus && lastFocus.focus) lastFocus.focus();
+    }
     function go() { if (cur[sel]) location.href = cur[sel].u; }
     fab.addEventListener('click', open);
     K.addEventListener('click', function (e) { if (e.target === K) close(); });
@@ -146,35 +208,6 @@
       });
     }
 
-    /* scramble text on scroll-into-view */
-    var CH = '!<>-_\\/[]{}—=+*^?#________';
-    function scramble(node) {
-      var final = node.dataset.v3Text || node.textContent; node.dataset.v3Text = final;
-      var frame = 0, len = final.length;
-      (function tick() {
-        var out = '', done = 0;
-        for (var i = 0; i < len; i++) {
-          if (frame >= i * 2 + 8) { out += final[i]; done++; }
-          else out += CH[(Math.random() * CH.length) | 0];
-        }
-        node.textContent = out;
-        if (done < len) { frame += 2; requestAnimationFrame(tick); }
-      })();
-    }
-    /* reveal + scramble observer */
-    if ('IntersectionObserver' in window) {
-      var io = new IntersectionObserver(function (es) {
-        es.forEach(function (en) {
-          if (!en.isIntersecting) return;
-          en.target.classList.add('in');
-          if (en.target.hasAttribute('data-scramble') && !reduced) scramble(en.target);
-          io.unobserve(en.target);
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-      document.querySelectorAll('.v3-reveal, [data-scramble]').forEach(function (n) { io.observe(n); });
-    } else {
-      document.querySelectorAll('.v3-reveal').forEach(function (n) { n.classList.add('in'); });
-    }
   }
 
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();

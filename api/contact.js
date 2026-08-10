@@ -50,16 +50,19 @@ module.exports = async (req, res) => {
     // POST: new contact submission (public)
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-    const { name, email, phone, subject, message } = req.body || {};
+    const { name, email, phone, subject, inquiry, message } = req.body || {};
     if (!name || !email || !message) return res.status(400).json({ error: 'Name, email, and message are required' });
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return res.status(400).json({ error: 'Invalid email' });
+
+    // the site form posts the topic as `inquiry`; older callers send `subject`
+    const topic = subject || inquiry || 'General';
 
     // 1. Save to database using new schema
     const { error: dbErr } = await sb().from('contact_messages').insert({
       name: String(name).slice(0, 200),
       email: String(email).slice(0, 200),
       phone: phone ? String(phone).slice(0, 20) : null,
-      subject: subject ? String(subject).slice(0, 200) : null,
+      subject: String(topic).slice(0, 200),
       message: String(message).slice(0, 5000),
       status: 'new',
     });
@@ -73,7 +76,7 @@ module.exports = async (req, res) => {
         `🎬 *New Contact — Cinegma Films*\n\n` +
         `*Name:* ${name}\n` +
         `*Email:* ${email}\n` +
-        `*Type:* ${inquiry || 'General'}\n\n` +
+        `*Type:* ${topic}\n\n` +
         `*Message:*\n${String(message).slice(0, 1000)}`
       );
       try {
@@ -89,7 +92,7 @@ module.exports = async (req, res) => {
       await logEvent(req, {
         action: 'contact_received', category: 'contact',
         username: String(name).slice(0, 80), role: 'visitor',
-        details: { email, inquiry: inquiry || 'General' }
+        details: { email, inquiry: topic }
       });
     } catch (_) {}
 

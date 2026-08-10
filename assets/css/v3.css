@@ -12,8 +12,9 @@
 }
 
 /* ---- selection + scrollbar ---- */
-::selection{background:var(--v3-a);color:#fff}
-::-moz-selection{background:var(--v3-a);color:#fff}
+/* --v3-a is white, so the selected text has to invert or it disappears */
+::selection{background:var(--v3-a);color:var(--v3-bg)}
+::-moz-selection{background:var(--v3-a);color:var(--v3-bg)}
 html{scrollbar-color:var(--v3-a) #101014}
 body::-webkit-scrollbar{width:10px}
 body::-webkit-scrollbar-track{background:#0a0a0e}
@@ -49,17 +50,21 @@ body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--v3-a),var(
   background:linear-gradient(90deg,var(--v3-a),var(--v3-b));
   box-shadow:0 0 12px var(--v3-a-soft);transition:width .08s linear}
 
-/* ---- custom cursor ---- */
+/* ---- custom cursor ----
+   Both layers stay invisible until the pointer actually moves, otherwise they
+   park in the middle of the viewport and read as a stray circle on the design. */
 @media (hover:hover) and (pointer:fine){
   #v3-cur-dot{position:fixed;top:0;left:0;width:6px;height:6px;border-radius:50%;
     background:var(--v3-b);z-index:2147483300;pointer-events:none;
-    transform:translate(-50%,-50%);mix-blend-mode:difference}
+    transform:translate(-50%,-50%);mix-blend-mode:difference;opacity:0}
   #v3-cur-ring{position:fixed;top:0;left:0;width:34px;height:34px;border-radius:50%;
     border:1.5px solid var(--v3-a);z-index:2147483300;pointer-events:none;
-    transform:translate(-50%,-50%);opacity:.7;
+    transform:translate(-50%,-50%);opacity:0;
     transition:width .25s ease,height .25s ease,opacity .25s ease,border-color .25s ease}
-  body.v3-cur-hover #v3-cur-ring{width:58px;height:58px;border-color:var(--v3-b);opacity:1}
-  body.v3-cur-down #v3-cur-ring{width:22px;height:22px}
+  body.v3-cur-live #v3-cur-dot{opacity:1}
+  body.v3-cur-live #v3-cur-ring{opacity:.7}
+  body.v3-cur-live.v3-cur-hover #v3-cur-ring{width:58px;height:58px;border-color:var(--v3-b);opacity:1}
+  body.v3-cur-live.v3-cur-down #v3-cur-ring{width:22px;height:22px}
 }
 @media (hover:none),(pointer:coarse){#v3-cur-dot,#v3-cur-ring{display:none!important}}
 
@@ -96,8 +101,12 @@ body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--v3-a),var(
 /* ---- tilt cards ---- */
 [data-v3-tilt]{transform-style:preserve-3d;will-change:transform;transition:transform .35s cubic-bezier(.2,.9,.3,1)}
 
-/* ---- reveal (used by rebuilt pages) ---- */
-.v3-reveal{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+/* ---- reveal (used by rebuilt pages) ----
+   Hidden only once JS has confirmed it can reveal it again (html.v3-js, set by
+   the inline bootstrap / v3.js). Without that gate a blocked or broken v3.js
+   would leave every page below the fold permanently blank. */
+.v3-reveal{transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+html.v3-js .v3-reveal:not(.in){opacity:0;transform:translateY(34px)}
 .v3-reveal.in{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){
