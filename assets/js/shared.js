@@ -109,9 +109,12 @@
 })();
 
 // ── MINI GAME: PAC-MAN (CINE ARCADE) ──
+// Opt-in only. It used to slide a chip into the corner unprompted after 30s
+// and sit as a pill in the nav next to the primary CTA; both interrupted the
+// work the page is meant to be showing. The way in is now the quiet footer
+// link and the entry at the bottom of the mobile menu.
 (function(){
   'use strict';
-  var POPUP_DELAY=30000,shown=false;
   var TOUCH=('ontouchstart' in window)||(navigator.maxTouchPoints>0);
 
   var facts=[
@@ -195,52 +198,15 @@
     '.cg-ov-f{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.9rem;color:rgba(240,236,228,.55);line-height:1.6;margin:0 0 20px;max-width:300px;}'+
     '.cg-ov-b{font-family:"Bebas Neue",sans-serif;font-size:.78rem;letter-spacing:.22em;background:0 0;border:1px solid rgba(255,210,63,.5);color:#ffd23f;padding:10px 28px;cursor:pointer;transition:all .3s;}'+
     '.cg-ov-b:hover{background:#ffd23f;color:#080808;}'+
-    /* ── corner arcade chip (replaces old toast) ── */
-    '.cg-nud{position:fixed;bottom:22px;left:22px;z-index:9000;opacity:0;transform:translateX(-90px);transition:opacity .5s,transform .8s cubic-bezier(.2,.9,.3,1);font-family:"DM Sans",sans-serif;}'+
-    '.cg-nud.in{opacity:1;transform:none;}'+
-    '.cg-nud.out{opacity:0;transform:translateY(20px);}'+
-    '.cg-chip{display:flex;align-items:center;height:52px;max-width:52px;border-radius:28px;background:rgba(10,10,14,.92);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);overflow:hidden;cursor:pointer;transition:max-width .55s cubic-bezier(.2,.9,.3,1),border-color .3s;box-shadow:0 10px 30px rgba(0,0,0,.5);}'+
-    '.cg-chip:hover{border-color:rgba(255,210,63,.45);}'+
-    '.cg-chip.wide{max-width:260px;}'+
-    '.cg-cpac{position:relative;flex:0 0 22px;width:22px;height:22px;margin:0 14px;}'+
-    '.cg-jt,.cg-jb{position:absolute;left:0;width:22px;height:11px;background:#ffd23f;}'+
-    '.cg-jt{top:0;border-radius:22px 22px 0 0;transform-origin:50% 100%;animation:cgJt .34s linear infinite alternate;}'+
-    '.cg-jb{bottom:0;border-radius:0 0 22px 22px;transform-origin:50% 0;animation:cgJb .34s linear infinite alternate;}'+
-    '@keyframes cgJt{0%{transform:rotate(0)}100%{transform:rotate(-26deg)}}'+
-    '@keyframes cgJb{0%{transform:rotate(0)}100%{transform:rotate(26deg)}}'+
-    '.cg-cbody{display:flex;align-items:center;gap:12px;opacity:0;transition:opacity .35s .12s;padding-right:22px;}'+
-    '.cg-chip.wide .cg-cbody{opacity:1;}'+
-    '.cg-cdots{display:flex;gap:7px;}'+
-    '.cg-cdots i{width:5px;height:5px;border-radius:50%;background:rgba(240,236,228,.8);animation:cgNdot 1.4s linear infinite;}'+
-    '.cg-cdots i:nth-child(2){animation-delay:.45s;}'+
-    '.cg-cdots i:nth-child(3){animation-delay:.9s;}'+
-    '@keyframes cgNdot{0%{transform:translateX(0);opacity:.9}75%{opacity:.9}100%{transform:translateX(-18px);opacity:0}}'+
-    '.cg-clbl{display:flex;flex-direction:column;font-family:"Bebas Neue",sans-serif;font-size:.85rem;letter-spacing:.24em;color:#fff;line-height:1.3;white-space:nowrap;}'+
-    '.cg-clbl em{font-style:normal;font-family:"DM Sans",sans-serif;font-size:.5rem;letter-spacing:.22em;color:rgba(240,236,228,.45);}'+
-    '.cg-cpr{position:absolute;inset:0;border-radius:28px;border:1px solid rgba(255,210,63,.55);opacity:0;pointer-events:none;animation:cgPr 4s ease-out infinite;}'+
-    '@keyframes cgPr{0%,72%{opacity:0;transform:scale(1)}80%{opacity:.9}100%{opacity:0;transform:scale(1.5,1.9)}}'+
-    '.cg-cx{position:absolute;top:-7px;right:-7px;width:20px;height:20px;border-radius:50%;background:#101014;border:1px solid rgba(255,255,255,.25);color:rgba(240,236,228,.6);font-size:.72rem;line-height:1;cursor:pointer;opacity:0;transition:opacity .3s,color .2s;padding:0;}'+
-    '.cg-nud:hover .cg-cx{opacity:1;}'+
-    '.cg-cx:hover{color:#fff;}'+
-    '@media(hover:none){.cg-cx{opacity:.85;}}'+
-    '.cg-launch{display:inline-flex;align-items:center;gap:8px;background:0 0;border:1px solid rgba(255,255,255,.3);color:#ffffff;font-family:"Bebas Neue",sans-serif;font-size:.74rem;letter-spacing:.2em;padding:10px 24px;margin:36px auto 0;cursor:pointer;transition:all .3s;}'+
-    '.cg-launch:hover{background:#ffd23f;border-color:#ffd23f;color:#080808;}'+
-    '.cg-launch-wrap{width:100%;text-align:center;padding:28px 20px 0;}'+
-    /* ── nav "PLAY GAME" button (desktop pill + mobile-menu entry) ── */
-    '.cg-navbtn{display:inline-flex;align-items:center;gap:8px;background:0 0;border:1px solid rgba(255,255,255,.28);color:#fff;font-family:"Bebas Neue",sans-serif;font-size:.72rem;letter-spacing:.2em;padding:8px 16px;margin-left:18px;cursor:pointer;border-radius:999px;line-height:1;white-space:nowrap;transition:background .3s,border-color .3s,color .3s;}'+
-    '.cg-navbtn:hover{background:#ffd23f;border-color:#ffd23f;color:#080808;}'+
-    '.cg-navdot{width:7px;height:7px;border-radius:50%;background:#ffd23f;box-shadow:0 0 8px #ffd23f;transition:background .3s,box-shadow .3s;}'+
-    '.cg-navbtn:hover .cg-navdot{background:#080808;box-shadow:none;}'+
-    '.cg-mmbtn{font-family:"Bebas Neue",sans-serif;font-size:clamp(38px,9vw,64px);letter-spacing:.06em;text-transform:uppercase;color:#ffd23f;background:0 0;border:0;padding:0;margin-top:8px;display:flex;align-items:baseline;gap:16px;cursor:pointer;text-align:left;line-height:1;transition:color .25s;}'+
-    '.cg-mmbtn i{font-family:"DM Sans",sans-serif;font-style:normal;font-size:11px;color:rgba(255,210,63,.6);letter-spacing:.3em;}'+
+    /* footer entry point — a quiet text link, not a lit-up button */
+    '.cg-launch{display:inline-flex;align-items:center;gap:8px;background:0 0;border:0;color:rgba(240,236,228,.34);font-family:inherit;font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;padding:6px 2px;margin:0 auto;cursor:pointer;transition:color .3s;}'+
+    '.cg-launch:hover,.cg-launch:focus-visible{color:rgba(240,236,228,.8);}'+
+    '.cg-launch-wrap{width:100%;text-align:center;padding:26px 20px 0;}'+
+    /* mobile-menu entry */
+    '.cg-mmbtn{font-family:"Bebas Neue",sans-serif;font-size:clamp(38px,9vw,64px);letter-spacing:.06em;text-transform:uppercase;color:rgba(240,236,228,.55);background:0 0;border:0;padding:0;margin-top:8px;display:flex;align-items:baseline;gap:16px;cursor:pointer;text-align:left;line-height:1;transition:color .25s;}'+
+    '.cg-mmbtn i{font-style:normal;font-size:11px;color:rgba(240,236,228,.3);letter-spacing:.3em;}'+
     '.cg-mmbtn:hover{color:#fff;}'+
-    '@media(max-width:900px){.cg-navbtn{display:none;}}'+
-    '.cg-navbtn{position:relative;}'+
-    '.cg-navx{position:absolute;top:-8px;right:-8px;width:18px;height:18px;border-radius:50%;background:#101014;border:1px solid rgba(255,255,255,.3);color:rgba(240,236,228,.65);font-size:.68rem;line-height:16px;text-align:center;cursor:pointer;opacity:0;transition:opacity .25s,color .2s;z-index:2;}'+
-    '.cg-navbtn:hover .cg-navx{opacity:1;}'+
-    '.cg-navx:hover{color:#fff;}'+
-    '.cg-nud.swiping .cg-chip{transition:none;}'+
-    '@media(max-width:500px){.cg-nud{left:14px;bottom:16px;}.cg-chip{height:48px;}.cg-str-t{font-size:2.2rem;}}';
+    '@media(max-width:500px){.cg-str-t{font-size:2.2rem;}}';
   document.head.appendChild(st);
 
   // ── state ──
@@ -250,11 +216,8 @@
   var keyFn,rsFn;
 
   try{hi=parseInt(localStorage.getItem('cg_pac_hi'),10)||0;}catch(e){hi=0;}
-  function dismissed(){try{return !!sessionStorage.getItem('cg_off');}catch(e){return false;}}
 
-  setTimeout(function(){if(!dismissed()&&!shown&&!bd) showChip();},POPUP_DELAY);
-
-  // ── global launcher (used by nav button, footer, chip) ──
+  // ── global launcher (used by the footer link and the mobile-menu entry) ──
   window.cgPlayGame=function(){if(!bd) showGame();};
 
   // ── footer launcher ──
@@ -266,35 +229,14 @@
     var b=document.createElement('button');
     b.className='cg-launch';
     b.type='button';
-    b.innerHTML='👻 BORED? PLAY PAC-MAN';
+    b.textContent='Play Pac-Man';
     b.onclick=function(){if(!bd) showGame();};
     wrap.appendChild(b);
     foot.appendChild(wrap);
   }
 
-  // ── nav "PLAY GAME" button: small pill on desktop, entry at the
-  //    bottom of the mobile menu ──
+  // ── entry at the bottom of the mobile menu ──
   function addNavButton(){
-    var burger=document.querySelector('#nav #burger');
-    var host=burger?burger.parentNode:document.querySelector('#nav');
-    if(host && !host.querySelector('.cg-navbtn')){
-      var b=document.createElement('button');
-      b.className='cg-navbtn';
-      b.type='button';
-      b.setAttribute('aria-label','Play Pac-Man');
-      b.innerHTML='<span class="cg-navdot"></span>PLAY GAME';
-      b.onclick=function(){if(!bd) showGame();};
-      var x=document.createElement('span');
-      x.className='cg-navx';x.textContent='×';
-      x.setAttribute('role','button');x.setAttribute('aria-label','Hide play game button');
-      x.onclick=function(e){e.stopPropagation();b.remove();try{sessionStorage.setItem('cg_navoff','1');}catch(err){}};
-      b.appendChild(x);
-      var navHidden=false;try{navHidden=!!sessionStorage.getItem('cg_navoff');}catch(err){}
-      if(!navHidden){
-        if(burger) host.insertBefore(b,burger);
-        else host.appendChild(b);
-      }
-    }
     var mm=document.getElementById('mmenu');
     if(mm && !mm.querySelector('.cg-mmbtn')){
       var m=document.createElement('button');
@@ -313,60 +255,6 @@
   function cgInit(){addLauncher();addNavButton();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',cgInit);
   else cgInit();
-
-  // ── corner arcade chip ──
-  var chipW,chipT1,chipT2;
-  function showChip(){
-    if(shown) return;
-    shown=true;
-    chipW=document.createElement('div');
-    chipW.className='cg-nud';
-    chipW.innerHTML=
-      '<div class="cg-chip">'+
-        '<div class="cg-cpac"><i class="cg-jt"></i><i class="cg-jb"></i></div>'+
-        '<div class="cg-cbody">'+
-          '<div class="cg-cdots"><i></i><i></i><i></i></div>'+
-          '<span class="cg-clbl">PAC-MAN<em>'+(TOUCH?'TAP TO PLAY':'CLICK TO PLAY')+'</em></span>'+
-        '</div>'+
-      '</div>'+
-      '<span class="cg-cpr"></span>'+
-      '<button class="cg-cx" aria-label="Dismiss">×</button>';
-    document.body.appendChild(chipW);
-    var chip=chipW.querySelector('.cg-chip');
-    chipT1=setTimeout(function(){chipW.classList.add('in');chip.classList.add('wide');},40);
-    chipT2=setTimeout(function(){if(chipW)chip.classList.remove('wide');},6500);
-    chipW.addEventListener('mouseenter',function(){chip.classList.add('wide');});
-    chipW.addEventListener('mouseleave',function(){chip.classList.remove('wide');});
-    chip.addEventListener('click',function(){hideChip(false);showGame();});
-    chipW.querySelector('.cg-cx').addEventListener('click',function(e){
-      e.stopPropagation();hideChip(true);
-    });
-    // swipe / slide to dismiss on touch devices
-    if(TOUCH){
-      var sx0=null,sdx=0;
-      chipW.addEventListener('touchstart',function(e){sx0=e.touches[0].clientX;sdx=0;chipW.classList.add('swiping');},{passive:true});
-      chipW.addEventListener('touchmove',function(e){
-        if(sx0==null)return;
-        sdx=e.touches[0].clientX-sx0;
-        chip.style.transform='translateX('+sdx+'px)';
-        chip.style.opacity=Math.max(0,1-Math.abs(sdx)/120);
-      },{passive:true});
-      chipW.addEventListener('touchend',function(){
-        chipW.classList.remove('swiping');
-        if(Math.abs(sdx)>60){hideChip(true);}
-        else{chip.style.transform='';chip.style.opacity='';}
-        sx0=null;
-      },{passive:true});
-    }
-  }
-  function hideChip(dismiss){
-    if(!chipW) return;
-    clearTimeout(chipT1);clearTimeout(chipT2);
-    var el=chipW;chipW=null;
-    el.classList.add('out');
-    setTimeout(function(){el.remove();},500);
-    if(dismiss){try{sessionStorage.setItem('cg_off','1');}catch(e){}}
-  }
 
   // ── maze helpers ──
   function cellAt(c,r){
@@ -806,7 +694,6 @@
   // ── modal shell ──
   function showGame(){
     if(bd) return;
-    hideChip(false);
     document.body.style.overflow='hidden';
     bd=document.createElement('div');
     bd.className='cg-bd';
@@ -918,6 +805,5 @@
     if(!document.body.classList.contains('menu-open')) document.body.style.overflow='';
     var el=bd;bd=null;
     setTimeout(function(){el.remove();},400);
-    try{sessionStorage.setItem('cg_off','1');}catch(e){}
   }
 })();
