@@ -185,8 +185,9 @@ body.menu-open #nav{z-index:2300}
 }
 .fcard.hidden-by-filter{display:none}
 .fc-media{position:relative;aspect-ratio:16/9;overflow:hidden;background:#000}
-.fc-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s ease,transform .8s var(--ease)}
-@media(hover:hover){.fcard:hover .fc-poster{transform:scale(1.05)}}
+@property --v3-ps{syntax:'<number>';inherits:false;initial-value:1.06}
+.fc-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s ease,--v3-ps .8s var(--ease);transform:translate3d(0,var(--v3-py,0px),0) scale(var(--v3-ps,1.06));will-change:transform}
+@media(hover:hover){.fcard:hover .fc-poster{--v3-ps:1.12}}
 .fc-preview{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s ease}
 .fc-preview.live{opacity:1}
 .fcard .fc-poster.off{opacity:0}

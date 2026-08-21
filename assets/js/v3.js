@@ -39,6 +39,7 @@
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (en) {
         if (!en.isIntersecting) return;
+        stagger(en.target);
         en.target.classList.add('in');
         if (en.target.hasAttribute('data-scramble') && !reduced) scramble(en.target);
         io.unobserve(en.target);
@@ -56,8 +57,125 @@
     });
   }
 
+
+  /* ---- row-aware stagger --------------------------------------------------
+     Siblings that share a row ripple in left-to-right instead of landing as one
+     block. The delay is measured off layout the first time a row is touched,
+     so it survives any column count the grid resolves to. */
+  function stagger(node) {
+    if (reduced || node.dataset.v3Delay) return;
+    var parent = node.parentElement;
+    if (!parent) return;
+    var sibs = [].filter.call(parent.children, function (c) { return c.classList.contains('v3-reveal'); });
+    if (sibs.length < 2) return;
+    var top = Math.round(node.offsetTop / 8), i = 0;
+    for (var n = 0; n < sibs.length; n++) {
+      if (sibs[n] === node) break;
+      if (Math.round(sibs[n].offsetTop / 8) === top) i++;
+    }
+    var d = Math.min(i, 5) * 90;
+    node.dataset.v3Delay = '1';
+    if (d) node.style.transitionDelay = d + 'ms';
+  }
+
+  /* ---- poster parallax ----------------------------------------------------
+     The artwork drifts against its frame as the card crosses the viewport.
+     Written to a custom property so the CSS hover scale keeps working. */
+  function initParallax() {
+    if (reduced || !fine || !('IntersectionObserver' in window)) return;
+    var sel = '.poster-w img, .fcard .fc-poster';
+    var live = [], raf = 0;
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        var i = live.indexOf(en.target);
+        if (en.isIntersecting) { if (i < 0) live.push(en.target); }
+        else if (i > -1) { live.splice(i, 1); en.target.style.setProperty('--v3-py', '0px'); }
+      });
+      if (live.length && !raf) raf = requestAnimationFrame(tick);
+    }, { rootMargin: '15% 0px' });
+
+    function tick() {
+      raf = 0;
+      var vh = innerHeight;
+      for (var n = 0; n < live.length; n++) {
+        var el = live[n], r = el.getBoundingClientRect();
+        if (!r.height) continue;
+        /* -1 at the bottom of the viewport, +1 at the top */
+        var t = 1 - 2 * ((r.top + r.height / 2) / vh);
+        el.style.setProperty('--v3-py', (t * 14).toFixed(2) + 'px');
+      }
+      if (live.length) raf = requestAnimationFrame(tick);
+    }
+    document.querySelectorAll(sel).forEach(function (n) { io.observe(n); });
+  }
+
+  /* ---- inertial smooth scroll ---------------------------------------------
+     Desktop wheel input is eased into the real scroll position instead of
+     jumping, which is what gives long poster runs their glide. It drives the
+     native scroller (no transformed wrapper), so sticky/fixed chrome, anchor
+     links and the scrollbar all keep behaving normally. Touch devices already
+     have momentum from the OS and are left completely alone. */
+  function initSmoothScroll() {
+    if (reduced || !fine || matchMedia('(hover: none)').matches) return;
+    var target = scrollY, current = scrollY, raf = 0, driving = false, last = 0;
+
+    function limit() { return Math.max(0, document.documentElement.scrollHeight - innerHeight); }
+
+    /* Anything the user is scrolling inside (a modal, an overflow pane) keeps
+       its native behaviour — we only ease the page itself. */
+    function nested(node) {
+      for (var n = node; n && n !== document.body; n = n.parentElement) {
+        if (n.scrollHeight - n.clientHeight > 2) {
+          var o = getComputedStyle(n).overflowY;
+          if (o === 'auto' || o === 'scroll') return true;
+        }
+      }
+      return false;
+    }
+
+    addEventListener('wheel', function (e) {
+      if (e.ctrlKey || e.defaultPrevented || nested(e.target)) return;
+      var d = e.deltaY;
+      if (e.deltaMode === 1) d *= 18;        /* lines  */
+      else if (e.deltaMode === 2) d *= innerHeight; /* pages */
+      e.preventDefault();
+      target = Math.max(0, Math.min(limit(), target + d));
+      if (!raf) { last = 0; raf = requestAnimationFrame(loop); }
+    }, { passive: false });
+
+    /* Keyboard, anchor jumps and scrollbar drags move the page without us;
+       resync so the next wheel tick eases from where the page actually is.
+       Scroll events land a frame after the scrollTo that caused them, so the
+       source is identified by position rather than by a synchronous flag —
+       otherwise the loop would keep resetting its own target and stall. */
+    addEventListener('scroll', function () {
+      if (driving && Math.abs(scrollY - current) < 2) return;
+      driving = false; target = current = scrollY;
+    }, { passive: true });
+
+    function loop(now) {
+      raf = 0;
+      /* Frame-rate independent easing: a fixed per-frame factor would glide at
+         one speed on a 60Hz panel and a different one at 144Hz. Smoothing over
+         elapsed time keeps the feel identical on any display. */
+      var dt = last ? Math.min(now - last, 50) : 16.7; last = now;
+      current += (target - current) * (1 - Math.pow(1 - 0.12, dt / 16.7));
+      if (Math.abs(target - current) < 0.4) current = target;
+      driving = true;
+      /* 'instant' matters: the pages set html{scroll-behavior:smooth} for
+         anchor links, and without the override the browser would re-animate
+         every frame we write and the page would crawl. */
+      try { scrollTo({ top: current, behavior: 'instant' }); }
+      catch (e) { scrollTo(0, current); }
+      if (current !== target) raf = requestAnimationFrame(loop);
+      else { driving = false; last = 0; }
+    }
+  }
+
   function init() {
     try { initReveal(); } catch (e) { revealAll(); }
+    try { initParallax(); } catch (e) { /* decorative only */ }
+    try { initSmoothScroll(); } catch (e) { /* native scroll stays */ }
     try { decorate(); } catch (e) { /* never let chrome break the page */ }
   }
 

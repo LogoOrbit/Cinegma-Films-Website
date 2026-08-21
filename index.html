@@ -219,11 +219,13 @@ body.menu-open #nav{z-index:1200}
   transition:box-shadow .5s,transform .5s cubic-bezier(.2,.9,.3,1)}
 .poster-w:hover,.poster-w:focus-visible{box-shadow:0 44px 120px rgba(0,0,0,.9),0 0 60px rgba(255,255,255,.08);transform:translateY(-6px)}
 .poster-w:focus-visible{outline:2px solid var(--a);outline-offset:3px}
-.poster-w img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.9,.3,1),opacity .4s}
+.poster-w img{width:100%;height:100%;object-fit:cover;transition:opacity .4s;transform:translate3d(0,var(--v3-py,0px),0) scale(var(--v3-ps,1.06));will-change:transform}
 .poster-w video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .45s}
 .poster-w.playing video{opacity:1}
 .poster-w.playing img{opacity:0}
-.poster-w:hover img{transform:scale(1.05)}
+.poster-w:hover img{--v3-ps:1.12}
+.poster-w img{transition:opacity .4s,--v3-ps .8s cubic-bezier(.2,.9,.3,1)}
+@property --v3-ps{syntax:'<number>';inherits:false;initial-value:1.06}
 .poster-w .edge{position:absolute;inset:0;border-radius:14px;border:1px solid rgba(255,255,255,.22);pointer-events:none;z-index:3}
 /* title only surfaces on hover / keyboard focus — the wall itself stays clean */
 .poster-w .cap{position:absolute;inset:auto 0 0 0;z-index:2;padding:44px 16px 16px;
