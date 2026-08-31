@@ -180,6 +180,16 @@ body.menu-open #nav{z-index:1200}
   #hero .actions{width:100%}
   #hero .actions .btn{flex:1 1 100%;justify-content:center}
 }
+#hero .nowplaying{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+#hero .np-tag,#hero .np-snd{display:inline-flex;align-items:center;gap:10px;padding:10px 18px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.28);background:rgba(6,6,10,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  color:#e6e0d4;font-family:var(--body);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+  cursor:pointer;transition:background .3s,color .3s,transform .3s}
+#hero .np-tag b{color:#fff;font-weight:700}
+#hero .np-tag i{width:8px;height:8px;border-radius:50%;background:#fff;box-shadow:0 0 12px rgba(255,255,255,.8);font-style:normal;flex:none;animation:v3-pulse 1.6s infinite}
+#hero .np-tag:hover,#hero .np-snd:hover{background:#fff;color:#06060a;transform:translateY(-2px)}
+#hero .np-tag:hover b{color:#06060a}
+@media(max-width:640px){#hero .np-tag,#hero .np-snd{font-size:9.5px;letter-spacing:.18em;padding:9px 15px}}
 #hero .scroll{position:absolute;right:clamp(20px,4vw,56px);bottom:120px;writing-mode:vertical-rl;font-size:10px;letter-spacing:.5em;text-transform:uppercase;color:var(--mut);display:flex;align-items:center;gap:12px}
 #hero .scroll::after{content:"";width:1px;height:56px;background:linear-gradient(180deg,var(--b),transparent);animation:sc 2s ease-in-out infinite}
 @keyframes sc{0%,100%{transform:scaleY(.4);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
@@ -386,7 +396,7 @@ footer .fine a:hover{color:#fff}
 <main id="main">
 <section id="hero">
   <div class="media" aria-hidden="true">
-    <video autoplay muted loop playsinline preload="metadata" tabindex="-1" src="assets/posters/HeroCompressed.mp4" poster="assets/posters/Hero%20Image%20for%20Contact%20AVIF.avif"></video>
+    <video id="heroVid" autoplay muted loop playsinline preload="metadata" tabindex="-1" disablepictureinpicture disableremoteplayback src="https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif"></video>
     <div class="shade"></div>
   </div>
   <div class="content">
@@ -400,6 +410,10 @@ footer .fine a:hover{color:#fff}
       <div class="actions">
         <a class="btn solid" href="watch.html">▶ Stream Movies</a>
         <a class="btn" href="#films">The Filmography</a>
+      </div>
+      <div class="nowplaying">
+        <a class="np-tag" href="watch.html#trailer-janjaal"><i></i>Now Playing · <b>Janjaal</b> — Official Trailer</a>
+        <button class="np-snd" id="heroSnd" type="button" aria-label="Toggle trailer sound">🔇 Sound On</button>
       </div>
     </div>
   </div>
@@ -787,6 +801,15 @@ if(wv&&ws)ws.addEventListener('click',function(){
   wv.muted=!wv.muted;
   if(!wv.muted){if(!wv.src&&wv.dataset.src)wv.src=wv.dataset.src;wv.play().catch(function(){});}
   ws.innerHTML=wv.muted?'\ud83d\udd07 Sound On':'\ud83d\udd0a Sound Off';
+});
+
+/* hero trailer sound toggle — autoplay stays muted; the viewer opts into audio */
+var hvid=document.getElementById('heroVid'),hsnd=document.getElementById('heroSnd');
+if(hvid&&hsnd)hsnd.addEventListener('click',function(){
+  hvid.muted=!hvid.muted;
+  if(!hvid.muted)hvid.play().catch(function(){});
+  hsnd.innerHTML=hvid.muted?'\ud83d\udd07 Sound On':'\ud83d\udd0a Sound Off';
+  hsnd.setAttribute('aria-pressed',hvid.muted?'false':'true');
 });
 
 /* hero parallax — batched into a frame so the scroll handler never writes
