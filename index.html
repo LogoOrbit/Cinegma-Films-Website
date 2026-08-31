@@ -304,14 +304,34 @@ body.menu-open #nav{z-index:1200}
 
 /* who we are */
 #who{padding:clamp(48px,5.5vw,84px) 0}
-#who .frame{position:relative;margin-top:clamp(26px,3vw,38px);border-radius:24px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:#000;box-shadow:0 40px 110px rgba(0,0,0,.65)}
-#who .frame video{width:100%;height:100%;object-fit:cover}
-#who .bars{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,8,.5),transparent 18%,transparent 82%,rgba(5,5,8,.6))}
-#who .snd{position:absolute;right:18px;bottom:18px;display:flex;align-items:center;gap:10px;padding:11px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(6,6,10,.7);backdrop-filter:blur(10px);color:#fff;font-size:11px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .3s}
-#who .snd:hover{background:#fff;color:#06060a;transform:translateY(-2px)}
-#who .rec{position:absolute;left:20px;top:18px;display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#e6e0d4}
-#who .rec i{width:9px;height:9px;border-radius:50%;background:#fff;animation:v3-pulse 1.6s infinite}
-#who .tc{position:absolute;right:20px;top:18px;font-family:var(--disp);font-size:13px;letter-spacing:.18em;color:#cfc9bd}
+#who .frame,#trailer .frame{position:relative;margin-top:clamp(26px,3vw,38px);border-radius:24px;overflow:hidden;border:1px solid var(--line);aspect-ratio:16/9;background:#000;box-shadow:0 40px 110px rgba(0,0,0,.65)}
+#who .frame video,#trailer .frame video{width:100%;height:100%;object-fit:cover}
+#who .bars,#trailer .bars{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,8,.5),transparent 18%,transparent 82%,rgba(5,5,8,.6))}
+#who .snd,#trailer .snd{position:absolute;right:18px;bottom:18px;display:flex;align-items:center;gap:10px;padding:11px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(6,6,10,.7);backdrop-filter:blur(10px);color:#fff;font-size:11px;letter-spacing:.24em;text-transform:uppercase;cursor:pointer;transition:background .3s,transform .3s}
+#who .snd:hover,#trailer .snd:hover{background:#fff;color:#06060a;transform:translateY(-2px)}
+#who .rec,#trailer .rec{position:absolute;left:20px;top:18px;display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#e6e0d4}
+#who .rec i,#trailer .rec i{width:9px;height:9px;border-radius:50%;background:#fff;animation:v3-pulse 1.6s infinite}
+#who .tc,#trailer .tc{position:absolute;right:20px;top:18px;font-family:var(--disp);font-size:13px;letter-spacing:.18em;color:#cfc9bd}
+
+/* featured trailer — Janjaal, the most awarded film, plays on its own */
+#trailer{padding:clamp(48px,5.5vw,84px) 0;border-top:1px solid var(--line)}
+#trailer .head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap}
+#trailer .laurel-line{display:flex;align-items:center;gap:12px;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--b);padding-bottom:6px}
+#trailer .laurel-line img{width:44px;height:44px;object-fit:contain;opacity:.85}
+#trailer .frame{margin-top:clamp(26px,3vw,38px)}
+#trailer .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+#trailer .meta span{padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg2);
+  font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#cfc9bd}
+#trailer .actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:clamp(24px,3vw,32px)}
+@media(max-width:640px){
+  #trailer .laurel-line{display:none}
+  /* the label is longer than the who-section's, so it collides with the
+     timecode at phone widths — drop the timecode, keep the title */
+  #trailer .rec{font-size:9px;letter-spacing:.18em}
+  #trailer .tc{display:none}
+  #trailer .actions{width:100%}
+  #trailer .actions .btn{flex:1 1 100%;justify-content:center}
+}
 
 /* footer */
 footer{position:relative;border-top:1px solid var(--line);padding:clamp(48px,5.5vw,80px) 0 34px;overflow:hidden;z-index:1}
@@ -408,6 +428,36 @@ footer .fine a:hover{color:#fff}
     <div class="tk-track">
       <span>14+ International Awards</span><span>22 Global Festival Selections</span><span>9 Countries Reached</span><span>Theatrical — Arena Cinemas 2025</span><span>100% Made In-House</span><span>Janjaal · Shot in 34 Hours</span>
       <span>14+ International Awards</span><span>22 Global Festival Selections</span><span>9 Countries Reached</span><span>Theatrical — Arena Cinemas 2025</span><span>100% Made In-House</span><span>Janjaal · Shot in 34 Hours</span>
+    </div>
+  </div>
+</section>
+
+<section id="trailer">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <span class="kicker v3-reveal">Our Most Awarded Film</span>
+        <h2 class="h-lg v3-reveal" style="margin-top:14px">Janjaal <span class="serif-i">— Official Trailer</span></h2>
+      </div>
+      <div class="laurel-line v3-reveal">
+        <img loading="lazy" decoding="async" width="1000" height="1000" src="assets/laurels/Best-Trailer---Award.webp" alt=""/>
+        14 Awards · 9 Countries
+      </div>
+    </div>
+    <p class="lead v3-reveal" style="max-width:640px;margin-top:18px">A police officer finds a cursed golden pocket watch — and every wish it grants takes something back. Shot in 34 hours across Karachi and finished entirely in-house, <b style="color:#ddd7cb;font-weight:500">Janjaal (Tussle)</b> won 14 international awards across 9 countries and opened theatrically at Arena Cinemas in January 2025. Sound on.</p>
+    <div class="frame v3-reveal">
+      <video id="janjaalTrailer" class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif" aria-label="Janjaal — official trailer" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
+      <div class="bars"></div>
+      <div class="rec"><i></i>Janjaal · Official Trailer</div>
+      <div class="tc">2024 · 24 MIN</div>
+      <button class="snd" id="trailerSnd" type="button" aria-label="Toggle trailer sound">🔇 Sound On</button>
+    </div>
+    <div class="meta v3-reveal">
+      <span>14 International Awards</span><span>22 Festival Selections</span><span>9 Countries</span><span>Theatrical — Arena Cinemas 2025</span><span>Shot in 34 Hours</span>
+    </div>
+    <div class="actions v3-reveal">
+      <a class="btn solid" href="watch.html#trailer-janjaal">▶ Watch Janjaal</a>
+      <a class="btn" href="projects/janjaal.html">About The Film</a>
     </div>
   </div>
 </section>
@@ -787,6 +837,16 @@ if(wv&&ws)ws.addEventListener('click',function(){
   wv.muted=!wv.muted;
   if(!wv.muted){if(!wv.src&&wv.dataset.src)wv.src=wv.dataset.src;wv.play().catch(function(){});}
   ws.innerHTML=wv.muted?'\ud83d\udd07 Sound On':'\ud83d\udd0a Sound Off';
+});
+
+/* featured trailer sound toggle — it autoplays muted in view like the reels,
+   so unmuting also has to kick the lazy source in if it is not loaded yet */
+var tv=document.getElementById('janjaalTrailer'),ts=document.getElementById('trailerSnd');
+if(tv&&ts)ts.addEventListener('click',function(){
+  tv.muted=!tv.muted;
+  if(!tv.muted){if(!tv.src&&tv.dataset.src)tv.src=tv.dataset.src;tv.play().catch(function(){});}
+  ts.innerHTML=tv.muted?'\ud83d\udd07 Sound On':'\ud83d\udd0a Sound Off';
+  ts.setAttribute('aria-pressed',tv.muted?'false':'true');
 });
 
 /* hero parallax — batched into a frame so the scroll handler never writes
