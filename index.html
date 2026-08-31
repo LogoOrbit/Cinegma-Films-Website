@@ -318,7 +318,13 @@ body.menu-open #nav{z-index:1200}
 #trailer .head{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;flex-wrap:wrap}
 #trailer .laurel-line{display:flex;align-items:center;gap:12px;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--b);padding-bottom:6px}
 #trailer .laurel-line img{width:44px;height:44px;object-fit:contain;opacity:.85}
-#trailer .frame{margin-top:clamp(26px,3vw,38px)}
+/* the trailer is 2.35:1 scope (2541x1080), not 16:9 — give the frame the
+   film's own ratio and contain the video so nothing is ever cropped off the
+   sides. The still rides on the frame as a background so the 16:9 cover art
+   fills the scope frame instead of sitting in pillarbox bars before play. */
+#trailer .frame{margin-top:clamp(26px,3vw,38px);aspect-ratio:40/17;
+  background:#000 center/cover no-repeat url("assets/posters/Janjaal%20Watch%20Cover.avif")}
+#trailer .frame video{object-fit:contain}
 #trailer .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 #trailer .meta span{padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg2);
   font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#cfc9bd}
@@ -446,7 +452,7 @@ footer .fine a:hover{color:#fff}
     </div>
     <p class="lead v3-reveal" style="max-width:640px;margin-top:18px">A police officer finds a cursed golden pocket watch — and every wish it grants takes something back. Shot in 34 hours across Karachi and finished entirely in-house, <b style="color:#ddd7cb;font-weight:500">Janjaal (Tussle)</b> won 14 international awards across 9 countries and opened theatrically at Arena Cinemas in January 2025. Sound on.</p>
     <div class="frame v3-reveal">
-      <video id="janjaalTrailer" class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif" aria-label="Janjaal — official trailer" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
+      <video id="janjaalTrailer" class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4" aria-label="Janjaal — official trailer" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback></video>
       <div class="bars"></div>
       <div class="rec"><i></i>Janjaal · Official Trailer</div>
       <div class="tc">2024 · 24 MIN</div>
