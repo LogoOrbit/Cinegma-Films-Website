@@ -431,7 +431,7 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
 <!-- ══ HERO ══ -->
 <section id="hero">
   <div class="media">
-    <video id="heroVideo" autoplay muted loop playsinline preload="metadata" src="assets/posters/Janjaal%20Cover%20Video.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif"></video>
+    <video id="heroVideo" autoplay muted loop playsinline preload="metadata" src="assets/posters/Janjaal%20Cover%20Video.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif" controlsList="nodownload noplaybackrate noremoteplayback"></video>
     <div class="shade"></div>
   </div>
   <div class="content" id="heroContent">
@@ -558,7 +558,7 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
   <div class="panel">
     <div class="grab"><i></i></div>
     <button class="sx" aria-label="Close">✕</button>
-    <div class="hero-img"><video id="shImg" loop playsinline preload="none"></video><button class="sh-mute" id="shMute" aria-label="Toggle sound"></button></div>
+    <div class="hero-img"><video id="shImg" loop playsinline preload="none" controlsList="nodownload noplaybackrate noremoteplayback"></video><button class="sh-mute" id="shMute" aria-label="Toggle sound"></button></div>
     <div class="bd">
       <div class="line"><b id="shMatch"></b><span id="shMeta"></span></div>
       <h3 id="shTitle"></h3>
@@ -763,7 +763,7 @@ function cardHTML(id, rank){
   return '<article class="fcard" data-id="'+id+'" data-genre="'+f.genre+'" tabindex="0" aria-label="'+esc(f.title)+'">'+
     '<div class="fc-media">'+
       '<img class="fc-poster" src="'+f.poster+'" alt="'+esc(f.title)+' — poster" loading="lazy" decoding="async"/>'+
-      '<video class="fc-preview" muted loop playsinline preload="none" data-src="'+f.preview+'"></video>'+
+      '<video class="fc-preview" muted loop playsinline preload="none" data-src="'+f.preview+'" controlsList="nodownload noplaybackrate noremoteplayback"></video>'+
       '<div class="fc-fade"></div>'+
       (rank?'<span class="fc-rank">'+rank+'</span>':'')+
       chip+

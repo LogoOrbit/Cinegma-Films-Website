@@ -1,6 +1,38 @@
 (function(){
   'use strict';
 
+  // ── VIDEO PROTECTION ──
+  // Strips the browser's own download / save affordances off every <video> on
+  // the site and blocks the right-click menu over media. This is a deterrent,
+  // not DRM — the file still travels over the network to play at all — but it
+  // removes the one-click "Save video as…" path most people would use.
+  (function(){
+    function harden(v){
+      v.setAttribute('controlsList','nodownload noplaybackrate noremoteplayback');
+      v.setAttribute('disablepictureinpicture','');
+      v.setAttribute('disableremoteplayback','');
+      v.disablePictureInPicture=true;
+      if('disableRemotePlayback' in v)v.disableRemotePlayback=true;
+      v.addEventListener('contextmenu',function(e){e.preventDefault();});
+    }
+    function sweep(){
+      var vids=document.querySelectorAll('video'),i;
+      for(i=0;i<vids.length;i++)if(!vids[i].dataset.hardened){vids[i].dataset.hardened='1';harden(vids[i]);}
+    }
+    sweep();
+    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',sweep);
+    // videos injected later (lightboxes, poster hover reels) get the same treatment
+    if(window.MutationObserver)new MutationObserver(sweep).observe(document.documentElement,{childList:true,subtree:true});
+    // catch right-clicks that land on an overlay sitting above the frame
+    document.addEventListener('contextmenu',function(e){
+      var el=e.target;
+      while(el&&el!==document){
+        if(el.tagName==='VIDEO'||(el.classList&&(el.classList.contains('frame')||el.classList.contains('reel')||el.classList.contains('poster-w')))){e.preventDefault();return;}
+        el=el.parentNode;
+      }
+    },true);
+  })();
+
   // ── LOAD SITE TRACKER (once — some pages already include it directly) ──
   if(!document.querySelector('script[src*="tracker.js"]')){
     var ts=document.createElement('script');
