@@ -295,38 +295,112 @@
 
   <url>
     <loc>https://cinegmafilms.com/projects/portrait-of-life.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/portrait-of-life-poster.jpg</image:loc>
+      <image:title>Portrait of Life — Pakistani Short Film by Syed Asad Raza Abidi</image:title>
+      <image:caption>Portrait of Life — a 2025 Pakistani thesis short film by Syed Asad Raza Abidi. A painter struggles to portray his wife the way he once did.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://cinegmafilms.com/projects/portrait-of-life-trailer.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://cinegmafilms.com/assets/posters/Potrait_Opt_01.avif</image:loc>
-      <image:title>Portrait of Life — Drama Short Film by Cinegma Films</image:title>
-      <image:caption>Portrait of Life — a drama by Syed Asad Raza Abidi. A painter struggles to portray his wife the way he once did.</image:caption>
+      <image:loc>https://cinegmafilms.com/assets/posters/portrait-of-life-thumbnail.jpg</image:loc>
+      <image:title>Portrait of Life — Official Teaser</image:title>
+      <image:caption>Official teaser of Portrait of Life — Best Trailer Nominee, TMFF Scotland 2025.</image:caption>
     </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://cinegmafilms.com/assets/posters/portrait-of-life-thumbnail.jpg</video:thumbnail_loc>
+      <video:title>Portrait of Life — Official Teaser</video:title>
+      <video:description>Official teaser for Portrait of Life, a 2025 Pakistani thesis short film directed by Syed Asad Raza Abidi.</video:description>
+      <video:content_loc>https://CinegmaFilms.b-cdn.net/Portrait%20Of%20Life%20(Official%20Teaser)%20%EF%BD%9C%20A%20Film%20By%20Syed%20Asad.mp4</video:content_loc>
+      <video:publication_date>2025-06-02T00:00:00+05:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Portrait of Life</video:tag>
+      <video:tag>Portrait of Life short film</video:tag>
+      <video:tag>Pakistani short film</video:tag>
+      <video:tag>Syed Asad Raza Abidi</video:tag>
+      <video:category>Short Film</video:category>
+    </video:video>
   </url>
 
   <url>
     <loc>https://cinegmafilms.com/projects/zawaal.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/zawaal-poster.jpg</image:loc>
+      <image:title>Zawaal — Pakistani Psychological Thriller Short Film</image:title>
+      <image:caption>Zawaal — a dark Pakistani psychological thriller short film set in the streets of Karachi, directed by Syed Asad Raza Abidi. In production.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://cinegmafilms.com/projects/zawaal-trailer.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://cinegmafilms.com/assets/posters/Zawaal_Opt_01.avif</image:loc>
-      <image:title>Zawaal — Psychological Thriller by Cinegma Films</image:title>
-      <image:caption>Zawaal — a dark psychological thriller set in the streets of Karachi. In production.</image:caption>
+      <image:loc>https://cinegmafilms.com/assets/posters/zawaal-thumbnail.jpg</image:loc>
+      <image:title>Zawaal — Official 4K Trailer</image:title>
+      <image:caption>Official 4K trailer of Zawaal, an upcoming Pakistani psychological thriller short film.</image:caption>
     </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://cinegmafilms.com/assets/posters/zawaal-thumbnail.jpg</video:thumbnail_loc>
+      <video:title>Zawaal — Official 4K Trailer</video:title>
+      <video:description>Official 4K trailer for Zawaal, an upcoming Pakistani psychological thriller short film directed by Syed Asad Raza Abidi.</video:description>
+      <video:content_loc>https://CinegmaFilms.b-cdn.net/Zawaal%204K%20Trailer.mp4</video:content_loc>
+      <video:publication_date>2026-01-01T00:00:00+05:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Zawaal</video:tag>
+      <video:tag>Zawaal short film</video:tag>
+      <video:tag>Zawaal trailer</video:tag>
+      <video:tag>Pakistani short film</video:tag>
+      <video:tag>Syed Asad Raza Abidi</video:tag>
+      <video:category>Short Film</video:category>
+    </video:video>
   </url>
 
   <url>
     <loc>https://cinegmafilms.com/projects/a-soldier-beside-me.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/a-soldier-beside-me-poster.jpg</image:loc>
+      <image:title>A Soldier Beside Me — Pakistani War Drama Short Film</image:title>
+      <image:caption>A Soldier Beside Me — two soldiers question each other's fate on the frontline. Directed by Ameer Hamza. In production.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://cinegmafilms.com/projects/a-soldier-beside-me-trailer.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://cinegmafilms.com/assets/posters/Solder_Opt_01.avif</image:loc>
-      <image:title>A Soldier Beside Me — War Drama by Cinegma Films</image:title>
-      <image:caption>A Soldier Beside Me — two soldiers question each other's fate on the frontline. In production.</image:caption>
+      <image:loc>https://cinegmafilms.com/assets/posters/a-soldier-beside-me-thumbnail.jpg</image:loc>
+      <image:title>A Soldier Beside Me — Official Trailer</image:title>
+      <image:caption>Official trailer of A Soldier Beside Me, an upcoming Pakistani war drama short film.</image:caption>
     </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://cinegmafilms.com/assets/posters/a-soldier-beside-me-thumbnail.jpg</video:thumbnail_loc>
+      <video:title>A Soldier Beside Me — Official Trailer</video:title>
+      <video:description>Official trailer for A Soldier Beside Me, an upcoming Pakistani war drama short film written, directed and produced by Ameer Hamza.</video:description>
+      <video:content_loc>https://CinegmaFilms.b-cdn.net/A%20Soldier%20Beside%20Me%20-%20Offical%20Trailer.mp4</video:content_loc>
+      <video:publication_date>2026-02-26T00:00:00+05:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>A Soldier Beside Me</video:tag>
+      <video:tag>A Soldier Beside Me short film</video:tag>
+      <video:tag>A Soldier Beside Me trailer</video:tag>
+      <video:tag>Pakistani short film</video:tag>
+      <video:tag>Ameer Hamza</video:tag>
+      <video:category>Short Film</video:category>
+    </video:video>
   </url>
 
   <url>

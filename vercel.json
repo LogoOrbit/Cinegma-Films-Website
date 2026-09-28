@@ -170,6 +170,61 @@
       "source": "/janjaal-urdu",
       "destination": "/projects/janjaal-urdu.html",
       "permanent": true
+    },
+    {
+      "source": "/portrait-of-life",
+      "destination": "/projects/portrait-of-life.html",
+      "permanent": true
+    },
+    {
+      "source": "/portrait",
+      "destination": "/projects/portrait-of-life.html",
+      "permanent": true
+    },
+    {
+      "source": "/portrait-of-life-trailer",
+      "destination": "/projects/portrait-of-life-trailer.html",
+      "permanent": true
+    },
+    {
+      "source": "/portrait-of-life-teaser",
+      "destination": "/projects/portrait-of-life-trailer.html",
+      "permanent": true
+    },
+    {
+      "source": "/zawaal",
+      "destination": "/projects/zawaal.html",
+      "permanent": true
+    },
+    {
+      "source": "/zawaal-trailer",
+      "destination": "/projects/zawaal-trailer.html",
+      "permanent": true
+    },
+    {
+      "source": "/a-soldier-beside-me",
+      "destination": "/projects/a-soldier-beside-me.html",
+      "permanent": true
+    },
+    {
+      "source": "/a-soldier-besides-me",
+      "destination": "/projects/a-soldier-beside-me.html",
+      "permanent": true
+    },
+    {
+      "source": "/soldier-beside-me",
+      "destination": "/projects/a-soldier-beside-me.html",
+      "permanent": true
+    },
+    {
+      "source": "/a-soldier-beside-me-trailer",
+      "destination": "/projects/a-soldier-beside-me-trailer.html",
+      "permanent": true
+    },
+    {
+      "source": "/soldier-trailer",
+      "destination": "/projects/a-soldier-beside-me-trailer.html",
+      "permanent": true
     }
   ]
 }
