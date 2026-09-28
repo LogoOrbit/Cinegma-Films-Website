@@ -5,7 +5,7 @@
 
   <url>
     <loc>https://cinegmafilms.com/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -17,7 +17,7 @@
 
   <url>
     <loc>https://cinegmafilms.com/watch.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -25,21 +25,6 @@
       <image:title>Watch Films — Cinegma Films | Janjaal, Portrait of Life &amp; More</image:title>
       <image:caption>Stream films by Cinegma Films including award-winning Pakistani short films directed by Syed Asad Raza Abidi.</image:caption>
     </image:image>
-    <video:video>
-      <video:thumbnail_loc>https://cinegmafilms.com/assets/posters/Janjaal%20Watch%20Cover.avif</video:thumbnail_loc>
-      <video:title>Janjaal (Tussle) — Full Film Stream</video:title>
-      <video:description>A police officer discovers a cursed golden pocket watch. Each wish exacts a deadly price. 14 international awards across 9 countries. Directed by Syed Asad Raza Abidi.</video:description>
-      <video:duration>1380</video:duration>
-      <video:publication_date>2024-01-05T00:00:00+05:00</video:publication_date>
-      <video:player_loc>https://www.youtube.com/embed/uApBtlmQA0M</video:player_loc>
-      <video:family_friendly>yes</video:family_friendly>
-      <video:tag>Pakistani short film</video:tag>
-      <video:tag>psychological thriller</video:tag>
-      <video:tag>Janjaal</video:tag>
-      <video:tag>Syed Asad Raza Abidi</video:tag>
-      <video:tag>Karachi cinema</video:tag>
-      <video:category>Short Film</video:category>
-    </video:video>
   </url>
 
   <url>
@@ -199,13 +184,110 @@
 
   <url>
     <loc>https://cinegmafilms.com/projects/janjaal.html</loc>
-    <lastmod>2026-07-13</lastmod>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/janjaal-short-film-poster.jpg</image:loc>
+      <image:title>Janjaal (Tussle) — Pakistani Short Film Poster</image:title>
+      <image:caption>Official poster of Janjaal (Tussle), a 24-minute Pakistani Urdu psychological thriller short film by Syed Asad Raza Abidi. 14 international awards across 9 countries.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/janjaal-short-film-og.jpg</image:loc>
+      <image:title>Janjaal (Tussle) — still from the Pakistani short film</image:title>
+      <image:caption>The golden pocket watch — a still from Janjaal (Tussle), directed by Syed Asad Raza Abidi.</image:caption>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://cinegmafilms.com/assets/posters/janjaal-trailer-thumbnail.jpg</video:thumbnail_loc>
+      <video:title>Janjaal (Tussle) — Official Trailer</video:title>
+      <video:description>Official trailer for Janjaal (Tussle), the award-winning Pakistani psychological thriller short film by Syed Asad Raza Abidi, starring Shamoon Abbasi. Winner of Best Trailer at TMFF Scotland.</video:description>
+      <video:content_loc>https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4</video:content_loc>
+      <video:publication_date>2025-01-05T00:00:00+05:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Janjaal</video:tag>
+      <video:tag>Janjaal short film</video:tag>
+      <video:tag>Janjaal trailer</video:tag>
+      <video:tag>Pakistani short film</video:tag>
+      <video:tag>psychological thriller</video:tag>
+      <video:tag>Shamoon Abbasi</video:tag>
+      <video:tag>Syed Asad Raza Abidi</video:tag>
+      <video:category>Short Film</video:category>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/janjaal-trailer.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://cinegmafilms.com/assets/posters/Janjaal_Opt_01.avif</image:loc>
-      <image:title>Janjaal (Tussle) — Award-Winning Pakistani Short Film</image:title>
-      <image:caption>Janjaal (Tussle) — a 23-minute psychological thriller by Syed Asad Raza Abidi. 14 international awards across 9 countries.</image:caption>
+      <image:loc>https://cinegmafilms.com/assets/posters/janjaal-trailer-thumbnail.jpg</image:loc>
+      <image:title>Janjaal Trailer — Pakistani Short Film</image:title>
+      <image:caption>Official trailer of Janjaal (Tussle) — Best Trailer, TMFF Scotland 2025.</image:caption>
+    </image:image>
+    <video:video>
+      <video:thumbnail_loc>https://cinegmafilms.com/assets/posters/janjaal-trailer-thumbnail.jpg</video:thumbnail_loc>
+      <video:title>Janjaal (Tussle) — Official Trailer</video:title>
+      <video:description>Official trailer for Janjaal (Tussle), the award-winning Pakistani psychological thriller short film by Syed Asad Raza Abidi, starring Shamoon Abbasi. Winner of Best Trailer at TMFF Scotland.</video:description>
+      <video:content_loc>https://CinegmaFilms.b-cdn.net/Janjaal%20-%20Official%20Trailer.mp4</video:content_loc>
+      <video:publication_date>2025-01-05T00:00:00+05:00</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Janjaal</video:tag>
+      <video:tag>Janjaal short film</video:tag>
+      <video:tag>Janjaal trailer</video:tag>
+      <video:tag>Pakistani short film</video:tag>
+      <video:tag>psychological thriller</video:tag>
+      <video:tag>Shamoon Abbasi</video:tag>
+      <video:tag>Syed Asad Raza Abidi</video:tag>
+      <video:category>Short Film</video:category>
+    </video:video>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/janjaal-cast-and-crew.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/janjaal-short-film-poster.jpg</image:loc>
+      <image:title>Janjaal Cast &amp; Crew</image:title>
+      <image:caption>Janjaal (Tussle) starring Shamoon Abbasi, Nazish Ali and Danish Irshad. Directed by Syed Asad Raza Abidi.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/janjaal-awards.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/laurels/Toronto-FantasySci-Fi-Film--Screenplay-Festival---BEST-SHORT-FILM---2025.webp</image:loc>
+      <image:title>Janjaal — Best Short Film, Toronto Fantasy/Sci-Fi Film Festival</image:title>
+      <image:caption>Janjaal (Tussle) won 14 international awards across 9 countries.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/janjaal-making-of.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/janjaal-short-film-og.jpg</image:loc>
+      <image:title>Making of Janjaal</image:title>
+      <image:caption>How Janjaal was shot in 34 hours on Sunhera Beach, Karachi.</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cinegmafilms.com/projects/janjaal-urdu.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/janjaal-short-film-poster.jpg</image:loc>
+      <image:title>جنجال — پاکستانی شارٹ فلم</image:title>
+      <image:caption>جنجال (Tussle) — سید اسد رضا عابدی کی پاکستانی اردو شارٹ فلم</image:caption>
     </image:image>
   </url>
 
