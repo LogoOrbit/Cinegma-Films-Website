@@ -157,6 +157,17 @@
   </url>
 
   <url>
+    <loc>https://cinegmafilms.com/showreel.html</loc>
+    <lastmod>2026-10-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/janjaal-trailer-thumbnail.jpg</image:loc>
+      <image:title>Showreel &amp; Trailers — Syed Asad Raza Abidi</image:title>
+    </image:image>
+  </url>
+
+  <url>
     <loc>https://cinegmafilms.com/portfolio.html</loc>
     <lastmod>2026-07-13</lastmod>
     <changefreq>monthly</changefreq>

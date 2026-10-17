@@ -87,6 +87,31 @@
   ],
   "redirects": [
     {
+      "source": "/showreel",
+      "destination": "/showreel.html",
+      "permanent": true
+    },
+    {
+      "source": "/Showreel",
+      "destination": "/showreel.html",
+      "permanent": true
+    },
+    {
+      "source": "/reel",
+      "destination": "/showreel.html",
+      "permanent": true
+    },
+    {
+      "source": "/trailers",
+      "destination": "/showreel.html",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio-reel",
+      "destination": "/showreel.html",
+      "permanent": true
+    },
+    {
       "source": "/janjaal",
       "destination": "/projects/janjaal.html",
       "permanent": true
