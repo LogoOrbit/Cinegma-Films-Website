@@ -135,6 +135,10 @@
 
     addEventListener('wheel', function (e) {
       if (e.ctrlKey || e.defaultPrevented || nested(e.target)) return;
+      /* Page scroll is locked (menu drawer or game open) — leave it alone,
+         otherwise the page keeps gliding behind the overlay. */
+      if (document.body.style.overflow === 'hidden' ||
+          document.body.classList.contains('menu-open')) return;
       var d = e.deltaY;
       if (e.deltaMode === 1) d *= 18;        /* lines  */
       else if (e.deltaMode === 2) d *= innerHeight; /* pages */

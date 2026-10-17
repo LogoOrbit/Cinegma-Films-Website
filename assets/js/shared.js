@@ -85,6 +85,34 @@
   // Every page ships the same drawer: <nav id="mmenu"> toggled by body.menu-open
   // and #burger. (A handful of older pages also carry #mobileMenu/#hamburger,
   // so both shapes are handled here.)
+  //
+  // Drawer fixes, applied over each page's inline styles:
+  // - no backdrop blur under the clip-path reveal (it flickers in Chrome and
+  //   is invisible behind a near-opaque fill anyway)
+  // - the bar's own blur/border is dropped while open so it doesn't smear
+  //   over the reveal
+  // - visibility waits for the close animation instead of snapping off
+  // - a stable scrollbar gutter stops the page jumping sideways when scroll
+  //   is locked
+  // - the quick-nav pill stays out of the open drawer
+  (function(){
+    if(!document.getElementById('mmenu') || document.getElementById('mmenu-fix')) return;
+    var ease='cubic-bezier(.76,0,.24,1)';
+    var st=document.createElement('style');
+    st.id='mmenu-fix';
+    st.textContent=
+      'html{scrollbar-gutter:stable}'+
+      'html body #mmenu{background:#06060a;-webkit-backdrop-filter:none;backdrop-filter:none;'+
+        'overflow-y:auto;overscroll-behavior:contain;justify-content:center;justify-content:safe center;'+
+        'padding-top:84px;padding-bottom:40px;'+
+        'transition:clip-path .6s '+ease+',visibility 0s linear .6s}'+
+      'html body.menu-open #mmenu{transition:clip-path .6s '+ease+',visibility 0s}'+
+      'html body.menu-open #nav{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;border-color:transparent;transform:none}'+
+      'body.menu-open #v3-k-fab,body.menu-open .v3-k-fab,body.menu-open #v3-k-fabx{opacity:0;pointer-events:none}'+
+      '@media (prefers-reduced-motion:reduce){html body #mmenu,html body.menu-open #mmenu{transition:none}}';
+    document.head.appendChild(st);
+  })();
+
   function setMenu(open){
     var m = document.getElementById('mobileMenu');
     var h = document.getElementById('hamburger') || document.getElementById('burger');
