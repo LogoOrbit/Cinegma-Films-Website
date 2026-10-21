@@ -116,6 +116,7 @@
      links and the scrollbar all keep behaving normally. Touch devices already
      have momentum from the OS and are left completely alone. */
   function initSmoothScroll() {
+    if (window.lenis) return; /* motion.js runs Lenis instead */
     if (reduced || !fine || matchMedia('(hover: none)').matches) return;
     var target = scrollY, current = scrollY, raf = 0, driving = false, last = 0;
 
@@ -203,8 +204,8 @@
       });
     }, { passive: true });
 
-    /* custom cursor */
-    if (fine && !reduced) {
+    /* custom cursor (motion.js draws its own when loaded) */
+    if (fine && !reduced && !window.__cinegmaMotion) {
       var dot = el('div', 'v3-cur-dot'), ring = el('div', 'v3-cur-ring');
       b.appendChild(dot); b.appendChild(ring);
       var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, live = false;

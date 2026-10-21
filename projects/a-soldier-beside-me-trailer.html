@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>try{if(sessionStorage.getItem('m-pt'))document.documentElement.classList.add('m-pt-in')}catch(e){}</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <!-- Google tag (gtag.js) -->
@@ -44,7 +45,12 @@ gtag('config', 'AW-18200565991');
 <script>/* arm the scroll-reveal gate, and disarm it if v3.js never runs so content can never stay hidden */(function(d){d.className+=' v3-js';setTimeout(function(){if(!window.__cinegmaV3)d.classList.remove('v3-js');},4000);})(document.documentElement);</script>
 <link rel="stylesheet" href="../assets/css/v3.css"/>
 <link rel="stylesheet" href="../assets/css/film.css?v=1"/>
-<script src="../assets/js/v3.js?v=2" defer></script>
+<script src="../assets/js/vendor/gsap.min.js" defer></script>
+<script src="../assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="../assets/js/vendor/SplitText.min.js" defer></script>
+<script src="../assets/js/vendor/lenis.min.js" defer></script>
+<script src="../assets/js/motion.js?v=1" defer></script>
+<script src="../assets/js/v3.js?v=3" defer></script>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 <script type="application/ld+json">
 {
@@ -150,6 +156,7 @@ gtag('config', 'AW-18200565991');
  ]
 }
 </script>
+<link rel="stylesheet" href="../assets/css/motion.css?v=1"/>
 </head>
 <body>
 <header id="nav">

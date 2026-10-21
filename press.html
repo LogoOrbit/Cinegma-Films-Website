@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>try{if(sessionStorage.getItem('m-pt'))document.documentElement.classList.add('m-pt-in')}catch(e){}</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <!-- Google tag (gtag.js) -->
@@ -37,7 +38,12 @@ gtag('config', 'AW-18200565991');
 <link rel="stylesheet" href="assets/css/fonts.css"/>
 <script>/* arm the scroll-reveal gate, and disarm it if v3.js never runs so content can never stay hidden */(function(d){d.className+=' v3-js';setTimeout(function(){if(!window.__cinegmaV3)d.classList.remove('v3-js');},4000);})(document.documentElement);</script>
 <link rel="stylesheet" href="assets/css/v3.css"/>
-<script src="assets/js/v3.js?v=2" defer></script>
+<script src="assets/js/vendor/gsap.min.js" defer></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/vendor/SplitText.min.js" defer></script>
+<script src="assets/js/vendor/lenis.min.js" defer></script>
+<script src="assets/js/motion.js?v=1" defer></script>
+<script src="assets/js/v3.js?v=3" defer></script>
 <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Person","@id":"https://cinegmafilms.com/#syed-asad","name":"Syed Asad Raza Abidi","alternateName":"Syed Asad","nationality":"Pakistani","jobTitle":"Film Director, Editor, Founder","description":"Pakistani film director, editor, colorist and founder of Cinegma Films LLC. Graduate of Indus University Karachi (BS Film & TV, 2025). Best known for Janjaal (Tussle), 14 international awards, 22 global selections.","url":"https://cinegmafilms.com/press.html","image":{"@type":"ImageObject","url":"https://cinegmafilms.com/assets/posters/syedasadaboutpotrait.png","description":"Syed Asad Raza Abidi — Pakistani filmmaker and founder of Cinegma Films"},"sameAs":["https://www.imdb.com/name/nm16938510/","https://filmfreeway.com/SyedAsad","https://www.instagram.com/asadsyed711","https://www.facebook.com/share/1A39G6PmRG/","https://www.linkedin.com/in/asadsyed711","https://youtube.com/@syedasad"],"email":"info@cinegmafilms.com","alumniOf":{"@type":"EducationalOrganization","name":"Indus University","addressLocality":"Karachi"},"award":["Best Short Film — Toronto Fantasy/Sci-Fi Film Festival 2026","Best Director — Cedar Film Festival 2026","Best Film — Cedar Film Festival 2026","Best Director — Gandhara International Film Festival 2025–26","Best Director — KISFF India 2025","Best Short Film — KISFF India 2025","Best Short Film — PIFF 2025","Best Trailer — TMFF Scotland 2025","Best Director — Indus IFF 2025"],"worksFor":{"@type":"Organization","@id":"https://cinegmafilms.com/#organization"}}
@@ -150,6 +156,7 @@ footer nav a:hover{color:#fff}
 .plink:hover{background:#14141c;color:#fff}
 .plink em{font-style:normal;color:var(--mut)}
 </style>
+<link rel="stylesheet" href="assets/css/motion.css?v=1"/>
 </head>
 <body>
 <header id="nav">

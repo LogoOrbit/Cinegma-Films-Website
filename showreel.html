@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>try{if(sessionStorage.getItem('m-pt'))document.documentElement.classList.add('m-pt-in')}catch(e){}</script>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <!-- Google tag (gtag.js) -->
@@ -179,6 +180,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px}
 #modal .nav2 .btn{padding:11px 18px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
+<link rel="stylesheet" href="assets/css/motion.css?v=1"/>
 </head>
 <body>
 <header id="nav">
@@ -433,5 +435,10 @@ $('shareBtn').addEventListener('click',function(){
 document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.target.closest('video,.player,.th'))e.preventDefault()});
 })();
 </script>
+<script src="assets/js/vendor/gsap.min.js" defer></script>
+<script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/vendor/SplitText.min.js" defer></script>
+<script src="assets/js/vendor/lenis.min.js" defer></script>
+<script src="assets/js/motion.js?v=1" defer></script>
 </body>
 </html>

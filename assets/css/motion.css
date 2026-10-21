@@ -1,0 +1,61 @@
+/* CINEGMA MOTION — Lenis smooth scroll, GSAP scroll reveals, split headlines,
+   media wipes, magnetic cursor, image previews and page transitions.
+   Paired with assets/js/motion.js. */
+
+/* ---- Lenis ---- */
+html.lenis,html.lenis body{height:auto}
+html.lenis{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:clip}
+.lenis.lenis-smooth iframe{pointer-events:none}
+
+/* ---- split headlines ---- */
+.m-split{font-kerning:none}
+.m-split .m-line-mask{padding-bottom:.08em;margin-bottom:-.08em}
+
+/* ---- media wipe ---- */
+.m-wipe{will-change:clip-path}
+/* posters: GSAP drives --m-s, multiplied into the existing parallax/hover transform */
+.poster-w img,.fcard .fc-poster{
+  transform:translate3d(0,var(--v3-py,0px),0) scale(calc(var(--v3-ps,1.06) * var(--m-s,1)))}
+
+/* ---- cursor ---- */
+@media (hover:hover) and (pointer:fine){
+  .m-cur{position:fixed;top:0;left:0;z-index:2147483300;pointer-events:none;opacity:0;transition:opacity .3s ease}
+  body.m-cur-live .m-cur{opacity:1}
+  .m-cur-dot{width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;mix-blend-mode:difference}
+  .m-cur-ring{width:40px;height:40px;margin:-20px 0 0 -20px;display:flex;align-items:center;justify-content:center}
+  .m-cur-ring i{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(255,255,255,.55);
+    transition:transform .45s cubic-bezier(.16,1,.3,1),background-color .45s ease,border-color .45s ease}
+  .m-cur-ring b{position:relative;font:600 10px/1 "Space Grotesk",system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;
+    color:#080808;opacity:0;transform:scale(.6);transition:opacity .3s ease,transform .45s cubic-bezier(.16,1,.3,1)}
+  body.m-cur-hover .m-cur-ring i{transform:scale(1.6);border-color:rgba(255,255,255,.9)}
+  body.m-cur-label .m-cur-ring i{transform:scale(2.2);background:#fff;border-color:#fff}
+  body.m-cur-label .m-cur-ring b{opacity:1;transform:none}
+  body.m-cur-label .m-cur-dot{opacity:0}
+  body.m-cur-down .m-cur-ring i{transform:scale(.7)}
+  body.m-cur-live,body.m-cur-live a,body.m-cur-live button{cursor:none}
+  body.m-cur-live input,body.m-cur-live textarea,body.m-cur-live select{cursor:auto}
+}
+@media (hover:none),(pointer:coarse){.m-cur{display:none!important}}
+
+/* ---- image preview that follows the mouse ---- */
+.m-preview{position:fixed;top:0;left:0;width:220px;aspect-ratio:2/3;margin:-165px 0 0 -110px;z-index:2147483250;
+  pointer-events:none;border-radius:10px;overflow:hidden;opacity:0;transform:scale(.6);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.m-preview img{width:100%;height:100%;object-fit:cover;display:block}
+
+/* ---- page transitions ----
+   html.m-pt-in is set in <head> when we arrive via a transition, so the curtain
+   is already covering on first paint. It hides itself after 2.5s even if JS
+   never runs, so a page can never stay blacked out. */
+.m-curtain,html.m-pt-in::after{position:fixed;inset:0;z-index:2147483500;background:#080808;
+  display:flex;align-items:center;justify-content:center;pointer-events:none}
+html.m-pt-in::after{content:"";animation:m-pt-fail 0s linear 2.5s forwards}
+@keyframes m-pt-fail{to{visibility:hidden}}
+.m-curtain{visibility:hidden;clip-path:inset(100% 0 0 0)}
+.m-curtain span{font:400 clamp(28px,5vw,64px)/1 "Bebas Neue",sans-serif;letter-spacing:.42em;padding-left:.42em;color:#f0ece4;opacity:0}
+
+@media (prefers-reduced-motion:reduce){
+  .poster-w img,.fcard .fc-poster{transform:none!important}
+  .m-preview{display:none!important}
+}
