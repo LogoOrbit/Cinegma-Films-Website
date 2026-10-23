@@ -78,6 +78,21 @@ button{font:inherit;color:inherit}
 #nav .lk a:hover{color:#fff}
 #nav .btn{padding:10px 18px}
 @media(max-width:760px){#nav .lk{display:none}}
+#nav .lk a{padding:6px 0;border-bottom:1px solid transparent}
+#nav .lk a.on,#nav .lk a:hover{color:#fff;border-color:#fff}
+#burger{display:none;background:none;border:0;cursor:pointer;width:40px;height:40px;position:relative;z-index:1202}
+#burger span{position:absolute;left:8px;right:8px;height:2px;background:var(--ink,#f0ece4);transition:.35s}
+#burger span:nth-child(1){top:14px}#burger span:nth-child(2){top:20px}#burger span:nth-child(3){top:26px}
+body.menu-open #burger span:nth-child(1){top:20px;transform:rotate(45deg)}
+body.menu-open #burger span:nth-child(2){opacity:0}
+body.menu-open #burger span:nth-child(3){top:20px;transform:rotate(-45deg)}
+#mmenu{position:fixed;inset:0;background:rgba(6,6,10,.96);backdrop-filter:blur(24px);z-index:1100;display:flex;flex-direction:column;justify-content:center;padding:0 10vw;gap:6px;clip-path:circle(0 at calc(100% - 44px) 38px);transition:clip-path .65s cubic-bezier(.76,0,.24,1);visibility:hidden}
+body.menu-open #mmenu{clip-path:circle(150% at calc(100% - 44px) 38px);visibility:visible}
+body.menu-open #nav{z-index:1200}
+#mmenu a{font-family:var(--disp);font-size:clamp(32px,8vw,58px);letter-spacing:.06em;text-transform:uppercase;color:var(--ink,#f0ece4);display:flex;align-items:baseline;gap:16px;opacity:.9}
+#mmenu a i{font-family:var(--body);font-style:normal;font-size:11px;color:#a8a8a8;letter-spacing:.3em}
+#mmenu a:hover{color:transparent;-webkit-text-stroke:1px #fff}
+@media(max-width:820px){#nav .lk{display:none}#nav>.btn{display:none}#burger{display:block}}
 
 /* hero + main reel */
 #reel{padding:clamp(100px,12vw,140px) 0 clamp(40px,5vw,64px)}
@@ -185,9 +200,20 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px}
 <body>
 <header id="nav">
   <a class="brand" href="index.html" aria-label="Cinegma Films home">CINEGMA<em></em></a>
-  <nav class="lk" aria-label="On this page"><a href="#reel">Showreel</a><a href="#trailers">Trailers</a><a href="#credits">Credits</a><a href="#contact">Contact</a></nav>
-  <a class="btn solid" href="mailto:info@cinegmafilms.com?subject=Showreel%20enquiry">Get in Touch</a>
+  <nav class="lk" aria-label="Primary"><a href="index.html">Home</a><a href="watch.html">Watch</a><a href="showreel.html" class="on">Showreel</a><a href="services.html">Services</a><a href="about.html">About</a><a href="press.html">Press</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></nav>
+  <a class="btn solid" href="contact.html">Start a Project</a>
+  <button id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
+<nav id="mmenu" aria-label="Mobile">
+  <a href="index.html"><i>01</i>Home</a>
+  <a href="watch.html"><i>02</i>Watch</a>
+  <a href="showreel.html"><i>03</i>Showreel</a>
+  <a href="services.html"><i>04</i>Services</a>
+  <a href="about.html"><i>05</i>About</a>
+  <a href="press.html"><i>06</i>Press</a>
+  <a href="blog.html"><i>07</i>Blog</a>
+  <a href="contact.html"><i>08</i>Contact</a>
+</nav>
 
 <main>
 <section id="reel">
@@ -440,5 +466,8 @@ document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.targe
 <script src="assets/js/vendor/SplitText.min.js" defer></script>
 <script src="assets/js/vendor/lenis.min.js" defer></script>
 <script src="assets/js/motion.js?v=1" defer></script>
+<script>
+(function(){var b=document.getElementById('burger');if(!b)return;b.addEventListener('click',function(){var o=document.body.classList.toggle('menu-open');b.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});document.querySelectorAll('#mmenu a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open');document.body.style.overflow='';});});})();
+</script>
 </body>
 </html>
