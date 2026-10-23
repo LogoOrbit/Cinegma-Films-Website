@@ -680,4 +680,135 @@
     <priority>0.8</priority>
   </url>
 
+  <url>
+    <loc>https://cinegmafilms.com/film-posters.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/janjaal-awards-full.webp</image:loc>
+      <image:title>Janjaal (Tussle) — Official poster with awards &amp; selections</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/janjaal-main-full.webp</image:loc>
+      <image:title>Janjaal (Tussle) — Main theatrical poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/janjaal-teaser-full.webp</image:loc>
+      <image:title>Janjaal (Tussle) — Teaser poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/janjaal-danish-irshad-full.webp</image:loc>
+      <image:title>Janjaal (Tussle) — Character poster — Danish Irshad</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/janjaal-nazish-ali-full.webp</image:loc>
+      <image:title>Janjaal (Tussle) — Character poster — Nazish Ali</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/janjaal-shamoon-abbasi-full.webp</image:loc>
+      <image:title>Janjaal (Tussle) — Character poster — Shamoon Abbasi</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/zawaal-full.webp</image:loc>
+      <image:title>Zawaal — Official poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/a-soldier-beside-me-full.webp</image:loc>
+      <image:title>A Soldier Beside Me — Official poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/payam-e-dil-full.webp</image:loc>
+      <image:title>Payam-e-Dil — Official poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/urdu-bazaar-full.webp</image:loc>
+      <image:title>Urdu Bazaar — Documentary poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/portrait-of-life-full.webp</image:loc>
+      <image:title>Portrait of Life — Official poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/main-aur-achu-full.webp</image:loc>
+      <image:title>Main Aur Achu — Official poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/main-aur-achu-landscape-full.webp</image:loc>
+      <image:title>Main Aur Achu — Landscape poster with credits</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/maa-full.webp</image:loc>
+      <image:title>Maa — Short film poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/phir-se-full.webp</image:loc>
+      <image:title>Phir Se — Official poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/phir-se-alt-full.webp</image:loc>
+      <image:title>Phir Se — Alternate poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/grace-in-silence-1-full.webp</image:loc>
+      <image:title>Grace in Silence — Burrak Organization — poster I</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/grace-in-silence-2-full.webp</image:loc>
+      <image:title>Grace in Silence — Burrak Organization — poster II</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/grace-in-silence-3-full.webp</image:loc>
+      <image:title>Grace in Silence — Burrak Organization — poster III</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/grace-in-silence-4-full.webp</image:loc>
+      <image:title>Grace in Silence — Burrak Organization — main poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/paigham-hai-ramadhan-full.webp</image:loc>
+      <image:title>Paigham Hai Ramadhan — Burrak Organization</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/popcorn-full.webp</image:loc>
+      <image:title>Popcorn — Directed by Sajjad Haider</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/argus-guardinal-full.webp</image:loc>
+      <image:title>Argus Guardinal — Character concept poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/argus-guardinal-face-full.webp</image:loc>
+      <image:title>Argus Guardinal — Character concept — close-up</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/argus-guardinal-moon-full.webp</image:loc>
+      <image:title>Argus Guardinal — Character concept — moonlight</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/end-of-war-full.webp</image:loc>
+      <image:title>End of War — Concept poster</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/end-of-war-2-full.webp</image:loc>
+      <image:title>End of War — Concept poster II</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/end-of-war-3-full.webp</image:loc>
+      <image:title>End of War — Concept poster III</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/concept-alley-full.webp</image:loc>
+      <image:title>Concept Poster — Design study</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/concept-typographic-full.webp</image:loc>
+      <image:title>Concept Poster — Typographic design study</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://cinegmafilms.com/assets/posters/gallery/zehran-full.webp</image:loc>
+      <image:title>Zehran — Design study</image:title>
+    </image:image>
+  </url>
+
 </urlset>
