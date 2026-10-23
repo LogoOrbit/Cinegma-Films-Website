@@ -169,6 +169,31 @@ footer nav a:hover{color:#fff}
 .sbtn:hover{background:#fff;color:#06060a;border-color:#fff;transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,255,255,.2)}
 </style>
 <link rel="stylesheet" href="../assets/css/motion.css?v=1"/>
+<style id="pcard-css">
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/archivo-black-normal-latin.woff2) format('woff2')}
+.pc-grid{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:center;margin-top:10px}
+@media(max-width:860px){.pc-grid{grid-template-columns:1fr}}
+.pcard{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#050505;container-type:inline-size;border-radius:6px;box-shadow:0 40px 90px rgba(0,0,0,.55);isolation:isolate}
+.pcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 25%);transform:scale(var(--sc,1));transform-origin:var(--pos,50% 25%);filter:grayscale(1) contrast(1.12) brightness(.82);z-index:-2}
+.pcard::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 30% 30%,transparent 30%,rgba(0,0,0,.55) 75%),linear-gradient(180deg,rgba(0,0,0,.35) 0%,transparent 22%,transparent 42%,rgba(0,0,0,.72) 66%,rgba(0,0,0,.94) 100%)}
+.pcard::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.pcard .brand{position:absolute;top:7.6cqw;right:10cqw;font-family:var(--body);font-size:max(1.75cqw,9px);letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:1.1cqw;z-index:1}
+.pcard .brand::after{content:"";width:max(.35cqw,2px);height:2.2cqw;min-height:12px;background:#fff}
+.pcard .txt{position:absolute;right:10cqw;bottom:7cqw;left:10cqw;display:flex;flex-direction:column;align-items:flex-end;text-align:right;z-index:1}
+.pcard h3{font-family:'Archivo Black','Arial Black',Impact,sans-serif;font-weight:400;font-size:var(--nf,8.4cqw);line-height:.98;letter-spacing:.02em;text-transform:uppercase;color:#fff;margin:0}
+.pcard h3 span{display:block;white-space:nowrap}
+.pcard .rl{font-family:var(--body);font-size:max(2.4cqw,11px);letter-spacing:.04em;text-transform:uppercase;color:#f2efe9;margin-top:4.4cqw;margin-right:4cqw}
+.pcard .rl::after{content:" |";font-weight:300}
+.pcard .bio{max-width:61%;margin-top:8.6cqw;padding-right:1.1cqw;border-right:max(.35cqw,2px) solid #fff;font-family:var(--body);font-weight:400;font-size:max(1.55cqw,9.5px);line-height:1.45;color:#ece8e1}
+.pcard .url{position:absolute;left:10cqw;bottom:10.5cqw;font-family:var(--body);font-size:max(1.85cqw,9px);color:#fff;letter-spacing:.01em;z-index:1}
+@media(max-width:480px){.pcard .bio{max-width:100%;margin-top:6cqw}.pcard .url{top:7.6cqw;bottom:auto;left:10cqw}}
+.pc-side p{color:var(--mut);line-height:1.8;font-weight:300;margin-top:18px;max-width:460px}
+.pc-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.pc-btns a{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;border:1px solid rgba(255,255,255,.4);color:#fff;transition:all .3s}
+.pc-btns a:hover{background:#fff;color:#06060a}
+.pc-btns a.solid{background:#fff;color:#06060a;border-color:#fff}
+.pc-btns a.solid:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,255,255,.2)}
+</style>
 </head>
 <body>
 <header id="nav">
@@ -196,6 +221,28 @@ footer nav a:hover{color:#fff}
       <h1><span class="line"><span>Dayyan</span></span><span class="line"><span class="serif-i" style="text-transform:none">Khalid</span></span></h1>
       <div class="role">Film Producer · Assistant Director</div>
       <div class="socials"><a class="sbtn" href="https://www.instagram.com/dayyan_shiekh/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.3" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a></div>
+    </div>
+  </div>
+</section>
+<section class="sec pc-sec">
+  <div class="wrap">
+    <div class="pc-grid">
+      <figure class="pcard" id="pcard" style="--pos:60% 18%;--sc:1;--nf:8.4cqw">
+        <img src="../assets/posters/Dayyan%20image.avif" alt="Dayyan Khalid — Film Producer, Cinegma Films" loading="lazy" decoding="async"/>
+        <span class="brand">CINEGMA FILMS</span>
+        <div class="txt">
+          <h3><span>Dayyan</span><span>Khalid</span></h3>
+          <div class="rl">Film Producer</div>
+          <p class="bio">Dayyan Khalid is a Karachi-based film producer and assistant director with a degree in Media Sciences from Indus University. He produced Zawaal and Portrait of Life, and served as associate producer on Janjaal, A Soldier Beside Me and Peyary Abbu. He also works on television dramas, handling planning, scheduling, on-set coordination and post-production.</p>
+        </div>
+        <span class="url">cinegmafilms.com</span>
+      </figure>
+      <div class="pc-side">
+        <span class="kicker v3-reveal">Profile Card</span>
+        <h2 class="h-lg v3-reveal" style="margin-top:16px">Dayyan <span class="serif-i">at a Glance</span></h2>
+        <p class="v3-reveal">The official Cinegma Films profile card for Dayyan Khalid. Download it in full resolution for press, festival catalogues, posts and stories.</p>
+        <div class="pc-btns v3-reveal"><a class="solid" href="../assets/team-cards/dayyan-khalid.jpg" download="dayyan-khalid-cinegma-films.jpg">Download Card &#8595;</a><a href="../assets/team-cards/dayyan-khalid.jpg" target="_blank" rel="noopener">View Full Size &#8599;</a></div>
+      </div>
     </div>
   </div>
 </section>
