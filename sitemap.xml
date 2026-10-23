@@ -811,4 +811,11 @@
     </image:image>
   </url>
 
+  <url>
+    <loc>https://cinegmafilms.com/team.html</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
 </urlset>
