@@ -59,3 +59,8 @@ html.m-pt-in::after{content:"";animation:m-pt-fail 0s linear 2.5s forwards}
   .poster-w img,.fcard .fc-poster{transform:none!important}
   .m-preview{display:none!important}
 }
+
+/* Nav: 9 links need room. Tighten spacing on smaller laptops, then switch to the burger menu. */
+@media(max-width:1440px){#nav .links{gap:24px!important}}
+@media(max-width:1320px){#nav .lk,#nav .links{gap:18px!important}#nav .lk a,#nav .links a{letter-spacing:.15em!important}}
+@media(max-width:1120px){#nav .lk,#nav .links,#nav>.btn,#nav .cta{display:none!important}#burger{display:block!important}}

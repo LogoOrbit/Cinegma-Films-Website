@@ -67,7 +67,7 @@ gtag('config', 'AW-18200565991');
   "@type":"BreadcrumbList",
   "itemListElement":[
     {"@type":"ListItem","position":1,"name":"Home","item":"https://cinegmafilms.com/"},
-    {"@type":"ListItem","position":2,"name":"Team","item":"https://cinegmafilms.com/about.html#team"},
+    {"@type":"ListItem","position":2,"name":"Team","item":"https://cinegmafilms.com/team.html"},
     {"@type":"ListItem","position":3,"name":"Syed Asad Raza Abidi","item":"https://cinegmafilms.com/team/syed-asad.html"}
   ]
 }]
@@ -174,13 +174,38 @@ footer nav a:hover{color:#fff}
 .sbtn svg{width:18px;height:18px}
 .sbtn:hover{background:#fff;color:#06060a;border-color:#fff;transform:translateY(-3px);box-shadow:0 10px 30px rgba(255,255,255,.2)}
 </style>
-<link rel="stylesheet" href="../assets/css/motion.css?v=1"/>
+<link rel="stylesheet" href="../assets/css/motion.css?v=2"/>
+<style id="pcard-css">
+@font-face{font-family:'Archivo Black';font-style:normal;font-weight:400;font-display:swap;src:url(../assets/fonts/archivo-black-normal-latin.woff2) format('woff2')}
+.pc-grid{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);gap:clamp(30px,5vw,80px);align-items:center;margin-top:10px}
+@media(max-width:860px){.pc-grid{grid-template-columns:1fr}}
+.pcard{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#050505;container-type:inline-size;border-radius:6px;box-shadow:0 40px 90px rgba(0,0,0,.55);isolation:isolate}
+.pcard img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--pos,50% 25%);transform:scale(var(--sc,1));transform-origin:var(--pos,50% 25%);filter:grayscale(1) contrast(1.12) brightness(.82);z-index:-2}
+.pcard::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(120% 80% at 30% 30%,transparent 30%,rgba(0,0,0,.55) 75%),linear-gradient(180deg,rgba(0,0,0,.35) 0%,transparent 22%,transparent 42%,rgba(0,0,0,.72) 66%,rgba(0,0,0,.94) 100%)}
+.pcard::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.pcard .brand{position:absolute;top:7.6cqw;right:10cqw;font-family:var(--body);font-size:max(1.75cqw,9px);letter-spacing:.06em;color:#fff;display:flex;align-items:center;gap:1.1cqw;z-index:1}
+.pcard .brand::after{content:"";width:max(.35cqw,2px);height:2.2cqw;min-height:12px;background:#fff}
+.pcard .txt{position:absolute;right:10cqw;bottom:7cqw;left:10cqw;display:flex;flex-direction:column;align-items:flex-end;text-align:right;z-index:1}
+.pcard h3{font-family:'Archivo Black','Arial Black',Impact,sans-serif;font-weight:400;font-size:var(--nf,8.4cqw);line-height:.98;letter-spacing:.02em;text-transform:uppercase;color:#fff;margin:0}
+.pcard h3 span{display:block;white-space:nowrap}
+.pcard .rl{font-family:var(--body);font-size:max(2.4cqw,11px);letter-spacing:.04em;text-transform:uppercase;color:#f2efe9;margin-top:4.4cqw;margin-right:4cqw}
+.pcard .rl::after{content:" |";font-weight:300}
+.pcard .bio{max-width:61%;margin-top:8.6cqw;padding-right:1.1cqw;border-right:max(.35cqw,2px) solid #fff;font-family:var(--body);font-weight:400;font-size:max(1.55cqw,9.5px);line-height:1.45;color:#ece8e1}
+.pcard .url{position:absolute;left:10cqw;bottom:10.5cqw;font-family:var(--body);font-size:max(1.85cqw,9px);color:#fff;letter-spacing:.01em;z-index:1}
+@media(max-width:480px){.pcard .bio{max-width:100%;margin-top:6cqw}.pcard .url{top:7.6cqw;bottom:auto;left:10cqw}}
+.pc-side p{color:var(--mut);line-height:1.8;font-weight:300;margin-top:18px;max-width:460px}
+.pc-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.pc-btns a{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:600;border:1px solid rgba(255,255,255,.4);color:#fff;transition:all .3s}
+.pc-btns a:hover{background:#fff;color:#06060a}
+.pc-btns a.solid{background:#fff;color:#06060a;border-color:#fff}
+.pc-btns a.solid:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(255,255,255,.2)}
+</style>
 </head>
 <body>
 <header id="nav">
   <a class="brand" href="../index.html">CINEGMA<em></em></a>
-  <nav class="lk"><a href="../index.html">Home</a><a href="../watch.html">Watch</a><a href="../showreel.html">Showreel</a><a href="../services.html">Services</a><a href="../about.html">About</a><a href="../press.html">Press</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav>
-  <a class="btn solid" style="padding:10px 20px" href="../watch.html">▶ Stream</a>
+  <nav class="lk"><a href="../index.html">Home</a><a href="../watch.html">Watch</a><a href="../showreel.html">Showreel</a><a href="../services.html">Services</a><a href="../about.html">About</a><a href="../team.html">Team</a><a href="../press.html">Press</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav>
+  <a class="btn solid" style="padding:10px 20px" href="../contact.html">Start a Project</a>
   <button id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 <nav id="mmenu" aria-label="Mobile">
@@ -189,19 +214,42 @@ footer nav a:hover{color:#fff}
   <a href="../showreel.html"><i>03</i>Showreel</a>
   <a href="../services.html"><i>04</i>Services</a>
   <a href="../about.html"><i>05</i>About</a>
-  <a href="../press.html"><i>06</i>Press</a>
-  <a href="../blog.html"><i>07</i>Blog</a>
-  <a href="../contact.html"><i>08</i>Contact</a>
+  <a href="../team.html"><i>06</i>Team</a>
+  <a href="../press.html"><i>07</i>Press</a>
+  <a href="../blog.html"><i>08</i>Blog</a>
+  <a href="../contact.html"><i>09</i>Contact</a>
 </nav>
 <section id="hero">
   <div class="bg"><img src="../assets/posters/Syed%20Asad%20Portrait.webp" alt=""/><div class="shade"></div></div>
   <div class="wrap inner">
     <div class="card" data-v3-tilt><img src="../assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi"/></div>
     <div>
-      <a class="bk" href="../index.html#team">← Back to Team · Cinegma Films — Founder</a>
+      <a class="bk" href="../team.html">← Back to Team · Cinegma Films — Founder</a>
       <h1><span class="line"><span>Syed Asad</span></span><span class="line"><span class="serif-i" style="text-transform:none">Raza Abidi</span></span></h1>
       <div class="role">Filmmaker · Director · Producer · Editor · Colorist · Founder, Cinegma Films</div>
       <div class="socials"><a class="sbtn" href="https://www.instagram.com/asadsyed711" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.3" fill="currentColor" stroke="none"/></svg><span>Instagram</span></a><a class="sbtn" href="https://www.linkedin.com/in/asadsyed711" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.2 8h4.6v14.8H.2V8zm7.6 0h4.4v2h.1c.6-1.2 2.1-2.4 4.4-2.4 4.7 0 5.5 3.1 5.5 7.1v8.1h-4.6v-7.2c0-1.7 0-3.9-2.4-3.9s-2.8 1.9-2.8 3.8v7.3H7.8V8z"/></svg><span>LinkedIn</span></a><a class="sbtn" href="https://www.imdb.com/name/nm16938510/" target="_blank" rel="noopener" aria-label="IMDb"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="1" y="6" width="22" height="12" rx="2" opacity=".18"/><text x="12" y="15.6" text-anchor="middle" font-size="7.2" font-weight="700" font-family="Arial" fill="currentColor">IMDb</text></svg><span>IMDb</span></a><a class="sbtn" href="https://filmfreeway.com/SyedAsad" target="_blank" rel="noopener" aria-label="FilmFreeway"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 21V4a1 1 0 0 1 1-1h13l-2.5 4L18 11H5"/></svg><span>FilmFreeway</span></a><a class="sbtn" href="https://youtube.com/@syedasad" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.4-1C16.6 3.6 12 3.6 12 3.6h0s-4.6 0-7.7.3c-.5.1-1.5.1-2.4 1C1.2 5.6 1 7.2 1 7.2S.8 9.1.8 11v1.8c0 1.9.2 3.8.2 3.8s.2 1.6.9 2.3c.9.9 2 .9 2.5 1 1.8.2 7.6.3 7.6.3s4.6 0 7.7-.4c.5-.1 1.5-.1 2.4-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.8V11c0-1.9-.2-3.8-.2-3.8zM9.7 15.1V8.4l6.2 3.4-6.2 3.3z"/></svg><span>YouTube</span></a></div>
+    </div>
+  </div>
+</section>
+<section class="sec pc-sec">
+  <div class="wrap">
+    <div class="pc-grid">
+      <figure class="pcard" id="pcard" style="--pos:38% 30%;--sc:1.18;--nf:8.4cqw">
+        <img src="../assets/posters/Syed%20Asad%20Portrait.webp" alt="Syed Asad Raza Abidi — Film Director, Cinegma Films" loading="lazy" decoding="async"/>
+        <span class="brand">CINEGMA FILMS</span>
+        <div class="txt">
+          <h3><span>Syed Asad</span><span>Raza Abidi</span></h3>
+          <div class="rl">Film Director</div>
+          <p class="bio">Syed Asad Raza Abidi is a Pakistani filmmaker, director and editor, best known for his award-winning short film Janjaal (Tussle). Founder of Cinegma Films, Asad is recognised for his grounded storytelling and visual depth. A Film &amp; TV graduate of Indus University, he has directed, edited and produced multiple independent projects, including Portrait of Life, noted for its introspective tone and visual poetry.</p>
+        </div>
+        <span class="url">cinegmafilms.com</span>
+      </figure>
+      <div class="pc-side">
+        <span class="kicker v3-reveal">Profile Card</span>
+        <h2 class="h-lg v3-reveal" style="margin-top:16px">Asad <span class="serif-i">at a Glance</span></h2>
+        <p class="v3-reveal">The official Cinegma Films profile card for Syed Asad Raza Abidi. Download it in full resolution for press, festival catalogues, posts and stories.</p>
+        <div class="pc-btns v3-reveal"><a class="solid" href="../assets/team-cards/syed-asad.jpg" download="syed-asad-cinegma-films.jpg">Download Card &#8595;</a><a href="../assets/team-cards/syed-asad.jpg" target="_blank" rel="noopener">View Full Size &#8599;</a></div>
+      </div>
     </div>
   </div>
 </section>
@@ -235,7 +283,7 @@ footer nav a:hover{color:#fff}
 <footer>
   <div class="wrap row">
     <span>© 2026 Cinegma Films LLC · Karachi, Pakistan</span>
-    <nav><a href="../index.html#team">← All Team</a><a href="../index.html">Home</a><a href="../watch.html">Watch</a><a href="../services.html">Services</a><a href="../about.html">About</a><a href="../press.html">Press</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav>
+    <nav><a href="../team.html">← All Team</a><a href="../index.html">Home</a><a href="../watch.html">Watch</a><a href="../services.html">Services</a><a href="../about.html">About</a><a href="../press.html">Press</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav>
   </div>
 </footer>
 <script>
