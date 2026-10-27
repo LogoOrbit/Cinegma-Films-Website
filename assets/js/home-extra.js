@@ -6,6 +6,8 @@
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var conn = navigator.connection || {};
   var lite = !!conn.saveData || /(^|-)2g/.test(conn.effectiveType || '') || reduced;
+  /* perf.js can switch a struggling device to lite mode at any time */
+  function isLite() { return lite || !!(window.__cinegmaPerf && window.__cinegmaPerf.lite()); }
 
   /* marquee: duplicate each set so the -50% loop is seamless */
   document.querySelectorAll('.mq-track').forEach(function (t) {
@@ -23,13 +25,13 @@
   var vids = document.querySelectorAll('video.hx-vid');
   if ('IntersectionObserver' in window) {
     var near = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting && !lite) { load(e.target); near.unobserve(e.target); } });
+      es.forEach(function (e) { if (e.isIntersecting && !isLite()) { load(e.target); near.unobserve(e.target); } });
     }, { rootMargin: '400px 0px' });
     var seen = new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         var v = e.target;
-        if (e.isIntersecting && !lite) { load(v); v.play().catch(function () {}); }
-        else if (v.src) v.pause();
+        if (e.isIntersecting && !isLite()) { load(v); v.play().catch(function () {}); }
+        else if (!e.isIntersecting && v.src) v.pause();
       });
     }, { threshold: 0.35 });
     vids.forEach(function (v) { near.observe(v); seen.observe(v); });
@@ -38,6 +40,10 @@
     v.addEventListener('click', function () {
       if (v.paused) { load(v); v.play().catch(function () {}); } else v.pause();
     });
+  });
+
+  addEventListener('cinegma:perf', function (e) {
+    if (e.detail && e.detail.tier === 'lite') vids.forEach(function (v) { if (v.muted && !v.paused) v.pause(); });
   });
 
   /* sound toggles: one clip with sound at a time */
