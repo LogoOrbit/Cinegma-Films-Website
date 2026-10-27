@@ -10,7 +10,7 @@ function sb() {
 const ALLOWED_ORIGIN = process.env.SITE_URL || 'https://cinegmafilms.com';
 
 // ---- Google Drive video feed (GET /api/public-data?view=drive-media) ----
-// Needs GOOGLE_DRIVE_API_KEY and the folder shared as "Anyone with the link – Viewer".
+// Needs the folder shared as "Anyone with the link – Viewer". GOOGLE_DRIVE_API_KEY is optional.
 // Lives here because the Hobby plan allows at most 12 serverless functions.
 const DEFAULT_FOLDER = '1ZOx0QlltNyD2lTSoainqBafSMuYfRoaX';
 
@@ -23,7 +23,19 @@ const SELF_HOSTED = new Set([
   '1DOpDiPJ3jODCcXBs-nMno_sSSHBE-HB7', '1ti2DMOe7zgvUlffMv5CzoWV_5icDp41J'
 ]);
 
+// Titles for files already in the folder (Drive names are auto-generated); listed first, in this order.
+const KNOWN = {
+  "1FQPYXDbrwMByM87st6NEkHFNSnJMSPPM": "The Making of Janjaal",
+  "17oE2fQhOryinOzDd5sZfuXRXM4vGz3Mf": "Chupke Chupke \u00b7 Short Film",
+  "1IffHNUYj2t7wkd_fITrCGY7YSXu8K5bA": "Portrait of Life \u00b7 Making Of",
+  "1vfW3cwRmLQgudenwWMIfyIxgtnPIzyzS": "Payam e Dil \u00b7 Trailer",
+  "1nblCoag2Ow896e4gZsG6rNUit8Wp4z3s": "Thriller Teaser \u00b7 Syed Asad",
+  "18ICbdqiKClr5_9_LsECk9_pkoB5SoIYv": "Sound Design \u00b7 No Country for Old Men"
+};
+const ORDER = Object.keys(KNOWN);
+
 function titleFor(f) {
+  if (KNOWN[f.id]) return KNOWN[f.id];
   if (f.description && f.description.trim()) return f.description.trim().slice(0, 80);
   const base = (f.name || '').replace(/\.[a-z0-9]+$/i, '');
   // Instagram/WhatsApp exports have long random names — not worth showing
@@ -31,33 +43,50 @@ function titleFor(f) {
   return base.replace(/[_]+/g, ' ').slice(0, 80);
 }
 
+// Without an API key, read the public folder's embedded listing page instead.
+// Works once the folder is shared as "Anyone with the link – Viewer".
+const VIDEO_EXT = /\.(mp4|mov|m4v|webm|mkv|avi)$/i;
+function decodeEntities(t) {
+  return t.replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+}
+async function listPublicFolder(folder) {
+  const r = await fetch('https://drive.google.com/embeddedfolderview?id=' + encodeURIComponent(folder), {
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; CinegmaSite/1.0)' }
+  });
+  if (!r.ok) throw new Error('folder ' + r.status);
+  const html = await r.text();
+  const files = [];
+  const re = /id="entry-([\w-]{20,})"[\s\S]*?class="flip-entry-title"[^>]*>([^<]*)</g;
+  let m;
+  while ((m = re.exec(html))) files.push({ id: m[1], name: decodeEntities(m[2].trim()) });
+  return files;
+}
+async function listWithKey(folder, key) {
+  const q = `'${folder}' in parents and mimeType contains 'video/' and trashed = false`;
+  const r = await fetch('https://www.googleapis.com/drive/v3/files?' + new URLSearchParams({
+    q, key, pageSize: '100', orderBy: 'createdTime desc', fields: 'files(id,name,description,mimeType)'
+  }));
+  if (!r.ok) throw new Error('api ' + r.status);
+  return ((await r.json()).files || []);
+}
+
 async function driveMedia(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
-  const key = process.env.GOOGLE_DRIVE_API_KEY;
-  if (!key) {
-    res.setHeader('Cache-Control', 'public, s-maxage=300');
-    return res.status(503).json({ error: 'Drive feed not configured' });
-  }
   const folder = process.env.DRIVE_FOLDER_ID || DEFAULT_FOLDER;
-  const q = `'${folder}' in parents and mimeType contains 'video/' and trashed = false`;
-  const url = 'https://www.googleapis.com/drive/v3/files?' + new URLSearchParams({
-    q, key, pageSize: '100', orderBy: 'createdTime desc',
-    fields: 'files(id,name,description,createdTime)'
-  });
+  const key = process.env.GOOGLE_DRIVE_API_KEY;
   try {
-    const r = await fetch(url);
-    if (!r.ok) {
-      res.setHeader('Cache-Control', 'public, s-maxage=120');
-      return res.status(502).json({ error: 'Drive request failed' });
-    }
-    const data = await r.json();
-    const videos = (data.files || [])
+    const files = key ? await listWithKey(folder, key)
+                      : (await listPublicFolder(folder)).filter(f => VIDEO_EXT.test(f.name));
+    const videos = files
       .filter(f => !SELF_HOSTED.has(f.id))
-      .map(f => ({ id: f.id, title: titleFor(f) }));
+      .map(f => ({ id: f.id, title: titleFor(f) }))
+      // new uploads first, then the curated pieces in their set order
+      .sort((a, b) => (ORDER.indexOf(a.id) + 1 || -1) - (ORDER.indexOf(b.id) + 1 || -1));
     res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
     return res.status(200).json({ videos });
   } catch (e) {
-    return res.status(500).json({ error: 'Drive feed error' });
+    res.setHeader('Cache-Control', 'public, s-maxage=120');
+    return res.status(502).json({ error: 'Drive feed unavailable' });
   }
 }
 
