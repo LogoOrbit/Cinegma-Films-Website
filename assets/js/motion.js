@@ -266,7 +266,9 @@
   /* ---------------- boot ---------------- */
   function run(fn) { try { fn(); } catch (e) { if (window.console) console.warn('[motion]', e); } }
   run(initTransitions);
-  run(initLenis);
+  /* Native scrolling everywhere: the Lenis wheel smoothing felt laggy and
+     fought high-refresh screens, so the browser's own scroll is used. */
+  ST.config({ ignoreMobileResize: true });
   run(initSplit);
   run(initMedia);
   run(initParallax);

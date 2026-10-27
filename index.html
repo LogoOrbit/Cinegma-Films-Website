@@ -48,10 +48,9 @@ gtag('config', 'AW-18200565991');
 <script src="assets/js/vendor/gsap.min.js" defer></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/js/vendor/SplitText.min.js" defer></script>
-<script src="assets/js/vendor/lenis.min.js" defer></script>
-<script src="assets/js/motion.js?v=1" defer></script>
+<script src="assets/js/motion.js?v=2" defer></script>
 <script src="assets/js/lead.js?v=1" defer></script>
-<script src="assets/js/v3.js?v=4" defer></script>
+<script src="assets/js/v3.js?v=5" defer></script>
 <script src="assets/js/tracker.js" defer></script>
 <script src="assets/js/gallery.js?v=2" defer></script>
 <script src="assets/js/home-extra.js?v=5" defer></script>
@@ -838,22 +837,21 @@ else{
   var logo=pre.querySelector('.logo'),bar=pre.querySelector('.bar i');
   'CINEGMA'.split('').forEach(function(c,i){var s=document.createElement('span');s.textContent=c;s.style.animationDelay=(i*70)+'ms';logo.appendChild(s);});
   var preDone=false,iv=null,failsafe=null;
-  /* lock the page so it can't scroll behind the intro */
-  document.documentElement.style.overflow='hidden';document.body.style.overflow='hidden';
+  /* the page is never scroll-locked: the intro just fades as soon as the visitor scrolls or taps */
   function dismissPre(){
     if(preDone)return;preDone=true;
     clearInterval(iv);clearTimeout(failsafe);
     try{sessionStorage.setItem('cg_intro','1');}catch(e){}
     bar.style.width='100%';
-    document.documentElement.style.overflow='';document.body.style.overflow='';
     pre.classList.add('done');
     setTimeout(function(){if(pre.parentNode)pre.remove();},1000);
   }
-  var p=0;iv=setInterval(function(){p=Math.min(100,p+Math.random()*22);bar.style.width=p+'%';if(p>=100)dismissPre();},110);
-  failsafe=setTimeout(dismissPre,2600);
+  var p=0;iv=setInterval(function(){p=Math.min(100,p+18+Math.random()*22);bar.style.width=p+'%';if(p>=100)dismissPre();},110);
+  failsafe=setTimeout(dismissPre,1100);
   /* any scroll, tap, click or key skips the intro */
   addEventListener('wheel',dismissPre,{passive:true});
-  addEventListener('touchmove',dismissPre,{passive:true});
+  addEventListener('touchstart',dismissPre,{passive:true});
+  addEventListener('scroll',dismissPre,{passive:true});
   addEventListener('keydown',dismissPre);
   pre.addEventListener('click',dismissPre);
   addEventListener('pagehide',dismissPre);

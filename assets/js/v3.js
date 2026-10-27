@@ -116,7 +116,7 @@
      links and the scrollbar all keep behaving normally. Touch devices already
      have momentum from the OS and are left completely alone. */
   function initSmoothScroll() {
-    if (window.lenis) return; /* motion.js runs Lenis instead */
+    return; /* native scrolling is faster and more predictable; wheel easing is off site-wide */
     if (reduced || !fine || matchMedia('(hover: none)').matches) return;
     var target = scrollY, current = scrollY, raf = 0, driving = false, last = 0;
 
