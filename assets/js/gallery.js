@@ -9,6 +9,7 @@
     '.cg-gal.posters{grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr))}' +
     '.cg-gal a{position:relative;display:block;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,.09);background:#0d0d12;aspect-ratio:16/9}' +
     '.cg-gal.posters a{aspect-ratio:2/3}' +
+    '.cg-gal.sq a{aspect-ratio:1/1}.cg-gal.tall{grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr))}.cg-gal.tall a{aspect-ratio:3/4}.cg-gal + .cg-gal{margin-top:12px}' +
     '.cg-gal img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1),filter .6s ease;filter:saturate(.9)}' +
     '.cg-gal a:hover img{transform:scale(1.05);filter:saturate(1.05)}' +
     '.cg-gal figcaption{position:absolute;left:12px;bottom:10px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,228,.75)}' +
