@@ -1,6 +1,6 @@
 /* Homepage extras: frames marquee, lazy in-view clips with sound toggles,
    and the Google Drive video feed (new uploads to the shared folder show
-   up here once /api/drive-media is configured). */
+   up here once /api/public-data?view=drive-media is configured). */
 (function () {
   'use strict';
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -105,7 +105,7 @@
   var fallback = [];
   try { fallback = JSON.parse(grid.dataset.fallback || '[]'); } catch (e) {}
   render(fallback);
-  fetch('/api/drive-media', { headers: { Accept: 'application/json' } })
+  fetch('/api/public-data?view=drive-media', { headers: { Accept: 'application/json' } })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (d) { if (d && d.videos && d.videos.length) render(d.videos); })
     .catch(function () {});
