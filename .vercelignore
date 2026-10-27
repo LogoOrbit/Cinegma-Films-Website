@@ -1,0 +1,5 @@
+# Not part of the website: keep them out of Vercel deployments
+mobile/
+*.md
+*.sql
+.github/
