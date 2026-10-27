@@ -109,9 +109,12 @@
       gsap.to(m, { yPercent: 22, scale: 1.08, ease: 'none',
         scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
     });
+    /* hero text scrolls with the page (lifting it slid it under the fixed nav
+       and fought page scripts that also move it); it only fades a little */
     document.querySelectorAll('#hero .content, .hero .inner, .page-hero-content').forEach(function (c) {
+      if (c.hasAttribute('data-own-scroll')) return;
       var hero = c.closest('section') || c.parentElement;
-      gsap.to(c, { yPercent: -18, autoAlpha: 0.15, ease: 'none',
+      gsap.to(c, { opacity: 0.25, ease: 'none',
         scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
     });
     /* opt-in: data-speed="0.2" moves an element against the scroll */

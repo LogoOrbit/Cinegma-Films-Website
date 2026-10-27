@@ -41,7 +41,7 @@ gtag('config', 'AW-18200565991');
 <script src="assets/js/vendor/gsap.min.js" defer></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/js/vendor/SplitText.min.js" defer></script>
-<script src="assets/js/motion.js?v=2" defer></script>
+<script src="assets/js/motion.js?v=3" defer></script>
 <script src="assets/js/lead.js?v=1" defer></script>
 <script src="assets/js/v3.js?v=5" defer></script>
 <script type="application/ld+json">
@@ -102,7 +102,7 @@ body.menu-open #nav{z-index:2300}
   linear-gradient(to right,rgba(8,8,9,.72) 0%,rgba(8,8,9,.3) 42%,rgba(8,8,9,.05) 70%,transparent 100%),
   linear-gradient(to top,var(--bg) 0%,rgba(8,8,9,.55) 16%,rgba(8,8,9,.08) 45%,transparent 70%),
   linear-gradient(to bottom,rgba(8,8,9,.5),transparent 20%)}
-#hero .content{position:relative;z-index:2;width:100%;max-width:100%;margin:0;padding:calc(96px + env(safe-area-inset-top,0px)) clamp(20px,4vw,56px) clamp(72px,10vh,120px);will-change:transform,opacity;text-align:left}
+#hero .content{position:relative;z-index:2;width:100%;max-width:100%;margin:0;padding:calc(96px + env(safe-area-inset-top,0px)) clamp(20px,4vw,56px) clamp(72px,10vh,120px);will-change:opacity;text-align:left}
 #hero .eyebrow,#hero .pills,#hero .ctas{justify-content:flex-start}
 #hero .syn{margin-right:auto}
 #hero .eyebrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:20px}
@@ -446,7 +446,7 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
     <video id="heroVideo" autoplay muted loop playsinline preload="metadata" src="assets/posters/Janjaal%20Cover%20Video.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif" controlsList="nodownload noplaybackrate noremoteplayback"></video>
     <div class="shade"></div>
   </div>
-  <div class="content" id="heroContent">
+  <div class="content" id="heroContent" data-own-scroll>
     <div class="eyebrow">
       <span class="award-chip">★ <b>14 International Awards</b></span>
       <span class="sub-eyebrow">9 Countries · Theatrical Release</span>
@@ -1014,7 +1014,6 @@ $$('.gpill').forEach(function(p){
       requestAnimationFrame(function(){
         tk=false;
         var y=Math.min(scrollY,innerHeight);
-        content.style.transform='translateY('+(y*.18)+'px)';
         content.style.opacity=String(Math.max(1-y/(innerHeight*.85),0));
       });
     },{passive:true});
