@@ -70,6 +70,44 @@ async function listWithKey(folder, key) {
   return ((await r.json()).files || []);
 }
 
+// ---- Bunny Stream mirror ----
+// Google blocks other sites from streaming Drive files, so each Drive video is
+// copied to the Bunny Stream library: Bunny pulls it from Drive server-side
+// (videos/fetch). The Bunny title carries the Drive id — "Title [drive:ID]" —
+// so a file is only ever requested once. Until Bunny finishes encoding, the
+// site falls back to Google's player.
+const DRIVE_TAG = /\[drive:([\w-]{20,})\]/;
+async function bunnyLibrary() {
+  const lib = process.env.BUNNY_STREAM_LIBRARY_ID, key = process.env.BUNNY_STREAM_API_KEY;
+  if (!lib || !key) return null;
+  const r = await fetch(`https://video.bunnycdn.com/library/${lib}/videos?page=1&itemsPerPage=1000&orderBy=date`, {
+    headers: { AccessKey: key, Accept: 'application/json' }
+  });
+  if (!r.ok) throw new Error('bunny list ' + r.status);
+  const items = (await r.json()).items || [];
+  const byDrive = {}, copies = {};
+  for (const v of items) {
+    const m = DRIVE_TAG.exec(v.title || '');
+    if (!m) continue;
+    copies[m[1]] = (copies[m[1]] || 0) + 1;
+    const prev = byDrive[m[1]];
+    /* status 4 = finished encoding; prefer a finished copy if there are several */
+    if (!prev || (v.status === 4 && prev.status !== 4)) byDrive[m[1]] = v;
+  }
+  return { lib, key, byDrive, copies };
+}
+async function bunnyFetch(bunny, id, title) {
+  const r = await fetch(`https://video.bunnycdn.com/library/${bunny.lib}/videos/fetch`, {
+    method: 'POST',
+    headers: { AccessKey: bunny.key, 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({
+      url: `https://drive.usercontent.google.com/download?id=${encodeURIComponent(id)}&export=download&confirm=t`,
+      title: `${title || 'Cinegma Films'} [drive:${id}]`
+    })
+  });
+  return r.ok;
+}
+
 async function driveMedia(req, res) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
   const folder = process.env.DRIVE_FOLDER_ID || DEFAULT_FOLDER;
@@ -82,8 +120,23 @@ async function driveMedia(req, res) {
       .map(f => ({ id: f.id, title: titleFor(f) }))
       // new uploads first, then the curated pieces in their set order
       .sort((a, b) => (ORDER.indexOf(a.id) + 1 || -1) - (ORDER.indexOf(b.id) + 1 || -1));
-    res.setHeader('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=3600');
-    return res.status(200).json({ videos });
+
+    let bunny = null, pending = false;
+    try { bunny = await bunnyLibrary(); } catch (e) { bunny = null; }
+    if (bunny) {
+      let requested = 0;
+      for (const v of videos) {
+        const b = bunny.byDrive[v.id];
+        if (b && b.status === 4) { v.bunny = b.guid; continue; }
+        if (b && b.status !== 5 && b.status !== 6) { pending = true; continue; } // still encoding
+        // not mirrored yet, or one failed attempt: ask Bunny to pull it (never more than 2 copies)
+        if ((bunny.copies[v.id] || 0) >= 2) continue;
+        if (requested < 3 && await bunnyFetch(bunny, v.id, v.title || 'Cinegma Films')) { requested++; pending = true; }
+      }
+    }
+    /* refresh sooner while Bunny is still encoding new videos */
+    res.setHeader('Cache-Control', pending ? 'public, s-maxage=120' : 'public, s-maxage=600, stale-while-revalidate=3600');
+    return res.status(200).json({ videos, lib: bunny ? bunny.lib : null });
   } catch (e) {
     res.setHeader('Cache-Control', 'public, s-maxage=120');
     return res.status(502).json({ error: 'Drive feed unavailable' });

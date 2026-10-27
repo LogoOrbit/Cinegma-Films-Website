@@ -69,21 +69,35 @@
   var grid = document.getElementById('hxDrive');
   if (!grid) return;
   var player, frame, last;
-  function openPlayer(id) {
+  /* Videos mirrored to Bunny Stream play in Bunny's player (fast, works
+     everywhere). Until a new upload has finished encoding there, Google's
+     Drive player is used, with a direct "Watch on Google Drive" link because
+     Drive embeds can refuse to play on other sites. */
+  var note, lib = null;
+  function openPlayer(it) {
     if (!player) {
       player = document.createElement('div');
       player.id = 'hx-player';
       player.setAttribute('role', 'dialog'); player.setAttribute('aria-modal', 'true');
       player.setAttribute('aria-label', 'Video player'); player.setAttribute('data-lenis-prevent', '');
-      player.innerHTML = '<div class="box"><iframe allow="autoplay; fullscreen" allowfullscreen title="Cinegma Films video"></iframe></div><button class="x" type="button" aria-label="Close">×</button>';
+      player.innerHTML = '<div class="box"><iframe allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen title="Cinegma Films video"></iframe></div>' +
+        '<p class="note" hidden></p><button class="x" type="button" aria-label="Close">×</button>';
       document.body.appendChild(player);
-      frame = player.querySelector('iframe');
+      frame = player.querySelector('iframe'); note = player.querySelector('.note');
       player.querySelector('.x').onclick = closePlayer;
       player.addEventListener('click', function (e) { if (e.target === player) closePlayer(); });
       addEventListener('keydown', function (e) { if (e.key === 'Escape' && player.classList.contains('open')) closePlayer(); });
     }
     last = document.activeElement;
-    frame.src = 'https://drive.google.com/file/d/' + encodeURIComponent(id) + '/preview';
+    var id = encodeURIComponent(it.id);
+    if (it.bunny && lib) {
+      frame.src = 'https://iframe.mediadelivery.net/embed/' + encodeURIComponent(lib) + '/' + encodeURIComponent(it.bunny) + '?autoplay=true&preload=true&responsive=true';
+      note.hidden = true;
+    } else {
+      frame.src = 'https://drive.google.com/file/d/' + id + '/preview';
+      note.hidden = false;
+      note.innerHTML = 'Not playing? <a href="https://drive.google.com/file/d/' + id + '/view" target="_blank" rel="noopener">Watch on Google Drive ↗</a>';
+    }
     player.classList.add('open'); document.body.style.overflow = 'hidden';
     player.querySelector('.x').focus();
   }
@@ -104,7 +118,7 @@
       im.onerror = function () { im.remove(); };
       var s = document.createElement('span'); s.textContent = title;
       b.appendChild(im); b.appendChild(s);
-      b.addEventListener('click', function () { openPlayer(it.id); });
+      b.addEventListener('click', function () { openPlayer(it); });
       grid.appendChild(b);
     });
   }
@@ -113,6 +127,6 @@
   render(fallback);
   fetch('/api/public-data?view=drive-media', { headers: { Accept: 'application/json' } })
     .then(function (r) { return r.ok ? r.json() : null; })
-    .then(function (d) { if (d && d.videos && d.videos.length) render(d.videos); })
+    .then(function (d) { if (d && d.videos && d.videos.length) { lib = d.lib || null; render(d.videos); } })
     .catch(function () {});
 })();
