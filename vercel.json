@@ -310,6 +310,21 @@
       "source": "/portfolio",
       "destination": "/watch.html",
       "permanent": true
+    },
+    {
+      "source": "/more-work.html",
+      "destination": "/vault.html",
+      "permanent": true
+    },
+    {
+      "source": "/more-work",
+      "destination": "/vault.html",
+      "permanent": true
+    },
+    {
+      "source": "/vault",
+      "destination": "/vault.html",
+      "permanent": true
     }
   ]
 }
