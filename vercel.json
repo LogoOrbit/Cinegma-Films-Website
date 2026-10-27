@@ -300,6 +300,16 @@
       "source": "/documentary-film-services-pakistan",
       "destination": "/documentary-production-karachi.html",
       "permanent": true
+    },
+    {
+      "source": "/portfolio.html",
+      "destination": "/watch.html",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/watch.html",
+      "permanent": true
     }
   ]
 }

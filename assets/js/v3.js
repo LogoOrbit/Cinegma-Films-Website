@@ -243,7 +243,6 @@
       { l: 'Phir Se', t: 'Film', u: root + 'projects/phir-se.html' },
       { l: 'Urdu Bazaar Karachi', t: 'Film', u: root + 'projects/urdu-bazaar-karachi.html' },
       { l: 'Khaak Zada Safay — Documentary (Edit, Colour, Sound)', t: 'Work', u: root + 'projects/khaak-zada-safay.html' },
-      { l: 'Portfolio', t: 'Page', u: root + 'portfolio.html' },
       { l: 'Film Posters Gallery', t: 'Page', u: root + 'film-posters.html' },
       { l: 'Our Team', t: 'Page', u: root + 'team.html' },
       { l: 'Get a Quote on WhatsApp', t: 'Contact', u: 'https://wa.me/923390344180' },

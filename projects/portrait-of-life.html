@@ -272,21 +272,36 @@ gtag('config', 'AW-18200565991');
 }
 </script>
 <link rel="stylesheet" href="../assets/css/motion.css?v=2"/>
+<style>/* film-extras */
+.vframe{margin-top:40px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:16/9;box-shadow:0 36px 90px rgba(0,0,0,.6)}
+.vframe video{width:100%;height:100%;object-fit:contain;background:#000}
+.vcap{margin-top:14px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+.bts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:16px;margin-top:40px;align-items:start}
+.bts-grid figure{margin:0}
+.bts-grid video{width:100%;max-height:78vh;border-radius:14px;border:1px solid var(--line);background:#000;display:block}
+.bts-grid figcaption{margin-top:10px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mut)}
+.film-nav{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.film-nav a{background:var(--bg);padding:clamp(28px,4vw,48px) clamp(20px,4vw,56px);display:block;transition:background .3s}
+.film-nav a:hover{background:#111117}
+.film-nav a.nx{text-align:right}
+.film-nav small{display:block;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut)}
+.film-nav b{display:block;font-family:var(--disp);font-size:clamp(24px,3.4vw,44px);letter-spacing:.04em;text-transform:uppercase;color:#fff;font-weight:400;margin-top:8px}
+@media(max-width:600px){.film-nav{grid-template-columns:1fr}.film-nav a.nx{text-align:left}}
+</style>
 </head>
 <body>
 <header id="nav">
   <a class="brand" href="../index.html">CINEGMA<em></em></a>
-  <nav class="lk"><a href="../portfolio.html" class="on">Work</a><a href="../watch.html">Watch</a><a href="../services.html">Services</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav>
+  <nav class="lk"><a href="../watch.html" class="on">Watch</a><a href="../services.html">Services</a><a href="../about.html">About</a><a href="../contact.html">Contact</a></nav>
   <a class="btn solid" style="padding:10px 20px" href="../contact.html">Start a Project</a>
   <button id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 <nav id="mmenu" aria-label="Mobile">
   <a href="../index.html"><i>01</i>Home</a>
-  <a href="../portfolio.html"><i>02</i>Work</a>
-  <a href="../watch.html"><i>03</i>Watch</a>
-  <a href="../services.html"><i>04</i>Services</a>
-  <a href="../about.html"><i>05</i>About</a>
-  <a href="../contact.html"><i>06</i>Contact</a>
+  <a href="../watch.html"><i>02</i>Watch</a>
+  <a href="../services.html"><i>03</i>Services</a>
+  <a href="../about.html"><i>04</i>About</a>
+  <a href="../contact.html"><i>05</i>Contact</a>
 </nav>
 <main>
 <section id="hero">
@@ -294,7 +309,7 @@ gtag('config', 'AW-18200565991');
   <div class="wrap inner">
     <div>
       <nav class="crumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span aria-hidden="true">/</span><a href="../index.html#films">Films</a><span aria-hidden="true">/</span><span aria-current="page">Portrait of Life</span></nav>
-      <span class="no">FILM 02 · SHORT FILM · CINEGMA FILMS</span>
+      <span class="no">FILM 02 / 09 · SHORT FILM · CINEGMA FILMS</span>
       <h1><span class="line"><span>Portrait</span></span><span class="line"><span class="serif-i" style="text-transform:none">of Life</span></span></h1>
       <div class="status">2025 · Thesis Film · 11 min 34 sec</div>
       <p class="lead syn v3-reveal">A painter struggles to portray his wife the way he once did. Portrait of Life is a meditation on love, memory, and the limits of art — a thesis film exploring what happens when the hand can no longer capture what the heart still feels.</p>
@@ -318,7 +333,6 @@ gtag('config', 'AW-18200565991');
 <span class="kicker v3-reveal">Official Teaser</span>
 <h2 class="h-lg v3-reveal" style="margin-top:16px">Watch the <span class="serif-i">teaser</span></h2>
 <div class="vframe v3-reveal"><video controls playsinline preload="none" poster="../assets/posters/portrait-of-life-thumbnail.jpg" aria-label="Portrait of Life official teaser" disablepictureinpicture disableremoteplayback controlsList="nodownload noplaybackrate noremoteplayback"><source src="https://CinegmaFilms.b-cdn.net/Portrait%20Of%20Life%20(Official%20Teaser)%20%EF%BD%9C%20A%20Film%20By%20Syed%20Asad.mp4" type="video/mp4"/></video></div><div class="vcap v3-reveal">Portrait of Life — Official Teaser · Best Trailer Nominee, TMFF Scotland 2025</div>
-<p class="lead v3-reveal" style="margin-top:22px;max-width:720px"><a class="lnk" href="portrait-of-life.html#teaser">Open the teaser page →</a></p>
 </div></section>
 <section class="sec" id="awards"><div class="wrap">
 <span class="kicker v3-reveal">Selections</span>
@@ -339,6 +353,11 @@ gtag('config', 'AW-18200565991');
 <section class="sec" id="faq"><div class="wrap"><span class="kicker v3-reveal">FAQ</span><h2 class="h-lg v3-reveal" style="margin-top:16px">Portrait of Life — <span class="serif-i">questions</span></h2><div class="faq"><details class="v3-reveal"><summary>What is Portrait of Life about?</summary><p>Portrait of Life is a 2025 Pakistani short film about a painter who struggles to portray his wife the way he once did — a meditation on love, memory, and the limits of art.</p></details><details class="v3-reveal"><summary>Who directed Portrait of Life?</summary><p>Portrait of Life was written, directed, edited and colour graded by <a href="../team/syed-asad.html">Syed Asad Raza Abidi</a>, the same filmmaker behind <a href="janjaal.html">Janjaal</a>. It was produced by Dayyan Khalid.</p></details><details class="v3-reveal"><summary>Is Portrait of Life a student film?</summary><p>Yes — it was completed as a thesis film on 2 June 2025.</p></details><details class="v3-reveal"><summary>How long is Portrait of Life?</summary><p>Portrait of Life runs 11 minutes 34 seconds.</p></details><details class="v3-reveal"><summary>Has Portrait of Life won any awards?</summary><p>Portrait of Life was an Official Selection at the Anymusic Film Festival, Spain, and its trailer was a Best Trailer nominee at The Monthly Film Festival (TMFF), Scotland.</p></details><details class="v3-reveal"><summary>Where can I watch Portrait of Life?</summary><p>The official teaser is on this page. The full film streams on the <a href="../watch.html">Cinegma Films watch page</a> with a screener password — email info@cinegmafilms.com to request access.</p></details></div></div></section>
 <section class="sec"><div class="wrap"><span class="kicker v3-reveal">More films</span><h2 class="h-lg v3-reveal" style="margin-top:16px">Also from <span class="serif-i">Cinegma Films</span></h2><div class="rel"><a class="v3-reveal" href="../projects/janjaal.html"><b>Janjaal</b><span>Award-winning Pakistani psychological thriller — 14 international awards</span></a><a class="v3-reveal" href="../projects/zawaal.html"><b>Zawaal</b><span>A dark psychological thriller — in production</span></a><a class="v3-reveal" href="../projects/a-soldier-beside-me.html"><b>A Soldier Beside Me</b><span>Two soldiers, one frontline — in production</span></a><a class="v3-reveal" href="../watch.html"><b>Watch</b><span>Stream every Cinegma Films title in one place</span></a><a class="v3-reveal" href="../team/syed-asad.html"><b>The Studio</b><span>Cinegma Films — independent cinema from Karachi, Pakistan</span></a></div></div></section>
 </main>
+<section class="sec" id="bts"><div class="wrap"><span class="kicker v3-reveal">Behind the Scenes &amp; Reels</span>
+<h2 class="h-lg v3-reveal" style="margin-top:16px">Making <span class="serif-i">Portrait of Life</span></h2>
+<div class="bts-grid"><figure class="v3-reveal"><video controls playsinline preload="none" poster="../assets/posters/portrait-of-life-thumbnail.jpg" aria-label="Behind the scenes" disablepictureinpicture controlsList="nodownload noplaybackrate noremoteplayback"><source src="https://CinegmaFilms.b-cdn.net/Portraitbts.mp4" type="video/mp4"/></video><figcaption>Behind the scenes</figcaption></figure><figure class="v3-reveal"><video controls playsinline preload="none" poster="../assets/posters/Potrait_Opt_01-400w.avif" aria-label="Reel" disablepictureinpicture controlsList="nodownload noplaybackrate noremoteplayback"><source src="https://CinegmaFilms.b-cdn.net/Portrait%20Reel.mp4" type="video/mp4"/></video><figcaption>Reel</figcaption></figure><figure class="v3-reveal"><video controls playsinline preload="none" poster="../assets/bts/portrait-of-life-teaser.avif" aria-label="Teaser cut" disablepictureinpicture controlsList="nodownload noplaybackrate noremoteplayback"><source src="../assets/bts/portrait-of-life-teaser.mp4" type="video/mp4"/></video><figcaption>Teaser cut</figcaption></figure><figure class="v3-reveal"><video controls playsinline preload="none" poster="../assets/bts/portrait-of-life-gandhara-selection.avif" aria-label="Gandhara 2026 · Official selection" disablepictureinpicture controlsList="nodownload noplaybackrate noremoteplayback"><source src="../assets/bts/portrait-of-life-gandhara-selection.mp4" type="video/mp4"/></video><figcaption>Gandhara 2026 · Official selection</figcaption></figure></div>
+</div></section>
+<nav class="film-nav" aria-label="More films"><a class="pv" href="janjaal.html"><small>← Previous film</small><b>Janjaal</b></a><a class="nx" href="a-soldier-beside-me.html"><small>Next film →</small><b>A Soldier Beside Me</b></a></nav>
 <div class="marq" aria-hidden="true"><div class="t"><span>Portrait of Life</span><span>Portrait of Life</span><span>Portrait of Life</span><span>Portrait of Life</span><span>Portrait of Life</span><span>Portrait of Life</span></div></div>
 <footer>
   <div class="wrap">

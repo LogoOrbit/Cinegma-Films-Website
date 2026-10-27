@@ -407,6 +407,16 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
 }
 </style>
 <link rel="stylesheet" href="assets/css/motion.css?v=2"/>
+<style>/* watch-extras */
+.wx-links{display:flex;flex-wrap:wrap;gap:10px}
+.wx-links a{font-size:11px;letter-spacing:.2em;text-transform:uppercase;padding:11px 18px;border:1px solid var(--line-h);border-radius:999px;color:var(--ink);transition:background .25s,color .25s}
+.wx-links a:hover{background:#fff;color:#06060a}
+.wx-dev{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.wx-dev div{background:var(--card);padding:24px}
+.wx-dev i{display:block;font-style:normal;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
+.wx-dev b{display:block;font-family:var(--disp);font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:#fff;font-weight:400;margin:10px 0 8px}
+.wx-dev p{font-size:13.5px;line-height:1.65;color:var(--mut);font-weight:300}
+</style>
 </head>
 <body>
 
@@ -414,7 +424,6 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
   <div class="inner">
     <a class="brand" href="index.html">CINEGMA<em></em></a>
     <nav class="links" aria-label="Primary">
-      <a href="portfolio.html">Work</a>
       <a href="watch.html" class="on">Watch</a>
       <a href="services.html">Services</a>
       <a href="about.html">About</a>
@@ -426,11 +435,10 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
 </header>
 <nav id="mmenu" aria-label="Mobile">
   <a href="index.html"><i>01</i>Home</a>
-  <a href="portfolio.html"><i>02</i>Work</a>
-  <a href="watch.html"><i>03</i>Watch</a>
-  <a href="services.html"><i>04</i>Services</a>
-  <a href="about.html"><i>05</i>About</a>
-  <a href="contact.html"><i>06</i>Contact</a>
+  <a href="watch.html"><i>02</i>Watch</a>
+  <a href="services.html"><i>03</i>Services</a>
+  <a href="about.html"><i>04</i>About</a>
+  <a href="contact.html"><i>05</i>Contact</a>
 </nav>
 
 <!-- ══ HERO ══ -->
@@ -547,6 +555,16 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
         <h2 class="sec-title">Our University Life Work <small>12 Videos</small></h2>
       </div>
       <div class="rail-wrap"><div class="rail" id="rail-uni"></div></div>
+    </section>
+
+    <section class="rail-sec rv" data-nofilter="1" id="more">
+      <div class="sec-head"><h2 class="sec-title">More From The Studio</h2></div>
+      <div class="wx-links"><a href="showreel.html">▶ Showreel</a><a href="more-work.html">Animation &amp; Motion Graphics</a><a href="film-posters.html">Film Posters</a><a href="projects/khaak-zada-safay.html">Khaak Zada Safay</a><a href="projects/phir-se.html">Phir Se</a></div>
+    </section>
+
+    <section class="rail-sec rv" data-nofilter="1" id="in-development">
+      <div class="sec-head"><h2 class="sec-title">In Development <small>Scripts</small></h2></div>
+      <div class="wx-dev"><div><i>Thriller · Screenplay by Syed Asad</i><b>Shadows in the City</b><p>A haunted Karachi private investigator searches the city's underworld for a missing 12-year-old girl, and a crime boss called Auqaab forces him to face the truth about his own past.</p></div><div><i>Fantasy Adventure · Written by Syed Asad</i><b>Veil</b><p>A treasure hunter enters the cursed ruins of Makli in search of the Eye of Makli, an artifact that can raise the dead, and meets the guardian who will not let it go.</p></div><div><i>Sci-Fi Adventure · Story by Syed Asad Raza Abidi</i><b>Wave of Deception</b><p>Three friends chase the mystery of the Bermuda Triangle. One comes back with powers from the ocean and a plan to rule it, and the other has to stop him.</p></div><div><i>Documentary · Concept by Syed Asad</i><b>Zinda Qaum</b><p>A documentary set against the anthem "Hum Zinda Qaum Hain" that holds its patriotic lyrics up against the everyday realities of modern Pakistan.</p></div><div><i>Family Drama · Screenplay</i><b>40 Saal</b><p>A year after their only son leaves home after a fight, an older couple faces the distance that 40 years of marriage never closed.</p></div></div>
     </section>
   </div>
 </main>
