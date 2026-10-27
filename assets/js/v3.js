@@ -229,6 +229,7 @@
     var items = [
       { l: 'Home', t: 'Page', u: root + 'index.html' },
       { l: 'Watch — Screening Room', t: 'Page', u: root + 'watch.html' },
+      { l: 'The Vault — Unseen Work', t: 'Page', u: root + 'vault.html' },
       { l: 'Services & Craft', t: 'Page', u: root + 'services.html' },
       { l: 'About / The Story', t: 'Page', u: root + 'about.html' },
       { l: 'Press & EPK', t: 'Page', u: root + 'press.html' },
