@@ -312,7 +312,7 @@
     }
   }
 
-  function cgInit(){addLauncher();addNavButton();}
+  function cgInit(){addLauncher();}
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',cgInit);
   else cgInit();
 

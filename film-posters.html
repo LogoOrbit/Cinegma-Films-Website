@@ -205,20 +205,17 @@ body.lb-open .v3-k-fab,body.lb-open #v3-k-fab{display:none!important}
 <body>
 <header id="nav">
   <a class="brand" href="index.html">CINEGMA<em></em></a>
-  <nav class="lk"><a href="index.html">Home</a><a href="watch.html">Watch</a><a href="showreel.html">Showreel</a><a href="services.html">Services</a><a href="about.html">About</a><a href="team.html">Team</a><a href="press.html">Press</a><a href="blog.html">Blog</a><a href="contact.html">Contact</a></nav>
+  <nav class="lk"><a href="portfolio.html" class="on">Work</a><a href="watch.html">Watch</a><a href="services.html">Services</a><a href="about.html">About</a><a href="contact.html">Contact</a></nav>
   <a class="btn solid" style="padding:10px 20px" href="contact.html">Start a Project</a>
   <button id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 <nav id="mmenu" aria-label="Mobile">
   <a href="index.html"><i>01</i>Home</a>
-  <a href="watch.html"><i>02</i>Watch</a>
-  <a href="showreel.html"><i>03</i>Showreel</a>
+  <a href="portfolio.html"><i>02</i>Work</a>
+  <a href="watch.html"><i>03</i>Watch</a>
   <a href="services.html"><i>04</i>Services</a>
   <a href="about.html"><i>05</i>About</a>
-  <a href="team.html"><i>06</i>Team</a>
-  <a href="press.html"><i>07</i>Press</a>
-  <a href="blog.html"><i>08</i>Blog</a>
-  <a href="contact.html"><i>09</i>Contact</a>
+  <a href="contact.html"><i>06</i>Contact</a>
 </nav>
 
 <section class="hero">
@@ -342,6 +339,7 @@ lb.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedT
       <div>
         <h5>Studio</h5>
         <a href="about.html">About Cinegma Films</a>
+        <a href="team.html">Our Team</a>
         <a href="portfolio.html">Portfolio &amp; Case Studies</a>
         <a href="more-work.html">More Work (Animation &amp; Motion)</a>
         <a href="press.html">Press &amp; EPK</a>
@@ -361,7 +359,6 @@ lb.addEventListener('touchend',function(e){if(sx===null)return;var dx=e.changedT
         <a href="video-editing-services-karachi.html">Video Editing</a>
         <a href="vfx-animation-services-karachi.html">VFX &amp; Animation</a>
         <a href="short-film-production-pakistan.html">Short Film Production</a>
-        <a href="documentary-film-services-pakistan.html">Documentary Services</a>
       </div>
       <div>
         <h5>Hire Us</h5>
@@ -396,6 +393,6 @@ if(hb&&!matchMedia('(prefers-reduced-motion: reduce)').matches)addEventListener(
 var b=document.getElementById('burger');if(b){b.addEventListener('click',function(){var o=document.body.classList.toggle('menu-open');b.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});document.querySelectorAll('#mmenu a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open');document.body.style.overflow='';});});}
 })();
 </script>
-<script src="assets/js/shared.js?v=3"></script>
+<script src="assets/js/shared.js?v=4"></script>
 </body>
 </html>

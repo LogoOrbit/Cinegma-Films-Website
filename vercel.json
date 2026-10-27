@@ -168,12 +168,12 @@
     },
     {
       "source": "/janjaal-trailer",
-      "destination": "/projects/janjaal-trailer.html",
+      "destination": "/projects/janjaal.html#trailer",
       "permanent": true
     },
     {
       "source": "/janjaal/trailer",
-      "destination": "/projects/janjaal-trailer.html",
+      "destination": "/projects/janjaal.html#trailer",
       "permanent": true
     },
     {
@@ -208,12 +208,12 @@
     },
     {
       "source": "/portrait-of-life-trailer",
-      "destination": "/projects/portrait-of-life-trailer.html",
+      "destination": "/projects/portrait-of-life.html#teaser",
       "permanent": true
     },
     {
       "source": "/portrait-of-life-teaser",
-      "destination": "/projects/portrait-of-life-trailer.html",
+      "destination": "/projects/portrait-of-life.html#teaser",
       "permanent": true
     },
     {
@@ -223,7 +223,7 @@
     },
     {
       "source": "/zawaal-trailer",
-      "destination": "/projects/zawaal-trailer.html",
+      "destination": "/projects/zawaal.html#trailer",
       "permanent": true
     },
     {
@@ -243,12 +243,62 @@
     },
     {
       "source": "/a-soldier-beside-me-trailer",
-      "destination": "/projects/a-soldier-beside-me-trailer.html",
+      "destination": "/projects/a-soldier-beside-me.html#trailer",
       "permanent": true
     },
     {
       "source": "/soldier-trailer",
-      "destination": "/projects/a-soldier-beside-me-trailer.html",
+      "destination": "/projects/a-soldier-beside-me.html#trailer",
+      "permanent": true
+    },
+    {
+      "source": "/projects/janjaal-trailer.html",
+      "destination": "/projects/janjaal.html#trailer",
+      "permanent": true
+    },
+    {
+      "source": "/projects/janjaal-trailer",
+      "destination": "/projects/janjaal.html#trailer",
+      "permanent": true
+    },
+    {
+      "source": "/projects/zawaal-trailer.html",
+      "destination": "/projects/zawaal.html#trailer",
+      "permanent": true
+    },
+    {
+      "source": "/projects/zawaal-trailer",
+      "destination": "/projects/zawaal.html#trailer",
+      "permanent": true
+    },
+    {
+      "source": "/projects/a-soldier-beside-me-trailer.html",
+      "destination": "/projects/a-soldier-beside-me.html#trailer",
+      "permanent": true
+    },
+    {
+      "source": "/projects/a-soldier-beside-me-trailer",
+      "destination": "/projects/a-soldier-beside-me.html#trailer",
+      "permanent": true
+    },
+    {
+      "source": "/projects/portrait-of-life-trailer.html",
+      "destination": "/projects/portrait-of-life.html#teaser",
+      "permanent": true
+    },
+    {
+      "source": "/projects/portrait-of-life-trailer",
+      "destination": "/projects/portrait-of-life.html#teaser",
+      "permanent": true
+    },
+    {
+      "source": "/documentary-film-services-pakistan.html",
+      "destination": "/documentary-production-karachi.html",
+      "permanent": true
+    },
+    {
+      "source": "/documentary-film-services-pakistan",
+      "destination": "/documentary-production-karachi.html",
       "permanent": true
     }
   ]
