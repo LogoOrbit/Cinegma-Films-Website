@@ -135,7 +135,7 @@ async function driveMedia(req, res) {
       }
     }
     /* refresh sooner while Bunny is still encoding new videos */
-    res.setHeader('Cache-Control', pending ? 'public, s-maxage=120' : 'public, s-maxage=600, stale-while-revalidate=3600');
+    res.setHeader('Cache-Control', pending ? 'public, s-maxage=120' : 'public, s-maxage=21600, stale-while-revalidate=86400');
     return res.status(200).json({ videos, lib: bunny ? bunny.lib : null });
   } catch (e) {
     res.setHeader('Cache-Control', 'public, s-maxage=120');
