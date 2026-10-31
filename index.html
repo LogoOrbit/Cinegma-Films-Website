@@ -520,27 +520,29 @@ footer .fine a:hover{color:#fff}
 
 <!-- Janjaal at Heuser Film Festival (Heuser College), 11–13 Nov 2026. Auto-hides from 14 Nov 2026 (PKT). -->
 <section id="heuser" class="hf" data-hf-expire aria-labelledby="hf-title">
-  <div class="wrap"><div class="hf-card v3-reveal">
-    <span class="kicker">Official Selection · Festival Screening</span>
-    <h2 class="h-lg" id="hf-title">Janjaal<br/><span class="serif-i">at Heuser Film Festival.</span></h2>
-    <p class="ev-fest">Heuser Premiere · Presented by Heuser College</p>
-    <p class="lead">Janjaal screens at the Heuser Film Festival, running 11–13 November 2026. Tickets are live now.</p>
-    <dl class="ev-facts">
-      <div><dt>Dates</dt><dd>11–13 Nov 2026</dd></div>
-      <div><dt>Tickets</dt><dd>Live now</dd></div>
-      <div class="w"><dt>Hosted by</dt><dd>Heuser College · Heuser Premiere</dd></div>
-    </dl>
-    <div class="ev-count hf-count" id="hfCount" aria-live="off">
-      <div><b data-u="d">--</b><span>Days</span></div>
-      <div><b data-u="h">--</b><span>Hours</span></div>
-      <div><b data-u="m">--</b><span>Mins</span></div>
-      <div><b data-u="s">--</b><span>Secs</span></div>
+  <div class="wrap">
+    <div class="hf-ticket v3-reveal">
+      <div class="hf-main">
+        <span class="hf-kicker">Official Selection · Student Film Festival</span>
+        <h2 id="hf-title"><span class="hf-film">Janjaal</span><span class="hf-at">at Heuser Film Festival</span></h2>
+        <p class="hf-org">Heuser Premiere · Presented by Heuser College</p>
+        <p class="hf-lead">Janjaal screens at the Heuser Film Festival, running 11–13 November 2026. Tickets are live now.</p>
+        <div class="hf-count" id="hfCount" aria-live="off">
+          <div><b data-u="d">--</b><span>Days</span></div>
+          <div><b data-u="h">--</b><span>Hours</span></div>
+          <div><b data-u="m">--</b><span>Mins</span></div>
+          <div><b data-u="s">--</b><span>Secs</span></div>
+        </div>
+      </div>
+      <div class="hf-stub">
+        <span class="hf-admit">Admit One</span>
+        <div class="hf-date"><b>11–13</b><span>November 2026</span></div>
+        <a class="hf-btn" href="https://heuserpremiere.com/" target="_blank" rel="noopener">Get Tickets ↗</a>
+        <a class="hf-ig" href="https://www.instagram.com/heuserfilmfestival/" target="_blank" rel="noopener">@heuserfilmfestival</a>
+        <span class="hf-no" aria-hidden="true">No. 0011 · JNJL</span>
+      </div>
     </div>
-    <div class="actions ev-actions">
-      <a class="btn solid ev-reg" href="https://heuserpremiere.com/" target="_blank" rel="noopener">Get Tickets ↗</a>
-      <a class="btn" href="https://www.instagram.com/heuserfilmfestival/" target="_blank" rel="noopener">Instagram ↗</a>
-    </div>
-  </div></div>
+  </div>
 </section>
 <script>
 /* Heuser countdown to 11 Nov 2026 PKT; hides everything marked data-hf-expire from 14 Nov 2026 00:00 PKT. */
@@ -556,7 +558,7 @@ footer .fine a:hover{color:#fff}
     var now=Date.now();
     if(now>=END){kill();clearInterval(t);return;}
     var ms=START-now;
-    if(ms<=0){if(!box.classList.contains('on')){box.classList.add('on');box.innerHTML='<p class="ev-now">Screening now — Heuser Film Festival, 11–13 Nov</p>';}return;}
+    if(ms<=0){if(!box.classList.contains('on')){box.classList.add('on');box.innerHTML='<p class="hf-now">Screening now — Heuser Film Festival</p>';}return;}
     var s=Math.floor(ms/1000);
     u.d.textContent=pad(Math.floor(s/86400));u.h.textContent=pad(Math.floor(s%86400/3600));
     u.m.textContent=pad(Math.floor(s%3600/60));u.s.textContent=pad(s%60);
@@ -567,17 +569,29 @@ footer .fine a:hover{color:#fff}
 
 <!-- Coming soon: Janjaal exclusive 10-day OTT streaming. Sits after the 7 Nov event; stays once the event auto-hides. -->
 <section id="ott-soon" class="ott" aria-labelledby="ott-title">
-  <div class="wrap"><div class="ott-card v3-reveal">
-    <span class="ott-badge"><i></i>Coming Soon · Exclusive</span>
-    <h2 class="h-lg" id="ott-title">Janjaal<br/><span class="serif-i">streaming soon.</span></h2>
-    <p class="lead">After its festival screenings in November, Janjaal is coming home. Exclusively streaming for <b>10 days</b> on the <b>biggest OTT platform in Pakistan</b>.</p>
+  <div class="wrap">
+    <div class="ott-screen v3-reveal">
+      <img class="ott-bg" src="assets/posters/janjaal-trailer-thumbnail.jpg" width="1280" height="720" loading="lazy" decoding="async" alt=""/>
+      <div class="ott-top"><span class="ott-badge"><i></i>Coming Soon</span><span class="ott-tag">Exclusive · 10 Days Only</span></div>
+      <div class="ott-body">
+        <span class="ott-play" aria-hidden="true"></span>
+        <h2 id="ott-title"><span class="ott-film">Janjaal</span><span class="ott-sub">Streaming soon.</span></h2>
+        <p class="ott-lead">After its festival screenings in November, Janjaal is coming home — streaming exclusively for <b>10 days</b> on the <b>biggest OTT platform in Pakistan</b>.</p>
+      </div>
+      <div class="ott-bar" aria-hidden="true">
+        <span class="ott-ctl">▶</span>
+        <span class="ott-track"><i></i></span>
+        <span class="ott-time">00:00 / 23:00</span>
+        <span class="ott-hd">HD</span>
+      </div>
+    </div>
     <ul class="ott-facts">
       <li><b>10</b><span>Days Only</span></li>
       <li><b>01</b><span>Exclusive Platform</span></li>
       <li><b>PK</b><span>Biggest OTT in Pakistan</span></li>
     </ul>
     <p class="ott-note">Platform &amp; dates announcing soon — stay tuned.</p>
-  </div></div>
+  </div>
 </section>
 
 <section id="showreel">

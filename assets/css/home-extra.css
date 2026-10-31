@@ -167,8 +167,8 @@
 .ev-note{margin-top:20px;font-size:14px;line-height:1.6;color:var(--mut)}
 .ev-note b{color:#f0ece4}
 .ev-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.ev .btn.solid.ev-reg,.hf .btn.solid.ev-reg{background:linear-gradient(100deg,#e3c47a,#b8892f);color:#1a0505}
-.ev .btn.solid.ev-reg:hover,.hf .btn.solid.ev-reg:hover{box-shadow:0 18px 54px rgba(214,178,94,.45)}
+.ev .btn.solid.ev-reg{background:linear-gradient(100deg,#e3c47a,#b8892f);color:#1a0505}
+.ev .btn.solid.ev-reg:hover{box-shadow:0 18px 54px rgba(214,178,94,.45)}
 .ev-tags{margin-top:20px;font-size:12px;letter-spacing:.06em;color:rgba(214,178,94,.75)}
 @media (max-width:900px){
   .ev-grid{grid-template-columns:1fr}
@@ -184,32 +184,79 @@
 }
 @media (prefers-reduced-motion:reduce){.ev-pill i,.ev-live i{animation:none}}
 
-/* ---------- coming soon: Janjaal exclusive OTT streaming ---------- */
-.ott{padding:clamp(56px,7vw,100px) 0;background:linear-gradient(180deg,#080808 0%,#120404 50%,#080808 100%)}
-.ott-card{position:relative;max-width:860px;margin:0 auto;box-sizing:border-box;text-align:center;padding:clamp(36px,5vw,64px) clamp(20px,4vw,56px);border-radius:24px;
-  border:1px solid rgba(214,178,94,.35);background:radial-gradient(90% 120% at 50% 0%,rgba(120,14,14,.45) 0%,rgba(12,4,4,.9) 70%)}
-.ott-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;border:1px solid rgba(214,178,94,.45);
-  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#d6b25e;font-weight:700}
-.ott-badge i{width:8px;height:8px;border-radius:50%;background:#d6b25e;animation:evPulse 1.8s infinite}
-.ott .h-lg{margin-top:18px}
-.ott .serif-i{color:#d6b25e}
-.ott .lead{margin:18px auto 0;max-width:620px}
-.ott .lead b{color:#f0ece4}
-.ott-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:560px;margin:28px auto 0;padding:0;list-style:none}
-.ott-facts li{padding:14px 6px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03)}
+/* ---------- coming soon: Janjaal exclusive OTT streaming (player-screen look) ---------- */
+.ott{padding:clamp(56px,7vw,100px) 0;background:radial-gradient(70% 60% at 50% 40%,rgba(64,72,200,.22) 0%,rgba(8,8,14,0) 70%),#06060a}
+.ott-screen{position:relative;max-width:980px;margin:0 auto;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#000;
+  border:1px solid rgba(140,150,255,.25);box-shadow:0 30px 90px rgba(40,50,180,.35),0 0 0 8px rgba(255,255,255,.03);display:flex;flex-direction:column}
+.ott-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.45;filter:saturate(.8) blur(1px);transform:scale(1.04)}
+.ott-screen:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 40%,rgba(0,0,0,.85) 100%);pointer-events:none}
+.ott-top,.ott-body,.ott-bar{position:relative;z-index:1}
+.ott-top{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:clamp(14px,2.4vw,24px)}
+.ott-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:6px;background:#e50914;color:#fff;
+  font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+.ott-badge i{width:7px;height:7px;border-radius:50%;background:#fff;animation:ottBlink 1.4s infinite}
+@keyframes ottBlink{50%{opacity:.25}}
+.ott-tag{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.ott-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 clamp(16px,5vw,64px)}
+.ott-play{width:clamp(52px,7vw,78px);aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.5);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);position:relative;margin-bottom:clamp(10px,2vw,20px)}
+.ott-play:before{content:"";position:absolute;left:54%;top:50%;transform:translate(-50%,-50%);border-style:solid;border-width:11px 0 11px 18px;border-color:transparent transparent transparent #fff}
+.ott-film{display:block;font-family:var(--disp);font-size:clamp(44px,8vw,104px);line-height:.9;letter-spacing:.04em;color:#fff;font-weight:400}
+.ott-sub{display:block;margin-top:6px;font-family:var(--body);font-size:clamp(13px,1.5vw,18px);letter-spacing:.32em;text-transform:uppercase;color:#a9b0ff}
+.ott-lead{margin-top:clamp(10px,1.6vw,18px);max-width:600px;font-size:clamp(13px,1.3vw,16px);line-height:1.6;color:rgba(255,255,255,.82)}
+.ott-lead b{color:#fff}
+.ott-bar{display:flex;align-items:center;gap:14px;padding:clamp(12px,2vw,20px) clamp(14px,2.4vw,24px);font-size:11px;color:rgba(255,255,255,.75);font-variant-numeric:tabular-nums}
+.ott-ctl{color:#fff;font-size:13px}
+.ott-track{flex:1;height:4px;border-radius:4px;background:rgba(255,255,255,.2);overflow:hidden}
+.ott-track i{display:block;height:100%;width:14%;background:#e50914;animation:ottLoad 6s ease-in-out infinite alternate}
+@keyframes ottLoad{to{width:38%}}
+.ott-hd{padding:2px 6px;border:1px solid rgba(255,255,255,.5);border-radius:3px;font-weight:700;letter-spacing:.08em}
+.ott-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:640px;margin:28px auto 0;padding:0;list-style:none}
+.ott-facts li{text-align:center;padding:14px 6px;border-radius:12px;border:1px solid rgba(140,150,255,.22);background:rgba(64,72,200,.08)}
 .ott-facts b{display:block;font-family:var(--disp);font-size:clamp(28px,3.2vw,40px);line-height:1;color:#fff;font-weight:400}
-.ott-facts span{display:block;margin-top:6px;line-height:1.4;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut)}
-.ott-note{margin-top:22px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(214,178,94,.8)}
-@media (max-width:560px){.ott-facts{grid-template-columns:1fr}.ott-facts span{font-size:10px}}
-@media (prefers-reduced-motion:reduce){.ott-badge i{animation:none}}
+.ott-facts span{display:block;margin-top:6px;line-height:1.4;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:#a9b0ff}
+.ott-note{margin-top:20px;text-align:center;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(169,176,255,.8)}
+@media (max-width:640px){
+  .ott-screen{aspect-ratio:auto;min-height:440px}
+  .ott-tag{display:none}
+  .ott-facts{gap:8px}
+  .ott-facts span{font-size:8.5px;letter-spacing:.14em}
+}
+@media (prefers-reduced-motion:reduce){.ott-badge i,.ott-track i{animation:none}}
 
-/* ---------- Heuser Film Festival screening ---------- */
+/* ---------- Heuser Film Festival screening (ivory ticket look) ---------- */
 #hero .ev-pill[data-ev-expire] ~ .hf-pill{display:none}
-.hf{padding:clamp(56px,7vw,100px) 0;background:radial-gradient(120% 80% at 80% 30%,#2a0505 0%,#120303 45%,#080808 80%)}
-.hf-card{max-width:860px;margin:0 auto;text-align:center}
-.hf .h-lg{margin-top:14px}
-.hf .serif-i{color:#d6b25e}
-.hf .lead{margin:16px auto 0;max-width:620px}
-.hf .ev-facts,.hf .ev-count{margin-left:auto;margin-right:auto;max-width:560px;text-align:left}
-.hf .ev-count{text-align:center}
-.hf .ev-actions{justify-content:center}
+.hf{padding:clamp(56px,7vw,100px) 0;background:repeating-linear-gradient(135deg,#0d0b09 0 22px,#110e0b 22px 44px)}
+.hf-ticket{--paper:#f3ece0;--ink:#1c1410;--acc:#9b1c1c;position:relative;display:grid;grid-template-columns:1fr 260px;max-width:980px;margin:0 auto;
+  color:var(--ink);filter:drop-shadow(0 24px 60px rgba(0,0,0,.55))}
+.hf-main,.hf-stub{background:var(--paper);padding:clamp(26px,4vw,48px)}
+.hf-main{border-radius:16px 0 0 16px;
+  -webkit-mask:radial-gradient(circle 14px at 100% 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 14px at 100% 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+  mask:radial-gradient(circle 14px at 100% 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 14px at 100% 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+.hf-stub{border-radius:0 16px 16px 0;border-left:2px dashed rgba(28,20,16,.35);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;
+  -webkit-mask:radial-gradient(circle 14px at 0 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 14px at 0 100%,#0000 98%,#000) bottom/100% 51% no-repeat;
+  mask:radial-gradient(circle 14px at 0 0,#0000 98%,#000) top/100% 51% no-repeat,radial-gradient(circle 14px at 0 100%,#0000 98%,#000) bottom/100% 51% no-repeat}
+.hf-kicker{display:inline-block;padding:5px 10px;border:1.5px solid var(--acc);color:var(--acc);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase}
+.hf h2{margin:16px 0 0}
+.hf-film{display:block;font-family:var(--disp);font-size:clamp(56px,8vw,96px);line-height:.88;letter-spacing:.03em;color:var(--ink);font-weight:400}
+.hf-at{display:block;font-family:var(--serif);font-style:italic;font-size:clamp(24px,3vw,36px);color:var(--acc);line-height:1.1}
+.hf-org{margin-top:12px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(28,20,16,.65);font-weight:700}
+.hf-lead{margin-top:12px;max-width:520px;font-size:15px;line-height:1.6;color:rgba(28,20,16,.8)}
+.hf-count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:420px;margin-top:22px}
+.hf-count div{text-align:center;padding:10px 4px;border-radius:8px;background:var(--ink);color:var(--paper)}
+.hf-count b{display:block;font-family:var(--disp);font-size:clamp(28px,3vw,38px);line-height:1;font-weight:400}
+.hf-count span{display:block;margin-top:4px;font-size:9px;letter-spacing:.22em;text-transform:uppercase;opacity:.7}
+.hf-count.on{display:block}
+.hf-now{font-family:var(--disp);font-size:clamp(24px,2.6vw,32px);color:var(--acc);letter-spacing:.04em}
+.hf-admit{font-family:var(--disp);font-size:28px;letter-spacing:.14em;color:var(--acc);border-top:2px solid var(--acc);border-bottom:2px solid var(--acc);padding:2px 10px}
+.hf-date b{display:block;font-family:var(--disp);font-size:54px;line-height:1;font-weight:400}
+.hf-date span{font-size:10px;letter-spacing:.24em;text-transform:uppercase;font-weight:700;color:rgba(28,20,16,.65)}
+.hf-btn{display:inline-block;padding:12px 22px;border-radius:999px;background:var(--acc);color:#fff;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;transition:transform .25s,background .25s}
+.hf-btn:hover{background:#7a1414;transform:translateY(-2px)}
+.hf-ig{font-size:12px;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.hf-no{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.14em;color:rgba(28,20,16,.45)}
+@media (max-width:760px){
+  .hf-ticket{grid-template-columns:1fr}
+  .hf-main{border-radius:16px 16px 0 0;-webkit-mask:none;mask:none}
+  .hf-stub{border-radius:0 0 16px 16px;border-left:0;border-top:2px dashed rgba(28,20,16,.35);-webkit-mask:none;mask:none}
+}
