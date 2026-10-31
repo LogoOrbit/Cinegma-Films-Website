@@ -167,8 +167,8 @@
 .ev-note{margin-top:20px;font-size:14px;line-height:1.6;color:var(--mut)}
 .ev-note b{color:#f0ece4}
 .ev-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
-.ev .btn.solid.ev-reg{background:linear-gradient(100deg,#e3c47a,#b8892f);color:#1a0505}
-.ev .btn.solid.ev-reg:hover{box-shadow:0 18px 54px rgba(214,178,94,.45)}
+.ev .btn.solid.ev-reg,.hf .btn.solid.ev-reg{background:linear-gradient(100deg,#e3c47a,#b8892f);color:#1a0505}
+.ev .btn.solid.ev-reg:hover,.hf .btn.solid.ev-reg:hover{box-shadow:0 18px 54px rgba(214,178,94,.45)}
 .ev-tags{margin-top:20px;font-size:12px;letter-spacing:.06em;color:rgba(214,178,94,.75)}
 @media (max-width:900px){
   .ev-grid{grid-template-columns:1fr}
@@ -202,3 +202,14 @@
 .ott-note{margin-top:22px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(214,178,94,.8)}
 @media (max-width:560px){.ott-facts{grid-template-columns:1fr}.ott-facts span{font-size:10px}}
 @media (prefers-reduced-motion:reduce){.ott-badge i{animation:none}}
+
+/* ---------- Heuser Film Festival screening ---------- */
+#hero .ev-pill[data-ev-expire] ~ .hf-pill{display:none}
+.hf{padding:clamp(56px,7vw,100px) 0;background:radial-gradient(120% 80% at 80% 30%,#2a0505 0%,#120303 45%,#080808 80%)}
+.hf-card{max-width:860px;margin:0 auto;text-align:center}
+.hf .h-lg{margin-top:14px}
+.hf .serif-i{color:#d6b25e}
+.hf .lead{margin:16px auto 0;max-width:620px}
+.hf .ev-facts,.hf .ev-count{margin-left:auto;margin-right:auto;max-width:560px;text-align:left}
+.hf .ev-count{text-align:center}
+.hf .ev-actions{justify-content:center}

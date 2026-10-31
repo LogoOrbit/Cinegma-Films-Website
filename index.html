@@ -428,6 +428,7 @@ footer .fine a:hover{color:#fff}
   </div>
   <div class="content">
     <a class="ev-pill" href="#event" data-ev-expire><i></i><b>Exclusive Screening</b><span>Janjaal · 7 Nov · Arts Council Karachi · Free Entry</span><em aria-hidden="true">→</em></a>
+    <a class="ev-pill hf-pill" href="#heuser" data-hf-expire><i></i><b>Festival Screening</b><span>Janjaal · 11–13 Nov · Heuser Film Festival · Tickets Live</span><em aria-hidden="true">→</em></a>
     <div class="loc">Karachi, Pakistan · Independent Cinema<span class="est"> · Est. 2024</span></div>
     <h1>
       <span class="line name"><span>Cinegma</span></span>
@@ -517,12 +518,59 @@ footer .fine a:hover{color:#fff}
 })();
 </script>
 
+<!-- Janjaal at Heuser Film Festival (Heuser College), 11–13 Nov 2026. Auto-hides from 14 Nov 2026 (PKT). -->
+<section id="heuser" class="hf" data-hf-expire aria-labelledby="hf-title">
+  <div class="wrap"><div class="hf-card v3-reveal">
+    <span class="kicker">Official Selection · Festival Screening</span>
+    <h2 class="h-lg" id="hf-title">Janjaal<br/><span class="serif-i">at Heuser Film Festival.</span></h2>
+    <p class="ev-fest">Heuser Premiere · Presented by Heuser College</p>
+    <p class="lead">Janjaal screens at the Heuser Film Festival, running 11–13 November 2026. Tickets are live now.</p>
+    <dl class="ev-facts">
+      <div><dt>Dates</dt><dd>11–13 Nov 2026</dd></div>
+      <div><dt>Tickets</dt><dd>Live now</dd></div>
+      <div class="w"><dt>Hosted by</dt><dd>Heuser College · Heuser Premiere</dd></div>
+    </dl>
+    <div class="ev-count hf-count" id="hfCount" aria-live="off">
+      <div><b data-u="d">--</b><span>Days</span></div>
+      <div><b data-u="h">--</b><span>Hours</span></div>
+      <div><b data-u="m">--</b><span>Mins</span></div>
+      <div><b data-u="s">--</b><span>Secs</span></div>
+    </div>
+    <div class="actions ev-actions">
+      <a class="btn solid ev-reg" href="https://heuserpremiere.com/" target="_blank" rel="noopener">Get Tickets ↗</a>
+      <a class="btn" href="https://www.instagram.com/heuserfilmfestival/" target="_blank" rel="noopener">Instagram ↗</a>
+    </div>
+  </div></div>
+</section>
+<script>
+/* Heuser countdown to 11 Nov 2026 PKT; hides everything marked data-hf-expire from 14 Nov 2026 00:00 PKT. */
+(function(){
+  var START=Date.parse('2026-11-11T00:00:00+05:00'),END=Date.parse('2026-11-14T00:00:00+05:00');
+  var els=document.querySelectorAll('[data-hf-expire]');
+  function kill(){for(var i=0;i<els.length;i++)if(els[i].parentNode)els[i].parentNode.removeChild(els[i]);}
+  if(Date.now()>=END){kill();return;}
+  var box=document.getElementById('hfCount');if(!box)return;
+  var u={};['d','h','m','s'].forEach(function(k){u[k]=box.querySelector('[data-u="'+k+'"]')});
+  function pad(n){return n<10?'0'+n:''+n}
+  function tick(){
+    var now=Date.now();
+    if(now>=END){kill();clearInterval(t);return;}
+    var ms=START-now;
+    if(ms<=0){if(!box.classList.contains('on')){box.classList.add('on');box.innerHTML='<p class="ev-now">Screening now — Heuser Film Festival, 11–13 Nov</p>';}return;}
+    var s=Math.floor(ms/1000);
+    u.d.textContent=pad(Math.floor(s/86400));u.h.textContent=pad(Math.floor(s%86400/3600));
+    u.m.textContent=pad(Math.floor(s%3600/60));u.s.textContent=pad(s%60);
+  }
+  var t=setInterval(tick,1000);tick();
+})();
+</script>
+
 <!-- Coming soon: Janjaal exclusive 10-day OTT streaming. Sits after the 7 Nov event; stays once the event auto-hides. -->
 <section id="ott-soon" class="ott" aria-labelledby="ott-title">
   <div class="wrap"><div class="ott-card v3-reveal">
     <span class="ott-badge"><i></i>Coming Soon · Exclusive</span>
     <h2 class="h-lg" id="ott-title">Janjaal<br/><span class="serif-i">streaming soon.</span></h2>
-    <p class="lead">After the World Culture Festival screening on 7 November, Janjaal is coming home. Exclusively streaming for <b>10 days</b> on the <b>biggest OTT platform in Pakistan</b>.</p>
+    <p class="lead">After its festival screenings in November, Janjaal is coming home. Exclusively streaming for <b>10 days</b> on the <b>biggest OTT platform in Pakistan</b>.</p>
     <ul class="ott-facts">
       <li><b>10</b><span>Days Only</span></li>
       <li><b>01</b><span>Exclusive Platform</span></li>
