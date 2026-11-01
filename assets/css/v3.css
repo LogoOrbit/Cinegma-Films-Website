@@ -123,3 +123,14 @@ html.v3-js .v3-reveal:not(.in){opacity:0;transform:translate3d(0,44px,0) scale(.
   .poster-w img,.fcard .fc-poster{transform:none!important}
   [data-v3-tilt]{transform:none!important}
 }
+
+/* ---- readability + touch targets (site-wide) ---- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+:where(a,button,summary,input,select,textarea,[tabindex]):focus-visible{outline:2px solid #fff;outline-offset:3px}
+html body .section-label,html body .cta-eyebrow,html body .seo-kicker,html body .ledger-group{font-size:max(.6rem,11px)}
+@media (max-width:760px){
+  /* footer links were ~14px tall on phones: give each a usable tap area */
+  html body footer nav a{display:inline-flex;align-items:center;min-height:40px}
+  html body footer .row nav{gap:0 20px}
+  html body footer .row{font-size:max(11px,.72rem)}
+}
