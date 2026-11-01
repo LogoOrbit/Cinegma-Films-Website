@@ -226,7 +226,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px}
     </div>
 
     <div class="player" id="mainPlayer">
-      <video id="mainVid" controls playsinline preload="none" poster="assets/posters/janjaal-trailer-thumbnail.jpg" aria-label="Main showreel" controlsList="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback>
+      <video id="mainVid" controls playsinline preload="metadata" poster="assets/posters/janjaal-trailer-thumbnail.jpg" aria-label="Main showreel" controlsList="nodownload noplaybackrate noremoteplayback" disablepictureinpicture disableremoteplayback>
         <source src="https://CinegmaFilms.b-cdn.net/Cinegmafilmsshowreel.mp4" type="video/mp4"/>
       </video>
       <button class="cover" id="mainCover" type="button" aria-label="Play the main showreel">
@@ -400,6 +400,9 @@ $('crList').innerHTML=CREDITS.map(function(c){
 
 /* main reel */
 var mainVid=$('mainVid'),mainCover=$('mainCover');
+/* start buffering as soon as the visitor shows intent */
+function warmMain(){ if(mainVid.preload!=='auto'){ mainVid.preload='auto'; try{mainVid.load();}catch(e){} } }
+['pointerenter','touchstart','focus'].forEach(function(ev){ mainCover.addEventListener(ev,warmMain,{passive:true,once:true}); });
 mainCover.addEventListener('click',function(){
   mainCover.style.display='none';
   var p=mainVid.play();if(p&&p.catch)p.catch(function(){});
@@ -413,7 +416,8 @@ function load(i){
   $('mSub').textContent=t.meta+'  ·  '+t.roles.join(' · ');
   $('mCnt').textContent=(cur+1)+' / '+T.length;
   $('mPage').href=t.page;
-  mVid.poster=t.img;mVid.src=CDN+t.src;
+  mVid.poster=t.img;
+  if(mVid.src!==CDN+t.src) mVid.src=CDN+t.src;
   var p=mVid.play();if(p&&p.catch)p.catch(function(){});
 }
 function open(i,all){
@@ -427,6 +431,14 @@ function close(){
   modal.classList.remove('on');document.body.classList.remove('modal-open');
   if(lastFocus&&lastFocus.focus)lastFocus.focus();
 }
+/* warm the trailer on hover / touch so it is buffering before the click */
+function warmTrailer(e){
+  var b=e.target.closest&&e.target.closest('.th'); if(!b||modal.classList.contains('on')) return;
+  var u=CDN+T[+b.dataset.i].src; if(mVid.src===u) return;
+  mVid.preload='auto'; mVid.src=u;
+}
+$('tgrid').addEventListener('pointerover',warmTrailer);
+$('tgrid').addEventListener('touchstart',warmTrailer,{passive:true});
 $('tgrid').addEventListener('click',function(e){
   var b=e.target.closest('.th');if(b)open(+b.dataset.i,false);
 });
