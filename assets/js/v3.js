@@ -11,6 +11,38 @@
 
   function el(tag, id, html) { var e = document.createElement(tag); if (id) e.id = id; if (html) e.innerHTML = html; return e; }
 
+  /* Gentle fade-up as sections enter the viewport. Siblings in a row get a
+     short stagger so a grid doesn't land as one block. */
+  function initReveal() {
+    if (reduced || !('IntersectionObserver' in window)) { revealAll(); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var n = en.target, p = n.parentElement, i = 0;
+        if (p) {
+          var sibs = [].filter.call(p.children, function (c) { return c.classList.contains('v3-reveal'); });
+          i = Math.min(Math.max(sibs.indexOf(n), 0), 4);
+        }
+        if (i) {
+          n.style.transitionDelay = (i * 70) + 'ms';
+          setTimeout(function () { n.style.transitionDelay = ''; }, 1100);
+        }
+        n.classList.add('in');
+        io.unobserve(n);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    document.querySelectorAll('.v3-reveal').forEach(function (n) { io.observe(n); });
+    /* failsafe: never leave on-screen content hidden */
+    addEventListener('load', function () {
+      setTimeout(function () {
+        document.querySelectorAll('.v3-reveal:not(.in)').forEach(function (n) {
+          var r = n.getBoundingClientRect();
+          if (r.top < innerHeight && r.bottom > 0) n.classList.add('in');
+        });
+      }, 1200);
+    });
+  }
+
   function revealAll() {
     document.querySelectorAll('.v3-reveal').forEach(function (n) { n.classList.add('in'); });
   }
@@ -115,7 +147,7 @@
   }
 
   function init() {
-    revealAll();
+    try { initReveal(); } catch (e) { revealAll(); }
     try { initParallax(); } catch (e) { /* decorative only */ }
     try { initSmoothScroll(); } catch (e) { /* native scroll stays */ }
     try { decorate(); } catch (e) { /* never let chrome break the page */ }
