@@ -26,7 +26,8 @@
   function initLenis() {
     if (reduced || !window.Lenis) return;
     lenis = new window.Lenis({
-      lerp: 0.085,
+      lerp: 0.15,                 /* quick to respond, still eased */
+      wheelMultiplier: 1,
       smoothWheel: true,
       syncTouch: false,           /* phones keep native momentum */
       anchors: { offset: -90 },
@@ -47,6 +48,23 @@
       var lock = b.style.overflow === 'hidden' || b.classList.contains('menu-open');
       lock ? lenis.stop() : lenis.start();
     }).observe(b, { attributes: true, attributeFilter: ['style', 'class'] });
+  }
+
+  /* ---------------- scroll-linked reveals ----------------
+     Content rises and fades in step with the scroll position itself (scrub),
+     so nothing waits on a timer. Uses the independent CSS 'translate'
+     property via --m-ry, so hover transforms on the same element still work. */
+  function initScrollReveal() {
+    if (reduced) return;
+    gsap.utils.toArray('.v3-reveal, .reveal').forEach(function (n) {
+      if (n.closest('#hero, .hero, .page-hero, #mmenu, #v3-k')) return;
+      n.classList.remove('v3-reveal', 'reveal');
+      n.classList.add('m-sr');
+      gsap.fromTo(n, { '--m-ry': '48px', opacity: 0 }, {
+        '--m-ry': '0px', opacity: 1, ease: 'none',
+        scrollTrigger: { trigger: n, start: 'clamp(top 100%)', end: 'clamp(top 72%)', scrub: true }
+      });
+    });
   }
 
   /* ---------------- split headlines ---------------- */
@@ -262,6 +280,8 @@
   /* ---------------- boot ---------------- */
   function run(fn) { try { fn(); } catch (e) { if (window.console) console.warn('[motion]', e); } }
   run(initTransitions);
+  run(initLenis);
+  run(initScrollReveal);
   /* Native scrolling everywhere: the Lenis wheel smoothing felt laggy and
      fought high-refresh screens, so the browser's own scroll is used. */
   ST.config({ ignoreMobileResize: true });

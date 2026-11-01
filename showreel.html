@@ -194,8 +194,8 @@ footer nav{display:flex;flex-wrap:wrap;gap:18px}
 #modal .nav2 .btn{padding:11px 18px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
-<link rel="stylesheet" href="assets/css/motion.css?v=2"/>
-<link rel="stylesheet" href="assets/css/plain.css"/>
+<link rel="stylesheet" href="assets/css/motion.css?v=3"/>
+<link rel="stylesheet" href="assets/css/plain.css?v=2"/>
 </head>
 <body>
 <header id="nav">
@@ -474,7 +474,8 @@ document.addEventListener('contextmenu',function(e){if(e.target.closest&&e.targe
 <script src="assets/js/vendor/gsap.min.js" defer></script>
 <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
 <script src="assets/js/vendor/SplitText.min.js" defer></script>
-<script src="assets/js/motion.js?v=3" defer></script>
+<script src="assets/js/vendor/lenis.min.js" defer></script>
+<script src="assets/js/motion.js?v=4" defer></script>
 <script src="assets/js/lead.js?v=1" defer></script>
 <script>
 (function(){var b=document.getElementById('burger');if(!b)return;b.addEventListener('click',function(){var o=document.body.classList.toggle('menu-open');b.setAttribute('aria-expanded',o);document.body.style.overflow=o?'hidden':'';});document.querySelectorAll('#mmenu a').forEach(function(a){a.addEventListener('click',function(){document.body.classList.remove('menu-open');document.body.style.overflow='';});});})();

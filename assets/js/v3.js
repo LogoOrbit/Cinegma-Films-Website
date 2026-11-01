@@ -11,26 +11,17 @@
 
   function el(tag, id, html) { var e = document.createElement(tag); if (id) e.id = id; if (html) e.innerHTML = html; return e; }
 
-  /* Gentle fade-up as sections enter the viewport. Siblings in a row get a
-     short stagger so a grid doesn't land as one block. */
+  /* Fallback fade-up for pages without motion.js and for hero content. */
   function initReveal() {
     if (reduced || !('IntersectionObserver' in window)) { revealAll(); return; }
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (en) {
         if (!en.isIntersecting) return;
-        var n = en.target, p = n.parentElement, i = 0;
-        if (p) {
-          var sibs = [].filter.call(p.children, function (c) { return c.classList.contains('v3-reveal'); });
-          i = Math.min(Math.max(sibs.indexOf(n), 0), 4);
-        }
-        if (i) {
-          n.style.transitionDelay = (i * 70) + 'ms';
-          setTimeout(function () { n.style.transitionDelay = ''; }, 1100);
-        }
+        var n = en.target;
         n.classList.add('in');
         io.unobserve(n);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 10% 0px' });
     document.querySelectorAll('.v3-reveal').forEach(function (n) { io.observe(n); });
     /* failsafe: never leave on-screen content hidden */
     addEventListener('load', function () {

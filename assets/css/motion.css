@@ -64,3 +64,6 @@ html.m-pt-in::after{content:"";animation:m-pt-fail 0s linear 2.5s forwards}
 @media(max-width:1440px){#nav .links{gap:24px!important}}
 @media(max-width:1320px){#nav .lk,#nav .links{gap:18px!important}#nav .lk a,#nav .links a{letter-spacing:.15em!important}}
 @media(max-width:1120px){#nav .lk,#nav .links,#nav>.btn,#nav .cta{display:none!important}#burger{display:block!important}}
+
+/* scroll-linked reveal offset (driven by motion.js) */
+.m-sr{translate:0 var(--m-ry,0)}
