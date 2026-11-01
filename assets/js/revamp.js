@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    REVAMP LAYER — Cinegma Films
-   Smart nav, auto reveals, split headlines, hover prefetch.
+   Smart nav, hover prefetch.
    Progressive enhancement only — safe without JS/CSS support.
    ═══════════════════════════════════════════════════════════ */
 (function () {
@@ -42,91 +42,6 @@
       if (!ticking) { ticking = true; requestAnimationFrame(update); }
     }, { passive: true });
     update();
-  });
-
-  /* ── 3. AUTO-REVEAL for content below the fold that has no .reveal ── */
-  onReady(function () {
-    if (REDUCED || !('IntersectionObserver' in window)) return;
-
-    var fold = window.innerHeight * 0.92;
-    var candidates = [];
-
-    // Direct section children + common card/grid items, sitewide
-    var sel = 'section > h1, section > h2, section > h3, section > p, ' +
-              '.yt-card, .ott-row, .press-card, .blog-card, .article-card, ' +
-              'section > .card, section > figure, section > blockquote';
-    doc.querySelectorAll(sel).forEach(function (el) {
-      if (el.closest('#hero, .hero, nav, footer, #mobileMenu, [data-rv-skip]')) return;
-      if (el.classList.contains('reveal') || el.closest('.reveal')) return;
-      if (el.classList.contains('rv-reveal')) return;
-      var r = el.getBoundingClientRect();
-      if (r.top < fold || r.height === 0) return; // never touch what's already visible
-      candidates.push(el);
-    });
-    if (!candidates.length) return;
-
-    // Stagger siblings that arrive together
-    var groups = new Map();
-    candidates.forEach(function (el) {
-      var key = el.parentElement;
-      var i = groups.get(key) || 0;
-      el.style.setProperty('--rv-i', i);
-      groups.set(key, i + 1);
-      el.classList.add('rv-reveal');
-    });
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('rv-in');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.05, rootMargin: '0px 0px -6% 0px' });
-    candidates.forEach(function (el) { io.observe(el); });
-  });
-
-  /* ── 4. SPLIT-WORD HEADLINE REVEAL (plain-text section titles below fold) ── */
-  onReady(function () {
-    if (REDUCED || !('IntersectionObserver' in window)) return;
-    var fold = window.innerHeight * 0.92;
-    var heads = [];
-    doc.querySelectorAll('section h2, .section-title').forEach(function (el) {
-      if (el.closest('#hero, .reveal, .rv-reveal, nav, [data-rv-skip]')) return;
-      if (el.children.length > 0) return;                  // plain text only
-      var t = el.textContent.trim();
-      if (!t || t.length > 90) return;
-      if (el.getBoundingClientRect().top < fold) return;
-      heads.push(el);
-    });
-    if (!heads.length) return;
-
-    heads.forEach(function (el) {
-      var words = el.textContent.trim().split(/\s+/);
-      el.textContent = '';
-      words.forEach(function (w, i) {
-        var outer = doc.createElement('span');
-        outer.className = 'rv-w';
-        var inner = doc.createElement('span');
-        inner.className = 'rv-wi';
-        inner.style.setProperty('--rv-w', i);
-        inner.textContent = w;
-        outer.appendChild(inner);
-        el.appendChild(outer);
-        if (i < words.length - 1) el.appendChild(doc.createTextNode(' '));
-      });
-      el.classList.add('rv-split');
-    });
-
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('rv-in');
-          io.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    heads.forEach(function (el) { io.observe(el); });
   });
 
   /* ── 7. HOVER PREFETCH for internal pages (snappier navigation) ── */

@@ -70,7 +70,7 @@ body::-webkit-scrollbar-thumb{background:#3a3a40;border-radius:6px}
 #v3-k{position:fixed;inset:0;z-index:2147483400;display:none;align-items:flex-start;justify-content:center;
   padding:12vh 18px 0;background:rgba(5,5,9,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 #v3-k.open{display:flex}
-#v3-k .k-box{width:min(620px,100%);border:1px solid rgba(255,255,255,.35);border-radius:16px;
+#v3-k .k-box{width:min(620px,100%);border:1px solid rgba(255,255,255,.35);border-radius:6px;
   background:rgba(12,12,18,.92);box-shadow:0 30px 90px rgba(0,0,0,.7),0 0 60px rgba(255,255,255,.15);overflow:hidden;
   animation:v3-kin .22s cubic-bezier(.2,.9,.3,1.2)}
 @keyframes v3-kin{from{transform:translateY(14px) scale(.97);opacity:0}to{transform:none;opacity:1}}
@@ -105,8 +105,8 @@ body::-webkit-scrollbar-thumb{background:#3a3a40;border-radius:6px}
    Hidden only once JS has confirmed it can reveal it again (html.v3-js, set by
    the inline bootstrap / v3.js). Without that gate a blocked or broken v3.js
    would leave every page below the fold permanently blank. */
-.v3-reveal{transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1),filter 1.1s cubic-bezier(.16,1,.3,1);will-change:opacity,transform}
-html.v3-js .v3-reveal:not(.in){opacity:0;transform:translate3d(0,44px,0) scale(.985);filter:blur(6px)}
+.v3-reveal{}
+
 .v3-reveal.in{opacity:1;transform:none;filter:none;will-change:auto}
 
 /* Artwork drifts against its frame while the card crosses the viewport.

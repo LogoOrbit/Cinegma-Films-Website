@@ -11,70 +11,8 @@
 
   function el(tag, id, html) { var e = document.createElement(tag); if (id) e.id = id; if (html) e.innerHTML = html; return e; }
 
-  /* scramble text on scroll-into-view */
-  var CH = '!<>-_\\/[]{}—=+*^?#________';
-  function scramble(node) {
-    var final = node.dataset.v3Text || node.textContent; node.dataset.v3Text = final;
-    var frame = 0, len = final.length;
-    (function tick() {
-      var out = '', done = 0;
-      for (var i = 0; i < len; i++) {
-        if (frame >= i * 2 + 8) { out += final[i]; done++; }
-        else out += CH[(Math.random() * CH.length) | 0];
-      }
-      node.textContent = out;
-      if (done < len) { frame += 2; requestAnimationFrame(tick); }
-    })();
-  }
-
   function revealAll() {
     document.querySelectorAll('.v3-reveal').forEach(function (n) { n.classList.add('in'); });
-  }
-
-  /* Runs before every decorative feature so a later throw can never leave the
-     page hidden behind opacity:0. */
-  function initReveal() {
-    if (!('IntersectionObserver' in window)) { revealAll(); return; }
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (en) {
-        if (!en.isIntersecting) return;
-        stagger(en.target);
-        en.target.classList.add('in');
-        if (en.target.hasAttribute('data-scramble') && !reduced) scramble(en.target);
-        io.unobserve(en.target);
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
-    document.querySelectorAll('.v3-reveal, [data-scramble]').forEach(function (n) { io.observe(n); });
-    /* failsafe: anything still hidden inside the viewport after load gets shown */
-    addEventListener('load', function () {
-      setTimeout(function () {
-        document.querySelectorAll('.v3-reveal:not(.in)').forEach(function (n) {
-          var r = n.getBoundingClientRect();
-          if (r.top < innerHeight && r.bottom > 0) n.classList.add('in');
-        });
-      }, 1200);
-    });
-  }
-
-
-  /* ---- row-aware stagger --------------------------------------------------
-     Siblings that share a row ripple in left-to-right instead of landing as one
-     block. The delay is measured off layout the first time a row is touched,
-     so it survives any column count the grid resolves to. */
-  function stagger(node) {
-    if (reduced || node.dataset.v3Delay) return;
-    var parent = node.parentElement;
-    if (!parent) return;
-    var sibs = [].filter.call(parent.children, function (c) { return c.classList.contains('v3-reveal'); });
-    if (sibs.length < 2) return;
-    var top = Math.round(node.offsetTop / 8), i = 0;
-    for (var n = 0; n < sibs.length; n++) {
-      if (sibs[n] === node) break;
-      if (Math.round(sibs[n].offsetTop / 8) === top) i++;
-    }
-    var d = Math.min(i, 5) * 90;
-    node.dataset.v3Delay = '1';
-    if (d) node.style.transitionDelay = d + 'ms';
   }
 
   /* ---- poster parallax ----------------------------------------------------
@@ -177,7 +115,7 @@
   }
 
   function init() {
-    try { initReveal(); } catch (e) { revealAll(); }
+    revealAll();
     try { initParallax(); } catch (e) { /* decorative only */ }
     try { initSmoothScroll(); } catch (e) { /* native scroll stays */ }
     try { decorate(); } catch (e) { /* never let chrome break the page */ }
@@ -189,14 +127,14 @@
     /* command palette */
     var items = [
       { l: 'Home', t: 'Page', u: root + 'index.html' },
-      { l: 'Watch — Screening Room', t: 'Page', u: root + 'watch.html' },
-      { l: 'The Vault — Unseen Work', t: 'Page', u: root + 'vault.html' },
+      { l: 'Watch, Screening Room', t: 'Page', u: root + 'watch.html' },
+      { l: 'The Vault, Unseen Work', t: 'Page', u: root + 'vault.html' },
       { l: 'Services & Craft', t: 'Page', u: root + 'services.html' },
       { l: 'About / The Story', t: 'Page', u: root + 'about.html' },
       { l: 'Press & EPK', t: 'Page', u: root + 'press.html' },
       { l: 'Blog', t: 'Page', u: root + 'blog.html' },
       { l: 'Contact', t: 'Page', u: root + 'contact.html' },
-      { l: 'Janjaal (Tussle) — 14 Awards', t: 'Film', u: root + 'projects/janjaal.html' },
+      { l: 'Janjaal (Tussle), 14 Awards', t: 'Film', u: root + 'projects/janjaal.html' },
       { l: 'Portrait of Life', t: 'Film', u: root + 'projects/portrait-of-life.html' },
       { l: 'Zawaal', t: 'Film', u: root + 'projects/zawaal.html' },
       { l: 'A Soldier Beside Me', t: 'Film', u: root + 'projects/a-soldier-beside-me.html' },
@@ -204,16 +142,16 @@
       { l: 'Main Aur Achu', t: 'Film', u: root + 'projects/main-aur-achu.html' },
       { l: 'Phir Se', t: 'Film', u: root + 'projects/phir-se.html' },
       { l: 'Urdu Bazaar Karachi', t: 'Film', u: root + 'projects/urdu-bazaar-karachi.html' },
-      { l: 'Khaak Zada Safay — Documentary (Edit, Colour, Sound)', t: 'Work', u: root + 'projects/khaak-zada-safay.html' },
+      { l: 'Khaak Zada Safay: Documentary (Edit, Colour, Sound)', t: 'Work', u: root + 'projects/khaak-zada-safay.html' },
       { l: 'Film Posters Gallery', t: 'Page', u: root + 'film-posters.html' },
       { l: 'Our Team', t: 'Page', u: root + 'team.html' },
       { l: 'Get a Quote on WhatsApp', t: 'Contact', u: 'https://wa.me/923390344180' },
-      { l: 'Syed Asad Raza Abidi — Founder & Director', t: 'Team', u: root + 'team/syed-asad.html' },
-      { l: 'Ghayas Uddin Siddiqui — Cinematographer', t: 'Team', u: root + 'team/ghayas-uddin.html' },
-      { l: 'Ameer Hamza — Writer & Producer', t: 'Team', u: root + 'team/ameer-hamza.html' },
-      { l: 'Faizan Ahmed — Production Designer', t: 'Team', u: root + 'team/faizan-ahmed.html' },
-      { l: 'Usman Ali Akbar — Composer', t: 'Team', u: root + 'team/usman-ali.html' },
-      { l: 'Dayyan Khalid — Producer', t: 'Team', u: root + 'team/dayyan-khalid.html' }
+      { l: 'Syed Asad Raza Abidi, Founder & Director', t: 'Team', u: root + 'team/syed-asad.html' },
+      { l: 'Ghayas Uddin Siddiqui, Cinematographer', t: 'Team', u: root + 'team/ghayas-uddin.html' },
+      { l: 'Ameer Hamza, Writer & Producer', t: 'Team', u: root + 'team/ameer-hamza.html' },
+      { l: 'Faizan Ahmed, Production Designer', t: 'Team', u: root + 'team/faizan-ahmed.html' },
+      { l: 'Usman Ali Akbar, Composer', t: 'Team', u: root + 'team/usman-ali.html' },
+      { l: 'Dayyan Khalid, Producer', t: 'Team', u: root + 'team/dayyan-khalid.html' }
     ];
     var K = el('div', 'v3-k',
       '<div class="k-box" role="dialog" aria-modal="true" aria-label="Quick navigation">' +

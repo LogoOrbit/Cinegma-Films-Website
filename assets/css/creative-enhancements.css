@@ -83,7 +83,7 @@
   font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 @media (hover: none), (pointer: coarse) {
   #soundToggle { display: none; }
@@ -115,7 +115,7 @@
   font-size: 0.58rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 /* On touch devices the ambience toggle is hidden, so drop SFX to the corner */
 @media (hover: none), (pointer: coarse) {
@@ -163,7 +163,7 @@
   text-transform: uppercase;
   color: rgba(240,236,228,0.4);
   margin-bottom: 12px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
 .gs-options { display: flex; flex-direction: column; gap: 4px; }
 .gs-option {
@@ -301,7 +301,7 @@ body[data-grade="teal"]::before { opacity: 0.04 !important; }
 .credits-skip {
   position: absolute;
   bottom: 28px; right: 28px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;

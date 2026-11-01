@@ -180,17 +180,17 @@
   var facts=[
     'Janjaal was shot in just 34 continuous hours on a beach in Karachi.',
     'Cinegma Films won 14 international awards within its very first year.',
-    'The name "Cinegma" fuses Cinema and Enigma — the mystery within every frame.',
-    'Janjaal screened at festivals across 9 countries — from Canada to Kosovo.',
+    'The name "Cinegma" fuses Cinema and Enigma, the mystery within every frame.',
+    'Janjaal screened at festivals across 9 countries, from Canada to Kosovo.',
     'Syed Asad directed, edited, color-graded and sound-designed Janjaal entirely himself.',
-    'Janjaal had a theatrical release at Arena Cinemas, Karachi — January 2025.',
+    'Janjaal had a theatrical release at Arena Cinemas, Karachi, January 2025.',
     'Main Aur Achu explores sacrifice and childhood through a boy and his goat on Eid.',
     'Urdu Bazaar Karachi is a documentary capturing the city\'s historic literary market.',
-    'Cinegma Films handles the full pipeline — from script development to final delivery.',
+    'Cinegma Films handles the full pipeline, from script development to final delivery.',
     'Janjaal stars veteran Pakistani actor Shamoon Abbasi as a cursed police officer.',
     'Cinegma Films was founded in January 2024 in Karachi, Pakistan.',
     'Portrait of Life is a meditation on love, memory, and the art of truly seeing.',
-    'Zawaal — meaning "Hour of Decline" — is a psychological thriller in production.',
+    'Zawaal, meaning "Hour of Decline", is a psychological thriller in production.',
     'Cinegma Films received 22 official festival selections worldwide in its debut year.',
     'The Toronto Fantasy/Sci-Fi Film Festival awarded Janjaal Best Short Film.'
   ];
@@ -247,14 +247,14 @@
     '.cg-str-t{font-family:"Bebas Neue",sans-serif;font-size:2.8rem;letter-spacing:.14em;color:#ffd23f;margin-bottom:6px;text-shadow:0 0 30px rgba(255,210,63,.35);line-height:1;}'+
     '.cg-str-g{display:flex;gap:14px;margin:10px 0 4px;}'+
     '.cg-str-g i{width:14px;height:14px;border-radius:7px 7px 2px 2px;display:block;}'+
-    '.cg-str-s{font-family:"DM Sans",sans-serif;font-size:.66rem;letter-spacing:.18em;color:rgba(240,236,228,.4);text-transform:uppercase;margin-top:12px;}'+
-    '.cg-str-h{font-family:"DM Sans",sans-serif;font-size:.6rem;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-top:20px;text-transform:uppercase;}'+
+    '.cg-str-s{font-family:Helvetica,Arial,sans-serif;font-size:.66rem;letter-spacing:.18em;color:rgba(240,236,228,.4);text-transform:uppercase;margin-top:12px;}'+
+    '.cg-str-h{font-family:Helvetica,Arial,sans-serif;font-size:.6rem;letter-spacing:.12em;color:rgba(255,255,255,.35);margin-top:20px;text-transform:uppercase;}'+
     '.cg-ov{position:absolute;inset:0;z-index:20;background:rgba(8,8,12,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 20px;opacity:0;pointer-events:none;transition:opacity .5s;}'+
     '.cg-ov.v{opacity:1;pointer-events:all;}'+
     '.cg-ov-t{font-family:"Bebas Neue",sans-serif;font-size:1.5rem;letter-spacing:.16em;color:#ffffff;margin-bottom:4px;}'+
     '.cg-ov-s{font-family:"Bebas Neue",sans-serif;font-size:3.2rem;color:#ffd23f;letter-spacing:.04em;margin-bottom:6px;line-height:1;}'+
-    '.cg-ov-hi{font-family:"DM Sans",sans-serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:16px;}'+
-    '.cg-ov-fl{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,228,.25);margin-bottom:8px;font-family:"DM Sans",sans-serif;}'+
+    '.cg-ov-hi{font-family:Helvetica,Arial,sans-serif;font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:16px;}'+
+    '.cg-ov-fl{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(240,236,228,.25);margin-bottom:8px;font-family:Helvetica,Arial,sans-serif;}'+
     '.cg-ov-f{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:.9rem;color:rgba(240,236,228,.55);line-height:1.6;margin:0 0 20px;max-width:300px;}'+
     '.cg-ov-b{font-family:"Bebas Neue",sans-serif;font-size:.78rem;letter-spacing:.22em;background:0 0;border:1px solid rgba(255,210,63,.5);color:#ffd23f;padding:10px 28px;cursor:pointer;transition:all .3s;}'+
     '.cg-ov-b:hover{background:#ffd23f;color:#080808;}'+

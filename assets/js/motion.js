@@ -123,13 +123,6 @@
       gsap.fromTo(n, { yPercent: -s * 100 }, { yPercent: s * 100, ease: 'none',
         scrollTrigger: { trigger: n, start: 'top bottom', end: 'bottom top', scrub: true } });
     });
-    /* section kickers slide in from the left */
-    gsap.utils.toArray('.kicker').forEach(function (k) {
-      if (k.closest('.hero, #hero')) return;
-      k.classList.remove('v3-reveal');
-      gsap.from(k, { x: -30, autoAlpha: 0, duration: 1, ease: EASE,
-        scrollTrigger: { trigger: k, start: 'top 92%', once: true } });
-    });
   }
 
   /* ---------------- cursor + magnetic ---------------- */
@@ -272,8 +265,6 @@
   /* Native scrolling everywhere: the Lenis wheel smoothing felt laggy and
      fought high-refresh screens, so the browser's own scroll is used. */
   ST.config({ ignoreMobileResize: true });
-  run(initSplit);
-  run(initMedia);
   run(initParallax);
   run(initPreview);
 

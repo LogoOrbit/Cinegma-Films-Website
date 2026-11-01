@@ -29,7 +29,7 @@
     var css = document.createElement('style');
     css.textContent =
       '#cg-wa{position:fixed;left:20px;bottom:20px;z-index:2147483100;display:flex;align-items:center;gap:10px;' +
-      'padding:12px 18px 12px 14px;border-radius:999px;background:#25d366;color:#06240f;font:600 12px/1 "Space Grotesk",system-ui,sans-serif;' +
+      'padding:12px 18px 12px 14px;border-radius:999px;background:#25d366;color:#06240f;font:600 12px/1 Helvetica,Arial,sans-serif;' +
       'letter-spacing:.12em;text-transform:uppercase;text-decoration:none;box-shadow:0 12px 34px rgba(0,0,0,.45);' +
       'transform:translateY(120px);opacity:0;transition:transform .6s cubic-bezier(.16,1,.3,1),opacity .4s ease,box-shadow .3s ease}' +
       '#cg-wa.in{transform:none;opacity:1}#cg-wa:hover{box-shadow:0 16px 44px rgba(37,211,102,.45)}' +
