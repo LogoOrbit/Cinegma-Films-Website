@@ -275,8 +275,6 @@
   run(initSplit);
   run(initMedia);
   run(initParallax);
-  run(initCursor);
-  run(initMagnetic);
   run(initPreview);
 
   /* Late layout shifts (fonts, lazy media, "show more" toggles) move trigger

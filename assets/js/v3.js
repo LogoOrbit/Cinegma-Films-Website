@@ -1,5 +1,4 @@
-/* CINEGMA V3 — "AFTERGLOW" engine: aurora, grain, cursor, scroll progress,
-   command palette (⌘K), 3D tilt, scramble text, reveal. Dependency-free. */
+/* CINEGMA V3 engine: reveal, poster parallax, smooth scroll, Cmd/Ctrl+K quick nav. */
 (function () {
   'use strict';
   if (window.__cinegmaV3) return; window.__cinegmaV3 = true;
@@ -187,44 +186,6 @@
   function decorate() {
     var b = document.body;
 
-    /* backdrop layers */
-    b.appendChild(el('div', 'v3-aurora', '<i></i><i></i><i></i>'));
-    if (!reduced) b.appendChild(el('div', 'v3-grain'));
-    var prog = el('div', 'v3-progress'); b.appendChild(prog);
-
-    /* scroll progress */
-    var ticking = false;
-    addEventListener('scroll', function () {
-      if (ticking) return; ticking = true;
-      requestAnimationFrame(function () {
-        var h = document.documentElement;
-        var max = h.scrollHeight - h.clientHeight;
-        prog.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
-        ticking = false;
-      });
-    }, { passive: true });
-
-    /* custom cursor (motion.js draws its own when loaded) */
-    if (fine && !reduced && !window.__cinegmaMotion) {
-      var dot = el('div', 'v3-cur-dot'), ring = el('div', 'v3-cur-ring');
-      b.appendChild(dot); b.appendChild(ring);
-      var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, live = false;
-      addEventListener('mousemove', function (e) {
-        mx = e.clientX; my = e.clientY;
-        if (!live) { live = true; rx = mx; ry = my; b.classList.add('v3-cur-live'); }
-        dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
-        var t = e.target.closest && e.target.closest('a,button,[role=button],input,select,textarea,[data-cursor]');
-        b.classList.toggle('v3-cur-hover', !!t);
-      }, { passive: true });
-      addEventListener('mousedown', function () { b.classList.add('v3-cur-down'); });
-      addEventListener('mouseup', function () { b.classList.remove('v3-cur-down'); });
-      (function loop() {
-        rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
-        ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)';
-        requestAnimationFrame(loop);
-      })();
-    }
-
     /* command palette */
     var items = [
       { l: 'Home', t: 'Page', u: root + 'index.html' },
@@ -260,32 +221,6 @@
       '<div class="k-list" role="listbox"></div>' +
       '<div class="k-hint"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div></div>');
     b.appendChild(K);
-    var fab = el('button', 'v3-k-fab');
-    fab.innerHTML = '<span class="dot"></span><span class="lbl">Quick Nav</span><kbd style="border:1px solid rgba(255,255,255,.2);border-radius:4px;padding:1px 6px;font-size:10px">⌘K</kbd>';
-    fab.setAttribute('aria-label', 'Open quick navigation');
-    var fabOff = false; try { fabOff = !!sessionStorage.getItem('v3_fab_off'); } catch (e) { }
-    if (!fabOff) b.appendChild(fab);
-    function killFab() { fab.remove(); try { sessionStorage.setItem('v3_fab_off', '1'); } catch (e) { } }
-    var fx = document.createElement('span');
-    fx.id = 'v3-k-fabx'; fx.textContent = '\u00d7';
-    fx.setAttribute('role', 'button'); fx.setAttribute('aria-label', 'Hide quick nav button');
-    fx.addEventListener('click', function (e) { e.stopPropagation(); killFab(); });
-    fab.appendChild(fx);
-    var fsx = null, fdx = 0;
-    fab.addEventListener('touchstart', function (e) { fsx = e.touches[0].clientX; fdx = 0; fab.style.transition = 'none'; }, { passive: true });
-    fab.addEventListener('touchmove', function (e) {
-      if (fsx == null) return;
-      fdx = e.touches[0].clientX - fsx;
-      fab.style.transform = 'translateX(' + fdx + 'px)';
-      fab.style.opacity = Math.max(0, 1 - Math.abs(fdx) / 120);
-    }, { passive: true });
-    fab.addEventListener('touchend', function () {
-      fab.style.transition = '';
-      if (Math.abs(fdx) > 60) killFab();
-      else { fab.style.transform = ''; fab.style.opacity = ''; }
-      fsx = null;
-    }, { passive: true });
-
     var input = K.querySelector('input'), list = K.querySelector('.k-list'), sel = 0, cur = items;
     function render() {
       list.innerHTML = cur.map(function (it, i) {
@@ -304,7 +239,6 @@
       if (lastFocus && lastFocus.focus) lastFocus.focus();
     }
     function go() { if (cur[sel]) location.href = cur[sel].u; }
-    fab.addEventListener('click', open);
     K.addEventListener('click', function (e) { if (e.target === K) close(); });
     list.addEventListener('click', function (e) {
       var it = e.target.closest('.k-item'); if (it && it.dataset.i != null) { sel = +it.dataset.i; go(); }
@@ -322,19 +256,6 @@
       else if (e.key === 'ArrowUp') { e.preventDefault(); sel = Math.max(sel - 1, 0); render(); }
       else if (e.key === 'Enter') go();
     });
-
-    /* 3D tilt */
-    if (fine && !reduced) {
-      document.querySelectorAll('[data-v3-tilt], .movie-card, .film-poster, .team-card').forEach(function (c) {
-        c.setAttribute('data-v3-tilt', '');
-        c.addEventListener('pointermove', function (e) {
-          var r = c.getBoundingClientRect();
-          var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-          c.style.transform = 'perspective(900px) rotateY(' + (x * 7) + 'deg) rotateX(' + (-y * 7) + 'deg) translateZ(6px)';
-        });
-        c.addEventListener('pointerleave', function () { c.style.transform = ''; });
-      });
-    }
 
   }
 

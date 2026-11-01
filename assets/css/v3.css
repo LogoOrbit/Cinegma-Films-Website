@@ -18,13 +18,11 @@
 html{scrollbar-color:var(--v3-a) #101014}
 body::-webkit-scrollbar{width:10px}
 body::-webkit-scrollbar-track{background:#0a0a0e}
-body::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--v3-a),var(--v3-b));border-radius:6px}
+body::-webkit-scrollbar-thumb{background:#3a3a40;border-radius:6px}
 
 /* ---- gradient text helper ---- */
 .v3-grad, .grad-text{
-  background:linear-gradient(100deg,var(--v3-a) 10%,var(--v3-b) 90%);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:transparent;
+  color:inherit;
 }
 
 /* ---- aurora backdrop ---- */

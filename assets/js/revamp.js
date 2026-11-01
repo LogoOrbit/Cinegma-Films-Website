@@ -1,7 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    REVAMP LAYER — Cinegma Films
-   Smart nav, scroll progress, auto reveals, split headlines,
-   magnetic CTAs, card tilt/glare, hover prefetch.
+   Smart nav, auto reveals, split headlines, hover prefetch.
    Progressive enhancement only — safe without JS/CSS support.
    ═══════════════════════════════════════════════════════════ */
 (function () {
@@ -18,26 +17,6 @@
     if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', fn);
     else fn();
   }
-
-  /* ── 1. SCROLL PROGRESS BAR ── */
-  onReady(function () {
-    if (REDUCED) return;
-    var bar = doc.createElement('div');
-    bar.id = 'rvProgress';
-    doc.body.appendChild(bar);
-    var ticking = false;
-    function update() {
-      ticking = false;
-      var max = doc.body.scrollHeight - window.innerHeight;
-      var p = max > 60 ? Math.min(window.scrollY / max, 1) : 0;
-      bar.style.transform = 'scaleX(' + p + ')';
-      bar.classList.toggle('rv-on', window.scrollY > 120);
-    }
-    window.addEventListener('scroll', function () {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
-    }, { passive: true });
-    update();
-  });
 
   /* ── 2. SMART NAV (condense on scroll, hide down / show up) ── */
   onReady(function () {
@@ -148,57 +127,6 @@
       });
     }, { threshold: 0.3 });
     heads.forEach(function (el) { io.observe(el); });
-  });
-
-  /* ── 5. MAGNETIC CTAS ── */
-  onReady(function () {
-    if (REDUCED || !FINE) return;
-    var sel = '.hero-ctas a, .nav-contact-cta, #backToTop, .btn, .cta-btn, .cg-launch';
-    doc.querySelectorAll(sel).forEach(function (el) {
-      el.classList.add('rv-mag');
-      var strength = 7;
-      el.addEventListener('mousemove', function (e) {
-        var r = el.getBoundingClientRect();
-        var x = (e.clientX - r.left) / r.width - 0.5;
-        var y = (e.clientY - r.top) / r.height - 0.5;
-        el.classList.add('rv-magging');
-        el.style.transform = 'translate(' + (x * strength) + 'px,' + (y * strength) + 'px)';
-      });
-      el.addEventListener('mouseleave', function () {
-        el.classList.remove('rv-magging');
-        el.style.transform = '';
-      });
-    });
-  });
-
-  /* ── 6. CARD TILT + GLARE ── */
-  onReady(function () {
-    if (REDUCED || !FINE) return;
-    var MAXDEG = 4;
-    doc.querySelectorAll('.film-card, .yt-card').forEach(function (card) {
-      card.classList.add('rv-tilt');
-      var cs = getComputedStyle(card);
-      if (cs.position === 'static') card.style.position = 'relative';
-      var glare = doc.createElement('div');
-      glare.className = 'rv-glare';
-      card.appendChild(glare);
-
-      card.addEventListener('mousemove', function (e) {
-        var r = card.getBoundingClientRect();
-        var px = (e.clientX - r.left) / r.width;
-        var py = (e.clientY - r.top) / r.height;
-        card.classList.add('rv-tilting');
-        card.style.setProperty('--rv-ry', ((px - 0.5) * 2 * MAXDEG).toFixed(2) + 'deg');
-        card.style.setProperty('--rv-rx', ((0.5 - py) * 2 * MAXDEG).toFixed(2) + 'deg');
-        card.style.setProperty('--rv-gx', (px * 100).toFixed(1) + '%');
-        card.style.setProperty('--rv-gy', (py * 100).toFixed(1) + '%');
-      });
-      card.addEventListener('mouseleave', function () {
-        card.classList.remove('rv-tilting');
-        card.style.setProperty('--rv-rx', '0deg');
-        card.style.setProperty('--rv-ry', '0deg');
-      });
-    });
   });
 
   /* ── 7. HOVER PREFETCH for internal pages (snappier navigation) ── */

@@ -279,36 +279,6 @@
     }
   })();
 
-  // ── 9. CURSOR SPOTLIGHT ON LAURELS ──
-  (function(){
-    if (!window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-
-    var targets = document.querySelectorAll('#laurels-wall, #award-wall, .laurels-grid, .aw-grid');
-    if (!targets.length) return;
-
-    targets.forEach(function(section) {
-      var spotlight = document.createElement('div');
-      spotlight.className = 'cursor-spotlight';
-      section.style.position = 'relative';
-      section.appendChild(spotlight);
-
-      section.addEventListener('mouseenter', function() {
-        spotlight.classList.add('active');
-      });
-
-      section.addEventListener('mousemove', function(e) {
-        var rect = section.getBoundingClientRect();
-        var x = e.clientX - rect.left;
-        var y = e.clientY - rect.top;
-        spotlight.style.setProperty('--spot-x', x + 'px');
-        spotlight.style.setProperty('--spot-y', y + 'px');
-      });
-
-      section.addEventListener('mouseleave', function() {
-        spotlight.classList.remove('active');
-      });
-    });
-  })();
 
 
 })();
