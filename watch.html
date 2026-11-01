@@ -312,6 +312,17 @@ body.menu-open #nav{z-index:2300}
 #gate .hint a{color:#ddd7cb;border-bottom:1px solid rgba(255,255,255,.3)}
 
 /* ═══ CINE PLAYER ═══ */
+/* ── Netflix-style title tag on previews/trailers ── */
+.nf-tag{position:absolute;z-index:3;display:flex;align-items:center;gap:8px;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.7);pointer-events:none;white-space:nowrap;max-width:calc(100% - 120px);overflow:hidden;text-overflow:ellipsis;transition:opacity .35s}
+.nf-tag::before{content:"";flex:none;width:3px;height:1.5em;background:#e50914;border-radius:1px}
+.fc-media .nf-tag{top:14px;left:12px;font-size:11px;opacity:0}
+.fcard.pv .nf-tag{opacity:1}
+.fcard.pv .fc-chip{opacity:0}
+.fc-chip{transition:opacity .35s}
+#hero .nf-tag{top:calc(88px + env(safe-area-inset-top,0px));left:clamp(20px,4vw,56px);font-size:clamp(12px,1.1vw,15px)}
+#sheet .hero-img .nf-tag{top:12px;left:12px;font-size:11px}
+#cine .nf-tag{top:calc(22px + env(safe-area-inset-top));left:clamp(16px,3vw,32px);font-size:clamp(12px,1.2vw,16px);opacity:0}
+#cine.trl.hidectl .nf-tag{opacity:1}
 #cine{position:fixed;inset:0;z-index:2600;background:#000;display:none;opacity:0;transition:opacity .4s ease}
 #cine.open{display:block}
 #cine.vis{opacity:1}
@@ -447,6 +458,7 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
   <div class="media">
     <video id="heroVideo" autoplay muted loop playsinline preload="metadata" src="assets/posters/Janjaal%20Cover%20Video.mp4" poster="assets/posters/Janjaal%20Watch%20Cover.avif" controlsList="nodownload noplaybackrate noremoteplayback"></video>
     <div class="shade"></div>
+    <span class="nf-tag">Janjaal</span>
   </div>
   <div class="content" id="heroContent" data-own-scroll>
     <div class="eyebrow">
@@ -583,7 +595,7 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
   <div class="panel">
     <div class="grab"><i></i></div>
     <button class="sx" aria-label="Close">✕</button>
-    <div class="hero-img"><video id="shImg" loop playsinline preload="none" controlsList="nodownload noplaybackrate noremoteplayback"></video><button class="sh-mute" id="shMute" aria-label="Toggle sound"></button></div>
+    <div class="hero-img"><video id="shImg" loop playsinline preload="none" controlsList="nodownload noplaybackrate noremoteplayback"></video><button class="sh-mute" id="shMute" aria-label="Toggle sound"></button><span class="nf-tag" id="shTag"></span></div>
     <div class="bd">
       <div class="line"><b id="shMatch"></b><span id="shMeta"></span></div>
       <h3 id="shTitle"></h3>
@@ -616,6 +628,7 @@ body.overlay-open #v3-k-fab,body.overlay-open #v3-progress,body.overlay-open #v3
   <div class="stage" id="cineStage">
     <video id="cineVideo" playsinline preload="auto" controlsList="nodownload noremoteplayback"></video>
     <div class="spin"></div>
+    <span class="nf-tag" id="cineTag"></span>
     <div class="flash" id="cineFlash"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
     <div class="skip-zone l"><div class="skip-ind" id="skipL"><svg viewBox="0 0 24 24"><path d="M11 18V6l-8.5 6L11 18zm.5-6l8.5 6V6l-8.5 6z"/></svg><span>-10s</span></div></div>
     <div class="skip-zone r"><div class="skip-ind" id="skipR"><svg viewBox="0 0 24 24"><path d="M13 6v12l8.5-6L13 6zM4 18l8.5-6L4 6v12z"/></svg><span>+10s</span></div></div>
@@ -793,6 +806,7 @@ function cardHTML(id, rank){
       (rank?'<span class="fc-rank">'+rank+'</span>':'')+
       chip+
       '<span class="fc-live"><i></i>Preview</span>'+
+      '<span class="nf-tag" aria-hidden="true">'+esc(f.title)+'</span>'+
       '<button class="fc-mute" aria-label="Toggle preview sound"><svg viewBox="0 0 24 24"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg></button>'+
     '</div>'+
     '<div class="fc-body">'+
@@ -878,7 +892,7 @@ function startPreview(card){
   v.currentTime=0;
   var p=v.play();
   if(p) p.then(function(){
-    v.classList.add('live');
+    v.classList.add('live'); card.classList.add('pv');
     $('.fc-poster',card).classList.add('off');
     $('.fc-live',card).classList.add('show');
     $('.fc-mute',card).classList.add('show');
@@ -886,7 +900,7 @@ function startPreview(card){
   }).catch(function(){
     v.muted=true;
     v.play().then(function(){
-      v.classList.add('live');$('.fc-poster',card).classList.add('off');
+      v.classList.add('live');card.classList.add('pv');$('.fc-poster',card).classList.add('off');
       $('.fc-live',card).classList.add('show');$('.fc-mute',card).classList.add('show');
       syncCardMute(card,v);
     }).catch(function(){});
@@ -895,7 +909,7 @@ function startPreview(card){
 function stopPreview(card){
   var v=$('.fc-preview',card); if(!v) return;
   v.pause(); v.currentTime=0; v.muted=true;
-  v.classList.remove('live');
+  v.classList.remove('live'); card.classList.remove('pv');
   $('.fc-poster',card).classList.remove('off');
   $('.fc-live',card).classList.remove('show');
   $('.fc-mute',card).classList.remove('show');
@@ -1065,7 +1079,7 @@ function openSheet(id){
   playSheetVideo(shV);
   $('#shMatch').textContent=f.match;
   $('#shMeta').textContent=f.meta;
-  $('#shTitle').textContent=f.title;
+  $('#shTitle').textContent=f.title; $('#shTag').textContent=f.title;
   $('#shSyn').textContent=f.syn;
   $('#shStreamLbl').textContent = f.access==='free' ? 'Watch Free' : 'Stream Now';
   $('#shTrailer').textContent='Watch '+f.trailerLabel;
@@ -1206,6 +1220,8 @@ function openCine(url, title, opts){
   cineOpenFlag=true;
   resumeKeyUrl = opts.resume ? url : null;
   $('#cineTitle').textContent=title;
+  $('#cineTag').textContent=title.split(' — ')[0];
+  cine.classList.toggle('trl', !opts.resume);
   V.src=url; V.playbackRate=1;
   $('#spdLabel').textContent='1×';
   $$('#spdMenu button').forEach(function(b){b.classList.toggle('on',b.dataset.s==='1')});
