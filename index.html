@@ -318,6 +318,9 @@ body.menu-open #nav{z-index:1200}
 #showreel .laurel-line img{width:44px;height:44px;object-fit:contain;opacity:.85}
 #showreel .frame{margin-top:clamp(26px,3vw,38px);aspect-ratio:16/9;background:#000}
 #showreel .frame video{object-fit:contain}
+#showreel .tap{position:absolute;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:1px solid rgba(255,255,255,.5);background:rgba(6,6,10,.55);color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer}
+#showreel .tap svg{width:24px;height:24px;fill:currentColor;margin-left:3px}
+#showreel .frame.paused .tap{display:flex}
 #showreel .meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
 #showreel .meta span{padding:9px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg2);
   font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#cfc9bd}
@@ -592,10 +595,11 @@ footer .fine a:hover{color:#fff}
     </div>
     <p class="lead v3-reveal" style="max-width:640px;margin-top:18px">Two years of work in one cut: the films, the frames and the moments that travelled across 9 countries. Directed, shot, edited and graded in-house at Cinegma Films, Karachi. Sound on.</p>
     <div class="frame v3-reveal">
-      <video id="showreelVid" class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Cinegmafilmsshowreel.mp4" aria-label="Cinegma Films showreel" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback controlsList="nodownload noplaybackrate noremoteplayback"></video>
+      <video id="showreelVid" class="lazy-video" data-src="https://CinegmaFilms.b-cdn.net/Cinegmafilmsshowreel.mp4" data-src-sm="assets/videos/showreel-480p.mp4" poster="assets/posters/showreel-poster-960w.jpg" aria-label="Cinegma Films showreel" muted loop playsinline preload="none" disablepictureinpicture disableremoteplayback controlsList="nodownload noplaybackrate noremoteplayback"></video>
       <div class="bars"></div>
       <div class="rec"><i></i>Cinegma Films · Showreel</div>
       <div class="tc">2024–2026</div>
+      <button class="tap" type="button" aria-label="Play showreel"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
     </div>
     <div class="ctrls v3-reveal">
       <button id="showreelSnd" type="button" aria-pressed="false" aria-label="Turn showreel sound on">
@@ -1001,7 +1005,9 @@ var conn=navigator.connection||{};
 var lite=!!conn.saveData||/(^|-)2g/.test(conn.effectiveType||'')||reduced;
 /* perf.js may also put a struggling device into lite mode, at load or later */
 function isLite(){return lite||!!(window.__cinegmaPerf&&window.__cinegmaPerf.lite());}
-function reelLoad(v){if(!v.src&&v.dataset.src){v.src=v.dataset.src;v.load();}}
+/* phones get the lighter 480p cut where one exists */
+var small=matchMedia('(max-width:900px)').matches;
+function reelLoad(v){if(!v.src&&v.dataset.src){v.src=(small&&v.dataset.srcSm)||v.dataset.src;v.load();}}
 var pio=lite?null:new IntersectionObserver(function(es){
   es.forEach(function(e){if(e.isIntersecting&&!isLite()){reelLoad(e.target);pio.unobserve(e.target);}});
 },{rootMargin:'420px 0px'});
@@ -1046,11 +1052,23 @@ if(wv&&ws)ws.addEventListener('click',function(){
 var tv=document.getElementById('showreelVid'),ts=document.getElementById('showreelSnd');
 if(tv&&ts)ts.addEventListener('click',function(){
   tv.muted=!tv.muted;
-  if(!tv.muted){if(!tv.src&&tv.dataset.src)tv.src=tv.dataset.src;tv.play().catch(function(){});}
+  if(!tv.muted){reelLoad(tv);tv.play().catch(function(){});}
   ts.querySelector('span').textContent=tv.muted?'Sound On':'Sound Off';
   ts.setAttribute('aria-pressed',tv.muted?'false':'true');
   ts.setAttribute('aria-label',tv.muted?'Turn showreel sound on':'Turn showreel sound off');
 });
+
+/* showreel: fetch it right after page load instead of waiting for scroll,
+   and show a play button whenever it is not playing (lite mode, autoplay blocked) */
+if(tv){
+  var tf=tv.parentNode,tb=tf.querySelector('.tap');
+  tf.classList.add('paused');
+  tv.addEventListener('playing',function(){tf.classList.remove('paused');});
+  tv.addEventListener('pause',function(){tf.classList.add('paused');});
+  if(tb)tb.addEventListener('click',function(){reelLoad(tv);tv.play().catch(function(){});});
+  var warm=function(){if(!isLite())reelLoad(tv);};
+  if(document.readyState==='complete')setTimeout(warm,300);else addEventListener('load',function(){setTimeout(warm,300);});
+}
 
 /* share the showreel — the native sheet where the browser has one, a copied
    link everywhere else */
