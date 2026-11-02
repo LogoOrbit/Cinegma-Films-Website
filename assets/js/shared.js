@@ -190,7 +190,7 @@
     'Janjaal stars veteran Pakistani actor Shamoon Abbasi as a cursed police officer.',
     'Cinegma Films was founded in January 2024 in Karachi, Pakistan.',
     'Portrait of Life is a meditation on love, memory, and the art of truly seeing.',
-    'Zawaal, meaning "Hour of Decline", is a psychological thriller in production.',
+    'Zawaal, meaning "Hour of Decline", is a psychological thriller, now on the festival circuit.',
     'Cinegma Films received 22 official festival selections worldwide in its debut year.',
     'The Toronto Fantasy/Sci-Fi Film Festival awarded Janjaal Best Short Film.'
   ];
